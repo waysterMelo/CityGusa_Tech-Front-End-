@@ -1,0 +1,77 @@
+// Chakra imports
+import {
+  Flex,
+  Stat,
+  StatLabel,
+  StatNumber,
+  useColorModeValue,
+  Text,
+} from "@chakra-ui/react";
+// Custom components
+import Card from "components/card/Card.js";
+// Custom icons
+import React from "react";
+
+export default function Default(props) {
+  const { startContent, endContent, name1, value1, name2, value2, growth } = props;
+  const textColor = useColorModeValue("secondaryGray.900", "white");
+  const textColorSecondary = "secondaryGray.600";
+
+  return (
+    <Card py='30px'>
+      <Flex
+        my='auto'
+        h='100%'
+        align={{ base: "center", xl: "start" }}
+        justify={{ base: "center", xl: "center" }}>
+        {startContent}
+
+        <Stat my='auto' ms={startContent ? "18px" : "0px"}>
+          <StatLabel
+            lineHeight='100%'
+            color={textColorSecondary}
+            fontSize={{  base: "12"}}
+            >
+            {name1}
+          </StatLabel>
+          
+          <StatNumber
+            color={textColor}
+            fontSize={{
+              base: "2xl",
+            }}>
+            {value1}
+          </StatNumber>
+          <StatLabel
+            lineHeight='100%'
+            color={textColorSecondary}
+            fontSize={{  base: "12"}}
+            >
+            {name2}
+          </StatLabel>
+          
+          <StatNumber
+            color={textColor}
+            fontSize={{
+              base: "2xl",
+            }}>
+            {value2}
+          </StatNumber>
+          {growth ? (
+            <Flex align='center'>
+              <Text color='green.500' fontSize='xs' fontWeight='700' me='5px'>
+                {growth}
+              </Text>
+              <Text color='secondaryGray.600' fontSize='xs' fontWeight='400'>
+                since last month
+              </Text>
+            </Flex>
+          ) : null}
+        </Stat>
+        <Flex ms='auto' w='max-content'>
+          {endContent}
+        </Flex>
+      </Flex>
+    </Card>
+  );
+}
