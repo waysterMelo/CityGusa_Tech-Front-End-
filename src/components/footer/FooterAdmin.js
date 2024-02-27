@@ -5,16 +5,12 @@ import {
   Link,
   List,
   ListItem,
-  Text,
-  useColorMode,
-  useColorModeValue,
+  Text
 } from "@chakra-ui/react";
 
 export default function Footer() {
-  const textColor = useColorModeValue("BlackAlpha.900", "black");
-  const { toggleColorMode } = useColorMode();
   return (
-    <Flex
+    <Flex 
       zIndex='3'
       flexDirection={{
         base: "column",
@@ -28,7 +24,7 @@ export default function Footer() {
       px={{ base: "30px", md: "50px" }}
       pb='30px'>
       <Text
-        color={textColor}
+        color={'black'}
         textAlign={{
           base: "center",
           xl: "start",
@@ -36,17 +32,18 @@ export default function Footer() {
         mb={{ base: "20px", xl: "0px" }}>
         {" "}
        &copy; {1900 + new Date().getYear()}
-        <Text as='span' fontWeight='500' ms='4px' color='blue'>
+        <Text as='b' fontWeight='900' ms='4px' color='blue'>
             CityGusa Todos os direitos reservados.
           <Link
             mx='3px'
-            color={textColor}
+            color={'black'}
             href='https://citygusa.com'
             target='_blank'
             fontWeight='900'>
           
           </Link>
         </Text>
+
       </Text>
       <List display='flex'>
         <ListItem
@@ -55,8 +52,9 @@ export default function Footer() {
             md: "44px",
           }}>
           <Link
+          
             fontWeight='500'
-            color={textColor}
+            color={'black'}
             href='mailto:carvao02@citygusa.com.br'>
             Suporte
           </Link>

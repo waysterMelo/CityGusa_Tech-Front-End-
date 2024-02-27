@@ -109,7 +109,8 @@ export default function Dashboard(props) {
 						setToggleSidebar
 					}}>
 					<Sidebar routes={routes} display='none' {...rest} />
-					<Box 
+					<Box
+					
 						float='right'
 						minHeight='100vh'
 						height='100%'
@@ -137,7 +138,7 @@ export default function Dashboard(props) {
 						</Portal>
 
 						{getRoute() ? (
-							<Box mx='auto' p={{ base: '20px', md: '30px' }} pe='20px' minH='100vh' pt='50px'>
+							<Box mx='auto'  p={{ base: '20px', md: '30px' }} pe='20px' minH='100vh' pt='50px'>
 								<Switch>
 									{getRoutes(routes)}
 									<Redirect from='/' to='/admin/default' />

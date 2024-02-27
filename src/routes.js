@@ -1,39 +1,38 @@
 import React from "react";
 
 import { Icon } from "@chakra-ui/react";
-import {
-  MdHome,
-} from "react-icons/md";
+import { BsColumnsGap, BsCoin } from "react-icons/bs";
 
 // Admin Imports
 import forno from "views/admin/default";
+import Custo from "views/admin/custo";
 
 // Auth Imports
 // import SignInCentered from "views/auth/signIn";
 
 const routes = [
   {
-    name: "FORNO",
+    name: "Dashboard",
     layout: "/admin",
     path: "/default",
-    icon: <Icon as={MdHome} width='20px' height='20px' color='yellow.900'/>,
+    icon: <Icon as={BsColumnsGap} width='20px' height='20px'/>,
     component: forno,
-  // },
-  // {
-  //   name: "NFT Marketplace",
-  //   layout: "/admin",
-  //   path: "/nft-marketplace",
-  //   icon: (
-  //     <Icon
-  //       as={MdOutlineShoppingCart}
-  //       width='20px'
-  //       height='20px'
-  //       color='inherit'
-  //     />
-  //   ),
-  //   component: NFTMarketplace,
-  //   secondary: true,
-  // },
+   },
+  {
+    name: "Custo",
+    layout: "/admin",
+    path: "/custo",
+    icon: (
+      <Icon
+        as={BsCoin}
+        width='20px'
+        height='20px'
+        color='inherit'
+      />
+    ),
+    component: Custo,
+    secondary: true,
+  },
   // {
   //   name: "Data Tables",
   //   layout: "/admin",
@@ -54,7 +53,7 @@ const routes = [
   //   path: "/sign-in",
   //   icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
   //   component: SignInCentered,
-  }
+  
 ];
 
 export default routes;

@@ -7,10 +7,10 @@ import { Flex} from "@chakra-ui/react";
 export function SidebarBrand() {
   return (
     <Flex align='center' direction='column'>
-        <Text fontSize='3xl' as={'b'} my={'5'}  bgGradient='linear(to-l, #001FDF, #0900FF)'
+        <Text fontSize='3xl' as={'b'} my={'5'}  bgColor={'white'}
         fontWeight='extrabold'
         bgClip='text'>
-          CityGusa Tech</Text>
+          CITYGUSA TECH</Text>
     </Flex>
   );
 }

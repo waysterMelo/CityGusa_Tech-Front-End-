@@ -38,7 +38,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "watch": "nodemon --watch src --exec npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -46,9 +45,11 @@
     "deploy": "gh-pages -d build",
     "sitemap": "babel-node ./sitemap-builder.js"
   },
+  
   "resolutions": {
     "react-error-overlay": "6.0.9"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",

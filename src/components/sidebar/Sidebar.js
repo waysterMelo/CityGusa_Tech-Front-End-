@@ -25,6 +25,8 @@ import PropTypes from "prop-types";
 // Assets
 import { IoMenuOutline } from "react-icons/io5";
 
+import imagem_de_fundo from "assets/img/1.jpg"; 
+
 function Sidebar(props) {
   const { routes } = props;
 
@@ -40,9 +42,9 @@ function Sidebar(props) {
   return (
     <Box display={{ sm: "none", xl: "block" }} w="100%" position='fixed' minH='100%'>
       <Box
-       bg='white'
+       bgImage={imagem_de_fundo}
         transition={variantChange}
-        w='300px'
+        w='22%'
         h='100vh'
         m={sidebarMargins}
         minH='100%'
@@ -62,7 +64,6 @@ function Sidebar(props) {
 
 // FUNCTIONS
 export function SidebarResponsive(props) {
-  let sidebarBackgroundColor = useColorModeValue("white", "navy.800");
   let menuColor = useColorModeValue("gray.400", "white");
   // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -91,7 +92,7 @@ export function SidebarResponsive(props) {
         placement={document.documentElement.dir === "rtl" ? "right" : "left"}
         finalFocusRef={btnRef}>
         <DrawerOverlay />
-        <DrawerContent w='285px' maxW='285px' bg={sidebarBackgroundColor}>
+        <DrawerContent w='285px' maxW='285px'>
           <DrawerCloseButton
             zIndex='3'
             onClose={onClose}

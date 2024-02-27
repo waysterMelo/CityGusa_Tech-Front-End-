@@ -2,8 +2,7 @@
 // Chakra imports
 import {
   Box,
-  SimpleGrid,
-  Flex
+  SimpleGrid
 } from "@chakra-ui/react";
 // Assets
 import Fire from "assets/img/icons/fire.png";
@@ -15,8 +14,6 @@ import MiniStatistics from "components/card/MiniStatistics";
 import MiniStatisticsTemperaturaForno from  "components/card/MiniStatisticsTemperaturaForno";
 import IconBox from "components/icons/IconBox";
 import React from "react";
-import TotalSpent from "./components/TotalSpent";
-
 
 export default function UserReports() {
   return (
@@ -136,19 +133,6 @@ export default function UserReports() {
           value='2935'
         />   */}
       </SimpleGrid>
-
-
-          {/* custo card */}
-      <SimpleGrid column={1} gap='20px' mb='20px'>
-        <TotalSpent />
-      </SimpleGrid>
-
-      {/* <SimpleGrid columns={1} gap='20px' mb='20px'>
-        <ComplexTable
-          columnsData={columnsDataComplex}
-          tableData={tableDataComplex}
-        />
-      </SimpleGrid>  */}
 
     </Box>
   );
