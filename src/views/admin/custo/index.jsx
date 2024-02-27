@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, SimpleGrid } from '@chakra-ui/react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import React from 'react';
 import TotalSpent from '../default/components/TotalSpent';
 import ComplexTable from '../default/components/ComplexTable'; 
