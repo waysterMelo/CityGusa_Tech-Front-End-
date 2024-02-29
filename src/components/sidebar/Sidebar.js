@@ -64,7 +64,7 @@ function Sidebar(props) {
 
 // FUNCTIONS
 export function SidebarResponsive(props) {
-  let menuColor = useColorModeValue("gray.400", "white");
+  //let menuColor = useColorModeValue("gray.400", "white");
   // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -78,7 +78,7 @@ export function SidebarResponsive(props) {
       <Flex ref={btnRef} w='max-content' h='max-content' onClick={onOpen}>
         <Icon
           as={IoMenuOutline}
-          color={menuColor}
+          color={'white'}
           my='auto'
           w='20px'
           h='20px'

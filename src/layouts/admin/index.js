@@ -1,4 +1,5 @@
-// Chakra imports
+// pagina ao lado do sidebar
+
 import { Portal, Box, useDisclosure} from '@chakra-ui/react';
 import Footer from 'components/footer/FooterAdmin.js';
 // Layout components
@@ -110,7 +111,6 @@ export default function Dashboard(props) {
 					}}>
 					<Sidebar routes={routes} display='none' {...rest} />
 					<Box
-					
 						float='right'
 						minHeight='100vh'
 						height='100%'

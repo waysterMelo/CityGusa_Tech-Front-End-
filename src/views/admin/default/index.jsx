@@ -1,9 +1,8 @@
-
 // Chakra imports
-import {
-  Box,
-  SimpleGrid
-} from "@chakra-ui/react";
+import {Box, SimpleGrid} from "@chakra-ui/react";
+import ComplexTable from '../default/components/ComplexTable'; 
+import {columnsDataComplex} from "views/admin/default/variables/columnsData";
+import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
 // Assets
 import Fire from "assets/img/icons/fire.png";
 import Carvao from "assets/img/icons/carvao.png";
@@ -133,6 +132,13 @@ export default function UserReports() {
           value='2935'
         />   */}
       </SimpleGrid>
+
+      <SimpleGrid columns={1} gap='20px' mb='20px'>
+        <ComplexTable 
+          columnsData={columnsDataComplex} 
+          tableData={tableDataComplex}
+        />
+      </SimpleGrid> 
 
     </Box>
   );

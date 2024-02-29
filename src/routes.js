@@ -12,14 +12,14 @@ import Custo from "views/admin/custo";
 
 const routes = [
   {
-    name: "Dashboard",
+    name: "DASHBOARD",
     layout: "/admin",
     path: "/default",
     icon: <Icon as={BsColumnsGap} width='20px' height='20px'/>,
     component: forno,
    },
   {
-    name: "Custo",
+    name: "CUSTO",
     layout: "/admin",
     path: "/custo",
     icon: (
