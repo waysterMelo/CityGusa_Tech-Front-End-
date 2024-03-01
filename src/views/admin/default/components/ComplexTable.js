@@ -1,9 +1,11 @@
-import {Flex,Table,TableContainer,Tbody,Td,Text, Tfoot, Th, Thead, Tr} from "@chakra-ui/react";
+import {Flex,HStack,Table,TableContainer,Tbody,Td,Text, Tfoot, Th, Thead, Tr, Center} from "@chakra-ui/react";
 import React  from "react";
 // Custom components
 import Card from "components/card/Card";
-import IconBox from "components/icons/IconBox";
 // Assets
+import { FaRegCalendarAlt } from "react-icons/fa";
+
+
 export default function ColumnsTable() {
 
   return (
@@ -14,7 +16,7 @@ export default function ColumnsTable() {
       px='0px'
       overflowX={{ sm: "scroll", lg: "hidden" }}>
      
-      <Flex px='25px' py='3' justify='space-between' mb='10px' align='center'>
+      <Flex px='30px' py='3' justify='space-between' mb='10px' align='center'>
         <Text
           color={'blue.900'}
           fontSize='22px'
@@ -22,13 +24,21 @@ export default function ColumnsTable() {
           lineHeight='100%'> 
           LEITO DE FUSÃO
         </Text>
-        <Text fontSize={'25px'} fontWeight={'extrabold'} color={'messenger.900'}>
-          12-01-2024
+      
+      <HStack>
+      <FaRegCalendarAlt/>
+      <Text fontSize={'25px'} fontWeight={'extrabold'} color={'messenger.900'}>
+        <Center>
+        12-01-2024
+        </Center>
+     
         </Text>
+      </HStack>
+    
       </Flex>
 
       <TableContainer>
-  <Table variant='striped' colorScheme='facebook' size='sm'>
+  <Table variant='striped' colorScheme='facebook' size='md'>
   
     <Thead>
       <Tr>
@@ -42,7 +52,7 @@ export default function ColumnsTable() {
       <Tr>
         <Td>minerio extrativa</Td>
         <Td>741</Td>
-        <Td isNumeric>250.4</Td>
+        <Td isNumeric>250.40</Td>
       </Tr>
       <Tr>
         <Td>minerio comisa</Td>
