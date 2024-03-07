@@ -1,9 +1,24 @@
-import {Flex,HStack,Table,TableContainer,Tbody,Td,Text, Tfoot, Th, Thead, Tr, Center} from "@chakra-ui/react";
+import {
+  Flex,
+  HStack,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+  Center,
+  Button
+} from "@chakra-ui/react";
 import React  from "react";
 // Custom components
 import Card from "components/card/Card";
 // Assets
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { CgMoreO  } from "react-icons/cg";
 
 
 export default function ColumnsTable() {
@@ -85,6 +100,14 @@ export default function ColumnsTable() {
         <Th colSpan={'2'}>TOTAL</Th>
         <Th fontSize={'18px'} isNumeric>700.00 T</Th>
       </Tr>
+      <Tr>
+       <Th colSpan={'3'}>
+        <Center>
+          <Button leftIcon={<CgMoreO />} colorScheme='blue'>mais info</Button>
+        </Center>
+       </Th>
+      </Tr>
+
     </Tfoot>
   </Table>
 </TableContainer>
