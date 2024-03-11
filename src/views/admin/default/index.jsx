@@ -1,3 +1,5 @@
+import React from "react";
+
 // Chakra imports
 import {Box, SimpleGrid} from "@chakra-ui/react";
 import ComplexTable from '../default/components/ComplexTable'; 
@@ -13,8 +15,7 @@ import Interroga from "assets/img/icons/interroga.png"
 import MiniStatistics from "components/card/MiniStatistics";
 import MiniStatisticsTemperaturaForno from "components/card/MiniStatisticsTemperaturaForno";
 import IconBox from "components/icons/IconBox";
-import React from "react";
-
+import GeneralInformation from "../profile/components/General";
 
 export default function UserReports() {
   return (
@@ -26,8 +27,8 @@ export default function UserReports() {
         <MiniStatistics
           startContent={
             <IconBox
-              w='40px'
-              h='40px'   
+              w='20px'
+              h='20px'
               img={
                 <img
                   src={Minerio}
@@ -44,8 +45,8 @@ export default function UserReports() {
         <MiniStatistics
           startContent={
             <IconBox
-              w='40px'
-              h='40px'
+              w='20px'
+              h='20px'
               img={
                 <img
                   src={Carvao}
@@ -62,8 +63,8 @@ export default function UserReports() {
        <MiniStatisticsTemperaturaForno
         startContent= {
           <IconBox
-            w='40px'
-            h='40px'
+            w='20px'
+            h='20px'
             img={
               <img
                 src={Fire}
@@ -83,8 +84,8 @@ export default function UserReports() {
         <MiniStatistics
           startContent={
             <IconBox
-              w='40px'
-              h='40px'
+              w='20px'
+              h='20px'
               img={
                 <img
                   src={Escoria}
@@ -114,8 +115,8 @@ export default function UserReports() {
           <MiniStatistics
               startContent={
                   <IconBox
-                      w='40px'
-                      h='40px'
+                      w='20px'
+                      h='20px'
                       img={
                           <img
                               src={Interroga}
@@ -132,8 +133,8 @@ export default function UserReports() {
           <MiniStatistics
               startContent={
                   <IconBox
-                      w='40px'
-                      h='40px'
+                      w='20px'
+                      h='20px'
                       img={
                           <img
                               src={Interroga}
@@ -150,14 +151,16 @@ export default function UserReports() {
          
       </SimpleGrid>
 
-      <SimpleGrid columns={1} gap='20px' mb='20px'>
-        <ComplexTable 
-          columnsData={columnsDataComplex} 
+      <SimpleGrid columns={1} mb='20px'>
+        <ComplexTable
+          columnsData={columnsDataComplex}
           tableData={tableDataComplex}
         />
-      </SimpleGrid> 
+      </SimpleGrid>
 
-
+        <Box bg={'facebook.900'} w={'100%'} p={'4'} color={'white'}>
+                <GeneralInformation/>
+        </Box>
     
     </Box>
 

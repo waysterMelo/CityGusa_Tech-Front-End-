@@ -111,12 +111,12 @@ export default function AdminNavbar(props) {
 						fontSize='34px'
 						_hover={{ color: { mainText } }}
 						_active={{
-							bg: 'inherit',
+							bg:'inherit',
 							transform: 'none',
 							borderColor: 'transparent'
 						}}
 						_focus={{
-							boxShadow: 'none'
+							boxShadow:'none'
 						}}>
 						{brandText}
 					</Link>

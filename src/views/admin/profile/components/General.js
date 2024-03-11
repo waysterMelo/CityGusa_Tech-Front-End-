@@ -23,46 +23,35 @@ export default function GeneralInformation(props) {
         fontSize='2xl'
         mt='10px'
         mb='4px'>
-        General Information
+        Observações do turno
       </Text>
       <Text color={textColorSecondary} fontSize='md' me='26px' mb='40px'>
-        As we live, our hearts turn colder. Cause pain is what we go through as
-        we become older. We get insulted by others, lose trust for those others.
-        We get back stabbed by friends. It becomes harder for us to give others
-        a hand. We get our heart broken by people we love, even that we give
-        them all...
+       Este documento servirá como um registro abrangente e detalhado
+        das atividades, eventos e ocorrências relevantes que se desenrolam em cada turno.
       </Text>
-      <SimpleGrid columns='2' gap='20px'>
+      <SimpleGrid columns='1' gap='20px'>
         <Information
           boxShadow={cardShadow}
-          title='Education'
-          value='Stanford University'
+          title='TURNO 22:00H, AS 06:00H'
+          value='Sebastião/Matheus
+-Favor Providenciar uma cobertura para caçamba de finos de minério visando chuva.
+-Colocar raspador de retorno na correia de finos, está caindo muito finos no chão.
+-AF tamponado as 04:30 horas com Rabicho Fino para confecção do Furo de corrida.'
         />
         <Information
           boxShadow={cardShadow}
-          title='Languages'
-          value='English, Spanish, Italian'
+          title='TURNO 06:00H, AS 14:00H'
+          value='Lâmina de 1670 Kg (+20Kg) na carga 82 às 10:48 horas. Visando melhorar produção.
+          Abrimos AF às 12'
         />
         <Information
           boxShadow={cardShadow}
-          title='Department'
-          value='Product Design'
+          title='TURNO 14:00H, AS 22:00H'
+            value='Favor Providenciar uma cobertura para caçamba de finos de minério visando chuva.
+                  -Colocar raspador de retorno na correia de finos, está caindo muito finos no chão.
+                    -AF tamponado as 04:30 horas com Rabicho Fino para confecção do Furo de corrida.'
         />
-        <Information
-          boxShadow={cardShadow}
-          title='Work History'
-          value='Google, Facebook'
-        />
-        <Information
-          boxShadow={cardShadow}
-          title='Organization'
-          value='Simmmple Web LLC'
-        />
-        <Information
-          boxShadow={cardShadow}
-          title='Birthday'
-          value='20 July 1986'
-        />
+
       </SimpleGrid>
     </Card>
   );

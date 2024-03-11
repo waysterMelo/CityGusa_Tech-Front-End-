@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Icon } from "@chakra-ui/react";
+import {Button, Icon} from "@chakra-ui/react";
 import { BsColumnsGap, BsCoin } from "react-icons/bs";
+
 
 // Admin Imports
 import forno from "views/admin/default";
@@ -15,7 +16,7 @@ const routes = [
     name: "DASHBOARD",
     layout: "/admin",
     path: "/default",
-    icon: <Icon as={BsColumnsGap} width='20px' height='20px'/>,
+    icon: <Icon as={ BsColumnsGap } width='20px' height='20px'/>,
     component: forno,
    },
   {
@@ -33,6 +34,24 @@ const routes = [
     component: Custo,
     secondary: true,
   },
+
+  //{
+  //   name: "TESTE",
+  //   layout: "/admin",
+  //   path: "/custo",
+  //   icon: (
+  //       <Button
+  //           as={BsCoin}
+  //           width='20px'
+  //           height='20px'
+  //           color='inherit'
+  //       />
+  //   ),
+  //   component: Custo,
+  //   secondary: true,
+  // },
+
+
   // {
   //   name: "Data Tables",
   //   layout: "/admin",
