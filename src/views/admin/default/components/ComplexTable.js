@@ -1,15 +1,7 @@
 import {
   Flex,
   HStack,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
   Text,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
   Center,
   Button,
   useDisclosure,
@@ -19,21 +11,20 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
-  Input,
-  DrawerFooter, Box, Image
+  DrawerFooter, Box, Grid, GridItem, Square, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot
 } from "@chakra-ui/react";
-import React  from "react";
+import React from "react";
 // Custom components
 import Card from "components/card/Card";
 // Assets
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { CgMoreO  } from "react-icons/cg";
-import LeitodeFusaoCompleto from "../../dataTables/components/leitodefusaocompleto";
 
-export default function ColumnsTable() {
+export default function ColumnsTable(props) {
   const [size, setSize] = React.useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
+
 
   const handleClick = (newSize) =>{
     setSize(newSize)
@@ -50,13 +41,13 @@ export default function ColumnsTable() {
       px='0px'
       overflowX={{ sm: "scroll", lg: "hidden" }}>
      
-      <Flex px='30px' py='3' justify='space-between' mb='10px' align='center'>
+      <Flex px='20px' py='3' justify='space-between' align='center'>
         <Text
           color={'blue.900'}
           fontSize='22px'
           fontWeight='700'
-          lineHeight='100%'> 
-          Alterações no leito de fusão
+          lineHeight='100%'>
+          FECHAMENTO LEITO DE FUSÃO
         </Text>
       
       <HStack>
@@ -71,44 +62,138 @@ export default function ColumnsTable() {
     
       </Flex>
 
-      <TableContainer>
-  <Table variant='striped' colorScheme='facebook' size='sm'>
-  
-    <Thead>
-      <Tr>
-        <Th>NOME</Th>
-        <Th>LOTE</Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-      <Tr>
-        <Td>minerio extrativa</Td>
-        <Td>741</Td>
+      <Box>
+        <TableContainer p={'5'}>
+          <Table variant={'striped'} size='sm'>
+            <Thead bgColor={'gray.300'}>
+              <Tr>
+                <Th></Th>
+                <Th></Th>
+                <Th>1° TURNO</Th>
+                <Th>2° TURNO</Th>
+                <Th>3° TURNO</Th>
+                <Th>umido</Th>
+                <Th>seco</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
 
-      </Tr>
-      <Tr>
-        <Td>minerio comisa</Td>
-        <Td>745B</Td>
+              <Tr>
+                <Td></Td>
+                <Td>Número de cargas</Td>
+                <Td>01</Td>
+                <Td >40</Td>
+                <Td >80</Td>
+              </Tr>
 
-      </Tr>
-      <Tr>
-        <Td>minerio ciclo metal</Td>
-        <Td>852A</Td>
+              <Tr>
+                <Td></Td>
+                <Td>Produção Total</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>% Umidade de Carvão</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>Cons CV Úmido - kg</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>Finos Minério</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>P.E.U - kg</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td bgColor={'facebook.200'}>u</Td>
+                <Td bgColor={'facebook.200'}>s</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>Cons Minério - kg</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>Cons Coque - kg</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>C.E.CV.kg/t</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>C.E.CV. - m/t</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>Pó do coletor - kg</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>C.E.CV + Coque -kg/t</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>C.E Minério - kg/t</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>Rendimento</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+              <Tr>
+                <Td></Td>
+                <Td>C.E.CV - m</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+                <Td>100</Td>
+              </Tr>
+            </Tbody>
+            <Tfoot>
 
-      </Tr>
-      <Tr>
-        <Td>sucata</Td>
-        <Td>su758</Td>
+            </Tfoot>
+          </Table>
+        </TableContainer>
+      </Box>
 
-      </Tr>
-      <Tr>
-        <Td>calcario</Td>
-        <Td>ca756</Td>
-      </Tr>
-    </Tbody>
-    <Tfoot>
-      <Tr>
-       <Th colSpan={'3'}>
         <Center>
             {
               sizes.map((size) => (
@@ -121,12 +206,13 @@ export default function ColumnsTable() {
             <DrawerOverlay />
             <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>Informações do leito de fusão
-                12/01/2024
+              <DrawerHeader>
               </DrawerHeader>
 
               <DrawerBody>
-                <LeitodeFusaoCompleto />
+                <Box bg={'gray.300'} w={'100%'} h={'100%'} p={'4'} color={'white'}>
+
+                </Box>
               </DrawerBody>
 
               <DrawerFooter>
@@ -138,12 +224,7 @@ export default function ColumnsTable() {
             </DrawerContent>
           </Drawer>
         </Center>
-       </Th>
-      </Tr>
 
-    </Tfoot>
-  </Table>
-</TableContainer>
 
       
     </Card>
