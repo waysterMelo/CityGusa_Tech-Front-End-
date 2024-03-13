@@ -78,7 +78,7 @@ export function SidebarResponsive(props) {
       <Flex ref={btnRef} w='max-content' h='max-content' onClick={onOpen}>
         <Icon
           as={IoMenuOutline}
-          color={'whiteAlpha.900'}
+          color={'white'}
           my='auto'
           w='20px'
           h='20px'

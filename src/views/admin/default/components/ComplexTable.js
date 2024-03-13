@@ -10,7 +10,7 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter, Box, TableContainer, Table, Thead, Tr, Th, Tbody, Td, Tfoot
+  DrawerFooter, Box, TableContainer, Table, Thead, Tr, Th, Tbody, Td, Tfoot, TableCaption
 } from "@chakra-ui/react";
 import React from "react";
 // Custom components
@@ -72,7 +72,6 @@ export default function ColumnsTable(props) {
               </Tr>
             </Thead>
             <Tbody bgColor={'gray.200'}>
-
               <Tr>
                 <Td></Td>
                 <Td>Número de cargas</Td>
@@ -125,8 +124,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
-                <Td><span>900</span><Badge pill={true} bg="dark">úmido</Badge></Td>
-                <Td><span>900</span><Badge pill={true} bg="dark">seco</Badge></Td>
+                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">úmido</Badge></Td>
+                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">seco</Badge></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -148,12 +147,12 @@ export default function ColumnsTable(props) {
               </Tr>
               <Tr>
                 <Td></Td>
-                <Td>C.E.CV.kg/t</Td>
+                <Td className={'bold'}>C.E.CV.kg/t</Td>
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
-                <Td><span>900</span><Badge pill={true} bg="dark">úmido</Badge></Td>
-                <Td><span>900</span><Badge pill={true} bg="dark">seco</Badge></Td>
+                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">úmido</Badge></Td>
+                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">seco</Badge></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -161,8 +160,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
-                <Td><span>200</span><Badge pill={true} bg="dark">enfor</Badge></Td>
-                <Td><span>200</span><Badge pill={true} bg="dark">bruto</Badge></Td>
+                <Td><span>200 </span><Badge pill={true} bg="dark">enfor</Badge></Td>
+                <Td><span>200 </span><Badge pill={true} bg="dark">bruto</Badge></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -210,13 +209,9 @@ export default function ColumnsTable(props) {
                 <Td></Td>
               </Tr>
             </Tbody>
-            <Tfoot>
-
-            </Tfoot>
           </Table>
         </TableContainer>
       </Box>
-
         <Center>
             {
               sizes.map((size) => (
@@ -230,11 +225,121 @@ export default function ColumnsTable(props) {
             <DrawerContent>
               <DrawerCloseButton />
               <DrawerHeader>
+                <Text color={'white'} className={'text-center bg-secondary  p-4 h3'}>Alterações no leito de fusão</Text>
               </DrawerHeader>
 
               <DrawerBody>
-                <Box bg={'gray.300'} w={'100%'} h={'100%'} p={'4'} color={'white'}>
-
+                <Box bgColor={'aliceblue'} w={'100%'} h={'100%'} p={'2'}>
+                  <TableContainer>
+                    <Table variant='striped' size={'sm'}>
+                      <Thead>
+                        <Tr>
+                          <Th className={'bg-black text-white'}>N° da carga</Th>
+                          <Th className={'bg-black text-white'}>%</Th>
+                          <Th className={'bg-black text-white'}>02</Th>
+                          <Th className={'bg-black text-white'}>50</Th>
+                          <Th className={'bg-black text-white'}>80</Th>
+                          <Th className={'bg-black text-white'}>120</Th>
+                          <Th className={'bg-black text-white text-center'}>Total</Th>
+                        </Tr>
+                        <Tr>
+                          <Th className={'bg-black text-white p-2'}>Minério</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Extrativa</Td>
+                          <Td className={'bg-secondary-subtle'}>15%</Td>
+                          <Td>160</Td>
+                          <Td>160</Td>
+                          <Td>160</Td>
+                          <Td>160</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Comisa</Td>
+                          <Td className={'bg-secondary-subtle'}>15%</Td>
+                          <Td>150</Td>
+                          <Td>150</Td>
+                          <Td>150</Td>
+                          <Td>150</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Bassari</Td>
+                          <Td className={'bg-secondary-subtle'}>15%</Td>
+                          <Td>100</Td>
+                          <Td>100</Td>
+                          <Td>100</Td>
+                          <Td>100</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Ciclo Metal</Td>
+                          <Td className={'bg-secondary-subtle'}>15%</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Lâmina</Td>
+                          <Td></Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Calcareo</Td>
+                          <Td></Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Bauxita</Td>
+                          <Td></Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Coque</Td>
+                          <Td></Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Secas</Td>
+                          <Td></Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Secas</Td>
+                          <Td></Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
                 </Box>
               </DrawerBody>
 

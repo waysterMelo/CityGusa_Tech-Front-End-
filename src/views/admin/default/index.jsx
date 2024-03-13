@@ -1,5 +1,4 @@
 import React from "react";
-
 // Chakra imports
 import {Box, SimpleGrid} from "@chakra-ui/react";
 import ComplexTable from '../default/components/ComplexTable'; 
@@ -161,7 +160,5 @@ export default function UserReports() {
         </Box>
     
     </Box>
-
-    
   );
 }
