@@ -1,9 +1,11 @@
 // Chakra imports
-import { SimpleGrid, Text, useColorModeValue } from "@chakra-ui/react";
+import {SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 // Custom components
 import Card from "components/card/Card.js";
 import React from "react";
 import Information from "views/admin/profile/components/Information";
+import {Col, Container, Row} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 // Assets
 export default function GeneralInformation(props) {
@@ -17,6 +19,13 @@ export default function GeneralInformation(props) {
   );
   return (
     <Card mb={{ base: "0px", "2xl": "20px" }} {...rest}>
+            <Container fluid={'lg'}>
+                <Row className={'justify-content-end'}>
+                    <Col lg={'2'} className={'text-center'}>
+                        <Button variant={'secondary'}>12-01-2024</Button>
+                    </Col>
+                </Row>
+            </Container>
       <Text
         color={textColorPrimary}
         fontWeight='bold'
@@ -25,6 +34,7 @@ export default function GeneralInformation(props) {
         mb='4px'>
         Observações do turno
       </Text>
+
       <Text color={textColorSecondary} fontSize='md' me='26px' mb='40px'>
        Este documento servirá como um registro abrangente e detalhado
         das atividades, eventos e ocorrências relevantes que se desenrolam em cada turno.

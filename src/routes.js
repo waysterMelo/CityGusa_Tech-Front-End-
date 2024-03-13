@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Button, Icon} from "@chakra-ui/react";
+import {Icon} from "@chakra-ui/react";
 import { BsColumnsGap, BsCoin } from "react-icons/bs";
 
 

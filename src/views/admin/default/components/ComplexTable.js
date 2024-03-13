@@ -3,7 +3,6 @@ import {
   HStack,
   Text,
   Center,
-  Button,
   useDisclosure,
   Drawer,
   DrawerOverlay,
@@ -11,21 +10,18 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter, Box, Grid, GridItem, Square, TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot
+  DrawerFooter, Box, TableContainer, Table, Thead, Tr, Th, Tbody, Td, Tfoot
 } from "@chakra-ui/react";
 import React from "react";
 // Custom components
 import Card from "components/card/Card";
-// Assets
-import { FaRegCalendarAlt } from "react-icons/fa";
+import Button from 'react-bootstrap/Button';
 import { CgMoreO  } from "react-icons/cg";
-
+import Badge from 'react-bootstrap/Badge';
 export default function ColumnsTable(props) {
   const [size, setSize] = React.useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-
-
   const handleClick = (newSize) =>{
     setSize(newSize)
     onOpen()
@@ -51,12 +47,11 @@ export default function ColumnsTable(props) {
         </Text>
       
       <HStack>
-      <FaRegCalendarAlt/>
       <Text fontSize={'25px'} fontWeight={'extrabold'} color={'messenger.900'}>
         <Center>
-        12-01-2024
+          <Button variant={'secondary'}>12-01-2024</Button>
         </Center>
-     
+
         </Text>
       </HStack>
     
@@ -65,25 +60,27 @@ export default function ColumnsTable(props) {
       <Box>
         <TableContainer p={'5'}>
           <Table variant={'striped'} size='sm'>
-            <Thead bgColor={'gray.300'}>
+            <Thead bgColor={'gray.400'}>
               <Tr>
                 <Th></Th>
                 <Th></Th>
                 <Th>1° TURNO</Th>
                 <Th>2° TURNO</Th>
                 <Th>3° TURNO</Th>
-                <Th>umido</Th>
-                <Th>seco</Th>
+                <Th></Th>
+                <Th></Th>
               </Tr>
             </Thead>
-            <Tbody>
+            <Tbody bgColor={'gray.200'}>
 
               <Tr>
                 <Td></Td>
                 <Td>Número de cargas</Td>
                 <Td>01</Td>
-                <Td >40</Td>
-                <Td >80</Td>
+                <Td>40</Td>
+                <Td>80</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
 
               <Tr>
@@ -92,6 +89,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -99,6 +98,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -106,6 +107,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -113,6 +116,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -120,8 +125,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
-                <Td bgColor={'facebook.200'}>u</Td>
-                <Td bgColor={'facebook.200'}>s</Td>
+                <Td><span>900</span><Badge pill={true} bg="dark">úmido</Badge></Td>
+                <Td><span>900</span><Badge pill={true} bg="dark">seco</Badge></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -129,6 +134,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -136,6 +143,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -143,6 +152,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td><span>900</span><Badge pill={true} bg="dark">úmido</Badge></Td>
+                <Td><span>900</span><Badge pill={true} bg="dark">seco</Badge></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -150,6 +161,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td><span>200</span><Badge pill={true} bg="dark">enfor</Badge></Td>
+                <Td><span>200</span><Badge pill={true} bg="dark">bruto</Badge></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -157,6 +170,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -164,6 +179,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -171,6 +188,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -178,6 +197,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -185,6 +206,8 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
             </Tbody>
             <Tfoot>
@@ -197,8 +220,8 @@ export default function ColumnsTable(props) {
         <Center>
             {
               sizes.map((size) => (
-     <Button ref={btnRef} onClick={() => handleClick(size)} leftIcon={<CgMoreO />} key={size}
-             colorScheme='blue'>mais info</Button>
+                <Button variant={'outline-secondary'} ref={btnRef} onClick={() => handleClick(size)} leftIcon={<CgMoreO />} key={size}
+             colorScheme='gray'>mais info</Button>
               ))
             }
 

@@ -6,6 +6,7 @@ import AuthLayout from 'layouts/auth';
 import AdminLayout from 'layouts/admin';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from 'theme/theme';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
 	<ChakraProvider theme={theme}>

@@ -147,8 +147,6 @@ export default function UserReports() {
               name='OUTRA INFORMAÇÃO'
               value='642,39'
           />
-
-         
       </SimpleGrid>
 
       <SimpleGrid columns={1} mb='20px'>
@@ -159,7 +157,7 @@ export default function UserReports() {
       </SimpleGrid>
 
         <Box bg={'facebook.900'} w={'100%'} p={'4'} color={'white'}>
-                <GeneralInformation/>
+            <GeneralInformation/>
         </Box>
     
     </Box>
