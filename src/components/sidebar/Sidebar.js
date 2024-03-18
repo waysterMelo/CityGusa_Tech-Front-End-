@@ -40,7 +40,7 @@ function Sidebar(props) {
 
   // SIDEBAR
   return (
-    <Box display={{ sm: "none", xl: "block" }} w="100%" position='fixed' minH='100%'>
+    <Box display={{ sm: "none", xl: "block" }} className={'sidebarResponsivoTela1366'} bgColor={'transparent'}>
       <Box
        bgImage={imagem_de_fundo}
         transition={variantChange}

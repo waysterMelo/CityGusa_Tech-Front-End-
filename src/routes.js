@@ -1,9 +1,6 @@
 import React from "react";
-
 import {Icon} from "@chakra-ui/react";
 import { BsColumnsGap, BsCoin } from "react-icons/bs";
-
-
 // Admin Imports
 import forno from "views/admin/default";
 import Custo from "views/admin/custo";

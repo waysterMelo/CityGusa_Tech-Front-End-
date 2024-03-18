@@ -6,3 +6,67 @@ body {
 option {
   color: black;
 }
+
+
+
+@media screen and (min-width:1280px ) and (max-height: 950px){
+    .sidebarResponsivoTela1366 {
+        width: 110%;
+        position: fixed;
+        min-height: 100%;
+    }
+    .breadcumbResponsive{
+        width: 73%;
+    }
+    .otherSide{
+        margin-left: 1%;
+    }
+
+}
+
+@media screen and (min-width:1400px ) and (max-height: 900px){
+  .sidebarResponsivoTela1366 {
+      width: 100%;
+      position: fixed;
+      min-height: 100%;
+  }
+    .otherSide{
+      margin-left: 2%;
+    }
+    
+    .breadcumbResponsive{
+        width: 76%;
+    }
+
+}
+
+@media screen and (min-width: 1450px) and (max-width:1700px ){
+    .sidebarResponsivoTela1366 {
+        width: 94%;
+        position: fixed;
+        min-height: 100%;
+    }
+}
+
+@media screen and (min-width: 1650px) and (max-width:1900px ){
+    .otherSide {
+        margin-left: 3%;
+    }
+}
+
+@media screen and (min-width: 1920px) and (max-height:1080px ){
+    .sidebarResponsivoTela1366{
+        width: 80%;
+        position: fixed;
+        min-height: 100%;
+    }
+    .otherSide{
+        margin-left:2%;
+    }
+    .breadcumbResponsive{
+        width: 80%;
+    }
+}
+
+
+

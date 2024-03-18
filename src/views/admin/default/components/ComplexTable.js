@@ -1,6 +1,5 @@
 import {
   Flex,
-  HStack,
   Text,
   Center,
   useDisclosure,
@@ -10,7 +9,7 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter, Box, TableContainer, Table, Thead, Tr, Th, Tbody, Td, Tfoot, TableCaption
+  DrawerFooter, Box, TableContainer, Table, Thead, Tr, Th, Tbody, Td
 } from "@chakra-ui/react";
 import React from "react";
 // Custom components
@@ -35,7 +34,7 @@ export default function ColumnsTable(props) {
       direction='column'
       w='100%'
       px='0px'
-      overflowX={{ sm: "scroll", lg: "hidden" }}>
+      overflowX={{sm: "scroll", lg: "hidden"}}>
      
       <Flex px='20px' py='3' justify='space-between' align='center'>
         <Text
@@ -45,33 +44,24 @@ export default function ColumnsTable(props) {
           lineHeight='100%'>
           FECHAMENTO LEITO DE FUSÃO
         </Text>
-      
-      <HStack>
-      <Text fontSize={'25px'} fontWeight={'extrabold'} color={'messenger.900'}>
-        <Center>
-          <Button variant={'secondary'}>12-01-2024</Button>
-        </Center>
-
-        </Text>
-      </HStack>
-    
       </Flex>
 
       <Box>
         <TableContainer p={'5'}>
-          <Table variant={'striped'} size='sm'>
+          <Table className={'table table-striped-columns'} variant={'striped'} size='sm'>
             <Thead bgColor={'gray.400'}>
               <Tr>
-                <Th></Th>
-                <Th></Th>
-                <Th>1° TURNO</Th>
-                <Th>2° TURNO</Th>
-                <Th>3° TURNO</Th>
-                <Th></Th>
-                <Th></Th>
+                <Th className={'bg-black text-white'}></Th>
+                <Th className={'bg-black text-white'}></Th>
+                <Th className={'bg-black text-white'}>1° TURNO</Th>
+                <Th className={'bg-black text-white'}>2° TURNO</Th>
+                <Th className={'bg-black text-white'}>3° TURNO</Th>
+                <Th className={'bg-black text-white'}></Th>
+                <Th className={'bg-black text-white'}></Th>
+                <Th className={'bg-black text-white text-center '}>TOTAL</Th>
               </Tr>
             </Thead>
-            <Tbody bgColor={'gray.200'}>
+            <Tbody clas>
               <Tr>
                 <Td></Td>
                 <Td>Número de cargas</Td>
@@ -80,6 +70,7 @@ export default function ColumnsTable(props) {
                 <Td>80</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>121</Td>
               </Tr>
 
               <Tr>
@@ -90,6 +81,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -99,6 +91,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -108,6 +101,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -117,6 +111,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -124,8 +119,9 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
-                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">úmido</Badge></Td>
-                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">seco</Badge></Td>
+                <Td style={{ width: '2px'}} className={'text-center'}>900<Badge pill={true} bg="dark">úmido</Badge></Td>
+                <Td style={{ width: '2px'}} className={'text-center'}>900<Badge pill={true} bg="dark">seco</Badge></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -135,6 +131,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -144,6 +141,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -151,8 +149,9 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
-                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">úmido</Badge></Td>
-                <Td style={{ width: '20%'}}><span>900 </span><Badge pill={true} bg="dark">seco</Badge></Td>
+                <Td style={{ width: '2px'}} className={'text-center'}><span>900 </span><Badge pill={true} bg="dark">úmido</Badge></Td>
+                <Td style={{ width: '2px'}} className={'text-center'}><span>900 </span><Badge pill={true} bg="dark">seco</Badge></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -160,8 +159,9 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td>100</Td>
                 <Td>100</Td>
-                <Td><span>200 </span><Badge pill={true} bg="dark">enfor</Badge></Td>
-                <Td><span>200 </span><Badge pill={true} bg="dark">bruto</Badge></Td>
+                <Td style={{ width: '2px'}} className={'text-center'}>200<Badge pill={true} bg="dark">enfor</Badge></Td>
+                <Td style={{ width: '2px'}} className={'text-center'}>200<Badge pill={true} bg="dark">bruto</Badge></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -171,6 +171,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -180,6 +181,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -189,6 +191,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -198,6 +201,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
               <Tr>
                 <Td></Td>
@@ -207,6 +211,7 @@ export default function ColumnsTable(props) {
                 <Td>100</Td>
                 <Td></Td>
                 <Td></Td>
+                <Td className={'text-black text-center fw-bolder'}>300</Td>
               </Tr>
             </Tbody>
           </Table>
@@ -215,12 +220,12 @@ export default function ColumnsTable(props) {
         <Center>
             {
               sizes.map((size) => (
-                <Button variant={'outline-secondary'} ref={btnRef} onClick={() => handleClick(size)} leftIcon={<CgMoreO />} key={size}
-             colorScheme='gray'>mais info</Button>
+                <Button className={'btn btn-md btn-primary'} ref={btnRef} onClick={() => handleClick(size)} leftIcon={<CgMoreO />} key={size}
+             colorScheme='gray'>mais info...</Button>
               ))
             }
 
-          <Drawer isOpen={isOpen} onClose={onClose} size={size} placement={'right'} finalFocusRef={btnRef}>
+          <Drawer isOpen={isOpen} onClose={onClose} size={size} placement={'left'} finalFocusRef={btnRef}>
             <DrawerOverlay />
             <DrawerContent>
               <DrawerCloseButton />
@@ -229,7 +234,7 @@ export default function ColumnsTable(props) {
               </DrawerHeader>
 
               <DrawerBody>
-                <Box bgColor={'aliceblue'} w={'100%'} h={'100%'} p={'2'}>
+                <Box bgColor={'lightyellow'} w={'100%'} h={'100%'} >
                   <TableContainer>
                     <Table variant='striped' size={'sm'}>
                       <Thead>
@@ -329,7 +334,16 @@ export default function ColumnsTable(props) {
                           <Td className={'text-center bg-secondary-subtle'}>640</Td>
                         </Tr>
                         <Tr>
-                          <Td className={'bg-black text-white'}>Secas</Td>
+                          <Td className={'bg-black text-white'}>Sucata Gusa</Td>
+                          <Td></Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td>90</Td>
+                          <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                        </Tr>
+                        <Tr>
+                          <Td className={'bg-black text-white'}>Sucata Aço</Td>
                           <Td></Td>
                           <Td>90</Td>
                           <Td>90</Td>
@@ -344,10 +358,9 @@ export default function ColumnsTable(props) {
               </DrawerBody>
 
               <DrawerFooter>
-                <Button variant='outline' mr={3} onClick={onClose}>
-                  Cancel
+                <Button className={'btn btn-md btn-dark'} onClick={onClose}>
+                    Voltar
                 </Button>
-                <Button colorScheme='blue'>Save</Button>
               </DrawerFooter>
             </DrawerContent>
           </Drawer>

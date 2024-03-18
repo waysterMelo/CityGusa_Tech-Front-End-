@@ -4,8 +4,6 @@ import {SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import Card from "components/card/Card.js";
 import React from "react";
 import Information from "views/admin/profile/components/Information";
-import {Col, Container, Row} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 
 // Assets
 export default function GeneralInformation(props) {
@@ -19,13 +17,7 @@ export default function GeneralInformation(props) {
   );
   return (
     <Card mb={{ base: "0px", "2xl": "20px" }} {...rest}>
-            <Container fluid={'lg'}>
-                <Row className={'justify-content-end'}>
-                    <Col lg={'2'} className={'text-center'}>
-                        <Button variant={'secondary'}>12-01-2024</Button>
-                    </Col>
-                </Row>
-            </Container>
+
       <Text
         color={textColorPrimary}
         fontWeight='bold'

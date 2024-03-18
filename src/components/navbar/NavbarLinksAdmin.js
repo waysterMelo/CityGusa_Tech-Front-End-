@@ -9,12 +9,17 @@ import {
 	Text,
 	useColorModeValue
 } from '@chakra-ui/react';
+import 'react-calendar/dist/Calendar.css';
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
 import React from 'react';
 import routes from 'routes.js';
+import {SearchBar} from "../searchBar/SearchBar";
+
 export default function HeaderLinks(props) {
+
 	const { secondary } = props;
+
 	// Chakra Color Mode
 	let menuBg = useColorModeValue('yellow');
 	const borderColor = useColorModeValue('#E6ECFA', 'rgba(135, 140, 189, 0.3)');
@@ -24,7 +29,7 @@ export default function HeaderLinks(props) {
 	);
 
 	return (
-		//componente lado direito 
+		//componente lado direito
 		<Flex 
 			w={{ sm: '100%', md: 'auto' }}
 			alignItems="center"
@@ -34,7 +39,7 @@ export default function HeaderLinks(props) {
 			p="10px"
 			borderRadius="30px"
 			boxShadow={shadow}>
-			
+			<SearchBar mb={secondary ? { base: '10px', md: 'unset' } : 'unset'} me="10px" borderRadius="30px"/>
 			<SidebarResponsive routes={routes} />
 			<Menu>
 				<MenuButton>

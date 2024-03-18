@@ -1,6 +1,6 @@
-import React from "react";
-// Chakra imports
+import * as React from "react";
 import {Box, SimpleGrid} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import ComplexTable from '../default/components/ComplexTable'; 
 import {columnsDataComplex} from "views/admin/default/variables/columnsData";
 import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
@@ -12,35 +12,38 @@ import Escoria from "assets/img/icons/escoria.png";
 import Interroga from "assets/img/icons/interroga.png"
 // Custom components
 import MiniStatistics from "components/card/MiniStatistics";
-import MiniStatisticsTemperaturaForno from "components/card/MiniStatisticsTemperaturaForno";
 import IconBox from "components/icons/IconBox";
 import GeneralInformation from "../profile/components/General";
 
 export default function UserReports() {
   return (
-    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+    <Box pt={{ base:"130px", md: "80px", xl:"80px"}} className={'otherSide'} bgColor={'transparent'}>
       <SimpleGrid
-        columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
-        gap='10px'
-        mb='20px'>
-        <MiniStatistics
-          startContent={
-            <IconBox
-              w='20px'
-              h='20px'
-              img={
-                <img
-                  src={Minerio}
-                  alt='carvao'
-                  style={{ width: "100%", height: "100%" }}
-                />
-              }
-            />
-          }
-          name='CONSUMO ATUAL DE MINERIOS'
-          value='350.40'
-        />
-  
+        columns={{ base:1, sm: 1, md:2, lg:4, xl:3}}
+        gap='1%'
+        mt={'1%'}
+      >
+          <Link to={'custo'}>
+              <MiniStatistics
+                  startContent={
+                      <IconBox
+                          w='20px'
+                          h='20px'
+                          img={
+                              <img
+                                  src={Minerio}
+                                  alt='carvao'
+                                  style={{ width: "100%", height: "100%" }}
+                              />
+                          }
+                      />
+                  }
+                  name='CONSUMO ATUAL DE MINERIOS'
+                  value='350.40'
+              />
+          </Link>
+
+          <Link>
         <MiniStatistics
           startContent={
             <IconBox
@@ -58,8 +61,10 @@ export default function UserReports() {
           name='COMSUMO CARVÃO'
           value='642,39'
         />
-       
-       <MiniStatisticsTemperaturaForno
+          </Link>
+
+          <Link>
+       <MiniStatistics
         startContent= {
           <IconBox
             w='20px'
@@ -73,15 +78,14 @@ export default function UserReports() {
             }
           />
         }
-        name1='TEMPERATURA COROA'
-        value1='667'
-        name2='TEMPERATURA TOPO'
-        value2='58'
-      />     
-          
-          {/* card escoria */}
-        <MiniStatistics
-          startContent={
+        name='TEMPERATURA COROA'
+        value='667'
+      />
+          </Link>
+
+          <Link>
+            <MiniStatistics
+            startContent={
             <IconBox
               w='20px'
               h='20px'
@@ -93,7 +97,6 @@ export default function UserReports() {
                 />
               }
             />
-        
             }
             
           name='ESCÓRIA'
@@ -110,42 +113,49 @@ export default function UserReports() {
             transform="translateX(-50%)" width="50px" height="50px" borderRadius="50%" backgroundColor="green" />
           }
           />
+            </Link>
 
-          <MiniStatistics
-              startContent={
-                  <IconBox
-                      w='20px'
-                      h='20px'
-                      img={
-                          <img
-                              src={Interroga}
-                              alt='carvao'
-                              style={{ width: "100%", height: "100%" }}
-                          />
-                      }
-                  />
-              }
-              name='OUTRA INFORMAÇÃO'
-              value='350.40'
-          />
+          <Link>
+              <MiniStatistics
+                  startContent={
+                      <IconBox
+                          w='20px'
+                          h='20px'
+                          img={
+                              <img
+                                  src={Interroga}
+                                  alt='carvao'
+                                  style={{ width: "100%", height: "100%" }}
+                              />
+                          }
+                      />
+                  }
+                  name='OUTRA INFORMAÇÃO'
+                  value='350.40'
+              />
 
-          <MiniStatistics
-              startContent={
-                  <IconBox
-                      w='20px'
-                      h='20px'
-                      img={
-                          <img
-                              src={Interroga}
-                              alt='carvao'
-                              style={{ width: "100%", height: "100%" }}
-                          />
-                      }
-                  />
-              }
-              name='OUTRA INFORMAÇÃO'
-              value='642,39'
-          />
+          </Link>
+
+          <Link>
+              <MiniStatistics
+                  startContent={
+                      <IconBox
+                          w='20px'
+                          h='20px'
+                          img={
+                              <img
+                                  src={Interroga}
+                                  alt='carvao'
+                                  style={{ width: "100%", height: "100%" }}
+                              />
+                          }
+                      />
+                  }
+                  name='OUTRA INFORMAÇÃO'
+                  value='642,39'
+              />
+          </Link>
+
       </SimpleGrid>
 
       <SimpleGrid columns={1} mb='20px'>

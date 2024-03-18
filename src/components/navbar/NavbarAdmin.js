@@ -6,7 +6,6 @@ import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
 
 export default function AdminNavbar(props) {
 	const [ scrolled, setScrolled ] = useState(false);
-
 	useEffect(() => {
 		window.addEventListener('scroll', changeNavbar);
 
@@ -14,9 +13,7 @@ export default function AdminNavbar(props) {
 			window.removeEventListener('scroll', changeNavbar);
 		};
 	});
-
 	const { secondary, message, brandText } = props;
-
 	// Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)
 	let mainText = useColorModeValue('navy.700', 'white');
 	let secondaryText = useColorModeValue('gray.700', 'white');
@@ -24,9 +21,6 @@ export default function AdminNavbar(props) {
 	let navbarFilter = 'none';
 	let navbarBackdrop = 'blur(20px)';
 	let navbarShadow = 'none';
-	let navbarBg = useColorModeValue('rgba(244, 247, 254, 0.2)', 'rgba(11,20,55,0.5)');
-	let navbarBorder = 'transparent';
-	let secondaryMargin = '0px';
 	let paddingX = '15px';
 	let gap = '0px';
 	const changeNavbar = () => {
@@ -38,11 +32,10 @@ export default function AdminNavbar(props) {
 	};
 
 	return (
-		<Box
+		<Box className={'breadcumbResponsive'}
 			position={navbarPosition}
 			boxShadow={navbarShadow}
-			bg={navbarBg}
-			borderColor={navbarBorder}
+			bg={'gray.400'}
 			filter={navbarFilter}
 			backdropFilter={navbarBackdrop}
 			backgroundPosition='center'
@@ -59,10 +52,8 @@ export default function AdminNavbar(props) {
 			minH='75px'
 			justifyContent={{ xl: 'center' }}
 			lineHeight='25.6px'
-			mx='auto'
-			mt={secondaryMargin}
 			pb='8px'
-			right={{ base: '12px', md: '30px', lg: '30px', xl: '30px' }}
+			right={{ base: '12px', md: '30px', lg: '30px', xl:'30px' }}
 			px={{
 				sm: paddingX,
 				md: '10px'
@@ -71,14 +62,7 @@ export default function AdminNavbar(props) {
 				xl: '12px'
 			}}
 			pt='8px'
-			top={{ base: '12px', md: '16px', lg: '20px', xl: '20px' }}
-			w={{
-				base: 'calc(100vw - 6%)',
-				md: 'calc(100vw - 8%)',
-				lg: 'calc(100vw - 6%)',
-				xl: 'calc(100vw - 350px)',
-				'2xl': 'calc(100vw - 365px)'
-			}}>
+			top={{ base: '12px', md: '16px', lg: '20px', xl: '20px' }}>
 			<Flex
 				w='100%'
 				flexDirection={{
