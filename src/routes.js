@@ -14,7 +14,7 @@ const routes = [
     name: "Dashboard",
     layout: "/admin",
     path: "/default",
-    icon: <Icon as={ BsColumnsGap } width='20px' height='20px'/>,
+    icon: <Icon as={BsColumnsGap} width='20px' height='20px'/>,
     component: forno,
    },
   {

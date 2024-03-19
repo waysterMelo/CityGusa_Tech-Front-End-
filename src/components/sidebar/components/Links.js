@@ -2,8 +2,20 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 // chakra imports
-import {Box, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text, useColorModeValue} from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+  useColorModeValue
+} from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
+import {NavDropdown} from "react-bootstrap";
 
 export function SidebarLinks(props) {
   //   Chakra color mode
@@ -63,41 +75,39 @@ export function SidebarLinks(props) {
                   py='5px'
                   ps='10px'>
                   <Flex w='100%' alignItems='center' justifyContent='center'>
+
+                   {/*box do icon abaixo*/}
                     <Box
-                      color={
-                        activeRoute(route.path.toLowerCase())
-                          ? activeIcon
-                          : textColor
-                      }
-                      me='18px'>
+                        color={
+                          activeRoute(route.path.toLowerCase())
+                              ? activeIcon
+                              : textColor
+                        }
+                        me='18px'>
                       {route.icon}
                     </Box>
-                    <Text
-                      me='auto'
-                      color={
-                        activeRoute(route.path.toLowerCase())
-                          ? activeColor
-                          : textColor
-                      }
-                      fontWeight={
-                        activeRoute(route.path.toLowerCase())
-                          ? "bold"
-                          : "normal"
-                      }>
-                      {route.name}
-                    </Text>
+                    <NavDropdown title={route.name} className={'me-auto my-2 my-lg-0'}>
+                      <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.2">
+                        Another action
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item href="#action/3.4">
+                        Separated link
+                      </NavDropdown.Item>
+                    </NavDropdown>
                   </Flex>
-
-                  {/*<Box */}
-                  {/*  h='36px'*/}
-                  {/*  w='4px'*/}
-                  {/*  bg={*/}
-                  {/*    activeRoute(route.path.toLowerCase())*/}
-                  {/*      ? brandColor*/}
-                  {/*      : "transparent"*/}
-                  {/*  }*/}
-                  {/*  borderRadius='5px'*/}
-                  {/*/>*/}
+                  <Box
+                    h='36px'
+                    w='4px'
+                    bg={
+                      activeRoute(route.path.toLowerCase())
+                        ? brandColor
+                        : "transparent"
+                    }
+                    borderRadius='5px'
+                  />
                 </HStack>
               </Box>
             ) : (
@@ -134,3 +144,4 @@ export function SidebarLinks(props) {
 }
 
 export default SidebarLinks;
+
