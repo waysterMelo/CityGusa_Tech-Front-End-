@@ -4,20 +4,21 @@ import { BsColumnsGap, BsCoin } from "react-icons/bs";
 // Admin Imports
 import forno from "views/admin/default";
 import Custo from "views/admin/custo";
+import {MdLock} from "react-icons/md";
 
 // Auth Imports
-// import SignInCentered from "views/auth/signIn";
+import SignInCentered from "views/auth/signIn";
 
 const routes = [
   {
-    name: "DASHBOARD",
+    name: "Dashboard",
     layout: "/admin",
     path: "/default",
     icon: <Icon as={ BsColumnsGap } width='20px' height='20px'/>,
     component: forno,
    },
   {
-    name: "CUSTO",
+    name: "Planejamento",
     layout: "/admin",
     path: "/custo",
     icon: (
@@ -33,7 +34,7 @@ const routes = [
   },
 
   //{
-  //   name: "TESTE",
+  //   name: "Test",
   //   layout: "/admin",
   //   path: "/custo",
   //   icon: (
@@ -63,13 +64,13 @@ const routes = [
   //   icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
   //   component: Profile,
   // },
-  // {
-  //   name: "Sign In",
-  //   layout: "/auth",
-  //   path: "/sign-in",
-  //   icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-  //   component: SignInCentered,
-  
+  {
+    name: "Logar",
+    layout: "/auth",
+    path: "/sign-in",
+    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit'/>,
+    component: SignInCentered,
+  }
 ];
 
 export default routes;

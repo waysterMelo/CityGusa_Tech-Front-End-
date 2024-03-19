@@ -1,0 +1,49 @@
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.backgroundImg {
+    background-image: url('../img/backgrounds/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* 100% da altura da viewport */
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+.card{
+    transform: scale(0.8);
+}
+
+.logo-tamanho{
+    width: 120px;
+    height: 120px;
+}
+
+
+.gradient-custom-2 {
+    background-image: linear-gradient(to right top, #eef800, #f1f900, #f4fb00, #f8fc00, #fbfd00,
+    #f6f80f, #f0f218, #ebed1f, #dde029, #cfd430, #c2c736, #b5bb3a);
+
+    border: solid black;
+}
+.tech{
+    color: darkblue;
+}
+
+@media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+    }
+}
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+}
+

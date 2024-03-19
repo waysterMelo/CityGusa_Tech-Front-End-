@@ -7,8 +7,6 @@ option {
   color: black;
 }
 
-
-
 @media screen and (min-width:1280px ) and (max-height: 950px){
     .sidebarResponsivoTela1366 {
         width: 110%;

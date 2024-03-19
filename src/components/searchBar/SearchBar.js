@@ -18,13 +18,15 @@ export function SearchBar(props) {
             format: 'DD/MM/YYYY', // Formato brasileiro
             lang: {
                 days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto',
+                    'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                 previousMonth: 'Mês anterior',
                 nextMonth: 'Próximo mês',
             },
             onSelect: (date) => {
                 // Função chamada quando uma data é selecionada
-                const formattedDate = format(date, 'dd/MM/yyyy'); // Formata a data no formato brasileiro
+                const formattedDate = format(date, 'dd/MM/yyyy'); // Formata a data no formato
+                // brasileiro
                 console.log(formattedDate);
                 // Você pode usar a data formatada como desejar
                 setSelectedDate(date);
@@ -36,11 +38,12 @@ export function SearchBar(props) {
         return () => {
             picker.destroy();
         };
-    }, [selectedDate]);//// Adiciona selectedDate como dependência para que o Litepicker seja atualizado quando a data mudar
+    }, [selectedDate]);//// Adiciona selectedDate como dependência para que o
+    // Litepicker seja atualizado quando a data mudar
 
     return (
         <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
-            <Input
+            <Input className={'react-calendar'}
                 ref={datePicker}
                 variant='search'
                 fontSize='md'

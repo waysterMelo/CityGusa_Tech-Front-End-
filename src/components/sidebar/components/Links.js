@@ -2,12 +2,13 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 // chakra imports
-import { Box, Flex, HStack, Text, useColorModeValue } from "@chakra-ui/react";
+import {Box, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text, useColorModeValue} from "@chakra-ui/react";
+import {ChevronDownIcon} from "@chakra-ui/icons";
 
 export function SidebarLinks(props) {
   //   Chakra color mode
   let location = useLocation();
-  let activeColor = useColorModeValue("yellow.700", "white");
+  let activeColor = useColorModeValue("black");
   let inactiveColor = useColorModeValue(
     "secondaryGray.600",
     "secondaryGray.600"
@@ -86,16 +87,17 @@ export function SidebarLinks(props) {
                       {route.name}
                     </Text>
                   </Flex>
-                  <Box
-                    h='36px'
-                    w='4px'
-                    bg={
-                      activeRoute(route.path.toLowerCase())
-                        ? brandColor
-                        : "transparent"
-                    }
-                    borderRadius='5px'
-                  />
+
+                  {/*<Box */}
+                  {/*  h='36px'*/}
+                  {/*  w='4px'*/}
+                  {/*  bg={*/}
+                  {/*    activeRoute(route.path.toLowerCase())*/}
+                  {/*      ? brandColor*/}
+                  {/*      : "transparent"*/}
+                  {/*  }*/}
+                  {/*  borderRadius='5px'*/}
+                  {/*/>*/}
                 </HStack>
               </Box>
             ) : (

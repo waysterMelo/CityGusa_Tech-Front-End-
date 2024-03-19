@@ -15,13 +15,13 @@ import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
 import GeneralInformation from "../profile/components/General";
 
-export default function UserReports() {
+export default function Dashboards() {
   return (
     <Box pt={{ base:"130px", md: "80px", xl:"80px"}} className={'otherSide'} bgColor={'transparent'}>
       <SimpleGrid
         columns={{ base:1, sm: 1, md:2, lg:4, xl:3}}
         gap='1%'
-        mt={'1%'}
+        mt={'2%'}
       >
           <Link to={'custo'}>
               <MiniStatistics
