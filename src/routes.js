@@ -1,69 +1,27 @@
 import React from "react";
 import {Icon} from "@chakra-ui/react";
 import { BsColumnsGap, BsCoin } from "react-icons/bs";
-// Admin Imports
-import forno from "views/admin/default";
+import Forno from "views/admin/default";
 import Custo from "views/admin/custo";
 import {MdLock} from "react-icons/md";
-
-// Auth Imports
 import SignInCentered from "views/auth/signIn";
 
 const routes = [
   {
-    name: "Dashboard",
+    name: "Forno",
     layout: "/admin",
     path: "/default",
     icon: <Icon as={BsColumnsGap} width='20px' height='20px'/>,
-    component: forno,
+    component: Forno,
    },
   {
-    name: "Planejamento",
-    layout: "/admin",
+    name:"Planejamento",
+    layout:"/admin",
     path: "/custo",
-    icon: (
-      <Icon
-        as={BsCoin}
-        width='20px'
-        height='20px'
-        color='inherit'
-      />
-    ),
+    icon: <Icon as={BsCoin} width='20px' height='20px' color='inherit' />,
     component: Custo,
     secondary: true,
   },
-
-  //{
-  //   name: "Test",
-  //   layout: "/admin",
-  //   path: "/custo",
-  //   icon: (
-  //       <Button
-  //           as={BsCoin}
-  //           width='20px'
-  //           height='20px'
-  //           color='inherit'
-  //       />
-  //   ),
-  //   component: Custo,
-  //   secondary: true,
-  // },
-
-
-  // {
-  //   name: "Data Tables",
-  //   layout: "/admin",
-  //   icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-  //   path: "/data-tables",
-  //   component: DataTables,
-  // },
-  // {
-  //   name: "Profile",
-  //   layout: "/admin",
-  //   path: "/profile",
-  //   icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  //   component: Profile,
-  // },
   {
     name: "Logar",
     layout: "/auth",
