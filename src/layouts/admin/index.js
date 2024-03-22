@@ -19,7 +19,7 @@ export default function Dashboard(props) {
 		return window.location.pathname !== '/admin/full-screen-maps';
 	};
 	const getActiveRoute = (routes) => {
-		let activeRoute = 'Default Brand Text';
+		let activeRoute = 'Citygusa-Tech';
 		for (let i = 0; i < routes.length; i++) {
 			if (routes[i].collapse) {
 				let collapseActiveRoute = getActiveRoute(routes[i].items);
@@ -108,7 +108,7 @@ export default function Dashboard(props) {
 						setToggleSidebar
 					}}>
 					<Sidebar routes={routes} display='none' {...rest} />
-					<Box
+					<Box bgColor={'gray.200'}
 						float='right'
 						minHeight='100vh'
 						height='100%'
@@ -139,7 +139,7 @@ export default function Dashboard(props) {
 							<Box mx='auto'  p={{ base:'20px', md:'30px' }} pe='20px' minH='100vh' pt='50px'>
 								<Switch>
 									{getRoutes(routes)}
-									<Redirect from='/' to='/admin/default' />
+									<Redirect from='/' to='/admin/home'/>
 								</Switch>
 							</Box>
 						) : null}

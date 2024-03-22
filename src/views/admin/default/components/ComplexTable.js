@@ -230,7 +230,7 @@ export default function ColumnsTable(props) {
             <DrawerContent>
               <DrawerCloseButton />
               <DrawerHeader>
-                <Text color={'white'} className={'text-center bg-secondary  p-4 h3'}>Alterações no leito de fusão</Text>
+                <Text bgColor={'facebook.400'} color={'white'} className={'text-center p-4 h3'}>Alterações no leito de fusão</Text>
               </DrawerHeader>
 
               <DrawerBody>

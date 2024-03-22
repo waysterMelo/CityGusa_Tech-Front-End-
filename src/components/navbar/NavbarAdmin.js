@@ -35,7 +35,7 @@ export default function AdminNavbar(props) {
 		<Box className={'breadcumbResponsive'}
 			position={navbarPosition}
 			boxShadow={navbarShadow}
-			bg={'gray.400'}
+			bg={'facebook.400'}
 			filter={navbarFilter}
 			backdropFilter={navbarBackdrop}
 			backgroundPosition='center'
@@ -72,19 +72,6 @@ export default function AdminNavbar(props) {
 				alignItems={{ xl: 'center' }}
 				mb={gap}>
 				<Box mb={{ sm: '8px', md: '0px' }}>
-					<Breadcrumb>
-						<BreadcrumbItem color={secondaryText} fontSize='sm' mb='5px'>
-							<BreadcrumbLink href='#' color={secondaryText}>
-								Página
-							</BreadcrumbLink>
-						</BreadcrumbItem>
-
-						<BreadcrumbItem color={secondaryText} fontSize='sm' mb='5px'>
-							<BreadcrumbLink color={secondaryText}>
-								{brandText}
-							</BreadcrumbLink>
-						</BreadcrumbItem>
-					</Breadcrumb>
 					{/* Here we create navbar brand, based on route name */}
 					<Link
 						color={mainText}

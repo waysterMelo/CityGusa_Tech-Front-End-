@@ -7,7 +7,7 @@ export function ItemContent(props) {
   const textColor = useColorModeValue("navy.700", "white");
   return (
     <>
-      <Flex
+      <Flex border={'2px'} borderColor={'red'}
         justify='center'
         align='center'
         borderRadius='16px'
