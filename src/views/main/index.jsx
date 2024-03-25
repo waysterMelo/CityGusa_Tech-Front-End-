@@ -45,10 +45,10 @@ export default function Home() {
                             direction={{ base: "column", md: "row"}}
                             align={{ base: "center", md: "center"}}>
                             <Text color={textColor} fontSize='2xl' ms='24px' fontWeight='700'>
-                                Setores
+
                             </Text>
                             <Flex
-                                align='center'>
+                                align='end'>
                                 <ChakraLink
                                     color={textColorBrand}
                                     fontWeight='bold'

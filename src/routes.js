@@ -9,7 +9,7 @@ import SignInCentered from "views/auth/signIn";
 import Dashboard from "views/admin/default";
 import Forno from "./assets/img/icons/forno.png"
 import IconBox from "./components/icons/IconBox";
-import CadastroLeitoDeFusao from "./views/main/CadastroLeitoDeFusao";
+import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
 
 const routes = [
     {
