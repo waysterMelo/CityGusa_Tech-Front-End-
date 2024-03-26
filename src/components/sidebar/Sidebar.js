@@ -44,7 +44,7 @@ function Sidebar(props) {
       <Box
        bgImage={imagem_de_fundo}
         transition={variantChange}
-        w='22%'
+        w='20%'
         h='100vh'
         m={sidebarMargins}
         minH='100%'

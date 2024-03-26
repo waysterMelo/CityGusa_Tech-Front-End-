@@ -12,8 +12,8 @@ export function SidebarLinks(props) {
       "white"
   );
   let activeIcon = useColorModeValue("white");
-  let textColor = useColorModeValue("secondaryGray.500", "white");
-  let brandColor = useColorModeValue("brand.500", "brand.400");
+  let textColor = useColorModeValue("whitesmoke");
+  let brandColor = useColorModeValue("brand.500");
 
   const { routes } = props;
 
@@ -117,7 +117,6 @@ export function SidebarLinks(props) {
                           }>
                         {route.name}
                       </Text>
-                      <Box h='36px' w='4px' bg='brand.400' borderRadius='5px' />
                     </HStack>
                   </Box>
               )}

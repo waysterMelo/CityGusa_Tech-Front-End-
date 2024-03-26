@@ -1,13 +1,29 @@
 import React from "react";
-import {Box, Flex, Grid, GridItem, Text, useColorModeValue,} from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    FormControl,
+    FormLabel,
+    Grid,
+    GridItem,
+    Input, InputGroup, InputLeftElement, Select,
+    Text,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
+import {format} from "date-fns";
+import {CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon} from "@chakra-ui/icons";
 
 export default function CadastroLeitoDeFusao() {
+    const current_date = new Date();
+    const current_hours = new Date();
+    const formatted_hours = format(current_hours, 'HH:mm');
+    const formatted_date = format(current_date, "dd/MM/yyyy");
     const textColor = useColorModeValue("black");
     const textColorBrand = useColorModeValue("blue");
     return (
-        <Box pt={{ base: "150px", md: "50px", xl: "80px" }} mx={{ base: "2%" }} width="100%">
+        <Box pt={{ base: "150px", md: "50px", xl: "80px" }} mx={{ base: "2%" }}>
             {/* Main Fields */}
             <Grid
                 mb='20px'
@@ -39,10 +55,72 @@ export default function CadastroLeitoDeFusao() {
                 </Flex>
             </Grid>
 
-            <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-                <GridItem colSpan={2} h='10' bg='tomato' />
-                <GridItem colStart={4} colEnd={6} h='10' bg='papayawhip' />
+            <Grid templateColumns='repeat(6, 1fr)' bg={'whiteAlpha.700'} px={'5'} pt={'7'} w={'96%'}>
+                <GridItem>
+                    <FormControl>
+                        <FormLabel>Data</FormLabel>
+                        <InputGroup>
+                            <InputLeftElement pointerEvents='none'>
+                                <CalendarIcon color='blue'/>
+                            </InputLeftElement>
+                            <Input value={formatted_date} pointerEvents={'none'}/>
+                        </InputGroup>
+                    </FormControl>
+                </GridItem>
+
+                <FormControl>
+                    <FormLabel>Horas</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement pointerEvents='none'>
+                            <ChevronRightIcon color='blue'/>
+                        </InputLeftElement>
+                        <Input w={'70%'} value={formatted_hours} />
+                    </InputGroup>
+                </FormControl>
             </Grid>
+
+            <Grid templateColumns='repeat(7, 1fr)' bg={'whiteAlpha.700'} px={'5'}  w={'96%'}>
+                <GridItem colSpan={1} mt={2} mb={5}>
+                    <FormControl>
+                        <FormLabel>Carga</FormLabel>
+                        <InputGroup>
+                            <InputLeftElement pointerEvents='none'>
+                                <PlusSquareIcon color='blue'/>
+                            </InputLeftElement>
+                            <Input  w={'70%'} type={'number'} className={'text-center'}/>
+                        </InputGroup>
+                    </FormControl>
+                </GridItem>
+            </Grid>
+            <Grid templateColumns='repeat(7, 1fr)' gab={2} bg={'whiteAlpha.700'} px={'5'}  w={'96%'} pb={'10'}>
+                <GridItem colSpan={2}>
+                    <FormControl>
+                        <FormLabel>Minério</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement pointerEvents='none'>
+                            <DragHandleIcon color='blue'/>
+                        </InputLeftElement>
+                        <Select className={'text-center'}>
+                            <option value="opcao1">Extrativa</option>
+                            <option value="opcao2">Comisa</option>
+                            <option value="opcao3">Bassari</option>
+                        </Select>
+                    </InputGroup>
+                    </FormControl>
+                </GridItem>
+                <GridItem pl={1}>
+                    <FormControl>
+                        <FormLabel>Quantidade</FormLabel>
+                        <InputGroup>
+                            <InputLeftElement pointerEvents='none'>
+                                <ChevronRightIcon color='blue'/>
+                            </InputLeftElement>
+                            <Input  w={'100%'} type={'number'} className={'text-center'}/>
+                        </InputGroup>
+                    </FormControl>
+                </GridItem>
+            </Grid>
+
 
         </Box>
     );
