@@ -6,8 +6,8 @@ import {
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement, Select,
-    Text,
+    Input, InputGroup, InputLeftElement, Select, Table, TableContainer, Tbody, Td,
+    Text, Th, Thead, Tr,
     useColorModeValue,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -55,7 +55,7 @@ export default function CadastroLeitoDeFusao() {
                 </Flex>
             </Grid>
 
-            <Grid templateColumns='repeat(6, 1fr)' bg={'whiteAlpha.700'} px={'5'} pt={'7'} w={'96%'}>
+            <Grid templateColumns='repeat(6, 1fr)' mx={'auto'} bg={'whiteAlpha.800'} px={'5'} pt={'7'} w={'96%'}>
                 <GridItem>
                     <FormControl>
                         <FormLabel>Data</FormLabel>
@@ -78,8 +78,7 @@ export default function CadastroLeitoDeFusao() {
                     </InputGroup>
                 </FormControl>
             </Grid>
-
-            <Grid templateColumns='repeat(7, 1fr)' bg={'whiteAlpha.700'} px={'5'}  w={'96%'}>
+            <Grid templateColumns='repeat(7, 1fr)' mx={'auto'} bg={'whiteAlpha.800'} px={'5'}  w={'96%'}>
                 <GridItem colSpan={1} mt={2} mb={5}>
                     <FormControl>
                         <FormLabel>Carga</FormLabel>
@@ -92,7 +91,7 @@ export default function CadastroLeitoDeFusao() {
                     </FormControl>
                 </GridItem>
             </Grid>
-            <Grid templateColumns='repeat(7, 1fr)' gab={2} bg={'whiteAlpha.700'} px={'5'}  w={'96%'} pb={'10'}>
+            <Grid templateColumns='repeat(7, 1fr)'  mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}  w={'96%'} pb={'10'}>
                 <GridItem colSpan={2}>
                     <FormControl>
                         <FormLabel>Minério</FormLabel>
@@ -119,6 +118,36 @@ export default function CadastroLeitoDeFusao() {
                         </InputGroup>
                     </FormControl>
                 </GridItem>
+            </Grid>
+            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'} rounded={'md'} >
+                <TableContainer>
+                    <Table size='sm' variant={'striped'}>
+                        <Thead>
+                            <Tr>
+                                <Th>Nome</Th>
+                                <Th>Carga</Th>
+                                <Th>Quantidade</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                        </Tbody>
+                    </Table>
+                </TableContainer>
             </Grid>
 
 
