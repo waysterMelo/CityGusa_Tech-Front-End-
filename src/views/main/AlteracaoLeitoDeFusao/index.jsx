@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Box,
+    Box, Button,
     Flex,
     FormControl,
     FormLabel,
@@ -8,7 +8,7 @@ import {
     GridItem,
     Input, InputGroup, InputLeftElement, Select, Table, TableContainer, Tbody, Td,
     Text, Th, Thead, Tr,
-    useColorModeValue,
+    useColorModeValue, WrapItem
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
@@ -114,12 +114,21 @@ export default function CadastroLeitoDeFusao() {
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
                             </InputLeftElement>
-                            <Input  w={'100%'} type={'number'} className={'text-center'}/>
+                            <Input w={'100%'} type={'number'} className={'text-center'}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
+                <Flex align={'end'} marginLeft={'10%'}>
+                    <WrapItem>
+                        <Button colorScheme='whatsapp'>registrar</Button>
+                    </WrapItem>
+                </Flex>
             </Grid>
-            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'} rounded={'md'} >
+
+
+
+            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'}
+                  rounded={'md'} my={'2'} >
                 <TableContainer>
                     <Table size='sm' variant={'striped'}>
                         <Thead>
@@ -150,6 +159,68 @@ export default function CadastroLeitoDeFusao() {
                 </TableContainer>
             </Grid>
 
+            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'}
+                  rounded={'md'} mb={'2'} >
+                <TableContainer>
+                    <Table size='sm' variant={'striped'}>
+                        <Thead>
+                            <Tr>
+                                <Th>Nome</Th>
+                                <Th>Carga</Th>
+                                <Th>Quantidade</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+            </Grid>
+            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'}
+                  rounded={'md'} >
+                <TableContainer>
+                    <Table size='sm' variant={'striped'}>
+                        <Thead>
+                            <Tr>
+                                <Th>Nome</Th>
+                                <Th>Carga</Th>
+                                <Th>Quantidade</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                            <Tr>
+                                <Td>Extrativa</Td>
+                                <Td>02</Td>
+                                <Td>250.40</Td>
+                            </Tr>
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+            </Grid>
 
         </Box>
     );
