@@ -35,7 +35,6 @@ export default function ColumnsTable(props) {
       w='100%'
       px='0px'
       overflowX={{sm: "scroll", lg: "hidden"}}>
-     
       <Flex px='20px' py='3' justify='space-between' align='center'>
         <Text
           color={'blue.900'}
@@ -47,7 +46,7 @@ export default function ColumnsTable(props) {
       </Flex>
 
       <Box>
-        <TableContainer p={'5'}>
+        <TableContainer p={'2'}>
           <Table className={'table table-striped-columns'} variant={'striped'} size='sm'>
             <Thead bgColor={'gray.400'}>
               <Tr>

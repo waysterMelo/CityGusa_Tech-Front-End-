@@ -17,14 +17,13 @@ export default function Default(props) {
   const textColorSecondary = "black";
 
   return (
-    <Card py='30px' bg={'gray.200'} border={'1px'} borderColor={'black'}>
+    <Card py='30px' bg={'white'}  my={'2'} w={'85%'} mx={'auto'}>
       <Flex
         my='auto'
         h='100%'
         align={{ base: "center", xl: "center" }}
         justify={{ base: "center", xl: "center" }}>
         {startContent}
-
         <Stat my='auto' ms={startContent ? "18px" : "0px"}>
           <StatLabel
             lineHeight='100%'
@@ -34,7 +33,6 @@ export default function Default(props) {
             }}>
             {name}
           </StatLabel>
-          
           <StatNumber
             color={textColor}
             fontSize={{
