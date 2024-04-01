@@ -7,14 +7,13 @@ import Card from "components/card/Card.js";
 import {Button} from "react-bootstrap";
 export default function NFT(props) {
   const { image, name, titulo, bidders, responsavel } = props;
- // const textColor = useColorModeValue("navy.700", "white");
 
   return (
     <Card p='20px'>
       <Flex direction={{ base: "column" }} justify='center'>
 
         <Box mb={{ base: "20px", "2xl": "20px" }} position='relative'>
-          <Image style={{ height: '200px'}}
+          <Image style={{ height: '200px', width:'100%'}}
             className={'img-fluid'}
             src={image}
             borderRadius='20px'

@@ -41,10 +41,10 @@ export default function CadastroLeitoDeFusao() {
     const textColorBrand = useColorModeValue("blue");
 
     return (
-        <Box pt={{ base: "150px", md: "50px", xl: "80px" }} mx={{ base: "2%" }}>
+        <Box pt={{ base: "90px", md: "50px", xl: "8%" }} mx={{ base: "2%" }}>
             {/* Main Fields */}
             <Grid
-                mb='20px'
+                mb='-1%'
                 gridTemplateColumns={{ xl: "repeat(1, 1fr)", "2xl": "1fr 1" }}
                 gap={{ base: "20px", xl: "10px" }}
                 display={{ base: "block", xl: "grid" }}>

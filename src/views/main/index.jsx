@@ -54,7 +54,7 @@ export default function Home() {
                         </Flex>
 
 
-                        <SimpleGrid columns={{ base: 1, md: 3 }} gap='2%'>
+                        <SimpleGrid columns={{ base: 1, md: 3 }} gap='3%'>
                             <NFT
                                 name='Alterar leito de fusão'
                                 titulo='Responsável'

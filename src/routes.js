@@ -5,10 +5,9 @@ import { RxDashboard } from "react-icons/rx";
 import Custo from "views/admin/custo";
 import Home from "views/main";
 import {MdLock} from "react-icons/md";
+import { BsBricks } from "react-icons/bs";
 import SignInCentered from "views/auth/signIn";
 import Dashboard from "views/admin/default";
-import Forno from "./assets/img/icons/forno.png"
-import IconBox from "./components/icons/IconBox";
 import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
 
 const routes = [
@@ -23,17 +22,7 @@ const routes = [
     name: "Forno",
     layout: "/admin",
     path: "/home",
-    icon:  <IconBox
-        w='20px'
-        h='20px'
-        img={
-            <img
-                src={Forno}
-                alt='forno'
-                style={{ width: "100%", height: "100%" }}
-            />
-        }
-    />,
+    icon: <Icon as={ BsBricks } width={'20px'} height={'20px'} />,
     component: Home,
    },
   {
