@@ -1,33 +1,24 @@
-// Chakra imports
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
-// Custom components
-import Card from "components/card/Card.js";
+
 // Assets
 import React from "react";
 import {Link as ReactRouterLink} from "react-router-dom";
-import {Link as ChakraLink} from "@chakra-ui/react";
+import {Avatar, AvatarGroup, Box, Flex, Image, Link, Text} from "@chakra-ui/react";
+import Card from "components/card/Card.js";
+import {Button} from "react-bootstrap";
 export default function NFT(props) {
-  const { image, name, author } = props;
-  const textColor = useColorModeValue("navy.700", "white");
+  const { image, name, titulo, bidders, responsavel } = props;
+ // const textColor = useColorModeValue("navy.700", "white");
 
   return (
     <Card p='20px'>
       <Flex direction={{ base: "column" }} justify='center'>
+
         <Box mb={{ base: "20px", "2xl": "20px" }} position='relative'>
-          <Image
+          <Image style={{ height: '200px'}}
+            className={'img-fluid'}
             src={image}
-            w={{ base: "100%", "3xl": "100%" }}
-            h={{ base: "100%", "3xl": "100%" }}
             borderRadius='20px'
           />
-
         </Box>
         <Flex flexDirection='column' justify='space-between' h='100%'>
           <Flex
@@ -42,7 +33,7 @@ export default function NFT(props) {
             mb='auto'>
             <Flex direction='column'>
               <Text
-                color={textColor}
+                color={'black'}
                 fontSize={{
                   base: "xl",
                   md: "lg",
@@ -57,52 +48,46 @@ export default function NFT(props) {
                 {name}
               </Text>
               <Text
-                  align={'end'}
+                align={'start'}
                 color='secondaryGray.600'
                 fontSize={{
                   base: "sm",
                 }}
                 fontWeight='400'
                 me='14px'>
-                {author}
+                {titulo}
               </Text>
             </Flex>
+              <AvatarGroup
+                  max={3}
+                  color={'black'}
+                  size='sm'
+                  mt={{
+                      base: "0px",
+                      md: "10px",
+                      lg: "0px",
+                      xl: "10px",
+                      "2xl": "0px",
+                  }}
+                  fontSize='12px'>
+                  {bidders.map((avt, key) => (
+                      <Avatar key={key} src={avt} />
+                  ))}
+
+                  <Text fontWeight='700' fontSize='sm' color={'blue'} mx={'6%'}>
+                    {responsavel}
+                  </Text>
+              </AvatarGroup>
           </Flex>
-          <Flex
-            align='center'
-            justify='space-between'
-            direction={{
-              base: "row",
-              md: "column",
-              lg: "row",
-              xl: "column",
-              "2xl": "row",
-            }}
-            mt='25px'>
-          <ChakraLink
+          <Button variant={'outline-primary'} className={'mx-auto text-dark fw-bold'} style={{width: '40%', marginTop:'2%'}}
               as={ReactRouterLink}
-              to={'/admin/leito'}
-              mt={{
-                base: "0px",
-                md: "10px",
-                lg: "0px",
-                xl: "10px",
-                "2xl": "0px",
-              }}>
-              <Button
-                variant='darkBrand'
-                color='white'
-                fontSize='sm'
-                fontWeight='500'
-                borderRadius='70px'
-                px='24px'
-                py='5px'>
-                acessar
-              </Button>
-          </ChakraLink>
+              to={'/admin/leito'}>
+              acessar
+          </Button>
+
           </Flex>
         </Flex>
-      </Flex>
     </Card>
+
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     Box, Button,
     Flex,
@@ -17,11 +17,29 @@ import {CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon} from "@c
 
 export default function CadastroLeitoDeFusao() {
     const current_date = new Date();
-    const current_hours = new Date();
-    const formatted_hours = format(current_hours, 'HH:mm');
+
     const formatted_date = format(current_date, "dd/MM/yyyy");
+
+    const [currentHour, setCurrentHours] = useState('');
+
+    useEffect(() => {
+        const getCurrentHour = () => {
+            const now = new Date();
+            const formatted_hours = format(now, 'HH:mm');
+            setCurrentHours(formatted_hours);
+        };
+        // Atualiza a hora atual a cada segundo
+        const intervalId = setInterval(getCurrentHour, 1000);
+
+        // Limpa o intervalo quando o componente é desmontado para evitar vazamentos de memória
+        return () => clearInterval(intervalId);
+
+    }, []);
+
+
     const textColor = useColorModeValue("black");
     const textColorBrand = useColorModeValue("blue");
+
     return (
         <Box pt={{ base: "150px", md: "50px", xl: "80px" }} mx={{ base: "2%" }}>
             {/* Main Fields */}
@@ -71,10 +89,10 @@ export default function CadastroLeitoDeFusao() {
                 <FormControl>
                     <FormLabel>Horas</FormLabel>
                     <InputGroup>
-                        <InputLeftElement pointerEvents='none'>
+                        <InputLeftElement>
                             <ChevronRightIcon color='blue'/>
                         </InputLeftElement>
-                        <Input w={'70%'} value={formatted_hours} />
+                        <Input w={'70%'} value={currentHour}/>
                     </InputGroup>
                 </FormControl>
             </Grid>
