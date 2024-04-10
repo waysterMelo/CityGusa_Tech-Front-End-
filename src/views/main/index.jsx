@@ -11,6 +11,7 @@ import {Link as ChakraLink} from "@chakra-ui/react";
 import NFT from "components/card/NFT";
 import Leito from "assets/img/backgrounds/leito.png";
 import Minerios_img from "assets/img/backgrounds/analiseDeMinerios.jpg";
+import Escoria_img from "assets/img/backgrounds/escoria_granulada.png";
 export default function Home() {
     // Chakra Color Mode
     const textColor = useColorModeValue("black");
@@ -75,6 +76,17 @@ export default function Home() {
                                 responsavel={'Jose Ronaldo'}
                                 image={Minerios_img}
                                 chamar_rota={'/admin/analise-minerio'}
+                            />
+
+                            <NFT
+                                name='Análise Escória'
+                                titulo='Responsável'
+                                bidders={[
+                                    Avatar
+                                ]}
+                                responsavel={'Jose Ronaldo'}
+                                image={Escoria_img}
+                                chamar_rota={'/admin/analise-escoria'}
                             />
                         </SimpleGrid>
                         <SimpleGrid
