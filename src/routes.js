@@ -8,6 +8,7 @@ import {MdLock} from "react-icons/md";
 import { BsBricks } from "react-icons/bs";
 import SignInCentered from "views/auth/signIn";
 import Dashboard from "views/admin/default";
+import AnaliseQuimicaDeMinerio from "./views/main/AnaliseQuimicaDeMinerio";
 import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
 
 const routes = [
@@ -44,8 +45,15 @@ const routes = [
         layout: "/admin",
         path: "/leito",
         component: CadastroLeitoDeFusao,
-        name: null
+        name: null,
+    }
+    ,
+    {
+        layout: "/admin",
+        path: "/analise-Minerio",
+        component: AnaliseQuimicaDeMinerio,
+        name: null,
     }
 ];
 
-export default routes;
+export default routes

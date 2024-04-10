@@ -78,10 +78,10 @@ export default function CadastroLeitoDeFusao() {
                     <FormControl>
                         <FormLabel>Data</FormLabel>
                         <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
+                            <InputLeftElement>
                                 <CalendarIcon color='blue'/>
                             </InputLeftElement>
-                            <Input value={formatted_date} pointerEvents={'none'}/>
+                            <Input fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>

@@ -2,11 +2,11 @@
 // Assets
 import React from "react";
 import {Link as ReactRouterLink} from "react-router-dom";
-import {Avatar, AvatarGroup, Box, Flex, Image, Link, Text} from "@chakra-ui/react";
+import {Avatar, AvatarGroup, Box, Flex, Image, Text} from "@chakra-ui/react";
 import Card from "components/card/Card.js";
 import {Button} from "react-bootstrap";
 export default function NFT(props) {
-  const { image, name, titulo, bidders, responsavel } = props;
+  const { image, name, titulo, bidders, responsavel, chamar_rota } = props;
 
   return (
     <Card p='20px'>
@@ -80,7 +80,7 @@ export default function NFT(props) {
           </Flex>
           <Button variant={'outline-primary'} className={'mx-auto text-dark fw-bold'} style={{width: '40%', marginTop:'2%'}}
               as={ReactRouterLink}
-              to={'/admin/leito'}>
+              to={chamar_rota}>
               acessar
           </Button>
 

@@ -63,6 +63,7 @@ export default function Home() {
                                 ]}
                                 responsavel={'Supervisor'}
                                 image={Leito}
+                                chamar_rota={'/admin/leito'}
                             />
 
                             <NFT
@@ -73,19 +74,13 @@ export default function Home() {
                                 ]}
                                 responsavel={'Jose Ronaldo'}
                                 image={Minerios_img}
+                                chamar_rota={'/admin/analise-minerio'}
                             />
-
-
-
                         </SimpleGrid>
-
-
-
                         <SimpleGrid
                             columns={{ base: 1, md: 3 }}
                             gap='20px'
                             mb={{ base: "20px", xl: "0px" }}>
-
                         </SimpleGrid>
                     </Flex>
                 </Flex>
