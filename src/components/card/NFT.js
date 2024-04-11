@@ -1,5 +1,3 @@
-
-// Assets
 import React from "react";
 import {Link as ReactRouterLink} from "react-router-dom";
 import {Avatar, AvatarGroup, Box, Flex, Image, Text} from "@chakra-ui/react";
@@ -14,7 +12,7 @@ export default function NFT(props) {
 
         <Box mb={{ base: "20px", "2xl": "20px" }} position='relative'>
           <Image style={{ height: '200px', width:'100%'}}
-            className={'img-fluid'}
+            className={'img-thumbnail'}
             src={image}
             borderRadius='20px'
           />

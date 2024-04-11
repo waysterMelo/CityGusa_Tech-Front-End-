@@ -10,6 +10,9 @@ import SignInCentered from "views/auth/signIn";
 import Dashboard from "views/admin/default";
 import AnaliseQuimicaDeMinerio from "./views/main/AnaliseQuimicaDeMinerio";
 import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
+import AnaliseGusa from "./views/main/AnaliseGusa";
+import AnaliseEscoria from "./views/main/AnaliseEscoria";
+import Pessoal from "./views/main/FrequenciaPessoal";
 
 const routes = [
     {
@@ -50,9 +53,27 @@ const routes = [
     ,
     {
         layout: "/admin",
-        path: "/analise-Minerio",
+        path: "/analise-minerio",
         component: AnaliseQuimicaDeMinerio,
         name: null,
+    }
+    ,{
+    layout: "/admin",
+        path:"/analise-gusa",
+        component:AnaliseGusa,
+        name:""
+    },
+    {
+        layout: "/admin",
+        path:"/analise-escoria",
+        component: AnaliseEscoria,
+        name:""
+    },
+    {
+        layout: "/admin",
+        path:"/pessoal",
+        component: Pessoal,
+        name:""
     }
 ];
 

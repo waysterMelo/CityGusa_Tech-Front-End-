@@ -5,13 +5,15 @@ import {
     Grid,
     Text,
     useColorModeValue,
-    SimpleGrid, Avatar
+    SimpleGrid, Avatar, Link
 } from "@chakra-ui/react";
-import {Link as ChakraLink} from "@chakra-ui/react";
+import {Link as ReactLink} from "react-router-dom";
+
 import NFT from "components/card/NFT";
 import Leito from "assets/img/backgrounds/leito.png";
 import Minerios_img from "assets/img/backgrounds/analiseDeMinerios.jpg";
 import Escoria_img from "assets/img/backgrounds/escoria_granulada.png";
+import Gusa_Img from "assets/img/backgrounds/gusa.jpg";
 export default function Home() {
     // Chakra Color Mode
     const textColor = useColorModeValue("black");
@@ -41,16 +43,14 @@ export default function Home() {
                             </Text>
                             <Flex
                                 align='end'>
-                                <ChakraLink
+                                <Link
+                                    as={ReactLink}
                                     color={textColorBrand}
                                     fontWeight='bold'
                                     me={{ base: "34px", md: "44px" }}
-                                    to={''}>
+                                    to={'/admin/pessoal'}>
                                     Frequência pessoal
-                                </ChakraLink>
-                                <ChakraLink color={textColorBrand} fontWeight='bold' to={''}>
-                                    Análise escória
-                                </ChakraLink>
+                                </Link>
                             </Flex>
                         </Flex>
 
@@ -88,6 +88,18 @@ export default function Home() {
                                 image={Escoria_img}
                                 chamar_rota={'/admin/analise-escoria'}
                             />
+
+                            <NFT
+                                name='Análise Gusa'
+                                titulo='Responsável'
+                                bidders={[
+                                    Avatar
+                                ]}
+                                responsavel={'Supervisor'}
+                                image={Gusa_Img}
+                                chamar_rota={'/admin/analise-gusa'}
+                            />
+
                         </SimpleGrid>
                         <SimpleGrid
                             columns={{ base: 1, md: 3 }}

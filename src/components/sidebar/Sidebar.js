@@ -25,7 +25,7 @@ import PropTypes from "prop-types";
 // Assets
 import { IoMenuOutline } from "react-icons/io5";
 
-import imagem_de_fundo from "assets/img/1.jpg"; 
+import banner from "assets/img/nfts/NftBanner1.png";
 
 function Sidebar(props) {
   const { routes } = props;
@@ -42,7 +42,8 @@ function Sidebar(props) {
   return (
     <Box display={{ sm: "none", xl: "block" }} className={'sidebarResponsivoTela1366'} bgColor={'transparent'}>
       <Box
-       bgImage={imagem_de_fundo}
+       bgImage={banner}
+       bgSize={'cover'}
         transition={variantChange}
         w='20%'
         h='100vh'
