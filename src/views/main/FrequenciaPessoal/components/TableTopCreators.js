@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Flex,
-  Progress,
   Table,
   Tbody,
   Td,
@@ -46,7 +45,7 @@ function TopCreatorTable(props) {
 
   return (
     <>
-      <Flex className={'bg-white mt-1 p-5'}
+      <Flex className={'bg-white mt-1 p-1'}
         direction='column'
         w='100%'
         overflowX={{ sm: "scroll", lg: "hidden" }}>
@@ -58,14 +57,14 @@ function TopCreatorTable(props) {
           pb='20px'
           mb='10px'
           boxShadow='0px 40px 58px -20px rgba(112, 144, 176, 0.26)'>
-          <Text className={'mt-5'} color={textColor} fontSize='xl' fontWeight='600'>
+          <Text className={'mt-4'} color={textColor} fontSize='xl' fontWeight='600'>
             Funcionários presentes
           </Text>
           <Button variant='solid' colorScheme={'blue'}>
             <CheckCircleIcon/>
           </Button>
         </Flex>
-        <Table {...getTableProps()} variant='simple' color='gray.500'>
+        <Table {...getTableProps()} variant='simple' color='gray.900'>
           <Thead>
             {headerGroups.map((headerGroup, index) => (
               <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
@@ -93,7 +92,7 @@ function TopCreatorTable(props) {
               prepareRow(row);
               return (
                 <Tr {...row.getRowProps()} key={index}>
-                  {row.cells.map((cell, index) => {
+                  {row.cells.map((cell,index) => {
                     let data = "";
                     if (cell.column.Header === "Nome") {
                       data = (
@@ -124,11 +123,12 @@ function TopCreatorTable(props) {
                     } else if (cell.column.Header === "Função") {
                       data = (
                         <Box>
-                          <Progress
-                            variant='table'
-                            colorScheme='brandScheme'
-                            value={cell.value}
-                          />
+                          <Text
+                              color={textColorSecondary}
+                              fontSize='sm'
+                              fontWeight='500'>
+                            {cell.value}
+                          </Text>
                         </Box>
                       );
                     }

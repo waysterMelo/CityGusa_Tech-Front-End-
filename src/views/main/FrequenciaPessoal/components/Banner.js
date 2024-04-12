@@ -1,14 +1,11 @@
 import React from "react";
-// Chakra imports
-import { Button, Flex, Link, Text } from "@chakra-ui/react";
-// Assets
-import banner from "assets/img/nfts/NftBanner1.png";
+import { Button, Flex, Text } from "@chakra-ui/react";
+import banner from "assets/img/nfts/Nft5.png";
+import {Link as ChakraLink} from "@chakra-ui/react";
+import {Link as ReactRouterLink} from "react-router-dom";
+
 export default function Banner() {
-
-
-
-
-  // Chakra Color Mode
+    // Chakra Color Mode
   return (
     <Flex
         bgImage={banner}
@@ -32,8 +29,8 @@ export default function Banner() {
           "3xl": "42%",
         }}
         fontWeight='700'
-        lineHeight={{ base: "32px", md: "42px" }}>
-        Discover, collect, and sell extraordinary NFTs
+        lineHeight={{ base: "32px", md: "42px"}}>
+          Gerencie, controle
       </Text>
       <Text
         fontSize='md'
@@ -49,8 +46,7 @@ export default function Banner() {
         fontWeight='500'
         mb='40px'
         lineHeight='28px'>
-        Enter in this creative world. Discover now the latest NFTs or start
-        creating your own!
+          e acompanhe a frequência dos funcionários.
       </Text>
       <Flex align='center'>
         <Button
@@ -64,14 +60,24 @@ export default function Banner() {
           py='20px'
           px='27'
           me='38px'>
-          Discover now
+          comunicar falta
         </Button>
-        <Link>
-          <Text color='white' fontSize='sm' fontWeight='500'>
-            Watch video
-          </Text>
-        </Link>
+          <ChakraLink
+              bg='transparent'
+              color='white'
+              _hover={{ bg: "whiteAlpha.900", color: "black"}}
+              _active={{ bg: "white" }}
+              _focus={{ bg: "white" }}
+              rounded={'30rem'}
+              fontWeight='500'
+              fontSize='14px'
+              py='2%'
+              px='27'
+              me='38px' as={ReactRouterLink} to={'/admin/home'} >
+              voltar
+          </ChakraLink>
       </Flex>
     </Flex>
   );
 }
+

@@ -8,23 +8,15 @@ import { tableColumnsTopCreators } from "./variables/tableColumnsTopCreators";
 export default function FrequenciaPessoal() {
 
     return (
-        <Box pt={{ base: "", md: "80px", xl: "40px" }}>
+        <Box pt={{ base: "", md: "80px", xl: "1%" }}>
             {/* Main Fields */}
             <Grid
-                mb='20px'
-                gridTemplateColumns={'repeat(2, 1fr)'}
+                gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <GridItem w='120%' h={'-10'}>
                     <Banner/>
-                </GridItem>
-                <GridItem w='100%'>
-                    <TableTopCreators columnsSize={'md'} tableData={tableDataTopCreators}
-                                      columnsData={tableColumnsTopCreators} />
-                </GridItem>
-
             </Grid>
-            {/* Delete Product */}
+
         </Box>
     );
 }
