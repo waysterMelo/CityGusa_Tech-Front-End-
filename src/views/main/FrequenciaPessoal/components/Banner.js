@@ -47,8 +47,8 @@ export default function Banner() {
         lineHeight='28px'>
           e acompanhe a frequência dos funcionários.
       </Text>
-      <Flex align='center' className={"btn btn-danger"}>
-        <ChakraLink
+      <Flex align='center'>
+        <ChakraLink className={'btn badge'}
           bg='white'
           color='black'
           _hover={{ bg: "whiteAlpha.900" }}
@@ -57,7 +57,7 @@ export default function Banner() {
           fontWeight='500'
           fontSize='14px'
           py='20px'
-          px='27'
+          px='20px'
           me='38px'
           href="mailto:seuemail@example.com">
           comunicar falta por email
