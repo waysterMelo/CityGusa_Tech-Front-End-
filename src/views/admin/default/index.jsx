@@ -23,7 +23,7 @@ export default function Dashboards() {
         gap='1%'
         mt={'2%'}
       >
-          <Link to={'custo'}>
+          <Link to={'consumo-minerios'}>
               <MiniStatistics
                   startContent={
                       <IconBox
@@ -43,8 +43,8 @@ export default function Dashboards() {
               />
           </Link>
 
-          <Link>
-        <MiniStatistics
+          <Link to={'consumo-carvao'}>
+            <MiniStatistics
           startContent={
             <IconBox
               w='20px'
@@ -63,8 +63,8 @@ export default function Dashboards() {
         />
           </Link>
 
-          <Link>
-       <MiniStatistics
+          <Link to={'temperaturas'}>
+            <MiniStatistics
         startContent= {
           <IconBox
             w='20px'
@@ -83,8 +83,8 @@ export default function Dashboards() {
       />
           </Link>
 
-          <Link>
-            <MiniStatistics
+          <Link to={'escoria'}>
+             <MiniStatistics
             startContent={
             <IconBox
               w='20px'

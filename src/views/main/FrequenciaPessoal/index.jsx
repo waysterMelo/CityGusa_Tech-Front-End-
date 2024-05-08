@@ -1,9 +1,9 @@
 import React from "react";
-import {Box, Grid, GridItem} from "@chakra-ui/react";
+import {Box, Grid, SimpleGrid} from "@chakra-ui/react";
 import Banner from "./components/Banner";
 import TableTopCreators from "./components/TableTopCreators";
-import tableDataTopCreators from "./variables/tableDataTopCreators.json";
-import { tableColumnsTopCreators } from "./variables/tableColumnsTopCreators";
+import {tableColumnsTopCreators} from "./variables/tableColumnsTopCreators";
+import tableDataTopCreators from "./variables/tableDataTopCreators";
 
 export default function FrequenciaPessoal() {
 
@@ -14,9 +14,12 @@ export default function FrequenciaPessoal() {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                    <Banner/>
+                <Banner/>
             </Grid>
 
+            <SimpleGrid columns={1} >
+                  <TableTopCreators tableData={tableDataTopCreators} columnsData={tableColumnsTopCreators} />
+            </SimpleGrid>
         </Box>
     );
 }

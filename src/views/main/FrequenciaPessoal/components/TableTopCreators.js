@@ -58,7 +58,7 @@ function TopCreatorTable(props) {
           mb='10px'
           boxShadow='0px 40px 58px -20px rgba(112, 144, 176, 0.26)'>
           <Text className={'mt-4'} color={textColor} fontSize='xl' fontWeight='600'>
-            Funcionários presentes
+            Funcionários do turno
           </Text>
           <Button variant='solid' colorScheme={'blue'}>
             <CheckCircleIcon/>
@@ -114,7 +114,7 @@ function TopCreatorTable(props) {
                     } else if (cell.column.Header === "Idade") {
                       data = (
                         <Text
-                          color={textColorSecondary}
+                          color={'black'}
                           fontSize='sm'
                           fontWeight='500'>
                           {cell.value}
@@ -124,12 +124,23 @@ function TopCreatorTable(props) {
                       data = (
                         <Box>
                           <Text
-                              color={textColorSecondary}
+                              color={'black'}
                               fontSize='sm'
                               fontWeight='500'>
                             {cell.value}
                           </Text>
                         </Box>
+                      );
+                    } else if (cell.column.Header === "Situação") {
+                      data = (
+                          <Box>
+                            <Text
+                                color={'black'}
+                                fontSize='sm'
+                                fontWeight='extrabold'>
+                              {cell.value}
+                            </Text>
+                          </Box>
                       );
                     }
                     return (

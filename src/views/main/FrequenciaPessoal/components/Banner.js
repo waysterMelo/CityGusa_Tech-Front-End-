@@ -1,20 +1,19 @@
 import React from "react";
-import { Button, Flex, Text } from "@chakra-ui/react";
-import banner from "assets/img/nfts/Nft5.png";
+import { Flex, Text} from "@chakra-ui/react";
+import banner from "assets/img/1.jpg";
 import {Link as ChakraLink} from "@chakra-ui/react";
 import {Link as ReactRouterLink} from "react-router-dom";
 
 export default function Banner() {
-    // Chakra Color Mode
+
   return (
     <Flex
         bgImage={banner}
         bgSize={'cover'}
       direction='column'
-      //className={'backgroundGradientBlue'}
       py={{ base: "30px", md: "56px" }}
       px={{ base: "30px", md: "64px" }}
-      my={{md: "8%"}}
+      mt={{md: "8%"}} mb={{md: "2%"}}
       borderRadius='30px'>
       <Text
         fontSize={{ base: "24px", md: "34px" }}
@@ -48,8 +47,8 @@ export default function Banner() {
         lineHeight='28px'>
           e acompanhe a frequência dos funcionários.
       </Text>
-      <Flex align='center'>
-        <Button
+      <Flex align='center' className={"btn btn-danger"}>
+        <ChakraLink
           bg='white'
           color='black'
           _hover={{ bg: "whiteAlpha.900" }}
@@ -59,9 +58,10 @@ export default function Banner() {
           fontSize='14px'
           py='20px'
           px='27'
-          me='38px'>
-          comunicar falta
-        </Button>
+          me='38px'
+          href="mailto:seuemail@example.com">
+          comunicar falta por email
+        </ChakraLink>
           <ChakraLink
               bg='transparent'
               color='white'

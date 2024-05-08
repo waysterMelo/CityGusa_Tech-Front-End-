@@ -11,4 +11,8 @@ export const tableColumnsTopCreators = [
     Header: "Função",
     accessor: "funcao",
   },
+  {
+    Header: "Situação",
+    accessor: "situacao",
+  }
 ];
