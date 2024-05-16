@@ -21,4 +21,6 @@ ReactDOM.render(
 		</React.StrictMode>
 	</ChakraProvider>,
 	document.getElementById('root')
+	//conectar com o ban
+
 );
