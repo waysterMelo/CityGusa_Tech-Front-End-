@@ -1,9 +1,6 @@
 import React from "react";
 import {Box, Grid, SimpleGrid} from "@chakra-ui/react";
-import Banner from "./components/Banner";
-import TableTopCreators from "./components/TableTopCreators";
-import {tableColumnsTopCreators} from "./variables/tableColumnsTopCreators";
-import tableDataTopCreators from "./variables/tableDataTopCreators";
+import Banner from "components/banner/Banner";
 
 export default function ControleDeCorridas() {
 
@@ -14,11 +11,11 @@ export default function ControleDeCorridas() {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner/>
+                <Banner texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'ver corridas'}/>
             </Grid>
 
             <SimpleGrid columns={1} >
-                  <TableTopCreators tableData={tableDataTopCreators} columnsData={tableColumnsTopCreators} />
+
             </SimpleGrid>
         </Box>
     );

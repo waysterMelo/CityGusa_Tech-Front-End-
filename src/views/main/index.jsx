@@ -101,6 +101,17 @@ export default function Home() {
                                 chamar_rota={'/admin/analise-gusa'}
                             />
 
+                            <NFT
+                                name='Controle de Corridas'
+                                titulo='Responsável'
+                                bidders={[
+                                    Avatar
+                                ]}
+                                responsavel={'Supervisor'}
+                                image={Gusa_Img}
+                                chamar_rota={'/admin/controle-corrida'}
+                            />
+
                         </SimpleGrid>
                         <SimpleGrid
                             columns={{ base: 1, md: 3 }}

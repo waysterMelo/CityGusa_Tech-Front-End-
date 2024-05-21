@@ -4,7 +4,10 @@ import banner from "assets/img/1.jpg";
 import {Link as ChakraLink} from "@chakra-ui/react";
 import {Link as ReactRouterLink} from "react-router-dom";
 
-export default function Banner() {
+export default function Banner(props) {
+
+    const {texto_primario, texto_secundario, primeiro_botao} = props;
+
 
   return (
     <Flex
@@ -29,7 +32,7 @@ export default function Banner() {
         }}
         fontWeight='700'
         lineHeight={{ base: "32px", md: "42px"}}>
-          Gerencie, controle
+          {texto_primario}
       </Text>
       <Text
         fontSize='md'
@@ -45,7 +48,7 @@ export default function Banner() {
         fontWeight='500'
         mb='40px'
         lineHeight='28px'>
-          e acompanhe a frequência dos funcionários.
+          {texto_secundario}
       </Text>
       <Flex align='center'>
         <ChakraLink className={'btn badge'}
@@ -60,7 +63,7 @@ export default function Banner() {
           px='20px'
           me='38px'
           href="mailto:seuemail@example.com">
-          comunicar falta por email
+            {primeiro_botao}
         </ChakraLink>
           <ChakraLink
               bg='transparent'

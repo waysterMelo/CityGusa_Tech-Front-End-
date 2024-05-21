@@ -13,6 +13,7 @@ import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
 import AnaliseGusa from "./views/main/AnaliseGusa";
 import AnaliseEscoria from "./views/main/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
+import Corrida from "./views/main/ControleDeCorridas/index";
 
 const routes = [
     {
@@ -73,6 +74,12 @@ const routes = [
         path:"/pessoal",
         component: Pessoal,
         name:""
+    },
+    {
+        layout: "/admin",
+        path: "/controle-corrida",
+        component:Corrida,
+        name:null
     }
 ];
 
