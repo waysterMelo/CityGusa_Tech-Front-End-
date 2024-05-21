@@ -49,15 +49,14 @@ const routes = [
         path: "/leito",
         component: CadastroLeitoDeFusao,
         name: null,
-    }
-    ,
+    },
     {
         layout: "/admin",
         path: "/analise-minerio",
         component: AnaliseQuimicaDeMinerio,
         name: null,
-    }
-    ,{
+    },
+    {
     layout: "/admin",
         path:"/analise-gusa",
         component:AnaliseGusa,

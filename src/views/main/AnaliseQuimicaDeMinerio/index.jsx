@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     Box, Button,
     Flex,
@@ -13,29 +13,12 @@ import {
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import {format} from "date-fns";
-import {CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon} from "@chakra-ui/icons";
+import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
 
 export default function AnaliseQuimicaDeMinerio() {
     const current_date = new Date();
 
     const formatted_date = format(current_date, "dd/MM/yyyy");
-
-    const [currentHour, setCurrentHours] = useState('');
-
-    useEffect(() => {
-        const getCurrentHour = () => {
-            const now = new Date();
-            const formatted_hours = format(now, 'HH:mm');
-            setCurrentHours(formatted_hours);
-        };
-        // Atualiza a hora atual a cada segundo
-        const intervalId = setInterval(getCurrentHour, 1000);
-
-        // Limpa o intervalo quando o componente é desmontado para evitar vazamentos de memória
-        return () => clearInterval(intervalId);
-
-    }, []);
-
 
     const textColor = useColorModeValue("black");
     const textColorBrand = useColorModeValue("blue");
