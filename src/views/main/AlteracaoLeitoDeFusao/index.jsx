@@ -6,14 +6,11 @@ import {
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement, Select, Table, TableContainer, Tbody, Td,
-    Text, Th, Thead, Tr,
-    useColorModeValue, WrapItem
+    Input, InputGroup, InputLeftElement, Select, Table, TableContainer, Tbody, Td, Th, Thead, Tr, WrapItem
 } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon} from "@chakra-ui/icons";
+import Banner from "../../../components/banner/Banner";
 
 export default function CadastroLeitoDeFusao() {
     const current_date = new Date();
@@ -37,10 +34,8 @@ export default function CadastroLeitoDeFusao() {
     }, []);
 
 
-    const textColor = useColorModeValue("black");
-    const textColorBrand = useColorModeValue("blue");
-
     return (
+
         <Box pt={{ base: "90px", md: "50px", xl: "8%" }} mx={{ base: "2%" }}>
             {/* Main Fields */}
             <Grid
@@ -53,22 +48,7 @@ export default function CadastroLeitoDeFusao() {
                     width={'100%'}
                     gridArea={{md: "2x1"}}>
                     <Flex direction='column'>
-                        <Flex
-                            mt='35px'
-                            mb='20px'
-                            justifyContent='space-between'
-                            direction={{ base: "column", md: "row" }}
-                            align={{ base: "center", md: "center" }}>
-                            <Text color={textColor} fontSize='2xl' ms='24px' fontWeight='700'>
-                                Alteração leito de fusão
-                            </Text>
-                            <Flex align='end'>
-                                <ChakraLink color={textColorBrand} fontWeight='bold' as={ReactRouterLink}
-                                            to={'/admin/home'} className={'btn btn-primary text-white'}>
-                                    voltar
-                                </ChakraLink>
-                            </Flex>
-                        </Flex>
+                        <Banner texto_primario={'CONTROLE DE LEITO DE FUSÃO'} texto_secundario={'ADICIONAR LEITO'}/>
                     </Flex>
                 </Flex>
             </Grid>

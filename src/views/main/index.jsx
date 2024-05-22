@@ -8,7 +8,7 @@ import {
     SimpleGrid, Avatar, Link
 } from "@chakra-ui/react";
 import {Link as ReactLink} from "react-router-dom";
-
+import Corrida from "assets/img/Corrida.jpg";
 import NFT from "components/card/NFT";
 import Leito from "assets/img/backgrounds/leito.png";
 import Minerios_img from "assets/img/backgrounds/analiseDeMinerios.jpg";
@@ -108,7 +108,7 @@ export default function Home() {
                                     Avatar
                                 ]}
                                 responsavel={'Supervisor'}
-                                image={Gusa_Img}
+                                image={Corrida}
                                 chamar_rota={'/admin/controle-corrida'}
                             />
 

@@ -16,7 +16,7 @@ export default function Banner(props) {
       direction='column'
       py={{ base: "30px", md: "56px" }}
       px={{ base: "30px", md: "64px" }}
-      mt={{md: "8%"}} mb={{md: "2%"}}
+      mt={{md: "2%"}} mb={{md: "2%"}}
       borderRadius='30px'>
       <Text
         fontSize={{ base: "24px", md: "34px" }}
