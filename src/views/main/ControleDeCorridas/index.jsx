@@ -5,7 +5,7 @@ import Banner from "components/banner/Banner";
 export default function ControleDeCorridas() {
 
     return (
-        <Box pt={{ base: "", md: "80px", xl: "1%" }}>
+        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} mx={{ base: "1%" }}>
             {/* Main Fields */}
             <Grid
                 gridTemplateColumns={'repeat(1, 1fr)'}

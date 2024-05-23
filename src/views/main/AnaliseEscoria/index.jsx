@@ -14,6 +14,7 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, TimeIcon, DragHandleIcon} from "@chakra-ui/icons";
+import Banner from "../../../components/banner/Banner";
 
 export default function AnaliseEscoria() {
     const current_date = new Date();
@@ -36,7 +37,7 @@ export default function AnaliseEscoria() {
 
     }, []);
     return (
-        <Box pt={{ base: "90px", md: "50px", xl: "8%" }} mx={{ base: "2%" }}>
+        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} mx={{ base: "2%" }}>
             {/* Main Fields */}
             <Grid
                 mb='-1%'
@@ -48,22 +49,7 @@ export default function AnaliseEscoria() {
                     width={'100%'}
                     gridArea={{md: "2x1"}}>
                     <Flex direction='column'>
-                        <Flex
-                            mt='35px'
-                            mb='20px'
-                            justifyContent='space-between'
-                            direction={{ base: "column", md: "row" }}
-                            align={{ base: "center", md: "center" }}>
-                            <Text color={textColor} fontSize='2xl' ms='24px' fontWeight='700'>
-                                Análise Escória
-                            </Text>
-                            <Flex align='end'>
-                                <ChakraLink color={textColorBrand} fontWeight='bold' as={ReactRouterLink}
-                                            to={'/admin/home'} className={'btn btn-primary text-white'}>
-                                    voltar
-                                </ChakraLink>
-                            </Flex>
-                        </Flex>
+                        <Banner texto_primario={'CONTROLE ANÁLISE DE ESCÓRIA'} texto_secundario={'ADICIONAR ANÁLISE'}/>
                     </Flex>
                 </Flex>
             </Grid>

@@ -19,7 +19,7 @@ export default function AnaliseQuimicaDeMinerio() {
 
 
     return (
-        <Box pt={{ base: "90px", md: "50px", xl: "8%" }} mx={{ base: "2%" }}>
+        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} mx={{ base: "2%" }}>
             {/* Main Fields */}
             <Grid
                 mb='-1%'
@@ -31,23 +31,7 @@ export default function AnaliseQuimicaDeMinerio() {
                     width={'100%'}
                     gridArea={{md: "2x1"}}>
                     <Flex direction='column'>
-                        <Banner texto_primario={'ANALISE QUIMICIA DE MINERIOS'} texto_secundario={''}/>
-                        {/*<Flex*/}
-                        {/*    mt='5%'*/}
-                        {/*    mb='5%'*/}
-                        {/*    justifyContent='space-between'*/}
-                        {/*    direction={{ base: "column", md: "row" }}*/}
-                        {/*    align={{ base: "center", md: "center" }}>*/}
-                        {/*    <Text color={textColor} fontSize='2xl' ms='24px' fontWeight='700'>*/}
-                        {/*        Análise química de minérios*/}
-                        {/*    </Text>*/}
-                        {/*    <Flex align='end'>*/}
-                        {/*        <ChakraLink color={textColorBrand} fontWeight='bold' as={ReactRouterLink}*/}
-                        {/*                    to={'/admin/home'} className={'btn btn-primary text-white'}>*/}
-                        {/*            voltar*/}
-                        {/*        </ChakraLink>*/}
-                        {/*    </Flex>*/}
-                        {/*</Flex>*/}
+                        <Banner texto_primario={'ANÁLISE QUÍMICIA DE MINÉRIOS'} texto_secundario={'ADICIONAR ANÁLISE'}/>
                     </Flex>
                 </Flex>
             </Grid>
