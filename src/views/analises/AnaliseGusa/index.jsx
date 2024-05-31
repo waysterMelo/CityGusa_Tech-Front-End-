@@ -6,12 +6,8 @@ import {
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement,
-    Text,
-    useColorModeValue, WrapItem
+    Input, InputGroup, InputLeftElement,WrapItem
 } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
 import Banner from "../../../components/banner/Banner";
@@ -19,8 +15,8 @@ import Banner from "../../../components/banner/Banner";
 export default function AnaliseGusa() {
     const current_date = new Date();
     const formatted_date = format(current_date, "dd/MM/yyyy");
-    const textColor = useColorModeValue("black");
-    const textColorBrand = useColorModeValue("blue");
+
+
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} mx={{ base: "2%" }}>

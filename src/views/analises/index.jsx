@@ -8,12 +8,14 @@ import {
     SimpleGrid, Avatar, Link
 } from "@chakra-ui/react";
 import {Link as ReactLink} from "react-router-dom";
-import Corrida from "assets/img/Corrida.jpg";
+import GusaImg from "assets/img/backgrounds/gusa.jpg";
 import NFT from "components/card/NFT";
-import Leito from "assets/img/backgrounds/leito.png";
+import Minerios from "assets/img/backgrounds/analiseDeMinerios.jpg";
 
 
-export default function Home() {
+
+
+export default function Analises() {
     // Chakra Color Mode
     const textColor = useColorModeValue("black");
     const textColorBrand = useColorModeValue("blue");
@@ -58,23 +60,23 @@ export default function Home() {
 
 
                             <NFT
-                                name='Controle de Corridas'
+                                name='Análise de Gusa'
                                 titulo='Responsável'
                                 bidders={[
                                     Avatar
                                 ]}
                                 responsavel={'Supervisor'}
-                                image={Corrida}
+                                image={GusaImg}
                                 chamar_rota={'/admin/controle-corrida'}
                             />
                             <NFT
-                                name='Leito de Fusão'
+                                name='Análise Química de Minérios'
                                 titulo='Responsável'
                                 bidders={[
                                     Avatar
                                 ]}
                                 responsavel={'Supervisor'}
-                                image={Leito}
+                                image={Minerios}
                                 chamar_rota={'/admin/leito'}
                             />
 

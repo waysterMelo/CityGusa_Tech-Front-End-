@@ -1,85 +1,98 @@
 import React from "react";
 import {Icon} from "@chakra-ui/react";
-import {BsCoin} from "react-icons/bs";
-import { RxDashboard } from "react-icons/rx";
-import Custo from "views/admin/custo";
 import Home from "views/main";
-import {MdLock} from "react-icons/md";
-import { BsBricks } from "react-icons/bs";
 import SignInCentered from "views/auth/signIn";
 import Dashboard from "views/admin/default";
-import AnaliseQuimicaDeMinerio from "./views/main/AnaliseQuimicaDeMinerio";
+import AnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio";
 import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
-import AnaliseGusa from "./views/main/AnaliseGusa";
-import AnaliseEscoria from "./views/main/AnaliseEscoria";
+import AnaliseGusa from "./views/analises/AnaliseGusa";
+import AnaliseEscoria from "./views/analises/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
 import Corrida from "./views/main/ControleDeCorridas/index";
+import { FaAngleDoubleRight } from "react-icons/fa";
+import Analises from "./views/analises/index";
+import { FaBars } from "react-icons/fa";
+import { FaBorderAll } from "react-icons/fa";
+import { FaClipboard } from "react-icons/fa";
+import { FaChalkboardTeacher } from "react-icons/fa";
+
+
 
 const routes = [
     {
         name: "Dashboard",
         layout: "/admin",
         path: "/dashboard",
-        icon: <Icon as={ RxDashboard } width='20px' height='20px'/>,
+        icon: <Icon as={ FaBorderAll } width='20px' height='20px'/>,
         component: Dashboard,
     },
     {
     name: "Forno",
     layout: "/admin",
     path: "/home",
-    icon: <Icon as={ BsBricks } width={'20px'} height={'20px'} />,
+    icon: <Icon as={ FaClipboard } width={'20px'} height={'20px'} />,
     component: Home,
    },
-  {
-    name:"Planejamento",
-    layout:"/admin",
-    path: "/custo",
-    icon: <Icon as={BsCoin} width='20px' height='20px' color='inherit' />,
-    component: Custo,
-    secondary: true,
-  },
-  {
-    name: "Logar",
-    layout: "/auth",
-    path: "/sign-in",
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit'/>,
-    component: SignInCentered,
-  },
+    {
+        name: "Análises",
+        layout: "/admin",
+        path: "/analises",
+        icon: <Icon as={ FaBars } width={'20px'} height={'20px'} />,
+        component: Analises,
+    },
     {
         layout: "/admin",
         path: "/leito",
         component: CadastroLeitoDeFusao,
-        name: null,
+        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
+        name: "Leito de Fusão",
+        hidden: true
     },
     {
         layout: "/admin",
         path: "/analise-minerio",
         component: AnaliseQuimicaDeMinerio,
-        name: null,
+        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit'/>,
+        name: 'Análise Minério',
+        hidden: true
     },
     {
     layout: "/admin",
         path:"/analise-gusa",
         component:AnaliseGusa,
-        name:""
+        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit'/>,
+        name:"Análise Gusa",
+        hidden: true
     },
     {
         layout: "/admin",
         path:"/analise-escoria",
         component: AnaliseEscoria,
-        name:""
+        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit'/>,
+        name:"Análise Escória",
+        hidden: true
     },
     {
         layout: "/admin",
         path:"/pessoal",
         component: Pessoal,
-        name:""
+        name:"",
+        hidden: true
     },
     {
         layout: "/admin",
         path: "/controle-corrida",
         component:Corrida,
-        name:null
+        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
+        name:"Controle das Corridas",
+        hidden: true
+    },
+    {
+        name: "Logar",
+        layout: "/auth",
+        path: "/sign-in",
+        icon: <Icon as={FaChalkboardTeacher} width='20px' height='20px' color='inherit'/>,
+        component: SignInCentered,
     }
 ];
 

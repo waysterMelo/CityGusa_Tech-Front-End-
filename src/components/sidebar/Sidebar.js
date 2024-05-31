@@ -38,6 +38,9 @@ function Sidebar(props) {
   // Chakra Color Mode
   let sidebarMargins = "0px";
 
+  //filtar rotas ocultas
+  const visibleRoutes = routes.filter(route => !route.hidden);
+
   // SIDEBAR
   return (
     <Box display={{ sm: "none", xl: "block" }} className={'sidebarResponsivoTela1366'} bgColor={'transparent'}>
@@ -56,7 +59,7 @@ function Sidebar(props) {
           renderTrackVertical={renderTrack}
           renderThumbVertical={renderThumb}
           renderView={renderView}>
-          <Content routes={routes} />
+          <Content routes={visibleRoutes} />
         </Scrollbars>
       </Box>
     </Box>

@@ -46,7 +46,7 @@ export default function AdminNavbar(props) {
 			transitionDuration=' 0.25s, 0.25s, 0.25s, 0s'
 			transition-property='box-shadow, background-color, filter, border'
 			transitionTimingFunction='linear, linear, linear, linear'
-			alignItems={{ xl: 'center' }}
+			alignItems={{ xl: 'center'}}
 			display={secondary ? 'block' : 'flex'}
 			minH='75px'
 			justifyContent={{ xl: 'center' }}
