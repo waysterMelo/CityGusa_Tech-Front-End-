@@ -75,6 +75,8 @@ export function SidebarResponsive(props) {
   const { routes } = props;
   // let isWindows = navigator.platform.startsWith("Win");
   //  BRAND
+  const visibleRoutes = routes.filter(route => !route.hidden);
+
 
   return (
     <Flex display={{ sm: "flex", xl: "none" }} alignItems='center'>
@@ -108,7 +110,7 @@ export function SidebarResponsive(props) {
               renderTrackVertical={renderTrack}
               renderThumbVertical={renderThumb}
               renderView={renderView}>
-              <Content routes={routes} />
+              <Content routes={visibleRoutes} />
             </Scrollbars>
           </DrawerBody>
         </DrawerContent>

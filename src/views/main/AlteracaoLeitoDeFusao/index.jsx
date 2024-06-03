@@ -36,7 +36,7 @@ export default function CadastroLeitoDeFusao() {
 
     return (
 
-        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} mx={{ base: "2%" }}>
+        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
             {/* Main Fields */}
             <Grid
                 mb='-1%'
