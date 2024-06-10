@@ -77,7 +77,7 @@ export default function Analises() {
                                 ]}
                                 responsavel={'Supervisor'}
                                 image={Minerios}
-                                chamar_rota={'/admin/leito'}
+                                chamar_rota={'/admin/analise-minerio'}
                             />
 
 
