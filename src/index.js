@@ -15,12 +15,13 @@ ReactDOM.render(
 					<Switch>
 						<Route path={`/auth`} component={AuthLayout} />
 						<Route path={`/admin`} component={AdminLayout} />
-						<Redirect from='/' to='/admin'/>
+						<Redirect from='/' to='/auth/sign-in'/>
 					</Switch>
 				</HashRouter>		
 		</React.StrictMode>
 	</ChakraProvider>,
+
 	document.getElementById('root')
-	//conectar com o ban
+
 
 );
