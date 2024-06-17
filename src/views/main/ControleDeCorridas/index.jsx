@@ -15,6 +15,7 @@ export default function ControleDeCorridas() {
             </Grid>
 
             <SimpleGrid columns={{ base: 1, md: 5 }} spacing={2} bg={'white'} className={'p-5'} boxShadow={'xs'} rounded={'md'}>
+
                 <FormControl>
                     <FormLabel>Caçambas</FormLabel>
                     <Input size={inputSize} placeholder="número de caçambas" />

@@ -1,31 +1,38 @@
-import axios from "axios"
+import axios from 'axios'
 
-const httpCliente = axios.create({baseURL: 'http://localhost:8080'})
+const httpClient = axios.create({
+    baseURL: 'http://localhost:8080',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
 
 class ApiService {
 
-    constructor(apiturl) {
-        this.apiturl = apiturl;
+    constructor(apiurl){
+        this.apiurl = apiurl
     }
+
     post(url, objeto){
-        const request = `${this.apiturl}${url}`;
-        return httpCliente.post(request, objeto);
+        const requestURI = `${this.apiurl}${url}`
+        return httpClient.post(requestURI, objeto)
     }
 
     put(url, objeto){
-        const request = `${this.apiturl}${url}`;
-        return httpCliente.put(request, objeto);
+        const requestURI = `${this.apiurl}${url}`
+        return httpClient.put(requestURI, objeto)
     }
 
-    get(url, objeto){
-        const request = `${this.apiturl}${url}`;
-        return httpCliente.get(request, objeto);
+    get(url){
+        const requestURI = `${this.apiurl}${url}`
+        return httpClient.get(requestURI)
     }
 
     delete(url){
-        const request = `${this.apiturl}${url}`;
-        return httpCliente.delete(request);
+        const requestURI = `${this.apiurl}${url}`
+        return httpClient.delete(requestURI)
     }
+
 }
 
-export default  ApiService;
+export default ApiService;

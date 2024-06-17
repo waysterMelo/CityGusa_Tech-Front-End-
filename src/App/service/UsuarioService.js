@@ -1,20 +1,19 @@
 import ApiService from "../ApiService";
 
-class UsuarioService  extends  ApiService{
+
+class UsuarioService extends ApiService {
 
     constructor() {
         super('/users');
     }
 
-    autenticar(crendencials){
-        return this.post('/autenticar', crendencials)
+    autenticar(credenciais){
+        return this.post('/authenticate', credenciais)
     }
 
-    obterNomeDeUser(id){
-        return this.get(`/${id}`)
+    salvar(usuario){
+        return this.post('/salvar', usuario)
     }
-
-
 }
 
 export default UsuarioService;
