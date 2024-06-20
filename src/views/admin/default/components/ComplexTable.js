@@ -28,6 +28,7 @@ export default function ColumnsTable(props) {
 
   const sizes = ['xl']
 
+
   return (
     <Card
     marginTop='50px'
@@ -216,43 +217,45 @@ export default function ColumnsTable(props) {
           </Table>
         </TableContainer>
       </Box>
-        <Center>
-            {
-              sizes.map((size) => (
-                <Button className={'btn btn-md btn-primary'} ref={btnRef} onClick={() => handleClick(size)} leftIcon={<CgMoreO />} key={size}
-             colorScheme='gray'>mais info...</Button>
-              ))
-            }
+      <Center>
+        {
+          sizes.map((size) => (
+              <Button className={'btn btn-md btn-primary'} ref={btnRef} onClick={() => handleClick(size)}
+                      leftIcon={<CgMoreO/>} key={size}
+                      colorScheme='gray'>mais info...</Button>
+          ))
+        }
 
-          <Drawer isOpen={isOpen} onClose={onClose} size={size} placement={'left'} finalFocusRef={btnRef}>
-            <DrawerOverlay />
-            <DrawerContent>
-              <DrawerCloseButton />
-              <DrawerHeader>
-                <Text bgColor={'facebook.400'} color={'white'} className={'text-center p-4 h3'}>Alterações no leito de fusão</Text>
-              </DrawerHeader>
+        <Drawer isOpen={isOpen} onClose={onClose} size={size} placement={'left'} finalFocusRef={btnRef}>
+          <DrawerOverlay/>
+          <DrawerContent>
+            <DrawerCloseButton/>
+            <DrawerHeader>
+              <Text bgColor={'facebook.400'} color={'white'} className={'text-center p-4 h3'}>Alterações no leito de
+                fusão</Text>
+            </DrawerHeader>
 
-              <DrawerBody>
-                <Box bgColor={'lightyellow'} w={'100%'} h={'100%'} >
-                  <TableContainer>
-                    <Table variant='striped' size={'sm'}>
-                      <Thead>
-                        <Tr>
-                          <Th className={'bg-black text-white'}>N° da carga</Th>
-                          <Th className={'bg-black text-white'}>%</Th>
-                          <Th className={'bg-black text-white'}>02</Th>
-                          <Th className={'bg-black text-white'}>50</Th>
-                          <Th className={'bg-black text-white'}>80</Th>
-                          <Th className={'bg-black text-white'}>120</Th>
-                          <Th className={'bg-black text-white text-center'}>Total</Th>
-                        </Tr>
-                        <Tr>
-                          <Th className={'bg-black text-white p-2'}>Minério</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        <Tr>
-                          <Td className={'bg-black text-white'}>Extrativa</Td>
+            <DrawerBody>
+              <Box bgColor={'lightyellow'} w={'100%'} h={'100%'}>
+                <TableContainer>
+                  <Table variant='striped' size={'sm'}>
+                    <Thead>
+                      <Tr>
+                        <Th className={'bg-black text-white'}>N° da carga</Th>
+                        <Th className={'bg-black text-white'}>%</Th>
+                        <Th className={'bg-black text-white'}>02</Th>
+                        <Th className={'bg-black text-white'}>50</Th>
+                        <Th className={'bg-black text-white'}>80</Th>
+                        <Th className={'bg-black text-white'}>120</Th>
+                        <Th className={'bg-black text-white text-center'}>Total</Th>
+                      </Tr>
+                      <Tr>
+                        <Th className={'bg-black text-white p-2'}>Minério</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      <Tr>
+                      <Td className={'bg-black text-white'}>Extrativa</Td>
                           <Td className={'bg-secondary-subtle'}>15%</Td>
                           <Td>160</Td>
                           <Td>160</Td>

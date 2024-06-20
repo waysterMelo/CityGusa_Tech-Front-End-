@@ -5,15 +5,13 @@ import {
     Grid,
     Text,
     useColorModeValue,
-    SimpleGrid, Avatar, Link
+    SimpleGrid, Link
 } from "@chakra-ui/react";
 import {Link as ReactLink} from "react-router-dom";
 import GusaImg from "assets/img/backgrounds/gusa.jpg";
 import NFT from "components/card/NFT";
 import Minerios from "assets/img/backgrounds/analiseDeMinerios.jpg";
-
-
-
+import PersonIcon from "assets/img/icons/person.webp";
 
 export default function Analises() {
     // Chakra Color Mode
@@ -58,28 +56,20 @@ export default function Analises() {
 
                         <SimpleGrid columns={{ base: 1, md: 3 }} gap='3%'>
 
-
                             <NFT
                                 name='Análise de Gusa'
-                                titulo='Responsável'
-                                bidders={[
-                                    Avatar
-                                ]}
                                 responsavel={'Supervisor'}
                                 image={GusaImg}
-                                chamar_rota={'/admin/controle-corrida'}
+                                chamar_rota={'/admin/analise-gusa'}
+                                responsavelImage={PersonIcon}
                             />
                             <NFT
                                 name='Análise Química de Minérios'
-                                titulo='Responsável'
-                                bidders={[
-                                    Avatar
-                                ]}
                                 responsavel={'Supervisor'}
                                 image={Minerios}
                                 chamar_rota={'/admin/analise-minerio'}
+                                responsavelImage={PersonIcon}
                             />
-
 
                         </SimpleGrid>
                         <SimpleGrid

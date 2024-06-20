@@ -1,90 +1,33 @@
 import React from "react";
-import {Link as ReactRouterLink} from "react-router-dom";
-import {Avatar, AvatarGroup, Box, Flex, Image, Text} from "@chakra-ui/react";
-import Card from "components/card/Card.js";
-import {Button} from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Card, Image } from "react-bootstrap";
+import {Button} from "@chakra-ui/react";
+
 export default function NFT(props) {
-  const { image, name, titulo, bidders, responsavel, chamar_rota } = props;
+    const { image, name, titulo, responsavel, responsavelImage, chamar_rota, ...rest } = props;
 
-  return (
-    <Card p='20px'>
-      <Flex direction={{ base: "column" }} justify='center'>
+    return (
+        <Card className={'p-2 rounded-5'} style={{ width: '100%', marginBottom: '20px' }} {...rest}>
+            <Card.Img className={'img-thumbnail'} variant="top" src={image} style={{ height: '200px', borderRadius: '20px' }} />
+            <Card.Body>
+                <Card.Title>{name}</Card.Title>
 
-        <Box mb={{ base: "20px", "2xl": "20px" }} position='relative'>
-          <Image style={{ height: '200px', width:'100%'}}
-            className={'img-thumbnail'}
-            src={image}
-            borderRadius='20px'
-          />
-        </Box>
-        <Flex flexDirection='column' justify='space-between' h='100%'>
-          <Flex
-            justify='space-between'
-            direction={{
-              base: "row",
-              md: "column",
-              lg: "row",
-              xl: "column",
-              "2xl": "row",
-            }}
-            mb='auto'>
-            <Flex direction='column'>
-              <Text
-                color={'black'}
-                fontSize={{
-                  base: "xl",
-                  md: "lg",
-                  lg: "lg",
-                  xl: "lg",
-                  "2xl": "md",
-                  "3xl": "lg",
-                }}
-                mb='5px'
-                fontWeight='bold'
-                me='14px'>
-                {name}
-              </Text>
-              <Text
-                align={'start'}
-                color='secondaryGray.600'
-                fontSize={{
-                  base: "sm",
-                }}
-                fontWeight='400'
-                me='14px'>
-                {titulo}
-              </Text>
-            </Flex>
-              <AvatarGroup
-                  max={3}
-                  color={'black'}
-                  size='sm'
-                  mt={{
-                      base: "0px",
-                      md: "10px",
-                      lg: "0px",
-                      xl: "10px",
-                      "2xl": "0px",
-                  }}
-                  fontSize='12px'>
-                  {bidders.map((avt, key) => (
-                      <Avatar key={key} src={avt} />
-                  ))}
-
-                  <Text fontWeight='700' fontSize='sm' color={'blue'} mx={'6%'}>
-                    {responsavel}
-                  </Text>
-              </AvatarGroup>
-          </Flex>
-          <Button variant={'outline-primary'} className={'mx-auto text-dark fw-bold'} style={{width: '40%', marginTop:'2%'}}
-              as={ReactRouterLink}
-              to={chamar_rota}>
-              acessar
-          </Button>
-
-          </Flex>
-        </Flex>
-    </Card>
-
-  );
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                    <span className="text-secondary my-3">Responsável</span>
+                    <div className="d-flex align-items-center">
+                        <Image
+                            src={responsavelImage}
+                            roundedCircle
+                            style={{width: '30px', height: '30px', marginRight: '10px'}}
+                        /><span className="fw-bold text-primary">{responsavel}</span>
+                    </div>
+                </div>
+                <div className="d-flex justify-content-center">
+                    <Button colorScheme={'blue'} as={Link} to={chamar_rota} className="w-50 mt-2">
+                        Acessar
+                    </Button>
+                </div>
+            </Card.Body>
+        </Card>
+    );
 }
