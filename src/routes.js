@@ -8,7 +8,7 @@ import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
 import AnaliseGusa from "./views/analises/AnaliseGusa";
 import AnaliseEscoria from "./views/analises/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
-import Corrida from "./views/main/ControleDeCorridas/index";
+import Corrida from "./views/main/ControleDeCorridas";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import Analises from "./views/analises/index";
 import { FaBars } from "react-icons/fa";
