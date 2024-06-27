@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Box, Button, FormControl, FormLabel, Grid, Input, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
 import axios from "axios";
+import { Modal } from "react-bootstrap";
 
 const ControleDeCorridas = () => {
-
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
     const today = new Date().toISOString().split("T")[0];
 
@@ -24,6 +24,10 @@ const ControleDeCorridas = () => {
         cecDiaKg: ""
     });
 
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [mensagemErro, setMensagemErro] = useState("");
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -41,9 +45,28 @@ const ControleDeCorridas = () => {
                 }
             });
             console.log("Corrida cadastrada com sucesso:", response.data);
+            setShowSuccessModal(true);
         } catch (error) {
             console.error("Erro ao cadastrar corrida:", error);
+            let mensagemErro = "";
+            if (error.response) {
+                const { status, data } = error.response;
+                if (status === 400 && data.message.includes('Cannot deserialize value of type')) {
+                    mensagemErro = `Erro ${status}: Há um problema nos dados enviados. Verifique se todos os campos estão preenchidos corretamente e se os valores numéricos estão no formato adequado.`;
+                } else {
+                    mensagemErro = `Erro ${status}: ${data.message || error.message}`;
+                }
+            } else {
+                mensagemErro = `Erro: ${error.message}`;
+            }
+            setMensagemErro(mensagemErro);
+            setShowErrorModal(true);
         }
+    };
+
+    const handleClose = () => {
+        setShowSuccessModal(false);
+        setShowErrorModal(false);
     };
 
     return (
@@ -127,6 +150,34 @@ const ControleDeCorridas = () => {
                     </Button>
                 </SimpleGrid>
             </form>
+
+            <Modal show={showSuccessModal} onHide={handleClose}>
+                <Modal.Header className={'bg-success text-white'} closeButton>
+                    <Modal.Title>Sucesso</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Corrida cadastrada com sucesso!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-primary'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showErrorModal} onHide={handleClose}>
+                <Modal.Header  className={'bg-danger'} closeButton>
+                    <Modal.Title>Erro</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {mensagemErro}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'}  onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Box>
     );
 }
