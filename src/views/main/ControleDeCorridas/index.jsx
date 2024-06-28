@@ -46,6 +46,21 @@ const ControleDeCorridas = () => {
             });
             console.log("Corrida cadastrada com sucesso:", response.data);
             setShowSuccessModal(true);
+            setFormData({
+                data: today,
+                cacambas: "",
+                horaAbertura: "",
+                horaTampa: "",
+                temperatura: "",
+                reducao: "",
+                reservaFundida: "",
+                escoriaVisual: "",
+                producao: "",
+                producaoAcumulada: "",
+                media: "",
+                cecDiaM3: "",
+                cecDiaKg: ""
+            });
         } catch (error) {
             console.error("Erro ao cadastrar corrida:", error);
             let mensagemErro = "";
@@ -79,7 +94,7 @@ const ControleDeCorridas = () => {
             </Grid>
 
             <form onSubmit={handleSubmit}>
-                <SimpleGrid columns={{ base: 1, md: 5 }} spacing={2} bg={'white'} className={'p-5'} boxShadow={'xs'} rounded={'md'}>
+                <SimpleGrid columns={{ base: 1, md: 4 }} spacing={1} bg={'white'} className={'p-4'} boxShadow={'xs'} rounded={'md'}>
                     <FormControl>
                         <FormLabel>Data</FormLabel>
                         <Input type="date" size={inputSize} name="data" value={formData.data} readOnly={true} />
@@ -137,15 +152,15 @@ const ControleDeCorridas = () => {
 
                     <FormControl>
                         <FormLabel>C.EC. Dia (m³)</FormLabel>
-                        <Input size={inputSize} name="cecDiaM3" value={formData.cecDiaM3} onChange={handleChange} placeholder="Digite o CEC Dia em metros cúbicos" />
+                            <Input size={inputSize} name="cecDiaM3" value={formData.cecDiaM3} onChange={handleChange} placeholder="metros cúbicos" />
                     </FormControl>
 
                     <FormControl>
                         <FormLabel>C.EC. Dia (kg)</FormLabel>
-                        <Input size={inputSize} name="cecDiaKg" value={formData.cecDiaKg} onChange={handleChange} placeholder="Digite o CEC Dia em quilos" />
+                        <Input size={inputSize} name="cecDiaKg" value={formData.cecDiaKg} onChange={handleChange} placeholder="Kilos" />
                     </FormControl>
 
-                    <Button type="submit" colorScheme="blue" size={inputSize} mt={'auto'}>
+                    <Button type="submit"  colorScheme="blue" size={'md'} mt={'auto'}>
                         Cadastrar Corrida
                     </Button>
                 </SimpleGrid>
@@ -159,7 +174,7 @@ const ControleDeCorridas = () => {
                     Corrida cadastrada com sucesso!
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className={'bg-primary'} onClick={handleClose}>
+                    <Button className={'bg-primary text-white'} onClick={handleClose}>
                         Fechar
                     </Button>
                 </Modal.Footer>
