@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {Button, Input, InputGroup, useColorModeValue} from "@chakra-ui/react";
 import Litepicker from "litepicker";
 import {format, startOfDay} from 'date-fns';
-import {CheckIcon} from "@chakra-ui/icons";
+import {CalendarIcon} from "@chakra-ui/icons";
 export function SearchBar(props) {
     const { variant, background, children, placeholder, borderRadius, ...rest } = props;
     const inputBg = useColorModeValue("secondaryGray.300", "navy.900");
@@ -43,18 +43,17 @@ export function SearchBar(props) {
 
     return (
         <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
-            <Input className={'react-calendar'}
+            <Input disabled={true} className={'react-calendar w-100 text-center'}
                 ref={datePicker}
                 variant='search'
-                fontSize='md'
+                fontSize='lg'
                 bg={background ? background : inputBg}
                 color={inputText}
                 fontWeight='500'
                 _placeholder={{ color: "gray.400", fontSize: "14px" }}
                 borderRadius={borderRadius ? borderRadius : "30px"}
-                placeholder={placeholder ? placeholder : "selecionar data..."}
             />
-            <Button leftIcon={<CheckIcon />}  _hover={{ bg: "green.500" }} variant='solid'></Button>
+
         </InputGroup>
     );
 }
