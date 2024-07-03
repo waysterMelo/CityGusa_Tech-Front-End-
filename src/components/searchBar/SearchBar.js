@@ -1,8 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Input, InputGroup, useColorModeValue} from "@chakra-ui/react";
+import {Input, InputGroup, useColorModeValue} from "@chakra-ui/react";
 import Litepicker from "litepicker";
 import {format, startOfDay} from 'date-fns';
-import {CalendarIcon} from "@chakra-ui/icons";
 export function SearchBar(props) {
     const { variant, background, children, placeholder, borderRadius, ...rest } = props;
     const inputBg = useColorModeValue("secondaryGray.300", "navy.900");

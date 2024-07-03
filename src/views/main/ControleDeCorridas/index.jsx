@@ -1,15 +1,28 @@
-import React, { useState } from "react";
-import { Box, Button, FormControl, FormLabel, Grid, Input, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
+import React, {useEffect, useState} from "react";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormLabel,
+    Grid,
+    Input,
+    SimpleGrid, Table, TableContainer, Tbody,
+    Td, Th, Thead,
+    Tr,
+    useBreakpointValue
+} from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
 import axios from "axios";
 import { Modal } from "react-bootstrap";
+import {format} from "date-fns";
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
-    const today = new Date().toISOString().split("T")[0];
+    const today = format(new Date(), 'dd-MM-yyy');
+    const todayInput = new Date().toISOString().split("T")[0];
 
     const [formData, setFormData] = useState({
-        data: today,
+        data: todayInput,
         cacambas: "",
         horaAbertura: "",
         horaTampa: "",
@@ -27,6 +40,7 @@ const ControleDeCorridas = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [mensagemErro, setMensagemErro] = useState("");
+    const [corridas, setCorridas] = useState([]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +53,7 @@ const ControleDeCorridas = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/corridas/add", formData, {
+            const response = await axios.post("http://localhost:8080/runs/add", formData, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -47,7 +61,7 @@ const ControleDeCorridas = () => {
             console.log("Corrida cadastrada com sucesso:", response.data);
             setShowSuccessModal(true);
             setFormData({
-                data: today,
+                dataI: todayInput,
                 cacambas: "",
                 horaAbertura: "",
                 horaTampa: "",
@@ -61,6 +75,7 @@ const ControleDeCorridas = () => {
                 cecDiaM3: "",
                 cecDiaKg: ""
             });
+            fetchCorridas(today);
         } catch (error) {
             console.error("Erro ao cadastrar corrida:", error);
             let mensagemErro = "";
@@ -78,6 +93,18 @@ const ControleDeCorridas = () => {
             setShowErrorModal(true);
         }
     };
+
+    const fetchCorridas = async (data) =>{
+        try {
+            const response = await  axios.get(`http://localhost:8080/runs/date-today?data=${data}`);
+            setCorridas(response.data)
+        }catch (error){
+            console.error("Erro ao buscar corridas:", error);
+        }
+    }
+    useEffect(() => {
+        fetchCorridas(today);
+    });
 
     const handleClose = () => {
         setShowSuccessModal(false);
@@ -165,6 +192,53 @@ const ControleDeCorridas = () => {
                     </Button>
                 </SimpleGrid>
             </form>
+
+            {corridas.length > 0 && (
+                <Box mt={8}>
+                    <Grid templateColumns="repeat(1, 1fr)">
+                        <TableContainer>
+                            <Table size={'sm'} className={'table table-dark'}>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Data</Th>
+                                        <Th>Caçambas</Th>
+                                        <Th>Hora de Abertura</Th>
+                                        <Th>Hora de Tampa</Th>
+                                        <Th>Temperatura</Th>
+                                        <Th>Redução</Th>
+                                        <Th>Reserva Fundida</Th>
+                                        <Th>Escória Visual</Th>
+                                        <Th>Produção</Th>
+                                        <Th>Produção Acumulada</Th>
+                                        <Th>Média</Th>
+                                        <Th>C.EC. Dia (m³)</Th>
+                                        <Th>C.EC. Dia (kg)</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {corridas.map((corrida) => (
+                                        <Tr key={corrida.id}>
+                                            <Td>{format(new Date(corrida.data), 'dd-MM-yyyy')}</Td>
+                                            <Td>{corrida.cacambas}</Td>
+                                            <Td>{corrida.horaAbertura}</Td>
+                                            <Td>{corrida.horaTampa}</Td>
+                                            <Td>{corrida.temperatura}</Td>
+                                            <Td>{corrida.reducao}</Td>
+                                            <Td>{corrida.reservaFundida}</Td>
+                                            <Td>{corrida.escoriaVisual}</Td>
+                                            <Td>{corrida.producao}</Td>
+                                            <Td>{corrida.producaoAcumulada}</Td>
+                                            <Td>{corrida.media}</Td>
+                                            <Td>{corrida.cecDiaM3}</Td>
+                                            <Td>{corrida.cecDiaKg}</Td>
+                                        </Tr>
+                                    ))}
+                                </Tbody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
+                </Box>
+            )}
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>
