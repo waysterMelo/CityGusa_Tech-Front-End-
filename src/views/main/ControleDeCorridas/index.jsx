@@ -104,7 +104,7 @@ const ControleDeCorridas = () => {
     }
     useEffect(() => {
         fetchCorridas(today);
-    });
+    }, [today]);
 
     const handleClose = () => {
         setShowSuccessModal(false);
