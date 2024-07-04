@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+// ControleDeCorridas.js
+import React, { useEffect, useState, useRef } from "react";
 import {
     Box,
     Button,
@@ -12,115 +13,48 @@ import {
     useBreakpointValue
 } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
-import axios from "axios";
 import { Modal } from "react-bootstrap";
-import {format} from "date-fns";
 import InputMask from "react-input-mask";
-
-
+import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
+import {format} from "date-fns";
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
-    const today = format(new Date(), 'dd-MM-yyy');
-    const todayInput = new Date().toISOString().split("T")[0];
+    const serviceRef = useRef(new ControleDeCorridasService());
+    const service = serviceRef.current;
+    const [formData, setFormData] = useState(service.state.formData);
+    const [corridas, setCorridas] = useState(service.state.corridas);
+    const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
+    const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
+    const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
 
-    const [formData, setFormData] = useState({
-        data: todayInput,
-        cacambas: "",
-        horaAbertura: "",
-        horaTampa: "",
-        temperatura: "",
-        reducao: "",
-        reservaFundida: "",
-        escoriaVisual: "",
-        producao: "",
-        producaoAcumulada: "",
-        media: "",
-        cecDiaM3: "",
-        cecDiaKg: ""
-    });
-
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showErrorModal, setShowErrorModal] = useState(false);
-    const [mensagemErro, setMensagemErro] = useState("");
-    const [corridas, setCorridas] = useState([]);
+    useEffect(() => {
+        service.fetchCorridas(service.state.today).then(() => {
+            setCorridas(service.state.corridas);
+        });
+    }, [service.state.today, service]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        service.handleChange(e);
+        setFormData({ ...service.state.formData });
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:8080/runs/add", formData, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            console.log("Corrida cadastrada com sucesso:", response.data);
-            setShowSuccessModal(true);
-            setFormData({
-                data: todayInput,
-                cacambas: "",
-                horaAbertura: "",
-                horaTampa: "",
-                temperatura: "",
-                reducao: "",
-                reservaFundida: "",
-                escoriaVisual: "",
-                producao: "",
-                producaoAcumulada: "",
-                media: "",
-                cecDiaM3: "",
-                cecDiaKg: ""
-            });
-            fetchCorridas(today);
-        } catch (error) {
-            console.error("Erro ao cadastrar corrida:", error);
-            let mensagemErro = "";
-            if (error.response) {
-                const { status, data } = error.response;
-                if (status === 400 && data.message.includes('Cannot deserialize value of type')) {
-                    mensagemErro = `Erro ${status}: Há um problema nos dados enviados. Verifique se todos os campos estão preenchidos corretamente e se os valores numéricos estão no formato adequado.`;
-                } else {
-                    mensagemErro = `Erro ${status}: ${data.message || error.message}`;
-                }
-            } else {
-                mensagemErro = `Erro: ${error.message}`;
-            }
-            setMensagemErro(mensagemErro);
-            setShowErrorModal(true);
-        }
+        await service.handleSubmit(e);
+        setFormData({ ...service.state.formData });
+        setCorridas(service.state.corridas);
+        setShowSuccessModal(service.state.showSuccessModal);
+        setShowErrorModal(service.state.showErrorModal);
+        setMensagemErro(service.state.mensagemErro);
+        await service.fetchCorridas(service.state.today);
+        setCorridas([...service.state.corridas]);
     };
-
-
-
-    const fetchCorridas = async (data) =>{
-        try {
-            const response = await  axios.get(`http://localhost:8080/runs/date-today?data=${data}`);
-            setCorridas(response.data)
-        }catch (error){
-            console.error("Erro ao buscar corridas:", error);
-        }
-    }
-
-
-    useEffect(() => {
-        fetchCorridas(today);
-    }, [today]);
-
-
 
     const handleClose = () => {
-        setShowSuccessModal(false);
-        setShowErrorModal(false);
+        service.handleClose();
+        setShowSuccessModal(service.state.showSuccessModal);
+        setShowErrorModal(service.state.showErrorModal);
     };
-
-
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -128,7 +62,7 @@ const ControleDeCorridas = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'ver corridas'}/>
+                <Banner texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'ver corridas'} />
             </Grid>
 
             <form onSubmit={handleSubmit}>
@@ -210,9 +144,7 @@ const ControleDeCorridas = () => {
                         </InputMask>
                     </FormControl>
 
-
-
-                    <Button type="submit"  colorScheme="blue" size={'md'} mt={'auto'}>
+                    <Button type="submit" colorScheme="blue" size={'md'} mt={'auto'}>
                         Cadastrar Corrida
                     </Button>
                 </SimpleGrid>
@@ -246,7 +178,7 @@ const ControleDeCorridas = () => {
                                             <Td>{format(new Date(corrida.data), 'dd-MM-yyyy')}</Td>
                                             <Td>{corrida.horaAbertura}</Td>
                                             <Td>{corrida.horaTampa}</Td>
-                                             <Td>{corrida.cacambas}</Td>
+                                            <Td>{corrida.cacambas}</Td>
                                             <Td>{corrida.temperatura}</Td>
                                             <Td>{corrida.reducao}</Td>
                                             <Td>{corrida.reservaFundida}</Td>
@@ -280,14 +212,14 @@ const ControleDeCorridas = () => {
             </Modal>
 
             <Modal show={showErrorModal} onHide={handleClose}>
-                <Modal.Header  className={'bg-danger'} closeButton>
+                <Modal.Header className={'bg-danger'} closeButton>
                     <Modal.Title>Erro</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {mensagemErro}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className={'bg-dark text-white'}  onClick={handleClose}>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
                         Fechar
                     </Button>
                 </Modal.Footer>
