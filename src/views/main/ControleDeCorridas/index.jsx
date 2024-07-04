@@ -15,6 +15,9 @@ import Banner from "components/banner/Banner";
 import axios from "axios";
 import { Modal } from "react-bootstrap";
 import {format} from "date-fns";
+import InputMask from "react-input-mask";
+
+
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
@@ -61,7 +64,7 @@ const ControleDeCorridas = () => {
             console.log("Corrida cadastrada com sucesso:", response.data);
             setShowSuccessModal(true);
             setFormData({
-                dataI: todayInput,
+                data: todayInput,
                 cacambas: "",
                 horaAbertura: "",
                 horaTampa: "",
@@ -94,6 +97,8 @@ const ControleDeCorridas = () => {
         }
     };
 
+
+
     const fetchCorridas = async (data) =>{
         try {
             const response = await  axios.get(`http://localhost:8080/runs/date-today?data=${data}`);
@@ -102,14 +107,20 @@ const ControleDeCorridas = () => {
             console.error("Erro ao buscar corridas:", error);
         }
     }
+
+
     useEffect(() => {
         fetchCorridas(today);
     }, [today]);
+
+
 
     const handleClose = () => {
         setShowSuccessModal(false);
         setShowErrorModal(false);
     };
+
+
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -179,13 +190,27 @@ const ControleDeCorridas = () => {
 
                     <FormControl>
                         <FormLabel>C.EC. Dia (m³)</FormLabel>
-                            <Input size={inputSize} name="cecDiaM3" value={formData.cecDiaM3} onChange={handleChange} placeholder="metros cúbicos" />
+                        <InputMask
+                            mask="999.99"
+                            value={formData.cecDiaM3}
+                            onChange={handleChange}
+                        >
+                            {(inputProps) => <Input {...inputProps} size={inputSize} name="cecDiaM3" placeholder="metros cúbicos" />}
+                        </InputMask>
                     </FormControl>
 
                     <FormControl>
                         <FormLabel>C.EC. Dia (kg)</FormLabel>
-                        <Input size={inputSize} name="cecDiaKg" value={formData.cecDiaKg} onChange={handleChange} placeholder="Kilos" />
+                        <InputMask
+                            mask="999.99"
+                            value={formData.cecDiaKg}
+                            onChange={handleChange}
+                        >
+                            {(inputProps) => <Input {...inputProps} size={inputSize} name="cecDiaKg" placeholder="Kilos" />}
+                        </InputMask>
                     </FormControl>
+
+
 
                     <Button type="submit"  colorScheme="blue" size={'md'} mt={'auto'}>
                         Cadastrar Corrida
@@ -201,9 +226,9 @@ const ControleDeCorridas = () => {
                                 <Thead>
                                     <Tr>
                                         <Th>Data</Th>
-                                        <Th>Caçambas</Th>
                                         <Th>Hora de Abertura</Th>
                                         <Th>Hora de Tampa</Th>
+                                        <Th>Caçambas</Th>
                                         <Th>Temperatura</Th>
                                         <Th>Redução</Th>
                                         <Th>Reserva Fundida</Th>
@@ -219,9 +244,9 @@ const ControleDeCorridas = () => {
                                     {corridas.map((corrida) => (
                                         <Tr key={corrida.id}>
                                             <Td>{format(new Date(corrida.data), 'dd-MM-yyyy')}</Td>
-                                            <Td>{corrida.cacambas}</Td>
                                             <Td>{corrida.horaAbertura}</Td>
                                             <Td>{corrida.horaTampa}</Td>
+                                             <Td>{corrida.cacambas}</Td>
                                             <Td>{corrida.temperatura}</Td>
                                             <Td>{corrida.reducao}</Td>
                                             <Td>{corrida.reservaFundida}</Td>
