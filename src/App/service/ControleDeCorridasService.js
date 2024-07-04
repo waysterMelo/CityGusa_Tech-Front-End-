@@ -3,7 +3,10 @@ import { format } from 'date-fns';
 
 class ControleDeCorridasService {
     constructor() {
-        const today = format(new Date(), 'dd-MM-yyy');
+        // USE TO RETURN REGISTRY
+        const today = format(new Date(), 'dd-MM-yyyy');
+
+        //USE TO INSERT
         const todayInput = new Date().toISOString().split("T")[0];
 
         this.state = {
@@ -50,7 +53,7 @@ class ControleDeCorridasService {
             console.log("Corrida cadastrada com sucesso:", response.data);
             this.state.showSuccessModal = true;
             this.resetFormData();
-            this.fetchCorridas(this.state.today);
+            await this.fetchCorridas(this.state.today);  // Aguarde a busca de corridas
         } catch (error) {
             console.error("Erro ao cadastrar corrida:", error);
             this.state.mensagemErro = this.getErrorMessage(error);

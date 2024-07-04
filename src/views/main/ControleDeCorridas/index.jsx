@@ -1,4 +1,3 @@
-// ControleDeCorridas.js
 import React, { useEffect, useState, useRef } from "react";
 import {
     Box,
@@ -16,21 +15,21 @@ import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
-import {format} from "date-fns";
+import { format } from "date-fns";
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
-    const serviceRef = useRef(new ControleDeCorridasService());
-    const service = serviceRef.current;
+    const service = useRef(new ControleDeCorridasService()).current;
     const [formData, setFormData] = useState(service.state.formData);
     const [corridas, setCorridas] = useState(service.state.corridas);
     const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
     const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
     const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
 
+
     useEffect(() => {
         service.fetchCorridas(service.state.today).then(() => {
-            setCorridas(service.state.corridas);
+            setCorridas([...service.state.corridas]);
         });
     }, [service.state.today, service]);
 
@@ -42,7 +41,6 @@ const ControleDeCorridas = () => {
     const handleSubmit = async (e) => {
         await service.handleSubmit(e);
         setFormData({ ...service.state.formData });
-        setCorridas(service.state.corridas);
         setShowSuccessModal(service.state.showSuccessModal);
         setShowErrorModal(service.state.showErrorModal);
         setMensagemErro(service.state.mensagemErro);
@@ -56,6 +54,7 @@ const ControleDeCorridas = () => {
         setShowErrorModal(service.state.showErrorModal);
     };
 
+
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
             <Grid
@@ -66,7 +65,7 @@ const ControleDeCorridas = () => {
             </Grid>
 
             <form onSubmit={handleSubmit}>
-                <SimpleGrid columns={{ base: 1, md: 4 }} spacing={1} bg={'white'} className={'p-4'} boxShadow={'xs'} rounded={'md'}>
+                <SimpleGrid columns={{ base: 1, md: 5 }} spacing={1} bg={'white'} className={'p-4'} boxShadow={'xs'} rounded={'md'}>
                     <FormControl>
                         <FormLabel>Data</FormLabel>
                         <Input type="date" size={inputSize} name="data" value={formData.data} readOnly={true} />
@@ -154,7 +153,7 @@ const ControleDeCorridas = () => {
                 <Box mt={8}>
                     <Grid templateColumns="repeat(1, 1fr)">
                         <TableContainer>
-                            <Table size={'sm'} className={'table table-dark'}>
+                            <Table size={'sm'} className={'table table-hover table-dark'}>
                                 <Thead>
                                     <Tr>
                                         <Th>Data</Th>
@@ -175,19 +174,19 @@ const ControleDeCorridas = () => {
                                 <Tbody>
                                     {corridas.map((corrida) => (
                                         <Tr key={corrida.id}>
-                                            <Td>{format(new Date(corrida.data), 'dd-MM-yyyy')}</Td>
-                                            <Td>{corrida.horaAbertura}</Td>
-                                            <Td>{corrida.horaTampa}</Td>
-                                            <Td>{corrida.cacambas}</Td>
-                                            <Td>{corrida.temperatura}</Td>
-                                            <Td>{corrida.reducao}</Td>
-                                            <Td>{corrida.reservaFundida}</Td>
-                                            <Td>{corrida.escoriaVisual}</Td>
-                                            <Td>{corrida.producao}</Td>
-                                            <Td>{corrida.producaoAcumulada}</Td>
-                                            <Td>{corrida.media}</Td>
-                                            <Td>{corrida.cecDiaM3}</Td>
-                                            <Td>{corrida.cecDiaKg}</Td>
+                                            <Td>{format(new Date(corrida.data), 'MM-dd-yyyy')}</Td>
+                                            <Td className={'text-center'}>{corrida.horaAbertura}</Td>
+                                            <Td className={'text-center'}>{corrida.horaTampa}</Td>
+                                            <Td className={'text-center'}>{corrida.cacambas}</Td>
+                                            <Td className={'text-center'}>{corrida.temperatura}</Td>
+                                            <Td className={'text-center'}>{corrida.reducao}</Td>
+                                            <Td className={'text-center'}>{corrida.reservaFundida}</Td>
+                                            <Td className={'text-center'}>{corrida.escoriaVisual}</Td>
+                                            <Td className={'text-center'}>{corrida.producao}</Td>
+                                            <Td className={'text-center'}>{corrida.producaoAcumulada}</Td>
+                                            <Td className={'text-center'}>{corrida.media}</Td>
+                                            <Td className={'text-center'}>{corrida.cecDiaM3}</Td>
+                                            <Td className={'text-center'}>{corrida.cecDiaKg}</Td>
                                         </Tr>
                                     ))}
                                 </Tbody>

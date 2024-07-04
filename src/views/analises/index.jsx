@@ -18,7 +18,7 @@ export default function Analises() {
     const textColor = useColorModeValue("black");
     const textColorBrand = useColorModeValue("blue");
     return (
-        <Box pt={{ base: "150px", md: "50px", xl: "80px"}}
+        <Box pt={{ base: "150px", md: "50px", xl: "5%"}}
              mx={{base: "auto"}}>
             {/* Main Fields */}
             <Grid
