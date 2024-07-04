@@ -6,7 +6,7 @@ import {Link as ReactRouterLink} from "react-router-dom";
 
 export default function Banner(props) {
 
-    const {texto_primario, texto_secundario, primeiro_botao} = props;
+    const {texto_primario, texto_secundario, primeiro_botao, url , url_voltar} = props;
 
 
   return (
@@ -62,13 +62,14 @@ export default function Banner(props) {
           py='20px'
           px='20px'
           me='38px'
-          href="mailto:seuemail@example.com">
+          as={ReactRouterLink}
+          to={url}>
             {primeiro_botao}
         </ChakraLink>
           <ChakraLink
-              bg='transparent'
-              color='white'
-              _hover={{ bg: "whiteAlpha.900", color: "black"}}
+              bg='white'
+              color='black'
+              _hover={{ bg: "whiteAlpha.500", color: "black"}}
               _active={{ bg: "white" }}
               _focus={{ bg: "white" }}
               rounded={'30rem'}
@@ -76,7 +77,7 @@ export default function Banner(props) {
               fontSize='14px'
               py='2%'
               px='27'
-              me='38px' as={ReactRouterLink} to={'/admin/home'} >
+              me='38px' as={ReactRouterLink} to={url_voltar} >
               voltar
           </ChakraLink>
       </Flex>

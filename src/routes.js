@@ -15,7 +15,7 @@ import { FaBars } from "react-icons/fa";
 import { FaBorderAll } from "react-icons/fa";
 import { FaClipboard } from "react-icons/fa";
 import { FaChalkboardTeacher } from "react-icons/fa";
-
+import CorridasData from "./views/main/ControleDeCorridas/VerCorridas/index";
 
 
 const routes = [
@@ -85,6 +85,14 @@ const routes = [
         component:Corrida,
         icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
         name:"Controle das Corridas",
+        hidden: true
+    },
+    {
+        layout: "/admin",
+        path: "/corridas-data",
+        component: CorridasData,
+        icon: <Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
+        name: "Pesquisa de corridas",
         hidden: true
     },
     {
