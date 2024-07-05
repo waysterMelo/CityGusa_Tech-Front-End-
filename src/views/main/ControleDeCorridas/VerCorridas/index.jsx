@@ -1,7 +1,6 @@
 import React from "react";
 import {Box, Grid} from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
-import {SearchBar} from "../../../../components/searchBar/SearchBar";
 
 
 
