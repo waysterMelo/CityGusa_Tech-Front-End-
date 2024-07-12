@@ -1,67 +1,104 @@
-import React, {useEffect, useState} from "react";
+import React, { useRef, useState } from "react";
 import {
-    Box, Button,
+    Box,
+    Button,
     Flex,
     FormControl,
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement, Select, Table, TableContainer, Tbody, Td, Th, Thead, Tr, WrapItem
+    Input,
+    InputGroup,
+    InputLeftElement,
+    Select,
+    Table,
+    TableContainer,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr,
+    WrapItem,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalBody,
+    ModalFooter
 } from "@chakra-ui/react";
-import {format} from "date-fns";
-import {CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon} from "@chakra-ui/icons";
+import { CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import { format, parseISO } from "date-fns";
 import Banner from "../../../components/banner/Banner";
+import CargasLeitoFusaoService from "../../../App/service/CargasLeitoFusaoService";
 
 export default function CadastroLeitoDeFusao() {
-    const current_date = new Date();
+    const service = useRef(new CargasLeitoFusaoService()).current;
+    const [formData, setFormData] = useState(service.state.formData);
+    const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
+    const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
+    const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
 
-    const formatted_date = format(current_date, "dd/MM/yyyy");
+    const handleChange = (e) => {
+        service.handleChange(e);
+        setFormData({ ...service.state.formData });
+    };
 
-    const [currentHour, setCurrentHours] = useState('');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const result = await service.salvar();
+        setFormData({ ...service.state.formData });
+        setShowSuccessModal(service.state.showSuccessModal);
+        setShowErrorModal(service.state.showErrorModal);
+        setMensagemErro(service.state.mensagemErro);
+        if (result.success) {
+            setShowSuccessModal(true);
+        } else {
+            setShowErrorModal(true);
+        }
+    };
 
-    useEffect(() => {
-        const getCurrentHour = () => {
-            const now = new Date();
-            const formatted_hours = format(now, 'HH:mm');
-            setCurrentHours(formatted_hours);
-        };
-        // Atualiza a hora atual a cada segundo
-        const intervalId = setInterval(getCurrentHour, 1000);
+    const handleClose = () => {
+        service.handleClose();
+        setShowSuccessModal(service.state.showSuccessModal);
+        setShowErrorModal(service.state.showErrorModal);
+    };
 
-        // Limpa o intervalo quando o componente é desmontado para evitar vazamentos de memória
-        return () => clearInterval(intervalId);
-
-    }, []);
-
+    const formatDate = (dateString) => {
+        try {
+            const parsedDate = parseISO(dateString);
+            return format(parsedDate, "dd-MM-yyyy");
+        } catch (error) {
+            console.error("Invalid date format:", error);
+            return dateString; // Return the original date string if parsing fails
+        }
+    };
 
     return (
-
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
-            {/* Main Fields */}
             <Grid
-                mb='-1%'
                 gridTemplateColumns={{ xl: "repeat(1, 1fr)", "2xl": "1fr 1" }}
                 gap={{ base: "20px", xl: "10px" }}
                 display={{ base: "block", xl: "grid" }}>
                 <Flex
-                    flexDirection='column'
-                    width={'100%'}
-                    gridArea={{md: "2x1"}}>
-                    <Flex direction='column'>
-                        <Banner texto_primario={'CONTROLE DE LEITO DE FUSÃO'} texto_secundario={'ADICIONAR LEITO'}/>
+                    flexDirection="column"
+                    width={"100%"}
+                    gridArea={{ md: "2x1" }}>
+                    <Flex direction="column">
+                        <Banner texto_primario={"CONTROLE DE LEITO DE FUSÃO"} texto_secundario={"ADICIONAR LEITO"} />
                     </Flex>
                 </Flex>
             </Grid>
 
-            <Grid templateColumns='repeat(6, 1fr)' mx={'auto'} bg={'whiteAlpha.800'} px={'5'} pt={'7'} w={'96%'}>
+            <Grid templateColumns="repeat(6, 1fr)" mx={"auto"} bg={"whiteAlpha.800"} px={"5"} pt={"7"} w={"96%"}>
                 <GridItem>
                     <FormControl>
                         <FormLabel>Data</FormLabel>
                         <InputGroup>
                             <InputLeftElement>
-                                <CalendarIcon color='blue'/>
+                                <CalendarIcon color="blue" />
                             </InputLeftElement>
-                            <Input fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
+                            <Input fontSize={"15px"} value={formatDate(formData.data_atual)} pointerEvents={"none"} readOnly />
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -69,66 +106,176 @@ export default function CadastroLeitoDeFusao() {
                 <FormControl>
                     <FormLabel>Horas</FormLabel>
                     <InputGroup>
-                        <InputLeftElement>
-                            <ChevronRightIcon color='blue'/>
-                        </InputLeftElement>
-                        <Input w={'70%'} value={currentHour}/>
+                        <Input w={"70%"} type={"time"} name="horas" value={formData.horas} onChange={handleChange} />
                     </InputGroup>
                 </FormControl>
             </Grid>
-            <Grid templateColumns='repeat(7, 1fr)' mx={'auto'} bg={'whiteAlpha.800'} px={'5'}  w={'96%'}>
-                <GridItem colSpan={1} mt={2} mb={5}>
+
+            <Grid templateColumns="repeat(6, 1fr)" gap={3} mx={"auto"} bg={"whiteAlpha.800"} pl={"5"} pt={"4"} w={"96%"}>
+                <GridItem>
                     <FormControl>
-                        <FormLabel>Carga</FormLabel>
+                        <FormLabel>Numero da carga</FormLabel>
                         <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <PlusSquareIcon color='blue'/>
+                            <InputLeftElement>
+                                <PlusSquareIcon color="blue" />
                             </InputLeftElement>
-                            <Input  w={'70%'} type={'number'} className={'text-center'}/>
+                            <Input
+                                w={"100%"}
+                                fontSize={"15px"}
+                                placeholder={"carga"}
+                                type={"number"}
+                                name="numeroCarga"
+                                value={formData.numeroCarga}
+                                onChange={handleChange}
+                            />
                         </InputGroup>
                     </FormControl>
+
                 </GridItem>
+
+                <FormControl>
+                    <FormLabel className={"text-center"}>Porcentagem</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement>
+                            <ChevronRightIcon color="blue" />
+                        </InputLeftElement>
+                        <Input w={"100%"} placeholder={"%"} name="porcentagem" value={formData.porcentagem} onChange={handleChange} />
+                    </InputGroup>
+                </FormControl>
             </Grid>
-            <Grid templateColumns='repeat(7, 1fr)'  mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}  w={'96%'} pb={'10'}>
+
+            <Grid templateColumns="repeat(7, 1fr)" mx={"auto"} bg={"whiteAlpha.800"} px={"5"} pt={4} w={"96%"}>
                 <GridItem colSpan={2}>
                     <FormControl>
-                        <FormLabel>Minério</FormLabel>
-                    <InputGroup>
-                        <InputLeftElement pointerEvents='none'>
-                            <DragHandleIcon color='blue'/>
-                        </InputLeftElement>
-                        <Select className={'text-center'}>
-                            <option value="opcao1">Extrativa</option>
-                            <option value="opcao2">Comisa</option>
-                            <option value="opcao3">Bassari</option>
-                        </Select>
-                    </InputGroup>
+                        <FormLabel>Minérios</FormLabel>
+                        <InputGroup>
+                            <InputLeftElement pointerEvents="none">
+                                <DragHandleIcon color="blue" />
+                            </InputLeftElement>
+                            <Select className={"text-center"} name="minerio" value={formData.minerio} onChange={handleChange}>
+                                <option value="Extrativa">Extrativa</option>
+                                <option value="Comisa">Comisa</option>
+                                <option value="Bassari">Bassari</option>
+                            </Select>
+                        </InputGroup>
                     </FormControl>
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
                         <FormLabel>Quantidade</FormLabel>
                         <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
+                            <InputLeftElement pointerEvents="none">
+                                <ChevronRightIcon color="blue" />
                             </InputLeftElement>
-                            <Input w={'100%'} type={'number'} className={'text-center'}/>
+                            <Input w={"100%"} type={"number"} name="quantidade" value={formData.quantidade} onChange={handleChange} />
                         </InputGroup>
                     </FormControl>
                 </GridItem>
-                <Flex align={'end'} marginLeft={'10%'}>
+            </Grid>
+
+            <Grid templateColumns="repeat(8, 1fr)" gap={3} mx={"auto"} bg={"whiteAlpha.800"} pl={"5"} py={4} w={"96%"}>
+                <FormControl>
+                    <FormLabel>Calcáreo</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement>
+                            <ChevronRightIcon color="blue" />
+                        </InputLeftElement>
+                        <Input placeholder={"..."} name="calcareo" value={formData.calcareo} onChange={handleChange} />
+                    </InputGroup>
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel>Bauxita</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement>
+                            <ChevronRightIcon color="blue" />
+                        </InputLeftElement>
+                        <Input placeholder={"..."} name="bauxita" value={formData.bauxita} onChange={handleChange} />
+                    </InputGroup>
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel>Coque</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement>
+                            <ChevronRightIcon color="blue" />
+                        </InputLeftElement>
+                        <Input placeholder={"..."} name="coque" value={formData.coque} onChange={handleChange} />
+                    </InputGroup>
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel>Secas</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement>
+                            <ChevronRightIcon color="blue" />
+                        </InputLeftElement>
+                        <Input placeholder={"..."} name="secas" value={formData.secas} onChange={handleChange} />
+                    </InputGroup>
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel>Sucata Gusa</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement>
+                            <ChevronRightIcon color="blue" />
+                        </InputLeftElement>
+                        <Input placeholder={"..."} name="sucataGusa" value={formData.sucataGusa} onChange={handleChange} />
+                    </InputGroup>
+                </FormControl>
+
+                <FormControl>
+                    <FormLabel>Sucata Aço</FormLabel>
+                    <InputGroup>
+                        <InputLeftElement>
+                            <ChevronRightIcon color="blue" />
+                        </InputLeftElement>
+                        <Input placeholder={"..."} name="sucataAco" value={formData.sucataAco} onChange={handleChange} />
+                    </InputGroup>
+                </FormControl>
+
+                <Flex align={"end"} marginLeft={"10%"}>
                     <WrapItem>
-                        <Button colorScheme='whatsapp'>registrar</Button>
+                        <Button colorScheme="whatsapp" onClick={handleSubmit}>Registrar</Button>
                     </WrapItem>
                 </Flex>
             </Grid>
 
+            <Modal isOpen={showSuccessModal} onClose={handleClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader className={"bg-success text-white"}>Sucesso</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        Registro cadastrado com sucesso!
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" onClick={handleClose}>
+                            Fechar
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
 
+            <Modal isOpen={showErrorModal} onClose={handleClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader className={"bg-danger"}>Erro</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        {mensagemErro}
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme="blue" onClick={handleClose}>
+                            Fechar
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
 
-            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'}
-                  rounded={'md'} my={'2'} >
+            <Grid templateColumns="repeat(1, 1fr)" bg={"lightsteelblue"} boxShadow={"dark-lg"} p={"2"} mx={"auto"} rounded={"md"} my={"2"}>
                 <TableContainer>
-                    <Table size='sm' variant={'striped'}>
+                    <Table size="sm" variant={"striped"}>
                         <Thead>
                             <Tr>
                                 <Th>Nome</Th>
@@ -156,70 +303,6 @@ export default function CadastroLeitoDeFusao() {
                     </Table>
                 </TableContainer>
             </Grid>
-
-            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'}
-                  rounded={'md'} mb={'2'} >
-                <TableContainer>
-                    <Table size='sm' variant={'striped'}>
-                        <Thead>
-                            <Tr>
-                                <Th>Nome</Th>
-                                <Th>Carga</Th>
-                                <Th>Quantidade</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            <Tr>
-                                <Td>Extrativa</Td>
-                                <Td>02</Td>
-                                <Td>250.40</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>Extrativa</Td>
-                                <Td>02</Td>
-                                <Td>250.40</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>Extrativa</Td>
-                                <Td>02</Td>
-                                <Td>250.40</Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
-                </TableContainer>
-            </Grid>
-            <Grid templateColumns='repeat(1, 1fr)' bg={'lightsteelblue'} boxShadow={'dark-lg'} p={'2'} mx={'auto'}
-                  rounded={'md'} >
-                <TableContainer>
-                    <Table size='sm' variant={'striped'}>
-                        <Thead>
-                            <Tr>
-                                <Th>Nome</Th>
-                                <Th>Carga</Th>
-                                <Th>Quantidade</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            <Tr>
-                                <Td>Extrativa</Td>
-                                <Td>02</Td>
-                                <Td>250.40</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>Extrativa</Td>
-                                <Td>02</Td>
-                                <Td>250.40</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>Extrativa</Td>
-                                <Td>02</Td>
-                                <Td>250.40</Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
-                </TableContainer>
-            </Grid>
-
         </Box>
     );
 }
