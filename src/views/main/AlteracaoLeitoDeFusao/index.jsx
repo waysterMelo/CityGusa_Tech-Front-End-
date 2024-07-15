@@ -28,7 +28,6 @@ import {
     ModalFooter
 } from "@chakra-ui/react";
 import { CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon } from "@chakra-ui/icons";
-import { format, parseISO } from "date-fns";
 import Banner from "../../../components/banner/Banner";
 import CargasLeitoFusaoService from "../../../App/service/CargasLeitoFusaoService";
 
@@ -64,15 +63,6 @@ export default function CadastroLeitoDeFusao() {
         setShowErrorModal(service.state.showErrorModal);
     };
 
-    const formatDate = (dateString) => {
-        try {
-            const parsedDate = parseISO(dateString);
-            return format(parsedDate, "dd-MM-yyyy");
-        } catch (error) {
-            console.error("Invalid date format:", error);
-            return dateString; // Return the original date string if parsing fails
-        }
-    };
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -96,9 +86,9 @@ export default function CadastroLeitoDeFusao() {
                         <FormLabel>Data</FormLabel>
                         <InputGroup>
                             <InputLeftElement>
-                                <CalendarIcon color="blue" />
+                                <CalendarIcon color="blue"/>
                             </InputLeftElement>
-                            <Input fontSize={"15px"} value={formatDate(formData.data_atual)} pointerEvents={"none"} readOnly />
+                            <Input fontSize={"15px"} value={formData.data_atual} pointerEvents={"none"} readOnly />
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -119,15 +109,7 @@ export default function CadastroLeitoDeFusao() {
                             <InputLeftElement>
                                 <PlusSquareIcon color="blue" />
                             </InputLeftElement>
-                            <Input
-                                w={"100%"}
-                                fontSize={"15px"}
-                                placeholder={"carga"}
-                                type={"number"}
-                                name="numeroCarga"
-                                value={formData.numeroCarga}
-                                onChange={handleChange}
-                            />
+                            <Input w={"100%"} fontSize={"15px"} placeholder={"carga"} name="numeroDaCarga" value={formData.numeroDaCarga} onChange={handleChange}/>
                         </InputGroup>
                     </FormControl>
 
@@ -156,6 +138,8 @@ export default function CadastroLeitoDeFusao() {
                                 <option value="Extrativa">Extrativa</option>
                                 <option value="Comisa">Comisa</option>
                                 <option value="Bassari">Bassari</option>
+                                <option value="Bassari">Ciclo Metal</option>
+                                <option value="Bassari">JLM</option>
                             </Select>
                         </InputGroup>
                     </FormControl>

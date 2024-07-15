@@ -1,24 +1,27 @@
 import axios from "axios";
+import {format} from "date-fns";
 
 class CargasLeitoFusaoService {
     constructor() {
-        const todayInput = new Date().toISOString().split("T")[0];
-
+        const today = format(new Date(), "dd-MM-yyyy");
         this.state = {
+            today: today,
             formData: {
-                data_atual: todayInput,
+                data_atual: today,
                 horas: "",
-                numeroCarga: "",
+                numeroDaCarga: "",
                 porcentagem: "",
-                minerio: "Extrativa",
+                minerio: "",
                 quantidade: "",
                 calcareo: "",
                 bauxita: "",
                 coque: "",
                 secas: "",
                 sucataGusa: "",
-                sucataAco: ""
+                sucataAco: "",
+                totalCargas: ""
             },
+            results:[],
             mensagemErro: "",
             showSuccessModal: false,
             showErrorModal: false
@@ -68,20 +71,20 @@ class CargasLeitoFusaoService {
     };
 
     resetFormData = () => {
-        const todayInput = new Date().toISOString().split("T")[0];
         this.state.formData = {
-            data_atual: todayInput,
+            data_atual: this.state.today,
             horas: "",
-            numeroCarga: "",
+            numeroDaCarga: "",
             porcentagem: "",
-            minerio: "Extrativa",
+            minerio: "",
             quantidade: "",
             calcareo: "",
             bauxita: "",
             coque: "",
             secas: "",
             sucataGusa: "",
-            sucataAco: ""
+            sucataAco: "",
+            totalCargas: ""
         };
         this.state.mensagemErro = "";
         this.state.showSuccessModal = false;
@@ -92,6 +95,15 @@ class CargasLeitoFusaoService {
         this.state.showSuccessModal = false;
         this.state.showErrorModal = false;
     };
+
+    returnResults = async (data_atual)=>{
+        try {
+            const response = await axios.get(`http://localhost:8080/leito-fusao?data=${data_atual}`, this.state.formData, {})
+            this.state.results = response.data;
+        }catch (error){
+            console.log("Erro ao retornar registros", error);
+        }
+    }
 }
 
 export default CargasLeitoFusaoService;

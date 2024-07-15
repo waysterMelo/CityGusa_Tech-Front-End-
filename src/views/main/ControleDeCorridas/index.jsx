@@ -174,7 +174,7 @@ const ControleDeCorridas = () => {
                                 <Tbody>
                                     {corridas.map((corrida) => (
                                         <Tr key={corrida.id}>
-                                            <Td>{format(new Date(corrida.data), 'MM-dd-yyyy')}</Td>
+                                            <Td>{format(new Date(corrida.data), service.state.today)}</Td>
                                             <Td className={'text-center'}>{corrida.horaAbertura}</Td>
                                             <Td className={'text-center'}>{corrida.horaTampa}</Td>
                                             <Td className={'text-center'}>{corrida.cacambas}</Td>
