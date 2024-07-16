@@ -80,9 +80,12 @@ export default function CadastroLeitoDeFusao() {
                 </Flex>
             </Grid>
 
+
+            <form onSubmit={handleSubmit}>
+
             <Grid templateColumns="repeat(6, 1fr)" mx={"auto"} bg={"whiteAlpha.800"} px={"5"} pt={"7"} w={"96%"}>
-                <GridItem>
-                    <FormControl>
+
+                <FormControl>
                         <FormLabel>Data</FormLabel>
                         <InputGroup>
                             <InputLeftElement>
@@ -91,7 +94,6 @@ export default function CadastroLeitoDeFusao() {
                             <Input fontSize={"15px"} value={formData.data_atual} pointerEvents={"none"} readOnly />
                         </InputGroup>
                     </FormControl>
-                </GridItem>
 
                 <FormControl>
                     <FormLabel>Horas</FormLabel>
@@ -220,11 +222,12 @@ export default function CadastroLeitoDeFusao() {
 
                 <Flex align={"end"} marginLeft={"10%"}>
                     <WrapItem>
-                        <Button colorScheme="whatsapp" onClick={handleSubmit}>Registrar</Button>
+                        <Button type={"submit"} colorScheme="whatsapp">Registrar</Button>
                     </WrapItem>
                 </Flex>
             </Grid>
 
+            </form>
             <Modal isOpen={showSuccessModal} onClose={handleClose}>
                 <ModalOverlay />
                 <ModalContent>
