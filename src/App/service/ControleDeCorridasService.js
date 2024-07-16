@@ -1,12 +1,9 @@
 import axios from 'axios';
-import { format } from 'date-fns';
+import { format, parseISO, isValid } from 'date-fns';
 
 class ControleDeCorridasService {
     constructor() {
-        // USE TO RETURN REGISTRY
         const today = format(new Date(), 'dd-MM-yyyy');
-
-        //USE TO INSERT
         const todayInput = new Date().toISOString().split("T")[0];
 
         this.state = {
@@ -53,7 +50,7 @@ class ControleDeCorridasService {
             console.log("Corrida cadastrada com sucesso:", response.data);
             this.state.showSuccessModal = true;
             this.resetFormData();
-            await this.fetchCorridas(this.state.today);  // Aguarde a busca de corridas
+            await this.fetchCorridas(this.state.today);
         } catch (error) {
             console.error("Erro ao cadastrar corrida:", error);
             this.state.mensagemErro = this.getErrorMessage(error);
@@ -64,9 +61,23 @@ class ControleDeCorridasService {
     fetchCorridas = async (data) => {
         try {
             const response = await axios.get(`http://localhost:8080/runs/date-today?data=${data}`);
-            this.state.corridas = response.data;
+            const corridasFormatadas = response.data.map(corrida => ({
+                ...corrida,
+                data: this.formatDate(corrida.data)
+            }));
+            this.state.corridas = corridasFormatadas;
         } catch (error) {
             console.error("Erro ao buscar corridas:", error);
+        }
+    };
+
+    formatDate = (dateString) => {
+        try {
+            const date = parseISO(dateString);
+            return isValid(date) ? format(date, 'dd-MM-yyyy') : dateString;
+        } catch (error) {
+            console.warn("Erro ao formatar data:", error, "Data recebida:", dateString);
+            return dateString; // Retorna a string original se houver erro
         }
     };
 

@@ -15,7 +15,6 @@ import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
-import { format } from "date-fns";
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
@@ -26,12 +25,13 @@ const ControleDeCorridas = () => {
     const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
     const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
 
-
     useEffect(() => {
-        service.fetchCorridas(service.state.today).then(() => {
+        const fetchData = async () => {
+            await service.fetchCorridas(service.state.today);
             setCorridas([...service.state.corridas]);
-        });
-    }, [service.state.today, service]);
+        };
+        fetchData();
+    }, [service]);
 
     const handleChange = (e) => {
         service.handleChange(e);
@@ -54,14 +54,13 @@ const ControleDeCorridas = () => {
         setShowErrorModal(service.state.showErrorModal);
     };
 
-
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
             <Grid
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url={'corridas-data'}  url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'ver corridas'} />
+                <Banner url={'corridas-data'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'ver corridas'} />
             </Grid>
 
             <form onSubmit={handleSubmit}>
@@ -91,16 +90,6 @@ const ControleDeCorridas = () => {
                         <Input size={inputSize} name="temperatura" value={formData.temperatura} onChange={handleChange} placeholder="Digite a temperatura" />
                     </FormControl>
 
-                    {/*<FormControl>*/}
-                    {/*    <FormLabel>Redução</FormLabel>*/}
-                    {/*    <Input size={inputSize} name="reducao" value={formData.reducao} onChange={handleChange} placeholder="Digite a redução" />*/}
-                    {/*</FormControl>*/}
-
-                    {/*<FormControl>*/}
-                    {/*    <FormLabel>Reserva Fundida</FormLabel>*/}
-                    {/*    <Input size={inputSize} name="reservaFundida" value={formData.reservaFundida} onChange={handleChange} placeholder="reserva fundida" />*/}
-                    {/*</FormControl>*/}
-
                     <FormControl>
                         <FormLabel>Escória Visual</FormLabel>
                         <Input size={inputSize} name="escoriaVisual" value={formData.escoriaVisual} onChange={handleChange} placeholder="escória visual" />
@@ -110,16 +99,6 @@ const ControleDeCorridas = () => {
                         <FormLabel>Produção</FormLabel>
                         <Input size={inputSize} name="producao" value={formData.producao} onChange={handleChange} placeholder="Digite a produção" />
                     </FormControl>
-
-                    {/*<FormControl>*/}
-                    {/*    <FormLabel>Produção Acumulada</FormLabel>*/}
-                    {/*    <Input size={inputSize} name="producaoAcumulada" value={formData.producaoAcumulada} onChange={handleChange} placeholder="produção acumulada" />*/}
-                    {/*</FormControl>*/}
-
-                    {/*<FormControl>*/}
-                    {/*    <FormLabel>Média</FormLabel>*/}
-                    {/*    <Input size={inputSize} name="media" value={formData.media} onChange={handleChange} placeholder="Digite a média" />*/}
-                    {/*</FormControl>*/}
 
                     <FormControl>
                         <FormLabel>C.EC. Dia (m³)</FormLabel>
@@ -153,7 +132,7 @@ const ControleDeCorridas = () => {
                 <Box mt={8}>
                     <Grid templateColumns="repeat(1, 1fr)" bg={'lightsteelblue'} boxShadow={'dark-lg'}>
                         <TableContainer>
-                            <Table size={'sm'} variant={'striped'} className={''} >
+                            <Table size={'sm'} variant={'striped'}>
                                 <Thead>
                                     <Tr>
                                         <Th>Data</Th>
@@ -161,12 +140,8 @@ const ControleDeCorridas = () => {
                                         <Th>Hora de Tampa</Th>
                                         <Th>Caçambas</Th>
                                         <Th>Temperatura</Th>
-                                        {/*<Th>Redução</Th>*/}
-                                        {/*<Th>Reserva Fundida</Th>*/}
                                         <Th>Escória Visual</Th>
                                         <Th>Produção</Th>
-                                        {/*<Th>Produção Acumulada</Th>*/}
-                                        {/*<Th>Média</Th>*/}
                                         <Th>C.EC. Dia (m³)</Th>
                                         <Th>C.EC. Dia (kg)</Th>
                                     </Tr>
@@ -174,17 +149,13 @@ const ControleDeCorridas = () => {
                                 <Tbody>
                                     {corridas.map((corrida) => (
                                         <Tr key={corrida.id}>
-                                            <Td>{format(new Date(corrida.data), service.state.today)}</Td>
+                                            <Td>{corrida.data}</Td>
                                             <Td className={'text-center'}>{corrida.horaAbertura}</Td>
                                             <Td className={'text-center'}>{corrida.horaTampa}</Td>
                                             <Td className={'text-center'}>{corrida.cacambas}</Td>
                                             <Td className={'text-center'}>{corrida.temperatura}</Td>
-                                            {/*<Td className={'text-center'}>{corrida.reducao}</Td>*/}
-                                            {/*<Td className={'text-center'}>{corrida.reservaFundida}</Td>*/}
                                             <Td className={'text-center'}>{corrida.escoriaVisual}</Td>
                                             <Td className={'text-center'}>{corrida.producao}</Td>
-                                            {/*<Td className={'text-center'}>{corrida.producaoAcumulada}</Td>*/}
-                                            {/*<Td className={'text-center'}>{corrida.media}</Td>*/}
                                             <Td className={'text-center'}>{corrida.cecDiaM3}</Td>
                                             <Td className={'text-center'}>{corrida.cecDiaKg}</Td>
                                         </Tr>
