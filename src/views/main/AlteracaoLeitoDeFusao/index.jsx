@@ -75,7 +75,7 @@ export default function CadastroLeitoDeFusao() {
                     width={"100%"}
                     gridArea={{ md: "2x1" }}>
                     <Flex direction="column">
-                        <Banner texto_primario={"CONTROLE DE LEITO DE FUSÃO"} texto_secundario={"ADICIONAR LEITO"} />
+                        <Banner  texto_primario={"CONTROLE DE LEITO DE FUSÃO"} texto_secundario={"ADICIONAR LEITO"} url_voltar={'admin/home'} />
                     </Flex>
                 </Flex>
             </Grid>
