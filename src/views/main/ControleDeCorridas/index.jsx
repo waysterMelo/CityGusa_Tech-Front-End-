@@ -15,6 +15,7 @@ import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
+import {format, parseISO} from "date-fns";
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
@@ -32,6 +33,11 @@ const ControleDeCorridas = () => {
         };
         fetchData();
     }, [service]);
+
+    const formatDateForInput = (dateString) => {
+        const date = parseISO(dateString);
+        return format(date, 'dd-MM-yyyy');
+    };
 
     const handleChange = (e) => {
         service.handleChange(e);
@@ -67,7 +73,7 @@ const ControleDeCorridas = () => {
                 <SimpleGrid columns={{ base: 1, md: 5 }} spacing={1} bg={'white'} className={'p-4'} boxShadow={'xs'} rounded={'md'}>
                     <FormControl>
                         <FormLabel>Data</FormLabel>
-                        <Input type="date" size={inputSize} name="data" value={formData.data} readOnly={true} />
+                        <Input  size={inputSize} name="data" value={formatDateForInput(formData.data)} readOnly={true} />
                     </FormControl>
 
                     <FormControl>
@@ -103,7 +109,7 @@ const ControleDeCorridas = () => {
                     <FormControl>
                         <FormLabel>C.EC. Dia (m³)</FormLabel>
                         <InputMask
-                            mask="999.99"
+                            mask="9.99"
                             value={formData.cecDiaM3}
                             onChange={handleChange}
                         >
@@ -113,13 +119,7 @@ const ControleDeCorridas = () => {
 
                     <FormControl>
                         <FormLabel>C.EC. Dia (kg)</FormLabel>
-                        <InputMask
-                            mask="999.99"
-                            value={formData.cecDiaKg}
-                            onChange={handleChange}
-                        >
-                            {(inputProps) => <Input {...inputProps} size={inputSize} name="cecDiaKg" placeholder="Kilos" />}
-                        </InputMask>
+                        <Input size={inputSize} name="cecDiaKg" value={formData.cecDiaKg} onChange={handleChange} placeholder="Digite os kilos" />
                     </FormControl>
 
                     <Button type="submit" colorScheme="blue" size={'md'} mt={'auto'}>
