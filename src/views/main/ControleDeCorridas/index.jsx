@@ -11,8 +11,8 @@ dayjs.extend(duration);
 const ControleDeCorridas = () => {
     // const inputSize = useBreakpointValue({ base: "md", md: "sm" });
     const service = useRef(new ControleDeCorridasService()).current;
-    const [formData, setFormData] = useState(service.state.formData);
-    const [corridas, setCorridas] = useState(service.state.corridas);
+    //const [formData, setFormData] = useState(service.state.formData);
+    //const [corridas, setCorridas] = useState(service.state.corridas);
     const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
     const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
     const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
@@ -22,6 +22,8 @@ const ControleDeCorridas = () => {
     const [deNumero, setDeNumero] = useState('');
     const [ateNumero, setAteNumero] = useState('');
     const [qt, setQt] = useState('');
+    const [gusa, setGusa] = useState('');
+    const [ferro, setFerro] = useState('');
 
 
     const formatDateForInput = (dateString) => {
@@ -31,18 +33,18 @@ const ControleDeCorridas = () => {
 
     const handleChange = (e) => {
         service.handleChange(e);
-        setFormData({ ...service.state.formData });
+        //setFormData({ ...service.state.formData });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         await service.handleSubmit(e);
-        setFormData({ ...service.state.formData });
+        //setFormData({ ...service.state.formData });
         setShowSuccessModal(service.state.showSuccessModal);
         setShowErrorModal(service.state.showErrorModal);
         setMensagemErro(service.state.mensagemErro);
         await service.fetchCorridas(service.state.today);
-        setCorridas([...service.state.corridas]);
+        //setCorridas([...service.state.corridas]);
     };
 
     const handleClose = () => {
@@ -62,10 +64,10 @@ const ControleDeCorridas = () => {
     };
 
     const calcularQt = (de, ate) => {
-        if (de && ate){
+        if (de && ate) {
             const qt = (parseInt(ate) - parseInt(de)) + 1;
             setQt(qt)
-        }else{
+        }else {
             setQt('');
         }
     }
@@ -77,17 +79,27 @@ const ControleDeCorridas = () => {
         }
     }, [horaInicio, horaFim]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await service.fetchCorridas(service.state.today);
-            setCorridas([...service.state.corridas]);
-        };
-        fetchData();
-    }, [service]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         await service.fetchCorridas(service.state.today);
+    //         setCorridas([...service.state.corridas]);
+    //     };
+    //     fetchData();
+    // }, [service]);
 
     useEffect(() => {
         calcularQt(deNumero, ateNumero);
     }, [deNumero, ateNumero]);
+
+
+    useEffect(() => {
+        if (qt && gusa) {
+            const fe2o3Result = (qt * parseFloat(gusa) / 1000).toFixed(2);
+            setFerro(fe2o3Result);
+        } else {
+            setFerro('');
+        }
+    }, [qt, gusa]);
 
 
     return (
@@ -157,7 +169,7 @@ const ControleDeCorridas = () => {
                                         <Spacer />
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>MM</FormLabel>
-                                            <Input placeholder={'manganês'} />
+                                            <Input  placeholder={'manganês'} />
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-sm'}>
@@ -212,20 +224,41 @@ const ControleDeCorridas = () => {
                                 <Input value={qt} className={'text-bg-secondary text-center'} readOnly />
                             </FormControl>
                             <HStack>
-                                <FormControl className={'form-control-sm w-75'}>
+                                <FormControl className={'form-control-sm'}>
                                     <FormLabel>Fe/Gusa/(KG)</FormLabel>
-                                    <Input placeholder={'digite aqui'}/>
+                                    <Input value={gusa}
+                                        onChange={(e) => setGusa(e.target.value)} placeholder={'digite aqui'}/>
                                 </FormControl>
-                                <FormControl className={'form-control-lg'}>
+                                <FormControl className={'form-control-sm'}>
                                     <FormLabel>Fe₂O₃</FormLabel>
-                                    <Input className={'text-bg-secondary'} readOnly />
+                                    <Input value={ferro} className={'text-bg-secondary'} readOnly />
                                 </FormControl>
                             </HStack>
                         </Box>
-
+                        <Box width={'74%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                            <Text className={'p-3 text-bg-dark'}>Peso do Gusa</Text>
+                            <HStack spacing={3} width={'auto'} className={'p-3'}>
+                                <VStack width={'auto'}>
+                                    <Flex width={'100%'}>
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>Real (TN)</FormLabel>
+                                            <Input placeholder={'digite aqui'} />
+                                        </FormControl>
+                                        <Spacer />
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>Acumulado Dia</FormLabel>
+                                            <Input className={'text-bg-secondary'}  readOnly={true}/>
+                                        </FormControl>
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>Ritmo Real</FormLabel>
+                                            <Input className={'text-bg-secondary'}  readOnly={true}/>
+                                        </FormControl>
+                                    </Flex>
+                                </VStack>
+                            </HStack>
+                        </Box>
                     </Stack>
                 </SimpleGrid>
-
 
             </form>
 
