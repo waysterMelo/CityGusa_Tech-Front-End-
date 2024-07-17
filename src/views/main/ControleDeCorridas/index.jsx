@@ -1,21 +1,27 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     Box,
     Button,
     FormControl,
     FormLabel,
     Grid,
+    HStack,
     Input,
-    SimpleGrid, Table, TableContainer, Tbody,
-    Td, Th, Thead,
-    Tr,
+    SimpleGrid,
+    Text,
     useBreakpointValue
 } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
-import { Modal } from "react-bootstrap";
-import InputMask from "react-input-mask";
+import {Modal} from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
 import {format, parseISO} from "date-fns";
+<<<<<<< HEAD
+=======
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+
+dayjs.extend(duration);
+>>>>>>> 99f3f26 (new corridas template starting)
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
@@ -25,6 +31,12 @@ const ControleDeCorridas = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
     const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
     const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
+<<<<<<< HEAD
+=======
+    const [horaInicio, setHoraInicio] = useState('');
+    const [horaFim, setHoraFim] = useState('');
+    const [minutos, setMinutos] = useState('');
+>>>>>>> 99f3f26 (new corridas template starting)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,12 +72,33 @@ const ControleDeCorridas = () => {
         setShowErrorModal(service.state.showErrorModal);
     };
 
+<<<<<<< HEAD
+=======
+    const calcularMinutos = (inicio, fim) => {
+        const horaInicio = dayjs(inicio);
+        const horaFim = dayjs(fim);
+        if (horaInicio.isValid() && horaFim.isValid()) {
+            const diff = horaFim.diff(horaInicio);
+            return dayjs.duration(diff).asMinutes();
+        }
+        return '';
+    };
+
+    useEffect(() => {
+        if (horaInicio && horaFim) {
+            const diffInMinutes = calcularMinutos(horaInicio, horaFim);
+            setMinutos(diffInMinutes);
+        }
+    }, [horaInicio, horaFim]);
+
+>>>>>>> 99f3f26 (new corridas template starting)
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
             <Grid
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
+<<<<<<< HEAD
                 <Banner url={'corridas-data'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'ver corridas'} />
             </Grid>
 
@@ -75,37 +108,122 @@ const ControleDeCorridas = () => {
                         <FormLabel>Data</FormLabel>
                         <Input  size={inputSize} name="data" value={formatDateForInput(formData.data)} readOnly={true} />
                     </FormControl>
+=======
+                <Banner url={'corridas-data'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'}
+                        texto_secundario={'VAZAMENTO, ANALISE QUIMICA, TEMPERATURA GUSA, ESCÓRIA, CARGAS FUNDIDAS, PESO DO GUSA, ' +
+                            'CONSUMO ESP CARVÃO, CORRENTE DOS ELETROS SOPRADORES (A)'} primeiro_botao={'ver corridas'} />
+            </Grid>
 
-                    <FormControl>
-                        <FormLabel>Caçambas</FormLabel>
-                        <Input size={inputSize} name="cacambas" value={formData.cacambas} onChange={handleChange} placeholder="número de caçambas" />
-                    </FormControl>
+            <Grid templateColumns="repeat(1, 1fr)" gap={1}>
+                <SimpleGrid columns={2}>
+                    <Box height='auto' bg={'white'}>
+                        <Text className={'p-3 text-bg-dark'}>Vazamento</Text>
+                        <HStack spacing={3} width={'100%'} className={'p-3'}>
+                            <FormControl width={'30%'}>
+                                <FormLabel>Hora Início</FormLabel>
+                                <Input
+                                    type={'datetime-local'}
+                                    value={horaInicio}
+                                    onChange={(e) => setHoraInicio(e.target.value)}
+                                />
+                            </FormControl>
+                            <FormControl width={'30%'}>
+                                <FormLabel>Hora Fim</FormLabel>
+                                <Input
+                                    type={'datetime-local'}
+                                    value={horaFim}
+                                    onChange={(e) => setHoraFim(e.target.value)}
+                                />
+                            </FormControl>
+                            <FormControl width={'20%'}>
+                                <FormLabel>Minutos</FormLabel>
+                                <Input placeholder='minutos' value={minutos} readOnly />
+                            </FormControl>
+                            <FormControl width={'20%'}>
+                                <FormLabel>Conchas</FormLabel>
+                                <Input placeholder='caçambas' />
+                            </FormControl>
+                        </HStack>
+>>>>>>> 99f3f26 (new corridas template starting)
 
-                    <FormControl>
-                        <FormLabel>Hora de Abertura</FormLabel>
-                        <Input type="time" size={inputSize} name="horaAbertura" value={formData.horaAbertura} onChange={handleChange} />
-                    </FormControl>
+                        <Box>
+                            <Text className={'p-3 text-bg-dark'}>Analise QM</Text>
+                            <HStack className={'p-2'}>
+                               <Box>
+                                   <Text className={'p-2 text-bg-info'}>Silicio</Text>
+                                  <HStack className={'p-2'}>
+                                      <FormControl width={'50%'} >
+                                          <FormLabel className={'text-center'}>Visual</FormLabel>
+                                          <Input placeholder={'visual'}></Input>
+                                      </FormControl>
+                                      <FormControl width={'50%'} >
+                                          <FormLabel className={'text-center'}>Real</FormLabel>
+                                          <Input placeholder={'real'}></Input>
+                                      </FormControl>
+                                  </HStack>
+                               </Box>
 
-                    <FormControl>
-                        <FormLabel>Hora de Tampa</FormLabel>
-                        <Input type="time" size={inputSize} name="horaTampa" value={formData.horaTampa} onChange={handleChange} />
-                    </FormControl>
+                                <Box>
+                                    <Text className={'p-2 text-center'}>outros</Text>
+                                    <HStack>
+                                        <FormControl width={'auto'} >
+                                            <FormLabel className={'text-center'}>P</FormLabel>
+                                            <Input placeholder={'fosforo'}></Input>
+                                        </FormControl>
+                                        <FormControl width={'auto'} >
+                                            <FormLabel className={'text-center'}>MM</FormLabel>
+                                            <Input placeholder={'manganes'}></Input>
+                                        </FormControl>
+                                        <FormControl width={'auto'} >
+                                            <FormLabel className={'text-center'}>S</FormLabel>
+                                            <Input placeholder={'silica'}></Input>
+                                        </FormControl>
+                                    </HStack>
+                                </Box>
 
-                    <FormControl>
-                        <FormLabel>Temperatura (°C)</FormLabel>
-                        <Input size={inputSize} name="temperatura" value={formData.temperatura} onChange={handleChange} placeholder="Digite a temperatura" />
-                    </FormControl>
+                            </HStack>
+                        </Box>
 
+                        <Box>
+                            <Text className={'p-3 text-bg-dark'}>Escória</Text>
+                            <HStack className={'p-2'}>
+                                <Box>
+                                    <Text className={'p-2 text-bg-info'}>Vazamento</Text>
+                                    <HStack className={'p-2'}>
+                                        <FormControl width={'auto'} >
+                                            <FormLabel className={'text-center'}>Inicio</FormLabel>
+                                            <Input type={'time'} placeholder={'hora inicio'}></Input>
+                                        </FormControl>
+                                        <FormControl width={'auto'} >
+                                            <FormLabel className={'text-center'}>Fim</FormLabel>
+                                            <Input type={'time'} placeholder={'hora fim'}></Input>
+                                        </FormControl>
+                                        <FormControl width={'auto'} >
+                                            <FormLabel className={'text-center'}>Tipo de escória</FormLabel>
+                                            <Input placeholder={'tipo'}></Input>
+                                        </FormControl>
+                                    </HStack>
+                                </Box>
+
+<<<<<<< HEAD
                     <FormControl>
                         <FormLabel>Escória Visual</FormLabel>
                         <Input size={inputSize} name="escoriaVisual" value={formData.escoriaVisual} onChange={handleChange} placeholder="escória visual" />
                     </FormControl>
+=======
+                            </HStack>
+                        </Box>
 
-                    <FormControl>
-                        <FormLabel>Produção</FormLabel>
-                        <Input size={inputSize} name="producao" value={formData.producao} onChange={handleChange} placeholder="Digite a produção" />
-                    </FormControl>
+                        <HStack justifyContent={'center'} mb={3}>
+                            <Button colorScheme={'telegram'} onClick={handleSubmit}>Registrar</Button>
+                        </HStack>
+                    </Box>
 
+>>>>>>> 99f3f26 (new corridas template starting)
+
+                    <Box bg='white' height='auto'>
+
+<<<<<<< HEAD
                     <FormControl>
                         <FormLabel>C.EC. Dia (m³)</FormLabel>
                         <InputMask
@@ -166,6 +284,12 @@ const ControleDeCorridas = () => {
                     </Grid>
                 </Box>
             )}
+=======
+                    </Box>
+
+                </SimpleGrid>
+            </Grid>
+>>>>>>> 99f3f26 (new corridas template starting)
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>
