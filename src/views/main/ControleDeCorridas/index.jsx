@@ -15,13 +15,11 @@ import Banner from "components/banner/Banner";
 import {Modal} from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
 import {format, parseISO} from "date-fns";
-<<<<<<< HEAD
-=======
+
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 
 dayjs.extend(duration);
->>>>>>> 99f3f26 (new corridas template starting)
 
 const ControleDeCorridas = () => {
     const inputSize = useBreakpointValue({ base: "md", md: "sm" });
@@ -31,12 +29,10 @@ const ControleDeCorridas = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
     const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
     const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
-<<<<<<< HEAD
-=======
+
     const [horaInicio, setHoraInicio] = useState('');
     const [horaFim, setHoraFim] = useState('');
     const [minutos, setMinutos] = useState('');
->>>>>>> 99f3f26 (new corridas template starting)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,8 +68,7 @@ const ControleDeCorridas = () => {
         setShowErrorModal(service.state.showErrorModal);
     };
 
-<<<<<<< HEAD
-=======
+
     const calcularMinutos = (inicio, fim) => {
         const horaInicio = dayjs(inicio);
         const horaFim = dayjs(fim);
@@ -91,14 +86,12 @@ const ControleDeCorridas = () => {
         }
     }, [horaInicio, horaFim]);
 
->>>>>>> 99f3f26 (new corridas template starting)
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
             <Grid
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-<<<<<<< HEAD
                 <Banner url={'corridas-data'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'ver corridas'} />
             </Grid>
 
@@ -108,7 +101,7 @@ const ControleDeCorridas = () => {
                         <FormLabel>Data</FormLabel>
                         <Input  size={inputSize} name="data" value={formatDateForInput(formData.data)} readOnly={true} />
                     </FormControl>
-=======
+
                 <Banner url={'corridas-data'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'}
                         texto_secundario={'VAZAMENTO, ANALISE QUIMICA, TEMPERATURA GUSA, ESCÓRIA, CARGAS FUNDIDAS, PESO DO GUSA, ' +
                             'CONSUMO ESP CARVÃO, CORRENTE DOS ELETROS SOPRADORES (A)'} primeiro_botao={'ver corridas'} />
@@ -144,7 +137,6 @@ const ControleDeCorridas = () => {
                                 <Input placeholder='caçambas' />
                             </FormControl>
                         </HStack>
->>>>>>> 99f3f26 (new corridas template starting)
 
                         <Box>
                             <Text className={'p-3 text-bg-dark'}>Analise QM</Text>
@@ -205,12 +197,11 @@ const ControleDeCorridas = () => {
                                     </HStack>
                                 </Box>
 
-<<<<<<< HEAD
                     <FormControl>
                         <FormLabel>Escória Visual</FormLabel>
                         <Input size={inputSize} name="escoriaVisual" value={formData.escoriaVisual} onChange={handleChange} placeholder="escória visual" />
                     </FormControl>
-=======
+
                             </HStack>
                         </Box>
 
@@ -219,11 +210,9 @@ const ControleDeCorridas = () => {
                         </HStack>
                     </Box>
 
->>>>>>> 99f3f26 (new corridas template starting)
 
                     <Box bg='white' height='auto'>
 
-<<<<<<< HEAD
                     <FormControl>
                         <FormLabel>C.EC. Dia (m³)</FormLabel>
                         <InputMask
@@ -284,12 +273,11 @@ const ControleDeCorridas = () => {
                     </Grid>
                 </Box>
             )}
-=======
+
                     </Box>
 
                 </SimpleGrid>
             </Grid>
->>>>>>> 99f3f26 (new corridas template starting)
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>
