@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Box,
     Button,
@@ -9,15 +9,25 @@ import {
     Input,
     SimpleGrid,
     Text,
-    useBreakpointValue
+    useBreakpointValue,
+    Table,
+    Thead,
+    Tbody,
+    Tr,
+    Th,
+    Td,
+    TableContainer,
+    VStack,
+    Flex,
+    Spacer, Stack, Select
 } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
-import {format, parseISO} from "date-fns";
-
+import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import InputMask from 'react-input-mask';
 
 dayjs.extend(duration);
 
@@ -44,7 +54,7 @@ const ControleDeCorridas = () => {
 
     const formatDateForInput = (dateString) => {
         const date = parseISO(dateString);
-        return format(date, 'dd-MM-yyyy');
+        return format(date, 'yyyy-MM-dd');
     };
 
     const handleChange = (e) => {
@@ -53,6 +63,7 @@ const ControleDeCorridas = () => {
     };
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         await service.handleSubmit(e);
         setFormData({ ...service.state.formData });
         setShowSuccessModal(service.state.showSuccessModal);
@@ -67,7 +78,6 @@ const ControleDeCorridas = () => {
         setShowSuccessModal(service.state.showSuccessModal);
         setShowErrorModal(service.state.showErrorModal);
     };
-
 
     const calcularMinutos = (inicio, fim) => {
         const horaInicio = dayjs(inicio);
@@ -96,23 +106,14 @@ const ControleDeCorridas = () => {
             </Grid>
 
             <form onSubmit={handleSubmit}>
-                <SimpleGrid columns={{ base: 1, md: 5 }} spacing={1} bg={'white'} className={'p-4'} boxShadow={'xs'} rounded={'md'}>
-                    <FormControl>
-                        <FormLabel>Data</FormLabel>
-                        <Input  size={inputSize} name="data" value={formatDateForInput(formData.data)} readOnly={true} />
-                    </FormControl>
 
-                <Banner url={'corridas-data'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'}
-                        texto_secundario={'VAZAMENTO, ANALISE QUIMICA, TEMPERATURA GUSA, ESCÓRIA, CARGAS FUNDIDAS, PESO DO GUSA, ' +
-                            'CONSUMO ESP CARVÃO, CORRENTE DOS ELETROS SOPRADORES (A)'} primeiro_botao={'ver corridas'} />
-            </Grid>
+                <SimpleGrid columns={{ base: 1, md: 1}} spacing={3} mt={4}>
 
-            <Grid templateColumns="repeat(1, 1fr)" gap={1}>
-                <SimpleGrid columns={2}>
-                    <Box height='auto' bg={'white'}>
-                        <Text className={'p-3 text-bg-dark'}>Vazamento</Text>
-                        <HStack spacing={3} width={'100%'} className={'p-3'}>
-                            <FormControl width={'30%'}>
+                    <Stack direction={['column', 'row']}>
+                    <Box width={'auto'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                        <Text className={'p-3 text-bg-dark text-center'}>Vazamento</Text>
+
+                            <FormControl className={'form-control-lg'}>
                                 <FormLabel>Hora Início</FormLabel>
                                 <Input
                                     type={'datetime-local'}
@@ -120,7 +121,7 @@ const ControleDeCorridas = () => {
                                     onChange={(e) => setHoraInicio(e.target.value)}
                                 />
                             </FormControl>
-                            <FormControl width={'30%'}>
+                            <FormControl className={'form-control-lg'}>
                                 <FormLabel>Hora Fim</FormLabel>
                                 <Input
                                     type={'datetime-local'}
@@ -128,156 +129,84 @@ const ControleDeCorridas = () => {
                                     onChange={(e) => setHoraFim(e.target.value)}
                                 />
                             </FormControl>
-                            <FormControl width={'20%'}>
+                            <FormControl className={'form-control-lg'}>
                                 <FormLabel>Minutos</FormLabel>
                                 <Input placeholder='minutos' value={minutos} readOnly />
                             </FormControl>
-                            <FormControl width={'20%'}>
+                            <FormControl className={'form-control-lg'}>
                                 <FormLabel>Conchas</FormLabel>
                                 <Input placeholder='caçambas' />
                             </FormControl>
-                        </HStack>
+                    </Box>
+                    <Box height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                            <Text className={'p-3 text-bg-dark'}>Análise QM</Text>
+                            <HStack spacing={3} width={'100%'} className={'p-3'}>
+                                <VStack width={'auto'}>
 
-                        <Box>
-                            <Text className={'p-3 text-bg-dark'}>Analise QM</Text>
-                            <HStack className={'p-2'}>
-                               <Box>
-                                   <Text className={'p-2 text-bg-info'}>Silicio</Text>
-                                  <HStack className={'p-2'}>
-                                      <FormControl width={'50%'} >
-                                          <FormLabel className={'text-center'}>Visual</FormLabel>
-                                          <Input placeholder={'visual'}></Input>
-                                      </FormControl>
-                                      <FormControl width={'50%'} >
-                                          <FormLabel className={'text-center'}>Real</FormLabel>
-                                          <Input placeholder={'real'}></Input>
-                                      </FormControl>
-                                  </HStack>
-                               </Box>
-
-                                <Box>
-                                    <Text className={'p-2 text-center'}>outros</Text>
-                                    <HStack>
-                                        <FormControl width={'auto'} >
+                                    <Flex width={'100%'}>
+                                        <Text className={'p-2 text-bg-info'}>Silício</Text>
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel className={'text-center'}>Visual</FormLabel>
+                                            <Input placeholder={'visual'} />
+                                        </FormControl>
+                                        <Spacer />
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel className={'text-center'}>Real</FormLabel>
+                                            <Input placeholder={'real'} />
+                                        </FormControl>
+                                    </Flex>
+                                </VStack>
+                                <VStack width={'100%'}>
+                                    <Flex>
+                                        <Text className={'p-2 text-bg-info'}>Outros</Text>
+                                        <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>P</FormLabel>
-                                            <Input placeholder={'fosforo'}></Input>
+                                            <Input placeholder={'fósforo'} />
                                         </FormControl>
-                                        <FormControl width={'auto'} >
+                                        <Spacer />
+                                        <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>MM</FormLabel>
-                                            <Input placeholder={'manganes'}></Input>
+                                            <Input placeholder={'manganês'} />
                                         </FormControl>
-                                        <FormControl width={'auto'} >
+                                        <Spacer />
+                                        <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>S</FormLabel>
-                                            <Input placeholder={'silica'}></Input>
+                                            <Input placeholder={'sílica'} />
                                         </FormControl>
-                                    </HStack>
-                                </Box>
-
+                                    </Flex>
+                                </VStack>
                             </HStack>
-                        </Box>
-
-                        <Box>
+                        <Box bg='white' p={4} mt={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark'}>Escória</Text>
-                            <HStack className={'p-2'}>
-                                <Box>
-                                    <Text className={'p-2 text-bg-info'}>Vazamento</Text>
-                                    <HStack className={'p-2'}>
-                                        <FormControl width={'auto'} >
-                                            <FormLabel className={'text-center'}>Inicio</FormLabel>
-                                            <Input type={'time'} placeholder={'hora inicio'}></Input>
-                                        </FormControl>
-                                        <FormControl width={'auto'} >
-                                            <FormLabel className={'text-center'}>Fim</FormLabel>
-                                            <Input type={'time'} placeholder={'hora fim'}></Input>
-                                        </FormControl>
-                                        <FormControl width={'auto'} >
-                                            <FormLabel className={'text-center'}>Tipo de escória</FormLabel>
-                                            <Input placeholder={'tipo'}></Input>
-                                        </FormControl>
-                                    </HStack>
-                                </Box>
-
-                    <FormControl>
-                        <FormLabel>Escória Visual</FormLabel>
-                        <Input size={inputSize} name="escoriaVisual" value={formData.escoriaVisual} onChange={handleChange} placeholder="escória visual" />
-                    </FormControl>
+                            <HStack spacing={3} width={'100%'} className={'p-2'}>
+                                <FormControl className={'w-50'}>
+                                    <FormLabel>Início</FormLabel>
+                                    <Input type={'time'} placeholder={'hora início'} />
+                                </FormControl>
+                                <FormControl className={'w-50'}>
+                                    <FormLabel>Fim</FormLabel>
+                                    <Input type={'time'} placeholder={'hora fim'} />
+                                </FormControl>
+                                <FormControl>
+                                    <FormLabel>Tipo de escória</FormLabel>
+                                    <Select placeholder="Selecione o tipo">
+                                        <option value="verde">Verde</option>
+                                        <option value="verde-clara">Verde Clara</option>
+                                        <option value="cinza">Cinza</option>
+                                    </Select>
+                                </FormControl>
 
                             </HStack>
                         </Box>
-
-                        <HStack justifyContent={'center'} mb={3}>
-                            <Button colorScheme={'telegram'} onClick={handleSubmit}>Registrar</Button>
-                        </HStack>
                     </Box>
 
-
-                    <Box bg='white' height='auto'>
-
-                    <FormControl>
-                        <FormLabel>C.EC. Dia (m³)</FormLabel>
-                        <InputMask
-                            mask="9.99"
-                            value={formData.cecDiaM3}
-                            onChange={handleChange}
-                        >
-                            {(inputProps) => <Input {...inputProps} size={inputSize} name="cecDiaM3" placeholder="metros cúbicos" />}
-                        </InputMask>
-                    </FormControl>
-
-                    <FormControl>
-                        <FormLabel>C.EC. Dia (kg)</FormLabel>
-                        <Input size={inputSize} name="cecDiaKg" value={formData.cecDiaKg} onChange={handleChange} placeholder="Digite os kilos" />
-                    </FormControl>
-
-                    <Button type="submit" colorScheme="blue" size={'md'} mt={'auto'}>
-                        Cadastrar Corrida
-                    </Button>
+                    </Stack>
                 </SimpleGrid>
+
+
             </form>
 
-            {corridas.length > 0 && (
-                <Box mt={8}>
-                    <Grid templateColumns="repeat(1, 1fr)" bg={'lightsteelblue'} boxShadow={'dark-lg'}>
-                        <TableContainer>
-                            <Table size={'sm'} variant={'striped'}>
-                                <Thead>
-                                    <Tr>
-                                        <Th>Data</Th>
-                                        <Th>Hora de Abertura</Th>
-                                        <Th>Hora de Tampa</Th>
-                                        <Th>Caçambas</Th>
-                                        <Th>Temperatura</Th>
-                                        <Th>Escória Visual</Th>
-                                        <Th>Produção</Th>
-                                        <Th>C.EC. Dia (m³)</Th>
-                                        <Th>C.EC. Dia (kg)</Th>
-                                    </Tr>
-                                </Thead>
-                                <Tbody>
-                                    {corridas.map((corrida) => (
-                                        <Tr key={corrida.id}>
-                                            <Td>{corrida.data}</Td>
-                                            <Td className={'text-center'}>{corrida.horaAbertura}</Td>
-                                            <Td className={'text-center'}>{corrida.horaTampa}</Td>
-                                            <Td className={'text-center'}>{corrida.cacambas}</Td>
-                                            <Td className={'text-center'}>{corrida.temperatura}</Td>
-                                            <Td className={'text-center'}>{corrida.escoriaVisual}</Td>
-                                            <Td className={'text-center'}>{corrida.producao}</Td>
-                                            <Td className={'text-center'}>{corrida.cecDiaM3}</Td>
-                                            <Td className={'text-center'}>{corrida.cecDiaKg}</Td>
-                                        </Tr>
-                                    ))}
-                                </Tbody>
-                            </Table>
-                        </TableContainer>
-                    </Grid>
-                </Box>
-            )}
 
-                    </Box>
-
-                </SimpleGrid>
-            </Grid>
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>

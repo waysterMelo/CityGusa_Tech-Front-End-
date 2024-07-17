@@ -75,16 +75,14 @@ export default function CadastroLeitoDeFusao() {
                     width={"100%"}
                     gridArea={{ md: "2x1" }}>
                     <Flex direction="column">
-                        <Banner  texto_primario={"CONTROLE DE LEITO DE FUSÃO"} texto_secundario={"ADICIONAR LEITO"} url_voltar={'admin/home'} />
+                        <Banner texto_primario={"CONTROLE DE LEITO DE FUSÃO"} texto_secundario={"ADICIONAR LEITO"} url_voltar={'admin/home'} />
                     </Flex>
                 </Flex>
             </Grid>
 
 
             <form onSubmit={handleSubmit}>
-
             <Grid templateColumns="repeat(6, 1fr)" mx={"auto"} bg={"whiteAlpha.800"} px={"5"} pt={"7"} w={"96%"}>
-
                 <FormControl>
                         <FormLabel>Data</FormLabel>
                         <InputGroup>
@@ -226,8 +224,9 @@ export default function CadastroLeitoDeFusao() {
                     </WrapItem>
                 </Flex>
             </Grid>
-
             </form>
+
+
             <Modal isOpen={showSuccessModal} onClose={handleClose}>
                 <ModalOverlay />
                 <ModalContent>

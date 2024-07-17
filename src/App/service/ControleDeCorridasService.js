@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { format, parseISO, isValid } from 'date-fns';
+import {format, isValid, parseISO} from 'date-fns';
 
 class ControleDeCorridasService {
     constructor() {
@@ -15,6 +15,7 @@ class ControleDeCorridasService {
                 horaAbertura: "",
                 horaTampa: "",
                 temperatura: "",
+                temperatura2: "",
                 reducao: "",
                 reservaFundida: "",
                 escoriaVisual: "",
@@ -61,11 +62,12 @@ class ControleDeCorridasService {
     fetchCorridas = async (data) => {
         try {
             const response = await axios.get(`http://localhost:8080/runs/date-today?data=${data}`);
-            const corridasFormatadas = response.data.map(corrida => ({
+            this.state.corridas = response.data.map(corrida => ({
                 ...corrida,
-                data: this.formatDate(corrida.data)
+                data: this.formatDate(corrida.data),
+                horaAbertura: corrida.horaAbertura || "00:00",
+                horaTampa: corrida.horaTampa || "00:00"
             }));
-            this.state.corridas = corridasFormatadas;
         } catch (error) {
             console.error("Erro ao buscar corridas:", error);
         }
@@ -103,6 +105,7 @@ class ControleDeCorridasService {
             horaAbertura: "",
             horaTampa: "",
             temperatura: "",
+            temperatura2: "",
             reducao: "",
             reservaFundida: "",
             escoriaVisual: "",
