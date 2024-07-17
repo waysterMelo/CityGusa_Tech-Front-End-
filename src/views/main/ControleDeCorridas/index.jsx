@@ -1,34 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-    Box,
-    Button,
-    FormControl,
-    FormLabel,
-    Grid,
-    HStack,
-    Input,
-    SimpleGrid,
-    Text,
-    useBreakpointValue,
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-    TableContainer,
-    VStack,
-    Flex,
-    Spacer, Stack, Select
-} from "@chakra-ui/react";
+import {Box, Button, FormControl, FormLabel, Grid, HStack, Input, SimpleGrid, Text, VStack, Flex, Spacer, Stack, Select} from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
 import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import InputMask from 'react-input-mask';
-
 dayjs.extend(duration);
 
 const ControleDeCorridas = () => {
@@ -125,7 +102,7 @@ const ControleDeCorridas = () => {
             <form onSubmit={handleSubmit}>
                 <SimpleGrid columns={{ base: 1, md: 1}} spacing={3} mt={4}>
                     <Stack direction={['column', 'row']}>
-                    <Box width={'auto'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                    <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                         <Text className={'p-3 text-bg-dark text-center'}>Vazamento</Text>
 
                             <FormControl className={'form-control-lg'}>
@@ -157,9 +134,8 @@ const ControleDeCorridas = () => {
                             <Text className={'p-3 text-bg-dark'}>Análise QM</Text>
                             <HStack spacing={3} width={'100%'} className={'p-3'}>
                                 <VStack width={'auto'}>
-
+                                    <Text className={'p-2 border-bottom'}>Silício</Text>
                                     <Flex width={'100%'}>
-                                        <Text className={'p-2 text-bg-info'}>Silício</Text>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>Visual</FormLabel>
                                             <Input placeholder={'visual'} />
@@ -172,8 +148,8 @@ const ControleDeCorridas = () => {
                                     </Flex>
                                 </VStack>
                                 <VStack width={'100%'}>
+                                    <Text className={'p-2 border-bottom'}>Outros</Text>
                                     <Flex>
-                                        <Text className={'p-2 text-bg-info'}>Outros</Text>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>P</FormLabel>
                                             <Input placeholder={'fósforo'} />
@@ -218,87 +194,35 @@ const ControleDeCorridas = () => {
 
 
                     <Stack direction={['column', 'row']}>
-                        <Box width={'auto'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                        <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Cargas Fundidas</Text>
-
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>De N°</FormLabel>
-                                <Input value={deNumero} onChange={(e) => setDeNumero(e.target.value)} placeholder={'digite aqui'}/>
-                            </FormControl>
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>Até N°</FormLabel>
-                                <Input value={ateNumero} onChange={(e) => setAteNumero(e.target.value)} placeholder={'digite aqui'}/>
-                            </FormControl>
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>Quantidade</FormLabel>
-                                <Input value={qt} className={'text-bg-secondary'} readOnly />
-                            </FormControl>
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>Fe₂O₃</FormLabel>
-                                <Input className={'text-bg-secondary'} readOnly />
-                            </FormControl>
-                        </Box>
-                        <Box height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark'}>Análise QM</Text>
-                            <HStack spacing={3} width={'100%'} className={'p-3'}>
-                                <VStack width={'auto'}>
-
-                                    <Flex width={'100%'}>
-                                        <Text className={'p-2 text-bg-info'}>Silício</Text>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>Visual</FormLabel>
-                                            <Input placeholder={'visual'} />
-                                        </FormControl>
-                                        <Spacer />
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>Real</FormLabel>
-                                            <Input placeholder={'real'} />
-                                        </FormControl>
-                                    </Flex>
-                                </VStack>
-                                <VStack width={'100%'}>
-                                    <Flex>
-                                        <Text className={'p-2 text-bg-info'}>Outros</Text>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>P</FormLabel>
-                                            <Input placeholder={'fósforo'} />
-                                        </FormControl>
-                                        <Spacer />
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>MM</FormLabel>
-                                            <Input placeholder={'manganês'} />
-                                        </FormControl>
-                                        <Spacer />
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>S</FormLabel>
-                                            <Input placeholder={'sílica'} />
-                                        </FormControl>
-                                    </Flex>
-                                </VStack>
+                            <HStack>
+                                <FormControl className={'form-control-sm'}>
+                                    <FormLabel>De N°</FormLabel>
+                                    <Input value={deNumero} onChange={(e) => setDeNumero(e.target.value)} placeholder={'digite aqui'} />
+                                </FormControl>
+                                <FormControl className={'form-control-sm'}>
+                                    <FormLabel>Até N°</FormLabel>
+                                    <Input value={ateNumero} onChange={(e) => setAteNumero(e.target.value)} placeholder={'digite aqui'} />
+                                </FormControl>
                             </HStack>
-                            <Box bg='white' p={4} mt={4} boxShadow={'xs'} rounded={'md'}>
-                                <Text className={'p-3 text-bg-dark'}>Escória</Text>
-                                <HStack spacing={3} width={'100%'} className={'p-2'}>
-                                    <FormControl className={'w-50'}>
-                                        <FormLabel>Início</FormLabel>
-                                        <Input type={'time'} placeholder={'hora início'} />
-                                    </FormControl>
-                                    <FormControl className={'w-50'}>
-                                        <FormLabel>Fim</FormLabel>
-                                        <Input type={'time'} placeholder={'hora fim'} />
-                                    </FormControl>
-                                    <FormControl>
-                                        <FormLabel>Tipo de escória</FormLabel>
-                                        <Select placeholder="Selecione o tipo">
-                                            <option value="verde">Verde</option>
-                                            <option value="verde-clara">Verde Clara</option>
-                                            <option value="cinza">Cinza</option>
-                                        </Select>
-                                    </FormControl>
 
-                                </HStack>
-                            </Box>
+                            <FormControl className={'form-control-sm'}>
+                                <FormLabel>Quantidade</FormLabel>
+                                <Input value={qt} className={'text-bg-secondary text-center'} readOnly />
+                            </FormControl>
+                            <HStack>
+                                <FormControl className={'form-control-sm w-75'}>
+                                    <FormLabel>Fe/Gusa/(KG)</FormLabel>
+                                    <Input placeholder={'digite aqui'}/>
+                                </FormControl>
+                                <FormControl className={'form-control-lg'}>
+                                    <FormLabel>Fe₂O₃</FormLabel>
+                                    <Input className={'text-bg-secondary'} readOnly />
+                                </FormControl>
+                            </HStack>
                         </Box>
+
                     </Stack>
                 </SimpleGrid>
 
