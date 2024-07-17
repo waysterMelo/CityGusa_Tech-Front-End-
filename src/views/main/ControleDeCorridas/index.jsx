@@ -1,5 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import {Box, Button, FormControl, FormLabel, Grid, HStack, Input, SimpleGrid, Text, VStack, Flex, Spacer, Stack, Select} from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormLabel,
+    Grid,
+    HStack,
+    Input,
+    SimpleGrid,
+    Text,
+    VStack,
+    Flex,
+    Spacer,
+    Stack,
+    Select,
+    GridItem
+} from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
@@ -204,7 +220,6 @@ const ControleDeCorridas = () => {
                     </Box>
                     </Stack>
 
-
                     <Stack direction={['column', 'row']}>
                         <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Cargas Fundidas</Text>
@@ -235,9 +250,9 @@ const ControleDeCorridas = () => {
                                 </FormControl>
                             </HStack>
                         </Box>
-                        <Box width={'74%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark'}>Peso do Gusa</Text>
-                            <HStack spacing={3} width={'auto'} className={'p-3'}>
+                        <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                            <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
+                ,            <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack width={'auto'}>
                                     <Flex width={'100%'}>
                                         <FormControl className={'form-control-lg'}>
@@ -246,18 +261,47 @@ const ControleDeCorridas = () => {
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-lg'}>
-                                            <FormLabel>Acumulado Dia</FormLabel>
-                                            <Input className={'text-bg-secondary'}  readOnly={true}/>
-                                        </FormControl>
-                                        <FormControl className={'form-control-lg'}>
                                             <FormLabel>Ritmo Real</FormLabel>
                                             <Input className={'text-bg-secondary'}  readOnly={true}/>
                                         </FormControl>
                                     </Flex>
                                 </VStack>
                             </HStack>
+                            <HStack spacing={3} width={'auto'} className={'p-1'}>
+                                <VStack>
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>Tempo de corrida em minutos</FormLabel>
+                                            <Input placeholder={'digite aqui'} />
+                                        </FormControl>
+
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>Tonelada de gusa por minuto</FormLabel>
+                                            <Input className={'text-bg-secondary'}  readOnly={true}/>
+                                        </FormControl>
+                                </VStack>
+                            </HStack>
+                        </Box>
+                        <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                            <Text className={'p-3 text-bg-dark text-center'}>Consumo Esperado de Carvão</Text>
+
+                            <HStack spacing={3} width={'auto'} className={'p-1'}>
+                                <VStack width={'auto'}>
+                                    <Flex width={'100%'}>
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>KG/T</FormLabel>
+                                            <Input placeholder={'digite aqui'} />
+                                        </FormControl>
+                                        <Spacer />
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>M³/T</FormLabel>
+                                            <Input placeholder={'digite aqui'}/>
+                                        </FormControl>
+                                    </Flex>
+                                </VStack>
+                            </HStack>
                         </Box>
                     </Stack>
+
                 </SimpleGrid>
 
             </form>
