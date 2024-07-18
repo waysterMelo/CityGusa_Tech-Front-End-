@@ -277,7 +277,7 @@ const ControleDeCorridas = () => {
                     </Stack>
 
                     <Stack direction={['column', 'row']}>
-                        <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                        <Box width={'26%'} height='80%' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Cargas Fundidas</Text>
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
@@ -307,7 +307,7 @@ const ControleDeCorridas = () => {
                             </HStack>
                         </Box>
 
-                        <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                        <Box width={'36%'} height='80%' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack width={'auto'}>
@@ -362,6 +362,40 @@ const ControleDeCorridas = () => {
                                             <Input value={m3t} placeholder={'digite aqui'} onChange={handleM3tNumber}/>
                                         </FormControl>
                                     </Flex>
+                                </VStack>
+                            </HStack>
+
+
+                            <Text className={'p-3 text-bg-dark text-center'}>Corrente dos eletros sopradores</Text>
+                            <HStack spacing={3} width={'auto'} className={'p-1'}>
+                                <VStack width={'auto'}>
+                                    <Flex>
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>1</FormLabel>
+                                            <Input />
+                                        </FormControl>
+                                        <Spacer />
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>2</FormLabel>
+                                            <Input  />
+                                        </FormControl>
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>3</FormLabel>
+                                            <Input  />
+                                        </FormControl>
+                                    </Flex>
+                                    <Flex>
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>4</FormLabel>
+                                            <Input />
+                                        </FormControl>
+                                        <Spacer />
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>5</FormLabel>
+                                            <Input  />
+                                        </FormControl>
+                                    </Flex>
+
                                 </VStack>
                             </HStack>
                         </Box>
