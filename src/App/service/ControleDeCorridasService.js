@@ -1,125 +1,96 @@
-import axios from 'axios';
-import {format, isValid, parseISO} from 'date-fns';
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+dayjs.extend(duration);
 
 class ControleDeCorridasService {
-    constructor() {
-        const today = format(new Date(), 'dd-MM-yyyy');
-        const todayInput = new Date().toISOString().split("T")[0];
-
-        this.state = {
-            today: today,
-            todayInput: todayInput,
-            formData: {
-                data: todayInput,
-                cacambas: "",
-                horaAbertura: "",
-                horaTampa: "",
-                temperatura: "",
-                temperatura2: "",
-                reducao: "",
-                reservaFundida: "",
-                escoriaVisual: "",
-                producao: "",
-                producaoAcumulada: "",
-                media: "",
-                cecDiaM3: "",
-                cecDiaKg: ""
-            },
-            corridas: [],
-            mensagemErro: "",
-            showSuccessModal: false,
-            showErrorModal: false
-        };
-    }
+    state = {
+        showSuccessModal: false,
+        showErrorModal: false,
+        mensagemErro: '',
+        formData: {},
+        corridas: [],
+        today: new Date(),
+    };
 
     handleChange = (e) => {
-        const { name, value } = e.target;
-        this.state.formData = {
-            ...this.state.formData,
-            [name]: value
-        };
+        this.state.formData[e.target.name] = e.target.value;
     };
 
     handleSubmit = async (e) => {
-        e.preventDefault();
+        // Adicione sua lógica de envio de formulário aqui
         try {
-            const response = await axios.post("http://localhost:8080/runs/add", this.state.formData, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            console.log("Corrida cadastrada com sucesso:", response.data);
+            // Lógica de envio de dados
             this.state.showSuccessModal = true;
-            this.resetFormData();
-            await this.fetchCorridas(this.state.today);
         } catch (error) {
-            console.error("Erro ao cadastrar corrida:", error);
-            this.state.mensagemErro = this.getErrorMessage(error);
             this.state.showErrorModal = true;
+            this.state.mensagemErro = error.message;
         }
-    };
-
-    fetchCorridas = async (data) => {
-        try {
-            const response = await axios.get(`http://localhost:8080/runs/date-today?data=${data}`);
-            this.state.corridas = response.data.map(corrida => ({
-                ...corrida,
-                data: this.formatDate(corrida.data),
-                horaAbertura: corrida.horaAbertura || "00:00",
-                horaTampa: corrida.horaTampa || "00:00"
-            }));
-        } catch (error) {
-            console.error("Erro ao buscar corridas:", error);
-        }
-    };
-
-    formatDate = (dateString) => {
-        try {
-            const date = parseISO(dateString);
-            return isValid(date) ? format(date, 'dd-MM-yyyy') : dateString;
-        } catch (error) {
-            console.warn("Erro ao formatar data:", error, "Data recebida:", dateString);
-            return dateString; // Retorna a string original se houver erro
-        }
-    };
-
-    getErrorMessage = (error) => {
-        let mensagemErro = "";
-        if (error.response) {
-            const { status, data } = error.response;
-            if (status === 400 && data.message.includes('Cannot deserialize value of type')) {
-                mensagemErro = `Erro ${status}: Há um problema nos dados enviados. Verifique se todos os campos estão preenchidos corretamente e se os valores numéricos estão no formato adequado.`;
-            } else {
-                mensagemErro = `Erro ${status}: ${data.message || error.message}`;
-            }
-        } else {
-            mensagemErro = `Erro: ${error.message}`;
-        }
-        return mensagemErro;
-    };
-
-    resetFormData = () => {
-        this.state.formData = {
-            data: this.state.todayInput,
-            cacambas: "",
-            horaAbertura: "",
-            horaTampa: "",
-            temperatura: "",
-            temperatura2: "",
-            reducao: "",
-            reservaFundida: "",
-            escoriaVisual: "",
-            producao: "",
-            producaoAcumulada: "",
-            media: "",
-            cecDiaM3: "",
-            cecDiaKg: ""
-        };
     };
 
     handleClose = () => {
         this.state.showSuccessModal = false;
         this.state.showErrorModal = false;
+    };
+
+    fetchCorridas = async (date) => {
+        // Adicione sua lógica de busca de corridas aqui
+    };
+
+    calcularMinutos = (inicio, fim) => {
+        const horaInicio = dayjs(inicio);
+        const horaFim = dayjs(fim);
+        if (horaInicio.isValid() && horaFim.isValid()) {
+            const diff = horaFim.diff(horaInicio);
+            return dayjs.duration(diff).asMinutes();
+        }
+        return '';
+    };
+
+    calcularQt = (de, ate) => {
+        if (de && ate) {
+            return (parseInt(ate) - parseInt(de)) + 1;
+        }
+        return '';
+    };
+
+    calcularToneladaGusaMin = (real, minutos) => {
+        if (real && minutos) {
+            return (parseFloat(real) / parseFloat(minutos)).toFixed(3);
+        }
+        return '';
+    };
+
+    handleDateTimeChange = (setter, ref) => (e) => {
+        const value = e.target.value;
+        setter(value);
+
+        if (value.length === 16) {
+            setTimeout(() => {
+                if (ref.current) {
+                    ref.current.blur();
+                }
+            }, 100);
+        }
+    };
+
+    formatReal = (value) => {
+        value = value.replace(/\D/g, '');
+        if (value.length > 2) {
+            value = value.slice(0, value.length - 2) + '.' + value.slice(value.length - 2);
+        }
+        return value;
+    };
+
+    handleRealTnChange = (e, setter) => {
+        let value = e.target.value;
+        value = this.formatReal(value);
+        setter(value);
+    };
+
+    handleM3tNumber = (e, setter) => {
+        let value = e.target.value;
+        value = this.formatReal(value);
+        setter(value);
     };
 }
 

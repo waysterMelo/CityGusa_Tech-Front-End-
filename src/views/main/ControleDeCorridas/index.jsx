@@ -18,19 +18,10 @@ import {
 import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
-import { format, parseISO } from "date-fns";
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-dayjs.extend(duration);
 
 const ControleDeCorridas = () => {
-    // const inputSize = useBreakpointValue({ base: "md", md: "sm" });
     const service = useRef(new ControleDeCorridasService()).current;
-    //const [formData, setFormData] = useState(service.state.formData);
-    //const [corridas, setCorridas] = useState(service.state.corridas);
-    const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
-    const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
-    const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
+
     const [horaInicio, setHoraInicio] = useState('');
     const [horaFim, setHoraFim] = useState('');
     const [minutos, setMinutos] = useState('');
@@ -45,30 +36,20 @@ const ControleDeCorridas = () => {
     const [kgt, setkgt] = useState('');
     const [m3t, setM3t] = useState('');
 
-
+    const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
+    const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
+    const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
 
     const horaInicioRef = useRef(null);
     const horaFimRef = useRef(null);
 
-    const formatDateForInput = (dateString) => {
-        const date = parseISO(dateString);
-        return format(date, 'yyyy-MM-dd');
-    };
-
-    const handleChange = (e) => {
-        service.handleChange(e);
-        //setFormData({ ...service.state.formData });
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         await service.handleSubmit(e);
-        //setFormData({ ...service.state.formData });
         setShowSuccessModal(service.state.showSuccessModal);
         setShowErrorModal(service.state.showErrorModal);
         setMensagemErro(service.state.mensagemErro);
         await service.fetchCorridas(service.state.today);
-        //setCorridas([...service.state.corridas]);
     };
 
     const handleClose = () => {
@@ -77,57 +58,22 @@ const ControleDeCorridas = () => {
         setShowErrorModal(service.state.showErrorModal);
     };
 
-    const calcularMinutos = (inicio, fim) => {
-        const horaInicio = dayjs(inicio);
-        const horaFim = dayjs(fim);
-        if (horaInicio.isValid() && horaFim.isValid()) {
-            const diff = horaFim.diff(horaInicio);
-            return dayjs.duration(diff).asMinutes();
-        }
-        return '';
-    };
-
-    const calcularQt = (de, ate) => {
-        if (de && ate) {
-            const qt = (parseInt(ate) - parseInt(de)) + 1;
-            setQt(qt)
-        }else {
-            setQt('');
-        }
-    }
-
-    const calcularToneladaGusaMin = (real, minutos) =>{
-        if (real && minutos){
-            const result = (parseFloat(real) / parseFloat(minutos));
-            setToneladaGusa(result.toFixed(3));
-        }else{
-            setToneladaGusa('')
-        }
-    }
-
     useEffect(() => {
         if (horaInicio && horaFim) {
-            const diffInMinutes = calcularMinutos(horaInicio, horaFim);
+            const diffInMinutes = service.calcularMinutos(horaInicio, horaFim);
             setMinutos(diffInMinutes);
         }
-    }, [horaInicio, horaFim]);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         await service.fetchCorridas(service.state.today);
-    //         setCorridas([...service.state.corridas]);
-    //     };
-    //     fetchData();
-    // }, [service]);
+    }, [horaInicio, horaFim, service]);
 
     useEffect(() => {
-        calcularToneladaGusaMin(realTn, tempoCorrida);
-    }, [realTn, tempoCorrida]);
+        const result = service.calcularToneladaGusaMin(realTn, tempoCorrida);
+        setToneladaGusa(result);
+    }, [realTn, tempoCorrida, service]);
 
     useEffect(() => {
-        calcularQt(deNumero, ateNumero);
-    }, [deNumero, ateNumero]);
-
+        const qtResult = service.calcularQt(deNumero, ateNumero);
+        setQt(qtResult);
+    }, [deNumero, ateNumero, service]);
 
     useEffect(() => {
         if (qt && gusa) {
@@ -137,40 +83,6 @@ const ControleDeCorridas = () => {
             setFerro('');
         }
     }, [qt, gusa]);
-
-    const handleDateTimeChange = (setter, ref) => (e) => {
-        const value = e.target.value;
-        setter(value);
-
-        // Verifica se a string de data/hora tem o formato completo "YYYY-MM-DDTHH:MM"
-        if (value.length === 16) {
-            setTimeout(() => {
-                if (ref.current) {
-                    ref.current.blur();
-                }
-            }, 100);
-        }
-    };
-
-    const formatReal = (value) => {
-        value = value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-        if (value.length > 2) {
-            value = value.slice(0, value.length - 2) + '.' + value.slice(value.length - 2);
-        }
-        return value;
-    };
-
-    const handleRealTnChange = (e) => {
-        let value = e.target.value;
-        value = formatReal(value);
-        setRealTn(value);
-    };
-
-    const handleM3tNumber=(e)=>{
-        let value = e.target.value;
-        value = formatReal(value);
-        setM3t(value);
-    }
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -192,7 +104,7 @@ const ControleDeCorridas = () => {
                                 <Input
                                     type={'datetime-local'}
                                     value={horaInicio}
-                                    onChange={handleDateTimeChange(setHoraInicio, horaInicioRef)}
+                                    onChange={service.handleDateTimeChange(setHoraInicio, horaInicioRef)}
                                     ref={horaInicioRef}
                                 />
                             </FormControl>
@@ -201,7 +113,7 @@ const ControleDeCorridas = () => {
                                 <Input
                                     type={'datetime-local'}
                                     value={horaFim}
-                                    onChange={handleDateTimeChange(setHoraFim, horaFimRef)}
+                                    onChange={service.handleDateTimeChange(setHoraFim, horaFimRef)}
                                     ref={horaFimRef}
                                 />
                             </FormControl>
@@ -277,7 +189,7 @@ const ControleDeCorridas = () => {
                     </Stack>
 
                     <Stack direction={['column', 'row']}>
-                        <Box width={'26%'} height='80%' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                        <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Cargas Fundidas</Text>
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
@@ -307,7 +219,7 @@ const ControleDeCorridas = () => {
                             </HStack>
                         </Box>
 
-                        <Box width={'36%'} height='80%' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                        <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack width={'auto'}>
@@ -316,7 +228,7 @@ const ControleDeCorridas = () => {
                                             <FormLabel>Real (TN)</FormLabel>
                                             <Input placeholder={'digite aqui'}
                                                    value={realTn}
-                                                   onChange={handleRealTnChange} />
+                                                   onChange={(e) => service.handleRealTnChange(e, setRealTn)} />
                                         </FormControl>
 
                                         <FormControl className={'form-control-lg'}>
@@ -359,12 +271,11 @@ const ControleDeCorridas = () => {
                                         <Spacer />
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>M³/T</FormLabel>
-                                            <Input value={m3t} placeholder={'digite aqui'} onChange={handleM3tNumber}/>
+                                            <Input value={m3t} placeholder={'digite aqui'} onChange={(e) => service.handleM3tNumber(e, setM3t)}/>
                                         </FormControl>
                                     </Flex>
                                 </VStack>
                             </HStack>
-
 
                             <Text className={'p-3 text-bg-dark text-center'}>Corrente dos eletros sopradores</Text>
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
@@ -374,7 +285,7 @@ const ControleDeCorridas = () => {
                                             <FormLabel>1</FormLabel>
                                             <Input />
                                         </FormControl>
-                                        <Spacer />
+
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>2</FormLabel>
                                             <Input  />
@@ -383,29 +294,18 @@ const ControleDeCorridas = () => {
                                             <FormLabel>3</FormLabel>
                                             <Input  />
                                         </FormControl>
-                                    </Flex>
-                                    <Flex>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel>4</FormLabel>
-                                            <Input />
-                                        </FormControl>
-                                        <Spacer />
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>5</FormLabel>
                                             <Input  />
                                         </FormControl>
                                     </Flex>
-
                                 </VStack>
                             </HStack>
                         </Box>
                     </Stack>
 
                 </SimpleGrid>
-
             </form>
-
-
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>
