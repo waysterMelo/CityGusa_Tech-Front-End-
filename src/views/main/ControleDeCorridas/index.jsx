@@ -13,8 +13,7 @@ import {
     Flex,
     Spacer,
     Stack,
-    Select,
-    GridItem
+    Select
 } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
@@ -42,6 +41,9 @@ const ControleDeCorridas = () => {
     const [ferro, setFerro] = useState('');
 
 
+    const horaInicioRef = useRef(null);
+    const horaFimRef = useRef(null);
+    
     const formatDateForInput = (dateString) => {
         const date = parseISO(dateString);
         return format(date, 'yyyy-MM-dd');
@@ -117,6 +119,21 @@ const ControleDeCorridas = () => {
         }
     }, [qt, gusa]);
 
+    const handleDateTimeChange = (setter, ref) => (e) => {
+        const value = e.target.value;
+        setter(value);
+
+        // Verifica se a string de data/hora tem o formato completo "YYYY-MM-DDTHH:MM"
+        if (value.length === 16) {
+            setTimeout(() => {
+                if (ref.current) {
+                    ref.current.blur();
+                }
+            }, 100);
+        }
+    };
+
+
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -128,7 +145,7 @@ const ControleDeCorridas = () => {
             </Grid>
 
             <form onSubmit={handleSubmit}>
-                <SimpleGrid columns={{ base: 1, md: 1}} spacing={3} mt={4}>
+                <SimpleGrid columns={{ base: 1, md: 1, xl: 1}} spacing={3} mt={4}>
                     <Stack direction={['column', 'row']}>
                     <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                         <Text className={'p-3 text-bg-dark text-center'}>Vazamento</Text>
@@ -138,7 +155,8 @@ const ControleDeCorridas = () => {
                                 <Input
                                     type={'datetime-local'}
                                     value={horaInicio}
-                                    onChange={(e) => setHoraInicio(e.target.value)}
+                                    onChange={handleDateTimeChange(setHoraInicio, horaInicioRef)}
+                                    ref={horaInicioRef}
                                 />
                             </FormControl>
                             <FormControl className={'form-control-lg'}>
@@ -146,7 +164,8 @@ const ControleDeCorridas = () => {
                                 <Input
                                     type={'datetime-local'}
                                     value={horaFim}
-                                    onChange={(e) => setHoraFim(e.target.value)}
+                                    onChange={handleDateTimeChange(setHoraFim, horaFimRef)}
+                                    ref={horaFimRef}
                                 />
                             </FormControl>
                             <FormControl className={'form-control-lg'}>
@@ -250,16 +269,17 @@ const ControleDeCorridas = () => {
                                 </FormControl>
                             </HStack>
                         </Box>
+
                         <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
-                ,            <HStack spacing={3} width={'auto'} className={'p-1'}>
+                          <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack width={'auto'}>
-                                    <Flex width={'100%'}>
+                                    <Flex>
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>Real (TN)</FormLabel>
                                             <Input placeholder={'digite aqui'} />
                                         </FormControl>
-                                        <Spacer />
+
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>Ritmo Real</FormLabel>
                                             <Input className={'text-bg-secondary'}  readOnly={true}/>
@@ -269,21 +289,24 @@ const ControleDeCorridas = () => {
                             </HStack>
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel>Tempo de corrida em minutos</FormLabel>
+                                    <Flex>
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>Tempo de corrida em min</FormLabel>
                                             <Input placeholder={'digite aqui'} />
                                         </FormControl>
 
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel>Tonelada de gusa por minuto</FormLabel>
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>Tonelada de gusa por min</FormLabel>
                                             <Input className={'text-bg-secondary'}  readOnly={true}/>
                                         </FormControl>
+                                    </Flex>
                                 </VStack>
                             </HStack>
                         </Box>
+
+
                         <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Consumo Esperado de Carvão</Text>
-
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack width={'auto'}>
                                     <Flex width={'100%'}>
