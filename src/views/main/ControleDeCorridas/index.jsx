@@ -221,22 +221,16 @@ const ControleDeCorridas = () => {
 
                         <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
-                            <HStack spacing={3} width={'auto'} className={'p-1'}>
-                                <VStack width={'auto'}>
-                                    <Flex>
-                                        <FormControl className={'form-control-lg'}>
+
+                            <HStack width={'auto'} className={'p-1'} justify="center">
+                                    <Flex className={'pt-5'}>
+                                        <FormControl>
                                             <FormLabel>Real (TN)</FormLabel>
                                             <Input placeholder={'digite aqui'}
                                                    value={realTn}
                                                    onChange={(e) => service.handleRealTnChange(e, setRealTn)} />
                                         </FormControl>
-
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>Ritmo Real</FormLabel>
-                                            <Input className={'text-bg-secondary'}  readOnly={true}/>
-                                        </FormControl>
                                     </Flex>
-                                </VStack>
                             </HStack>
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack>
@@ -279,7 +273,7 @@ const ControleDeCorridas = () => {
 
                             <Text className={'p-3 text-bg-dark text-center'}>Corrente dos eletros sopradores</Text>
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
-                                <VStack width={'auto'}>
+                                <VStack>
                                     <Flex>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>1</FormLabel>
@@ -294,11 +288,20 @@ const ControleDeCorridas = () => {
                                             <FormLabel>3</FormLabel>
                                             <Input  />
                                         </FormControl>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel>5</FormLabel>
-                                            <Input  />
-                                        </FormControl>
                                     </Flex>
+
+                                    <Box width={'100%'}>
+                                      <Flex>
+                                          <FormControl className={'form-control-sm'}>
+                                              <FormLabel>4</FormLabel>
+                                              <Input  />
+                                          </FormControl>
+                                          <FormControl className={'form-control-sm'}>
+                                              <FormLabel>5</FormLabel>
+                                              <Input  />
+                                          </FormControl>
+                                      </Flex>
+                                    </Box>
                                 </VStack>
                             </HStack>
                         </Box>
