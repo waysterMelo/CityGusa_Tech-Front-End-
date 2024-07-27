@@ -18,19 +18,10 @@ import {
 import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
-import { format, parseISO } from "date-fns";
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-dayjs.extend(duration);
 
 const ControleDeCorridas = () => {
-    // const inputSize = useBreakpointValue({ base: "md", md: "sm" });
     const service = useRef(new ControleDeCorridasService()).current;
-    //const [formData, setFormData] = useState(service.state.formData);
-    //const [corridas, setCorridas] = useState(service.state.corridas);
-    const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
-    const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
-    const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
+    const [formData, setFormData] = useState(service.state.formData);
     const [horaInicio, setHoraInicio] = useState('');
     const [horaFim, setHoraFim] = useState('');
     const [minutos, setMinutos] = useState('');
@@ -39,30 +30,38 @@ const ControleDeCorridas = () => {
     const [qt, setQt] = useState('');
     const [gusa, setGusa] = useState('');
     const [ferro, setFerro] = useState('');
-
-
+    const [realTn, setRealTn] = useState('');
+    const [tempoCorrida, setTempoCorrida] = useState('');
+    const [toneladaGusa, setToneladaGusa] = useState('');
+    const [kgt, setkgt] = useState('');
+    const [m3t, setM3t] = useState('');
+    const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
+    const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
+    const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
     const horaInicioRef = useRef(null);
     const horaFimRef = useRef(null);
-    
-    const formatDateForInput = (dateString) => {
-        const date = parseISO(dateString);
-        return format(date, 'yyyy-MM-dd');
-    };
+
 
     const handleChange = (e) => {
-        service.handleChange(e);
-        //setFormData({ ...service.state.formData });
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await service.handleSubmit(e);
-        //setFormData({ ...service.state.formData });
+        const result = await service.salvar();
+        setFormData({ ...service.state.formData });
         setShowSuccessModal(service.state.showSuccessModal);
         setShowErrorModal(service.state.showErrorModal);
         setMensagemErro(service.state.mensagemErro);
-        await service.fetchCorridas(service.state.today);
-        //setCorridas([...service.state.corridas]);
+        if (result.success) {
+            setShowSuccessModal(true);
+        } else {
+            setShowErrorModal(true);
+        }
     };
 
     const handleClose = () => {
@@ -71,44 +70,22 @@ const ControleDeCorridas = () => {
         setShowErrorModal(service.state.showErrorModal);
     };
 
-    const calcularMinutos = (inicio, fim) => {
-        const horaInicio = dayjs(inicio);
-        const horaFim = dayjs(fim);
-        if (horaInicio.isValid() && horaFim.isValid()) {
-            const diff = horaFim.diff(horaInicio);
-            return dayjs.duration(diff).asMinutes();
-        }
-        return '';
-    };
-
-    const calcularQt = (de, ate) => {
-        if (de && ate) {
-            const qt = (parseInt(ate) - parseInt(de)) + 1;
-            setQt(qt)
-        }else {
-            setQt('');
-        }
-    }
-
     useEffect(() => {
         if (horaInicio && horaFim) {
-            const diffInMinutes = calcularMinutos(horaInicio, horaFim);
+            const diffInMinutes = service.calcularMinutos(horaInicio, horaFim);
             setMinutos(diffInMinutes);
         }
-    }, [horaInicio, horaFim]);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         await service.fetchCorridas(service.state.today);
-    //         setCorridas([...service.state.corridas]);
-    //     };
-    //     fetchData();
-    // }, [service]);
+    }, [horaInicio, horaFim, service]);
 
     useEffect(() => {
-        calcularQt(deNumero, ateNumero);
-    }, [deNumero, ateNumero]);
+        const result = service.calcularToneladaGusaMin(realTn, tempoCorrida);
+        setToneladaGusa(result);
+    }, [realTn, tempoCorrida, service]);
 
+    useEffect(() => {
+        const qtResult = service.calcularQt(deNumero, ateNumero);
+        setQt(qtResult);
+    }, [deNumero, ateNumero, service]);
 
     useEffect(() => {
         if (qt && gusa) {
@@ -118,22 +95,6 @@ const ControleDeCorridas = () => {
             setFerro('');
         }
     }, [qt, gusa]);
-
-    const handleDateTimeChange = (setter, ref) => (e) => {
-        const value = e.target.value;
-        setter(value);
-
-        // Verifica se a string de data/hora tem o formato completo "YYYY-MM-DDTHH:MM"
-        if (value.length === 16) {
-            setTimeout(() => {
-                if (ref.current) {
-                    ref.current.blur();
-                }
-            }, 100);
-        }
-    };
-
-
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -145,18 +106,19 @@ const ControleDeCorridas = () => {
             </Grid>
 
             <form onSubmit={handleSubmit}>
-                <SimpleGrid columns={{ base: 1, md: 1, xl: 1}} spacing={3} mt={4}>
+                <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} spacing={3} mt={4}>
                     <Stack direction={['column', 'row']}>
-                    <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                        <Text className={'p-3 text-bg-dark text-center'}>Vazamento</Text>
+                        <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                            <Text className={'p-3 text-bg-dark text-center'}>Corrida</Text>
 
                             <FormControl className={'form-control-lg'}>
                                 <FormLabel>Hora Início</FormLabel>
                                 <Input
                                     type={'datetime-local'}
                                     value={horaInicio}
-                                    onChange={handleDateTimeChange(setHoraInicio, horaInicioRef)}
+                                    onChange={service.handleDateTimeChange(setHoraInicio, horaInicioRef)}
                                     ref={horaInicioRef}
+                                    name="horaInicio"
                                 />
                             </FormControl>
                             <FormControl className={'form-control-lg'}>
@@ -164,20 +126,21 @@ const ControleDeCorridas = () => {
                                 <Input
                                     type={'datetime-local'}
                                     value={horaFim}
-                                    onChange={handleDateTimeChange(setHoraFim, horaFimRef)}
+                                    onChange={service.handleDateTimeChange(setHoraFim, horaFimRef)}
                                     ref={horaFimRef}
+                                    name="horaFim"
                                 />
                             </FormControl>
                             <FormControl className={'form-control-lg'}>
                                 <FormLabel>Minutos</FormLabel>
-                                <Input className={'text-bg-secondary'} placeholder='minutos' value={minutos} readOnly />
+                                <Input name="minutos" className={'text-bg-secondary'} placeholder='minutos' value={minutos} readOnly />
                             </FormControl>
                             <FormControl className={'form-control-lg'}>
                                 <FormLabel>Conchas</FormLabel>
-                                <Input placeholder='caçambas' />
+                                <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} />
                             </FormControl>
-                    </Box>
-                    <Box height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
+                        </Box>
+                        <Box height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark'}>Análise QM</Text>
                             <HStack spacing={3} width={'100%'} className={'p-3'}>
                                 <VStack width={'auto'}>
@@ -185,12 +148,12 @@ const ControleDeCorridas = () => {
                                     <Flex width={'100%'}>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>Visual</FormLabel>
-                                            <Input placeholder={'visual'} />
+                                            <Input name="silicioVisual" placeholder={'visual'} value={formData.silicioVisual} onChange={handleChange} />
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>Real</FormLabel>
-                                            <Input placeholder={'real'} />
+                                            <Input name="silicioReal" placeholder={'real'} value={formData.silicioReal} onChange={handleChange} />
                                         </FormControl>
                                     </Flex>
                                 </VStack>
@@ -199,44 +162,44 @@ const ControleDeCorridas = () => {
                                     <Flex>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>P</FormLabel>
-                                            <Input placeholder={'fósforo'} />
+                                            <Input name="fosforo" placeholder={'fósforo'} value={formData.fosforo} onChange={handleChange} />
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>MM</FormLabel>
-                                            <Input  placeholder={'manganês'} />
+                                            <Input name="manganes" placeholder={'manganês'} value={formData.manganes} onChange={handleChange} />
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>S</FormLabel>
-                                            <Input placeholder={'sílica'} />
+                                            <Input name="silica" placeholder={'sílica'} value={formData.silica} onChange={handleChange} />
                                         </FormControl>
                                     </Flex>
                                 </VStack>
                             </HStack>
-                        <Box bg='white' p={4} mt={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark'}>Escória</Text>
-                            <HStack spacing={3} width={'100%'} className={'p-2'}>
-                                <FormControl className={'w-50'}>
-                                    <FormLabel>Início</FormLabel>
-                                    <Input type={'time'} placeholder={'hora início'} />
-                                </FormControl>
-                                <FormControl className={'w-50'}>
-                                    <FormLabel>Fim</FormLabel>
-                                    <Input type={'time'} placeholder={'hora fim'} />
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Tipo de escória</FormLabel>
-                                    <Select placeholder="Selecione o tipo">
-                                        <option value="verde">Verde</option>
-                                        <option value="verde-clara">Verde Clara</option>
-                                        <option value="cinza">Cinza</option>
-                                    </Select>
-                                </FormControl>
+                            <Box bg='white' p={4} mt={4} boxShadow={'xs'} rounded={'md'}>
+                                <Text className={'p-3 text-bg-dark'}>Escória</Text>
+                                <HStack spacing={3} width={'100%'} className={'p-2'}>
+                                    <FormControl className={'w-50'}>
+                                        <FormLabel>Início</FormLabel>
+                                        <Input type={'time'} placeholder={'hora início'} name="escoria_inicio" value={formData.escoria_inicio} onChange={handleChange} />
+                                    </FormControl>
+                                    <FormControl className={'w-50'}>
+                                        <FormLabel>Fim</FormLabel>
+                                        <Input type={'time'} placeholder={'hora fim'} name="escoria_fim" value={formData.escoria_fim} onChange={handleChange} />
+                                    </FormControl>
+                                    <FormControl>
+                                        <FormLabel>Tipo de escória</FormLabel>
+                                        <Select name="tipo_escoria" placeholder="Selecione o tipo" value={formData.tipo_escoria} onChange={handleChange}>
+                                            <option value="verde">Verde</option>
+                                            <option value="verde-clara">Verde Clara</option>
+                                            <option value="cinza">Cinza</option>
+                                        </Select>
+                                    </FormControl>
 
-                            </HStack>
+                                </HStack>
+                            </Box>
                         </Box>
-                    </Box>
                     </Stack>
 
                     <Stack direction={['column', 'row']}>
@@ -245,59 +208,58 @@ const ControleDeCorridas = () => {
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>De N°</FormLabel>
-                                    <Input value={deNumero} onChange={(e) => setDeNumero(e.target.value)} placeholder={'digite aqui'} />
+                                    <Input name="carga_fundida_de" value={formData.carga_fundida_de} onChange={(e) => { handleChange(e); setDeNumero(e.target.value) }} placeholder={'digite aqui'} />
                                 </FormControl>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Até N°</FormLabel>
-                                    <Input value={ateNumero} onChange={(e) => setAteNumero(e.target.value)} placeholder={'digite aqui'} />
+                                    <Input name="carga_fundida_ate" value={formData.carga_fundida_ate} onChange={(e) => { handleChange(e); setAteNumero(e.target.value) }} placeholder={'digite aqui'} />
                                 </FormControl>
                             </HStack>
 
                             <FormControl className={'form-control-sm'}>
                                 <FormLabel>Quantidade</FormLabel>
-                                <Input value={qt} className={'text-bg-secondary text-center'} readOnly />
+                                <Input name="quantidade" value={qt} className={'text-bg-secondary text-center'} readOnly />
                             </FormControl>
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Fe/Gusa/(KG)</FormLabel>
-                                    <Input value={gusa}
-                                        onChange={(e) => setGusa(e.target.value)} placeholder={'digite aqui'}/>
+                                    <Input name="fe_gusa_kg" value={formData.fe_gusa_kg}
+                                        onChange={(e) => { handleChange(e); setGusa(e.target.value) }} placeholder={'digite aqui'} />
                                 </FormControl>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Fe₂O₃</FormLabel>
-                                    <Input value={ferro} className={'text-bg-secondary'} readOnly />
+                                    <Input name="ferro" value={ferro} className={'text-bg-secondary'} readOnly />
                                 </FormControl>
                             </HStack>
                         </Box>
 
                         <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
-                          <HStack spacing={3} width={'auto'} className={'p-1'}>
-                                <VStack width={'auto'}>
-                                    <Flex>
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>Real (TN)</FormLabel>
-                                            <Input placeholder={'digite aqui'} />
-                                        </FormControl>
 
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>Ritmo Real</FormLabel>
-                                            <Input className={'text-bg-secondary'}  readOnly={true}/>
-                                        </FormControl>
-                                    </Flex>
-                                </VStack>
+                            <HStack width={'auto'} className={'p-1'} justify="center">
+                                <Flex className={'pt-5'}>
+                                    <FormControl>
+                                        <FormLabel>Real (TN)</FormLabel>
+                                        <Input name="realTn" placeholder={'digite aqui'}
+                                            value={realTn}
+                                            onChange={(e) => service.handleRealTnChange(e, setRealTn)} />
+                                    </FormControl>
+                                </Flex>
                             </HStack>
                             <HStack spacing={3} width={'auto'} className={'p-1'}>
                                 <VStack>
                                     <Flex>
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>Tempo de corrida em min</FormLabel>
-                                            <Input placeholder={'digite aqui'} />
+                                            <Input name="tempo_corrida" placeholder={'digite aqui'}
+                                                value={formData.tempo_corrida}
+                                                onChange={(e) => { handleChange(e); setTempoCorrida(e.target.value) }}
+                                            />
                                         </FormControl>
 
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>Tonelada de gusa por min</FormLabel>
-                                            <Input className={'text-bg-secondary'}  readOnly={true}/>
+                                            <Input name="gusa_minuto" className={'text-bg-secondary'} readOnly={true} value={toneladaGusa} />
                                         </FormControl>
                                     </Flex>
                                 </VStack>
@@ -312,24 +274,61 @@ const ControleDeCorridas = () => {
                                     <Flex width={'100%'}>
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>KG/T</FormLabel>
-                                            <Input placeholder={'digite aqui'} />
+                                            <Input name="carvao_kg" value={kgt} placeholder={'digite aqui'} onChange={(e) => setkgt(e.target.value)} />
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>M³/T</FormLabel>
-                                            <Input placeholder={'digite aqui'}/>
+                                            <Input name="carvao_metros" value={m3t} placeholder={'digite aqui'} onChange={(e) => service.handleM3tNumber(e, setM3t)} />
                                         </FormControl>
                                     </Flex>
+                                </VStack>
+                            </HStack>
+
+                            <Text className={'p-3 text-bg-dark text-center'}>Corrente dos eletros sopradores</Text>
+                            <HStack spacing={3} width={'auto'} className={'p-1'}>
+                                <VStack>
+                                    <Flex>
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>1</FormLabel>
+                                            <Input name="sopradores1" value={formData.sopradores1} onChange={handleChange} />
+                                        </FormControl>
+
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>2</FormLabel>
+                                            <Input name="sopradores2" value={formData.sopradores2} onChange={handleChange} />
+                                        </FormControl>
+                                        <FormControl className={'form-control-sm'}>
+                                            <FormLabel>3</FormLabel>
+                                            <Input name="sopradores3" value={formData.sopradores3} onChange={handleChange} />
+                                        </FormControl>
+                                    </Flex>
+
+                                    <Box width={'100%'}>
+                                        <Flex>
+                                            <FormControl className={'form-control-sm'}>
+                                                <FormLabel>4</FormLabel>
+                                                <Input name="sopradores4" value={formData.sopradores4} onChange={handleChange} />
+                                            </FormControl>
+                                            <FormControl className={'form-control-sm'}>
+                                                <FormLabel>5</FormLabel>
+                                                <Input name="sopradores5" value={formData.sopradores5} onChange={handleChange} />
+                                            </FormControl>
+                                        </Flex>
+
+                                        <Flex justifyContent={'flex-end'}>
+                                            <Button colorScheme="whatsapp" size="lg" type="submit">
+                                                Registrar
+                                            </Button>
+                                        </Flex>
+                                    </Box>
                                 </VStack>
                             </HStack>
                         </Box>
                     </Stack>
 
                 </SimpleGrid>
-
             </form>
-
-
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>

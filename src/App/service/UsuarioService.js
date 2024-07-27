@@ -4,14 +4,14 @@ import ApiService from "../ApiService";
 class UsuarioService extends ApiService {
 
     constructor() {
-        super('/users');
+        super('/usuarios');
     }
 
-    autenticar(credenciais){
-        return this.post('/authenticate', credenciais)
+    autenticar(credenciais) {
+        return this.post('/autenticar', credenciais)
     }
 
-    salvar(usuario){
+    salvar(usuario) {
         return this.post('/salvar', usuario)
     }
 }

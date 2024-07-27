@@ -1,5 +1,5 @@
 import axios from "axios";
-import {format} from "date-fns";
+import { format } from "date-fns";
 
 class CargasLeitoFusaoService {
     constructor() {
@@ -21,7 +21,7 @@ class CargasLeitoFusaoService {
                 sucataAco: "",
                 totalCargas: ""
             },
-            results:[],
+            results: [],
             mensagemErro: "",
             showSuccessModal: false,
             showErrorModal: false
@@ -96,11 +96,11 @@ class CargasLeitoFusaoService {
         this.state.showErrorModal = false;
     };
 
-    returnResults = async (data_atual)=>{
+    returnResults = async (data_atual) => {
         try {
             const response = await axios.get(`http://localhost:8080/leito-fusao?data=${data_atual}`, this.state.formData, {})
             this.state.results = response.data;
-        }catch (error){
+        } catch (error) {
             console.log("Erro ao retornar registros", error);
         }
     }
