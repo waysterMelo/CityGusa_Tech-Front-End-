@@ -4,57 +4,45 @@ import axios from "axios";
 dayjs.extend(duration);
 
 class ControleDeCorridasService {
+
     constructor() {
         this.state = {
-            showSuccessModal: false,
-            showErrorModal: false,
-            mensagemErro: '',
             formData: {
-                horaInicio: '',
-                horaFim: '',
-                minutos: '',
-                conchas: '',
-                silicio_visual: '',
-                silicio_real: '',
-                silica: '',
-                fosforo: '',
-                manganes: '',
-                escoria_inicio: '',
-                escoria_fim: '',
-                tipo_escoria: '',
-                carga_fundida_de: '',
-                carga_fundida_ate: '',
-                quantidade: '',
-                fe_gusa_kg: '',
-                ferro: '',
-                realTn: '',
-                tempo_corrida: '',
-                gusa_minuto: '',
-                carvao_kg: '',
-                carvao_metros: '',
-                sopradores_1: '',
-                sopradores_2: '',
-                sopradores_3: '',
-                sopradores_4: '',
-                sopradores_5: '',
-            }
-        };
+                conchas: ''
+            },
+            mensagemErro: "",
+            showSuccessModal: false,
+            showErrorModal: false
+        }
+
     }
+
+    getErrorMessage = (error) => {
+        let mensagemErro = "";
+        if (error.response) {
+            const { status, data } = error.response;
+            if (status === 400 && data.message.includes('Cannot deserialize value of type')) {
+                mensagemErro = `Erro ${status}: Há um problema nos dados enviados. Verifique se todos os campos estão preenchidos corretamente e se os valores numéricos estão no formato adequado.`;
+            } else {
+                mensagemErro = `Erro ${status}: ${data.message || error.message}`;
+            }
+        } else {
+            mensagemErro = `Erro: ${error.message}`;
+        }
+        return mensagemErro;
+    };
 
     handleChange = (e) => {
         const { name, value } = e.target;
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                [name]: value
-            }
-        }));
+        this.state.formData = {
+            ...this.state.formData,
+            [name]: value
+        };
     };
 
-    salvar = async () => {
+    salvar = async (e) => {
         try {
-
-            const response = await axios.post("http://localhost:8080/runs/add", this.state.formData, {
+            const response = axios.post("http://localhost:8080/runs/add", this.state.formData, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -66,7 +54,7 @@ class ControleDeCorridasService {
             console.error("Erro ao cadastrar corrida:", error);
             this.state.mensagemErro = this.getErrorMessage(error);
             this.state.showErrorModal = true;
-            return { success: false, message: this.state.mensagemErro };
+            return { success: false, message: error.message };
         }
     };
 
@@ -130,21 +118,6 @@ class ControleDeCorridasService {
         let value = e.target.value;
         value = this.formatReal(value);
         setter(value);
-    };
-
-    getErrorMessage = (error) => {
-        let mensagemErro = "";
-        if (error.response) {
-            const { status, data } = error.response;
-            if (status === 400 && data.message.includes('Cannot deserialize value of type')) {
-                mensagemErro = `Erro ${status}: Há um problema nos dados enviados. Verifique se todos os campos estão preenchidos corretamente e se os valores numéricos estão no formato adequado.`;
-            } else {
-                mensagemErro = `Erro ${status}: ${data.message || error.message}`;
-            }
-        } else {
-            mensagemErro = `Erro: ${error.message}`;
-        }
-        return mensagemErro;
     };
 }
 
