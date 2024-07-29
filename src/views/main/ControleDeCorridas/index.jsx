@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     Box,
     Button,
@@ -18,7 +18,7 @@ import {
 import Banner from "components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
-import InputMask  from "react-input-mask";
+import InputMask from "react-input-mask";
 
 const ControleDeCorridas = () => {
     const service = useRef(new ControleDeCorridasService()).current;
@@ -73,7 +73,7 @@ const ControleDeCorridas = () => {
     const handleTipoDeEscoria = (e) => {
         const value = e.target.value;
         setTipoEscoria(value);
-        service.handleChange({target: {name: 'tipo_escoria', value}}, setFormData);
+        service.handleChange({ target: { name: 'tipo_escoria', value } }, setFormData);
     };
 
     const handleCargaDeChange = useCallback((e) => {
@@ -85,6 +85,7 @@ const ControleDeCorridas = () => {
         const value = e.target.value;
         service.handleCargaAte(value, setAteNumero, setFormData);
     }, [service, setAteNumero, setFormData]);
+
 
     useEffect(() => {
         if (horaInicio && horaFim) {
@@ -103,20 +104,23 @@ const ControleDeCorridas = () => {
     useEffect(() => {
         const qtResult = service.calcularQt(deNumero, ateNumero);
         setQt(qtResult);
-    }, [deNumero, ateNumero, service]);
+        service.handleQuantidade("quantidade", qt, setFormData);
+    }, [deNumero, ateNumero, service, qt]);
 
     useEffect(() => {
         if (qt && gusa) {
             const fe2o3Result = (qt * parseFloat(gusa) / 1000).toFixed(2);
             setFerro(fe2o3Result);
+            service.handle_fe_gusa_kg("fe_gusa_kg", gusa, setFormData);
+            service.handleFerroResultado("ferro", fe2o3Result, setFormData);
         } else {
             setFerro('');
         }
-    }, [qt, gusa]);
+    }, [qt, gusa, service]);
 
 
     return (
-        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%"}}>
+        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
             <Grid
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
@@ -261,17 +265,17 @@ const ControleDeCorridas = () => {
 
                             <FormControl className={'form-control-sm'}>
                                 <FormLabel>Quantidade</FormLabel>
-                                <Input value={qt} className={'text-bg-secondary text-center'} readOnly />
+                                <Input value={qt} name="quantidade" className={'text-bg-secondary text-center'} readOnly />
                             </FormControl>
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Fe/Gusa/(KG)</FormLabel>
-                                    <Input value={gusa}
-                                           onChange={(e) => setGusa(e.target.value)} placeholder={'digite aqui'} />
+                                    <Input value={gusa} name="fe_gusa_kg"
+                                        onChange={(e) => setGusa(e.target.value)} placeholder={'digite aqui'} />
                                 </FormControl>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Fe₂O₃</FormLabel>
-                                    <Input value={ferro} className={'text-bg-secondary'} readOnly />
+                                    <Input name="ferro" value={ferro} className={'text-bg-secondary'} readOnly />
                                 </FormControl>
                             </HStack>
                         </Box>
@@ -284,9 +288,9 @@ const ControleDeCorridas = () => {
                                     <FormControl>
                                         <FormLabel>Real (TN)</FormLabel>
                                         <Input placeholder={'digite aqui'}
-                                               name="realTn"
-                                               value={realTn}
-                                               onChange={(e) => service.handleRealTnChange(e, setRealTn)} />
+                                            name="realTn"
+                                            value={realTn}
+                                            onChange={(e) => service.handleRealTnChange(e, setRealTn)} />
                                     </FormControl>
                                 </Flex>
                             </HStack>
@@ -297,8 +301,8 @@ const ControleDeCorridas = () => {
                                             <FormLabel>Tempo de corrida em min</FormLabel>
                                             <Input name={'tempo_corrida_minutos'}
                                                 placeholder={'digite aqui'}
-                                                   value={tempoCorrida}
-                                                   onChange={handleTempoCorridaChange}
+                                                value={tempoCorrida}
+                                                onChange={handleTempoCorridaChange}
                                             />
                                         </FormControl>
 
@@ -336,16 +340,16 @@ const ControleDeCorridas = () => {
                                     <Flex>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>1</FormLabel>
-                                            <Input name={'sopradores_1'} value={formData.sopradores_1} onChange={handleChange}/>
+                                            <Input name={'sopradores_1'} value={formData.sopradores_1} onChange={handleChange} />
                                         </FormControl>
 
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>2</FormLabel>
-                                            <Input name={'sopradores_2'} value={formData.sopradores_2} onChange={handleChange}/>
+                                            <Input name={'sopradores_2'} value={formData.sopradores_2} onChange={handleChange} />
                                         </FormControl>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>3</FormLabel>
-                                            <Input name={'sopradores_3'} value={formData.sopradores_3} onChange={handleChange}/>
+                                            <Input name={'sopradores_3'} value={formData.sopradores_3} onChange={handleChange} />
                                         </FormControl>
                                     </Flex>
 
@@ -353,11 +357,11 @@ const ControleDeCorridas = () => {
                                         <Flex>
                                             <FormControl className={'form-control-sm'}>
                                                 <FormLabel>4</FormLabel>
-                                                <Input name={'sopradores_4'} value={formData.sopradores_4} onChange={handleChange}/>
+                                                <Input name={'sopradores_4'} value={formData.sopradores_4} onChange={handleChange} />
                                             </FormControl>
                                             <FormControl className={'form-control-sm'}>
                                                 <FormLabel>5</FormLabel>
-                                                <Input name={'sopradores_5'} value={formData.sopradores_5} onChange={handleChange}/>
+                                                <Input name={'sopradores_5'} value={formData.sopradores_5} onChange={handleChange} />
                                             </FormControl>
                                         </Flex>
                                         <Flex justifyContent={'flex-end'} className="pt-5">

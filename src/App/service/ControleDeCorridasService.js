@@ -14,24 +14,27 @@ class ControleDeCorridasService {
             carvao_kg: '',
             carvao_metros: '',
             realTn: '',
-            fosforo:'',
-            manganes:'',
-            silica:'',
-            sopradores_1:'',
-            sopradores_2:'',
-            sopradores_3:'',
-            sopradores_4:'',
-            sopradores_5:'',
-            tempo_corrida_minutos:'',
-            gusa_minuto:'',
-            tipo_escoria:''
-
-
+            fosforo: '',
+            manganes: '',
+            silica: '',
+            sopradores_1: '',
+            sopradores_2: '',
+            sopradores_3: '',
+            sopradores_4: '',
+            sopradores_5: '',
+            tempo_corrida_minutos: '',
+            gusa_minuto: '',
+            tipo_escoria: '',
+            quantidade: '',
+            fe_gusa_kg: '',
+            ferro: ''
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
         this.showErrorModal = false;
     }
+
+
 
     getErrorMessage = (error) => {
         let mensagemErro = "";
@@ -82,6 +85,7 @@ class ControleDeCorridasService {
         setShowErrorModal(false);
     };
 
+
     calcularMinutos = (inicio, fim) => {
         const horaInicio = dayjs(inicio);
         const horaFim = dayjs(fim);
@@ -107,6 +111,11 @@ class ControleDeCorridasService {
     };
 
     handleDateTimeChange = (name, value, setFormData) => {
+        this.formData[name] = value;
+        setFormData(this.formData);
+    };
+
+    handleQuantidade = (name, value, setFormData) => {
         this.formData[name] = value;
         setFormData(this.formData);
     };
@@ -155,6 +164,15 @@ class ControleDeCorridasService {
         setFormData(this.formData);
     };
 
+    handle_fe_gusa_kg = (name, value, setFormData) => {
+        this.formData[name] = value;
+        setFormData({ ...this.formData });
+    };
+
+    handleFerroResultado = (name, value, setFormData) => {
+        this.formData[name] = value;
+        setFormData({ ...this.formData });
+    }
 
 }
 
