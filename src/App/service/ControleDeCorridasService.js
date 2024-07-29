@@ -4,17 +4,22 @@ import axios from "axios";
 dayjs.extend(duration);
 
 class ControleDeCorridasService {
-
     constructor() {
-        this.state = {
-            formData: {
-                conchas: ''
-            },
-            mensagemErro: "",
-            showSuccessModal: false,
-            showErrorModal: false
-        }
+        this.formData = {
+            conchas: '',
+            carga_fundida_de: '',
+            carga_fundida_ate: '',
+            horaInicio: '',
+            minutos: '',
+            carvao_kg: '',
+            carvao_metros: '',
+            realTn: ''
 
+            // adicione outros campos conforme necessário
+        };
+        this.mensagemErro = "";
+        this.showSuccessModal = false;
+        this.showErrorModal = false;
     }
 
     getErrorMessage = (error) => {
@@ -32,35 +37,38 @@ class ControleDeCorridasService {
         return mensagemErro;
     };
 
-    handleChange = (e) => {
+    handleChange = (e, setFormData) => {
         const { name, value } = e.target;
-        this.state.formData = {
-            ...this.state.formData,
+        this.formData = {
+            ...this.formData,
             [name]: value
         };
+        setFormData(this.formData);
     };
 
-    salvar = async (e) => {
+    salvar = async () => {
         try {
-            const response = axios.post("http://localhost:8080/runs/add", this.state.formData, {
+            const response = await axios.post("http://localhost:8080/runs/add", this.formData, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
             console.log("Registro inserido com sucesso:", response.data);
-            this.state.showSuccessModal = true;
+            this.showSuccessModal = true;
             return { success: true };
         } catch (error) {
             console.error("Erro ao cadastrar corrida:", error);
-            this.state.mensagemErro = this.getErrorMessage(error);
-            this.state.showErrorModal = true;
+            this.mensagemErro = this.getErrorMessage(error);
+            this.showErrorModal = true;
             return { success: false, message: error.message };
         }
     };
 
-    handleClose = () => {
-        this.state.showSuccessModal = false;
-        this.state.showErrorModal = false;
+    handleClose = (setShowSuccessModal, setShowErrorModal) => {
+        this.showSuccessModal = false;
+        this.showErrorModal = false;
+        setShowSuccessModal(false);
+        setShowErrorModal(false);
     };
 
     calcularMinutos = (inicio, fim) => {
@@ -87,17 +95,9 @@ class ControleDeCorridasService {
         return '';
     };
 
-    handleDateTimeChange = (setter, ref) => (e) => {
-        const value = e.target.value;
-        setter(value);
-
-        if (value.length === 16) {
-            setTimeout(() => {
-                if (ref.current) {
-                    ref.current.blur();
-                }
-            }, 100);
-        }
+    handleDateTimeChange = (name, value, setFormData) => {
+        this.formData[name] = value;
+        setFormData(this.formData);
     };
 
     formatReal = (value) => {
@@ -108,16 +108,18 @@ class ControleDeCorridasService {
         return value;
     };
 
-    handleRealTnChange = (e, setter) => {
+    handleRealTnChange = (e, setRealTn) => {
         let value = e.target.value;
         value = this.formatReal(value);
-        setter(value);
+        this.formData['realTn'] = value;
+        setRealTn(value);
     };
 
-    handleM3tNumber = (e, setter) => {
+    handleM3tNumber = (e, setM3t) => {
         let value = e.target.value;
         value = this.formatReal(value);
-        setter(value);
+        this.formData['carvao_metros'] = value;
+        setM3t(value);
     };
 }
 

@@ -21,7 +21,7 @@ import ControleDeCorridasService from '../../../App/service/ControleDeCorridasSe
 
 const ControleDeCorridas = () => {
     const service = useRef(new ControleDeCorridasService()).current;
-    const [formData, setFormData] = useState(service.state.formData);
+    const [formData, setFormData] = useState(service.formData);
     const [horaInicio, setHoraInicio] = useState('');
     const [horaFim, setHoraFim] = useState('');
     const [minutos, setMinutos] = useState('');
@@ -36,43 +36,39 @@ const ControleDeCorridas = () => {
     const [kgt, setkgt] = useState('');
     const [m3t, setM3t] = useState('');
 
-    const [showSuccessModal, setShowSuccessModal] = useState(service.state.showSuccessModal);
-    const [showErrorModal, setShowErrorModal] = useState(service.state.showErrorModal);
-    const [mensagemErro, setMensagemErro] = useState(service.state.mensagemErro);
+    const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
+    const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
+    const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
 
     const horaInicioRef = useRef(null);
     const horaFimRef = useRef(null);
 
     const handleChange = (e) => {
-        service.handleChange(e);
-        setFormData({ ...service.state.formData });
+        service.handleChange(e, setFormData);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await service.salvar(e);
-        setFormData({ ...service.state.formData });
-        setShowSuccessModal(service.state.showSuccessModal);
-        setShowErrorModal(service.state.showErrorModal);
-        setMensagemErro(service.state.mensagemErro);
+        const result = await service.salvar();
+        setShowSuccessModal(service.showSuccessModal);
+        setShowErrorModal(service.showErrorModal);
+        setMensagemErro(service.mensagemErro);
         if (result.success) {
             setShowSuccessModal(true);
         } else {
             setShowErrorModal(true);
         }
-
     };
 
     const handleClose = () => {
-        service.handleClose();
-        setShowSuccessModal(service.state.showSuccessModal);
-        setShowErrorModal(service.state.showErrorModal);
+        service.handleClose(setShowSuccessModal, setShowErrorModal);
     };
 
     useEffect(() => {
         if (horaInicio && horaFim) {
             const diffInMinutes = service.calcularMinutos(horaInicio, horaFim);
             setMinutos(diffInMinutes);
+            service.handleDateTimeChange("minutos", diffInMinutes, setFormData);
         }
     }, [horaInicio, horaFim, service]);
 
@@ -114,8 +110,9 @@ const ControleDeCorridas = () => {
                                 <FormLabel>Hora Início</FormLabel>
                                 <Input
                                     type={'datetime-local'}
+                                    name={'horaInicio'}
                                     value={horaInicio}
-                                    onChange={service.handleDateTimeChange(setHoraInicio, horaInicioRef)}
+                                    onChange={(e) => { setHoraInicio(e.target.value); handleChange(e) }}
                                     ref={horaInicioRef}
                                 />
                             </FormControl>
@@ -123,18 +120,19 @@ const ControleDeCorridas = () => {
                                 <FormLabel>Hora Fim</FormLabel>
                                 <Input
                                     type={'datetime-local'}
+                                    name={'horaFim'}
                                     value={horaFim}
-                                    onChange={service.handleDateTimeChange(setHoraFim, horaFimRef)}
+                                    onChange={(e) => { setHoraFim(e.target.value); handleChange(e) }}
                                     ref={horaFimRef}
                                 />
                             </FormControl>
                             <FormControl className={'form-control-lg'}>
                                 <FormLabel>Minutos</FormLabel>
-                                <Input className={'text-bg-secondary'} placeholder='minutos' value={minutos} readOnly />
+                                <Input name="minutos" className={'text-bg-secondary'} placeholder='minutos' value={minutos} readOnly />
                             </FormControl>
                             <FormControl className={'form-control-lg'}>
                                 <FormLabel>Conchas</FormLabel>
-                                <Input placeholder='caçambas' value={formData.conchas} onChange={handleChange} />
+                                <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} />
                             </FormControl>
                         </Box>
                         <Box height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
@@ -205,11 +203,11 @@ const ControleDeCorridas = () => {
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>De N°</FormLabel>
-                                    <Input value={deNumero} onChange={(e) => setDeNumero(e.target.value)} placeholder={'digite aqui'} />
+                                    <Input name="carga_fundida_de" value={deNumero} onChange={(e) => { setDeNumero(e.target.value); handleChange(e) }} placeholder={'digite aqui'} />
                                 </FormControl>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Até N°</FormLabel>
-                                    <Input value={ateNumero} onChange={(e) => setAteNumero(e.target.value)} placeholder={'digite aqui'} />
+                                    <Input name="carga_fundida_ate" value={ateNumero} onChange={(e) => { setAteNumero(e.target.value); handleChange(e) }} placeholder={'digite aqui'} />
                                 </FormControl>
                             </HStack>
 
@@ -238,6 +236,7 @@ const ControleDeCorridas = () => {
                                     <FormControl>
                                         <FormLabel>Real (TN)</FormLabel>
                                         <Input placeholder={'digite aqui'}
+                                            name="realTn"
                                             value={realTn}
                                             onChange={(e) => service.handleRealTnChange(e, setRealTn)} />
                                     </FormControl>
@@ -271,12 +270,12 @@ const ControleDeCorridas = () => {
                                     <Flex width={'100%'}>
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>KG/T</FormLabel>
-                                            <Input value={kgt} placeholder={'digite aqui'} onChange={(e) => setkgt(e.target.value)} />
+                                            <Input name="carvao_kg" value={kgt} placeholder={'digite aqui'} onChange={(e) => { setkgt(e.target.value); handleChange(e); }} />
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>M³/T</FormLabel>
-                                            <Input value={m3t} placeholder={'digite aqui'} onChange={(e) => service.handleM3tNumber(e, setM3t)} />
+                                            <Input name="carvao_metros" value={m3t} placeholder={'digite aqui'} onChange={(e) => { service.handleM3tNumber(e, setM3t); }} />
                                         </FormControl>
                                     </Flex>
                                 </VStack>
@@ -311,6 +310,11 @@ const ControleDeCorridas = () => {
                                                 <FormLabel>5</FormLabel>
                                                 <Input />
                                             </FormControl>
+                                        </Flex>
+                                        <Flex justifyContent={'flex-end'} className="pt-5">
+                                            <Button colorScheme="whatsapp" size="lg" type="submit">
+                                                Registrar
+                                            </Button>
                                         </Flex>
                                     </Box>
                                 </VStack>
