@@ -13,9 +13,20 @@ class ControleDeCorridasService {
             minutos: '',
             carvao_kg: '',
             carvao_metros: '',
-            realTn: ''
+            realTn: '',
+            fosforo:'',
+            manganes:'',
+            silica:'',
+            sopradores_1:'',
+            sopradores_2:'',
+            sopradores_3:'',
+            sopradores_4:'',
+            sopradores_5:'',
+            tempo_corrida_minutos:'',
+            gusa_minuto:'',
+            tipo_escoria:''
 
-            // adicione outros campos conforme necessário
+
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -100,6 +111,11 @@ class ControleDeCorridasService {
         setFormData(this.formData);
     };
 
+    handleGusaPorMinuto = (name, value, setFormData) => {
+        this.formData[name] = value;
+        setFormData(this.formData);
+    };
+
     formatReal = (value) => {
         value = value.replace(/\D/g, '');
         if (value.length > 2) {
@@ -121,6 +137,25 @@ class ControleDeCorridasService {
         this.formData['carvao_metros'] = value;
         setM3t(value);
     };
+
+    handleTempoCorridaChange = (value, setTempoCorrida) => {
+        this.formData['tempo_corrida_minutos'] = value;
+        setTempoCorrida(value);
+    };
+
+    handleCargaDe = (value, setDe, setFormData) => {
+        this.formData['carga_fundida_de'] = value;
+        setDe(value);
+        setFormData(this.formData);
+    };
+
+    handleCargaAte = (value, setAte, setFormData) => {
+        this.formData['carga_fundida_ate'] = value;
+        setAte(value);
+        setFormData(this.formData);
+    };
+
+
 }
 
 export default ControleDeCorridasService;
