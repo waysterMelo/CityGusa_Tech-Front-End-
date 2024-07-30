@@ -19,8 +19,8 @@ import { CgMoreO  } from "react-icons/cg";
 import Badge from 'react-bootstrap/Badge';
 export default function ColumnsTable(props) {
   const [size, setSize] = React.useState('')
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
   const handleClick = (newSize) =>{
     setSize(newSize)
     onOpen()

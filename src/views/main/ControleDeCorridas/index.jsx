@@ -1,24 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {
     Box,
-    Button,
+    Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+    Flex,
     FormControl,
     FormLabel,
     Grid,
     HStack,
     Input,
+    Select,
     SimpleGrid,
-    Text,
-    VStack,
-    Flex,
     Spacer,
-    Stack,
-    Select
+    Stack, Table, TableContainer, Tbody, Td,
+    Text, Th, Thead, Tr, useDisclosure,
+    VStack
 } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
-import { Modal } from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
 import InputMask from "react-input-mask";
+import * as sizes from "react-bootstrap/ElementChildren";
+import { CgMoreO  } from "react-icons/cg";
 
 const ControleDeCorridas = () => {
     const service = useRef(new ControleDeCorridasService()).current;
@@ -43,6 +45,15 @@ const ControleDeCorridas = () => {
 
     const horaInicioRef = useRef(null);
     const horaFimRef = useRef(null);
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [size, setSize] = React.useState('')
+    const btnRef = React.useRef();
+    const handleClick = (newSize) =>{
+        setSize(newSize)
+        onOpen()
+    }
+    const sizes = ['xl']
 
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
@@ -171,12 +182,28 @@ const ControleDeCorridas = () => {
                                     <Flex width={'100%'}>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>Visual</FormLabel>
-                                            <Input placeholder={'visual'} />
+                                          <InputMask
+                                            mask={'9.99'}
+                                            value={formData.silicio_visual}
+                                            onChange={handleChange}
+                                            placeholder={'0.00'}
+                                            name={'silicio_visual'}
+                                            >
+                                              {(inputProps) => <Input {...inputProps} type={'text'} />}
+                                          </InputMask>
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>Real</FormLabel>
-                                            <Input placeholder={'real'} />
+                                            <InputMask
+                                                mask={'9.99'}
+                                                value={formData.silicio_real}
+                                                onChange={handleChange}
+                                                placeholder={'0.00'}
+                                                name={'silicio_real'}
+                                            >
+                                                {(inputProps) => <Input {...inputProps} type={'text'} />}
+                                            </InputMask>
                                         </FormControl>
                                     </Flex>
                                 </VStack>
@@ -229,11 +256,27 @@ const ControleDeCorridas = () => {
                                 <HStack spacing={3} width={'100%'} className={'p-2'}>
                                     <FormControl className={'w-50'}>
                                         <FormLabel>Início</FormLabel>
-                                        <Input type={'time'} placeholder={'hora início'} />
+                                        <InputMask
+                                            mask={'99:99'}
+                                            onChange={handleChange}
+                                            value={formData.escoria_inicio}
+                                            placeholder={'HH:MM'}
+                                            name={'escoria_inicio'}
+                                        >
+                                            {(inputProps) => <Input {...inputProps} type={'text'} />}
+                                        </InputMask>
                                     </FormControl>
                                     <FormControl className={'w-50'}>
                                         <FormLabel>Fim</FormLabel>
-                                        <Input type={'time'} placeholder={'hora fim'} />
+                                        <InputMask
+                                            mask={'99:99'}
+                                            onChange={handleChange}
+                                            value={formData.escoria_fim}
+                                            placeholder={'HH:MM'}
+                                            name={'escoria_fim'}
+                                        >
+                                            {(inputProps) => <Input {...inputProps} type={'text'} />}
+                                        </InputMask>
                                     </FormControl>
                                     <FormControl>
                                         <FormLabel>Tipo de escória</FormLabel>
@@ -248,7 +291,6 @@ const ControleDeCorridas = () => {
                             </Box>
                         </Box>
                     </Stack>
-
                     <Stack direction={['column', 'row']}>
                         <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Cargas Fundidas</Text>
@@ -374,9 +416,161 @@ const ControleDeCorridas = () => {
                             </HStack>
                         </Box>
                     </Stack>
-
                 </SimpleGrid>
             </form>
+
+            <SimpleGrid  mt={5}>
+                <Flex justifyContent={'center'}>
+                    {
+                        sizes.map((size) => (
+                            <Button  ref={btnRef} onClick={() => handleClick(size)}
+                                    leftIcon={<CgMoreO/>} key={size}
+                                    colorScheme='facebook'>VER CORRIDAS DO DIA </Button>
+                        ))
+                    }
+
+                    <Drawer isOpen={isOpen} onClose={onClose} size={'xl'} placement={'bottom'} finalFocusRef={btnRef}>
+                        <DrawerOverlay/>
+                        <DrawerContent>
+                            <DrawerCloseButton/>
+                            <DrawerHeader>
+                                <Text bgColor={'facebook.400'} color={'white'} className={'text-center p-4 h3'}>Alterações no leito de
+                                    fusão</Text>
+                            </DrawerHeader>
+
+                            <DrawerBody>
+                                <Box bgColor={'lightyellow'} w={'100%'} h={'100%'}>
+                                    <TableContainer>
+                                        <Table variant='striped' size={'sm'}>
+                                            <Thead>
+                                                <Tr>
+                                                    <Th className={'bg-black text-white'}>N° da carga</Th>
+                                                    <Th className={'bg-black text-white'}>%</Th>
+                                                    <Th className={'bg-black text-white'}>02</Th>
+                                                    <Th className={'bg-black text-white'}>50</Th>
+                                                    <Th className={'bg-black text-white'}>80</Th>
+                                                    <Th className={'bg-black text-white'}>120</Th>
+                                                    <Th className={'bg-black text-white text-center'}>Total</Th>
+                                                </Tr>
+                                                <Tr>
+                                                    <Th className={'bg-black text-white p-2'}>Minério</Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Extrativa</Td>
+                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
+                                                    <Td>160</Td>
+                                                    <Td>160</Td>
+                                                    <Td>160</Td>
+                                                    <Td>160</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Comisa</Td>
+                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
+                                                    <Td>150</Td>
+                                                    <Td>150</Td>
+                                                    <Td>150</Td>
+                                                    <Td>150</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Bassari</Td>
+                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
+                                                    <Td>100</Td>
+                                                    <Td>100</Td>
+                                                    <Td>100</Td>
+                                                    <Td>100</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Ciclo Metal</Td>
+                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Lâmina</Td>
+                                                    <Td></Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Calcareo</Td>
+                                                    <Td></Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Bauxita</Td>
+                                                    <Td></Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Coque</Td>
+                                                    <Td></Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Secas</Td>
+                                                    <Td></Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Sucata Gusa</Td>
+                                                    <Td></Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                                <Tr>
+                                                    <Td className={'bg-black text-white'}>Sucata Aço</Td>
+                                                    <Td></Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td>90</Td>
+                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
+                                                </Tr>
+                                            </Tbody>
+                                        </Table>
+                                    </TableContainer>
+                                </Box>
+                            </DrawerBody>
+
+                            <DrawerFooter>
+                                <Button className={'btn btn-md btn-dark'} onClick={onClose}>
+                                    Voltar
+                                </Button>
+                            </DrawerFooter>
+                        </DrawerContent>
+                    </Drawer>
+                </Flex>
+            </SimpleGrid>
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>
