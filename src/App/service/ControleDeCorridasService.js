@@ -31,13 +31,25 @@ class ControleDeCorridasService {
             silicio_visual:'',
             silicio_real:'',
             escoria_inicio:'',
-            escoria_fim:''
+            escoria_fim:'',
+            createdAt:'',
+            gusa_kg:''
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
         this.showErrorModal = false;
     }
 
+
+    async getCorridasDoDia(){
+        try {
+            const response = await axios.get("http://localhost:8080/runs/today");
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao buscar corridas do dia:", error);
+            return [];
+        }
+    }
 
 
     getErrorMessage = (error) => {
@@ -88,7 +100,6 @@ class ControleDeCorridasService {
         setShowSuccessModal(false);
         setShowErrorModal(false);
     };
-
 
     calcularMinutos = (inicio, fim) => {
         const horaInicio = dayjs(inicio);

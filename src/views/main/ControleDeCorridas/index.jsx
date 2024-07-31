@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {
     Box,
-    Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+    Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
     Flex,
     FormControl,
     FormLabel,
@@ -42,18 +42,20 @@ const ControleDeCorridas = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
     const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
-
+    const [corridas, setCorridas] = useState([]);
     const horaInicioRef = useRef(null);
     const horaFimRef = useRef(null);
-
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [size, setSize] = React.useState('')
     const btnRef = React.useRef();
+
+
     const handleClick = (newSize) =>{
         setSize(newSize)
         onOpen()
     }
-    const sizes = ['xl']
+
+    const sizes = ['md'];
 
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
@@ -64,6 +66,11 @@ const ControleDeCorridas = () => {
         service.handleTempoCorridaChange(value, setTempoCorrida);
     };
 
+    const fecthCorridas = async () => {
+        const data = await service.getCorridasDoDia();
+        setCorridas(data);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const result = await service.salvar();
@@ -72,6 +79,7 @@ const ControleDeCorridas = () => {
         setMensagemErro(service.mensagemErro);
         if (result.success) {
             setShowSuccessModal(true);
+            fecthCorridas();
         } else {
             setShowErrorModal(true);
         }
@@ -128,6 +136,10 @@ const ControleDeCorridas = () => {
             setFerro('');
         }
     }, [qt, gusa, service]);
+
+    useEffect(() => {
+        fecthCorridas()
+    }, []);
 
 
     return (
@@ -434,128 +446,86 @@ const ControleDeCorridas = () => {
                         <DrawerContent>
                             <DrawerCloseButton/>
                             <DrawerHeader>
-                                <Text bgColor={'facebook.400'} color={'white'} className={'text-center p-4 h3'}>Alterações no leito de
-                                    fusão</Text>
+                                <Text bgColor={'facebook.400'} color={'white'} className={'text-center p-4 h3'}>Controle das Corridas</Text>
                             </DrawerHeader>
 
                             <DrawerBody>
-                                <Box bgColor={'lightyellow'} w={'100%'} h={'100%'}>
+                                <Box w={'100%'} h={'100%'}>
                                     <TableContainer>
-                                        <Table variant='striped' size={'sm'}>
-                                            <Thead>
+                                        <Table className={'table-striped table-hover'} id={'tabela_retorno'}>
+                                            <Thead className={'thead-dark'}>
                                                 <Tr>
-                                                    <Th className={'bg-black text-white'}>N° da carga</Th>
-                                                    <Th className={'bg-black text-white'}>%</Th>
-                                                    <Th className={'bg-black text-white'}>02</Th>
-                                                    <Th className={'bg-black text-white'}>50</Th>
-                                                    <Th className={'bg-black text-white'}>80</Th>
-                                                    <Th className={'bg-black text-white'}>120</Th>
-                                                    <Th className={'bg-black text-white text-center'}>Total</Th>
-                                                </Tr>
-                                                <Tr>
-                                                    <Th className={'bg-black text-white p-2'}>Minério</Th>
+                                                    <Th>ID</Th>
+                                                    <Th>DATA</Th>
+                                                    <Th>VAZAMENTO <br/> Hora Inicio</Th>
+                                                    <Th>VAZAMENTO <br/> Hora Fim</Th>
+                                                    <Th>MINUTOS DIA <br/> (ACUMULADO)</Th>
+                                                    <Th>CONCHAS <br/> CAÇAMBAS</Th>
+                                                    <Th>SILICIO <br/> Visual</Th>
+                                                    <Th>SILICIO <br/> Real</Th>
+                                                    <Th>FÓSFORO</Th>
+                                                    <Th>MANGANÊS</Th>
+                                                    <Th>SÍLICA</Th>
+                                                    <Th>TEMPERATURA <br/> Gusa</Th>
+                                                    <Th>Escória <br/> tipo</Th>
+                                                    <Th>Escória <br/>inicio vazamento</Th>
+                                                    <Th>Escória <br/>fim vazamento</Th>
+                                                    <Th>Cargas Fundidas <br/>DE No</Th>
+                                                    <Th>Cargas Fundidas <br/>até No</Th>
+                                                    <Th>QT</Th>
+                                                    <Th>Fe/Gusa/(KG)</Th>
+                                                    <Th>Fe₂O₃</Th>
+                                                    <Th className={'bg-dark-subtle'}>ACUMulado <br/> DIA</Th>
+                                                    <Th className={'bg-dark-subtle'}>RITMO REAL</Th>
+                                                    <Th>CONSUMO <br/> CARVÃO KG</Th>
+                                                    <Th>CONSUMO <br/> CARVÃO M³/T</Th>
+                                                    <Th>tempo de <br/> corridas min</Th>
+                                                    <Th>tonelada gusa <br/> minutos</Th>
+                                                    <Th>Fe/CARGA <br/>GUSA/C(KG)</Th>
+                                                    <Th>Sopradores <br/>1</Th>
+                                                    <Th>Sopradores <br/>2</Th>
+                                                    <Th>Sopradores <br/>3</Th>
+                                                    <Th>Sopradores <br/>4</Th>
+                                                    <Th>Sopradores <br/>5</Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Extrativa</Td>
-                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
-                                                    <Td>160</Td>
-                                                    <Td>160</Td>
-                                                    <Td>160</Td>
-                                                    <Td>160</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Comisa</Td>
-                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
-                                                    <Td>150</Td>
-                                                    <Td>150</Td>
-                                                    <Td>150</Td>
-                                                    <Td>150</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Bassari</Td>
-                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
-                                                    <Td>100</Td>
-                                                    <Td>100</Td>
-                                                    <Td>100</Td>
-                                                    <Td>100</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Ciclo Metal</Td>
-                                                    <Td className={'bg-secondary-subtle'}>15%</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Lâmina</Td>
-                                                    <Td></Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Calcareo</Td>
-                                                    <Td></Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Bauxita</Td>
-                                                    <Td></Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Coque</Td>
-                                                    <Td></Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Secas</Td>
-                                                    <Td></Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Sucata Gusa</Td>
-                                                    <Td></Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
-                                                <Tr>
-                                                    <Td className={'bg-black text-white'}>Sucata Aço</Td>
-                                                    <Td></Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td>90</Td>
-                                                    <Td className={'text-center bg-secondary-subtle'}>640</Td>
-                                                </Tr>
+                                                {corridas.map((corrida, index) => (
+                                                    <Tr key={index}>
+                                                        <Td>{corrida.id}</Td>
+                                                        <Td>{corrida.createdAt}</Td>
+                                                        <Td>{corrida.horaInicio}</Td>
+                                                        <Td>{corrida.horaFim}</Td>
+                                                        <Td>{corrida.minutos}</Td>
+                                                        <Td>{corrida.conchas}</Td>
+                                                        <Td>{corrida.silicio_visual}</Td>
+                                                        <Td>{corrida.silicio_real}</Td>
+                                                        <Td>{corrida.fosforo}</Td>
+                                                        <Td>{corrida.manganes}</Td>
+                                                        <Td>{corrida.silica}</Td>
+                                                        <Td>132</Td>
+                                                        <Td>{corrida.tipo_escoria}</Td>
+                                                        <Td>{corrida.escoria_inicio}</Td>
+                                                        <Td>{corrida.escoria_fim}</Td>
+                                                        <Td>{corrida.carga_fundida_de}</Td>
+                                                        <Td>{corrida.carga_fundida_ate}</Td>
+                                                        <Td>{corrida.fe_gusa_kg}</Td>
+                                                        <Td>{corrida.quantidade}</Td>
+                                                        <Td>{corrida.ferro}</Td>
+                                                        <Td className={'bg-dark-subtle'}>{corrida.acumDia}</Td>
+                                                        <Td className={'bg-dark-subtle'}>{corrida.ritmoReal}</Td>
+                                                        <Td>{corrida.carvao_kg}</Td>
+                                                        <Td>{corrida.carvao_metros}</Td>
+                                                        <Td>{corrida.tempo_corrida_minutos}</Td>
+                                                        <Td>{corrida.gusa_minuto}</Td>
+                                                        <Td>gusa_kg</Td>
+                                                        <Td>{corrida.sopradores_1}</Td>
+                                                        <Td>{corrida.sopradores_2}</Td>
+                                                        <Td>{corrida.sopradores_3}</Td>
+                                                        <Td>{corrida.sopradores_4}</Td>
+                                                        <Td>{corrida.sopradores_5}</Td>
+                                                    </Tr>
+                                                ))}
                                             </Tbody>
                                         </Table>
                                     </TableContainer>
@@ -563,7 +533,7 @@ const ControleDeCorridas = () => {
                             </DrawerBody>
 
                             <DrawerFooter>
-                                <Button className={'btn btn-md btn-dark'} onClick={onClose}>
+                                <Button variant={'solid'} colorScheme={'twitter'} onClick={onClose}>
                                     Voltar
                                 </Button>
                             </DrawerFooter>
