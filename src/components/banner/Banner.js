@@ -6,7 +6,7 @@ import {Link as ReactRouterLink} from "react-router-dom";
 
 export default function Banner(props) {
 
-    const {texto_primario, texto_secundario, primeiro_botao, url , url_voltar} = props;
+    const {texto_primario, texto_secundario, primeiro_botao, segundo_botao, terceiro_botao,  url, url_segundo_botao , url_voltar} = props;
 
 
   return (
@@ -66,6 +66,21 @@ export default function Banner(props) {
           to={url}>
             {primeiro_botao}
         </ChakraLink>
+          <ChakraLink className={'btn badge'}
+                      bg='white'
+                      color='black'
+                      _hover={{ bg: "whiteAlpha.900" }}
+                      _active={{ bg: "white" }}
+                      _focus={{ bg: "white" }}
+                      fontWeight='500'
+                      fontSize='14px'
+                      py='20px'
+                      px='20px'
+                      me='38px'
+                      as={ReactRouterLink}
+                      to={url_segundo_botao}>
+              {segundo_botao}
+          </ChakraLink>
           <ChakraLink
               bg='white'
               color='black'

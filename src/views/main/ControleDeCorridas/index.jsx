@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {
     Box,
-    Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+    Button,
     Flex,
     FormControl,
     FormLabel,
@@ -12,15 +12,13 @@ import {
     SimpleGrid,
     Spacer,
     Stack,
-    Text, useDisclosure,
+    Text,
     VStack
 } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
 import {Modal} from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
 import InputMask from "react-input-mask";
-import * as sizes from "react-bootstrap/ElementChildren";
-import { CgMoreO  } from "react-icons/cg";
 
 const ControleDeCorridas = () => {
     const service = useRef(new ControleDeCorridasService()).current;
@@ -44,17 +42,12 @@ const ControleDeCorridas = () => {
     const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
     const horaInicioRef = useRef(null);
     const horaFimRef = useRef(null);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [size, setSize] = React.useState('')
-    const btnRef = React.useRef();
 
 
-    const handleClick = (newSize) =>{
-        setSize(newSize)
-        onOpen()
-    }
 
-    const sizes = ['md'];
+
+
+
 
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
@@ -138,7 +131,11 @@ const ControleDeCorridas = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url={'corridas-data'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'} texto_secundario={'CADASTRAR CORRIDA'} primeiro_botao={'Ver Corridas Do Dia'} />
+                <Banner url={'vazamento-cargas-fundidas'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'}
+                        texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
+                        primeiro_botao={'Vazamento, Cargas Fundidas'}
+                        segundo_botao={'Análises minério, escória'}
+                />
             </Grid>
 
             <form onSubmit={handleSubmit}>
@@ -421,37 +418,6 @@ const ControleDeCorridas = () => {
                 </SimpleGrid>
             </form>
 
-            <SimpleGrid  mt={5}>
-                <Flex justifyContent={'center'}>
-                    {
-                        sizes.map((size) => (
-                            <Button  ref={btnRef} onClick={() => handleClick(size)}
-                                    leftIcon={<CgMoreO/>} key={size}
-                                    colorScheme='facebook'>VER CORRIDAS DO DIA </Button>
-                        ))
-                    }
-
-                    <Drawer isOpen={isOpen} onClose={onClose} size={'xl'} placement={'bottom'} finalFocusRef={btnRef}>
-                        <DrawerOverlay/>
-                        <DrawerContent>
-                            <DrawerCloseButton/>
-                            <DrawerHeader>
-                                <Text bgColor={'facebook.400'} color={'white'} className={'text-center p-4 h3'}>Controle das Corridas</Text>
-                            </DrawerHeader>
-
-                            <DrawerBody>
-
-                            </DrawerBody>
-
-                            <DrawerFooter>
-                                <Button variant={'solid'} colorScheme={'twitter'} onClick={onClose}>
-                                    Voltar
-                                </Button>
-                            </DrawerFooter>
-                        </DrawerContent>
-                    </Drawer>
-                </Flex>
-            </SimpleGrid>
 
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>

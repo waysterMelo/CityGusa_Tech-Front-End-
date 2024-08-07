@@ -89,10 +89,10 @@ const routes = [
     },
     {
         layout: "/admin",
-        path: "/corridas-data",
+        path: "/vazamento-cargas-fundidas",
         component: CorridasData,
         icon: <Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
-        name: "Pesquisa de corridas",
+        name: "Vazamento e cargas Fundidas",
         hidden: true
     },
     {
