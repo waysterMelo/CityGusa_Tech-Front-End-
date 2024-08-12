@@ -15,9 +15,9 @@ import {
     Text,
     VStack
 } from "@chakra-ui/react";
-import Banner from "components/banner/Banner";
+import Banner from "../../../../components/banner/Banner";
 import { Modal } from "react-bootstrap";
-import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
+import ControleDeCorridasService from '../../../../App/service/ControleDeCorridasService';
 import InputMask from "react-input-mask";
 
 const ControleDeCorridas = () => {
@@ -42,11 +42,6 @@ const ControleDeCorridas = () => {
     const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
     const horaInicioRef = useRef(null);
     const horaFimRef = useRef(null);
-
-
-
-
-
 
 
     const handleChange = (e) => {
@@ -131,10 +126,11 @@ const ControleDeCorridas = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url={'vazamento-cargas-fundidas'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'}
+                <Banner url={'vazamento-cargas-fundidas'} url_voltar={'/admin/home'} texto_primario={'CADASTRAR CORRIDAS DO FORNO'}
                     texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
                     primeiro_botao={'Vazamento, Cargas Fundidas'}
-                    segundo_botao={'Análises minério, escória'}
+                    segundo_botao={'Análise Química Minério, Escória'}
+                    url_segundo_botao={'analise-minerio-escoria'}
                 />
             </Grid>
 
@@ -301,7 +297,7 @@ const ControleDeCorridas = () => {
                     <Stack direction={['column', 'row']}>
                         <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Cargas Fundidas</Text>
-                            <HStack>
+                            <HStack className={'p-3'}>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>De N°</FormLabel>
                                     <Input name="cargaFundidaDe" value={deNumero} onChange={handleCargaDeChange} placeholder={'digite aqui'} />
@@ -332,8 +328,8 @@ const ControleDeCorridas = () => {
                         <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
 
-                            <HStack width={'auto'} className={'p-1'} justify="center">
-                                <Flex className={'pt-5'}>
+                            <HStack width={'auto'} className={'p-3'} justify="center">
+                                <Flex className={''}>
                                     <FormControl>
                                         <FormLabel>Real (TN)</FormLabel>
                                         <Input placeholder={'digite aqui'}
@@ -413,16 +409,18 @@ const ControleDeCorridas = () => {
                                                 <Input name={'sopradores5'} value={formData.sopradores5} onChange={handleChange} />
                                             </FormControl>
                                         </Flex>
-                                        <Flex justifyContent={'flex-end'} className="pt-5">
-                                            <Button colorScheme="whatsapp" size="lg" type="submit">
-                                                Registrar
-                                            </Button>
-                                        </Flex>
                                     </Box>
                                 </VStack>
                             </HStack>
                         </Box>
                     </Stack>
+                </SimpleGrid>
+                <SimpleGrid>
+                        <Flex className={'mt-3'} justifyContent={'flex-end'}>
+                            <Button colorScheme="whatsapp" size="lg" type="submit">
+                                Registrar
+                            </Button>
+                        </Flex>
                 </SimpleGrid>
             </form>
 

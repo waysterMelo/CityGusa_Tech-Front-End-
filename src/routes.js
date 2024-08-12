@@ -8,15 +8,15 @@ import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
 import AnaliseGusa from "./views/analises/AnaliseGusa";
 import AnaliseEscoria from "./views/analises/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
-import Corrida from "./views/main/ControleDeCorridas";
+import Corrida from "./views/main/ControleDeCorridas/CadastrarCorrida";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import Analises from "./views/analises/index";
 import { FaBars } from "react-icons/fa";
 import { FaBorderAll } from "react-icons/fa";
 import { FaClipboard } from "react-icons/fa";
 import { FaChalkboardTeacher } from "react-icons/fa";
-import CorridasData from "./views/main/ControleDeCorridas/VerCorridas/index";
-
+import CorridasData from "./views/main/ControleDeCorridas/VerVazamentosCargasFundidas/index";
+import ANQE from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria/index";
 
 const routes = [
     {
@@ -52,7 +52,6 @@ const routes = [
         layout: "/admin",
         path: "/analise-minerio",
         component: AnaliseQuimicaDeMinerio,
-        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit'/>,
         name: 'Análise Minério',
         hidden: true
     },
@@ -60,7 +59,6 @@ const routes = [
     layout: "/admin",
         path:"/analise-gusa",
         component:AnaliseGusa,
-        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit'/>,
         name:"Análise Gusa",
         hidden: true
     },
@@ -68,7 +66,6 @@ const routes = [
         layout: "/admin",
         path:"/analise-escoria",
         component: AnaliseEscoria,
-        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit'/>,
         name:"Análise Escória",
         hidden: true
     },
@@ -83,7 +80,6 @@ const routes = [
         layout: "/admin",
         path: "/controle-corrida",
         component:Corrida,
-        icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
         name:"Controle das Corridas",
         hidden: true
     },
@@ -91,8 +87,14 @@ const routes = [
         layout: "/admin",
         path: "/vazamento-cargas-fundidas",
         component: CorridasData,
-        icon: <Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
         name: "Vazamento e cargas Fundidas",
+        hidden: true
+    },
+    {
+        layout: "/admin",
+        path: "/analise-minerio-escoria",
+        component: ANQE,
+        name: "Análise Química de Minério e Escória",
         hidden: true
     },
     {

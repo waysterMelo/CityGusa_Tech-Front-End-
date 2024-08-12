@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box, Grid, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
 import ControleDeCorridasService from "../../../../App/service/ControleDeCorridasService";
-import { Stat, StatLabel, StatNumber, StatHelpText, StatGroup } from '@chakra-ui/react'
-import { PhoneIcon } from '@chakra-ui/icons'
-import { MdLabel } from "react-icons/md";
+import { Stat, StatNumber, StatHelpText, StatGroup } from '@chakra-ui/react'
 import { CardTitle } from "react-bootstrap";
 
 
@@ -13,26 +11,31 @@ const VerCorridas = () => {
 
     const service = useRef(new ControleDeCorridasService()).current;
     const [corridas, setCorridas] = useState([]);
-
-
     const formatDate = (dateString) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
-
     const formatDateTime = (dateTimeString) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateTimeString).toLocaleDateString('pt-BR', options).replace(',', '');
     };
-
-    const fecthCorridas = async () => {
-        const data = await service.getCorridasDoDia();
-        setCorridas(data);
-    }
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fecthCorridas();
-    }, []);
+        const fetchCorridas = async () => {
+            try {
+                const data = await service.getCorridasDoDia();
+                setCorridas(data);
+            } catch (error) {
+                console.error("Erro ao buscar corridas:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchCorridas();
+    }, [service]);
+
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -84,7 +87,7 @@ const VerCorridas = () => {
                     </Table>
                 </TableContainer>
             </Box>
-            <Box w={'30%'} h={'100%'} className={'font-monospace bg-white p-5'}>
+            <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5'}>
                 <StatGroup>
                     {corridas.length > 0 && corridas[0] && (
                         <Stat>
