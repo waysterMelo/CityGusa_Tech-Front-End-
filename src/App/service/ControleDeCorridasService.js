@@ -35,9 +35,10 @@ class ControleDeCorridasService {
             sopradores4: '',    // Corrigido para seguir o DTO
             sopradores5: '',    // Corrigido para seguir o DTO
             temperatura: '',
-            createdAt: '',
+            createdAt:'',
             mediaFosforo:'',
-            mediaSilica:''
+            mediaSilica:'',
+            mediaManganes:''
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;

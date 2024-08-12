@@ -76,7 +76,7 @@ const VerAnaliseMinerioEscoria = () => {
                     <StatGroup>
                         {corridas.length > 0 && corridas[0] && (
                             <Stat>
-                                <CardTitle>Média de Fósforo</CardTitle>
+                                <CardTitle>Média Fósforo</CardTitle>
                                <StatNumber>
                                    {corridas[0].mediaFosforo ? corridas[0].mediaFosforo.toFixed(2) : "N/A"}
                                </StatNumber>
@@ -88,8 +88,18 @@ const VerAnaliseMinerioEscoria = () => {
                     <StatGroup>
                         {corridas.length > 0 && corridas[0] && (
                             <Stat>
-                                <CardTitle>Média de Sílica</CardTitle>
-                                <StatNumber>{corridas[0].mediaSilica || "N/A"}</StatNumber>
+                                <CardTitle>Média Sílica</CardTitle>
+                                <StatNumber>{corridas[0].mediaSilica ? corridas[0].mediaSilica.toFixed(2) : "N/A"}</StatNumber>
+                            </Stat>
+                        )}
+                    </StatGroup>
+                </Box>
+                <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5 mx-3'}>
+                    <StatGroup>
+                        {corridas.length > 0 && corridas[0] && (
+                            <Stat>
+                                <CardTitle>Média Manganês</CardTitle>
+                                <StatNumber>{corridas[0].mediaManganes ? corridas[0].mediaManganes.toFixed(2) : "N/A"}</StatNumber>
                             </Stat>
                         )}
                     </StatGroup>
