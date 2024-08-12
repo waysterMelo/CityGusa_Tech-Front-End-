@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     Box,
     Button,
@@ -16,7 +16,7 @@ import {
     VStack
 } from "@chakra-ui/react";
 import Banner from "components/banner/Banner";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../App/service/ControleDeCorridasService';
 import InputMask from "react-input-mask";
 
@@ -78,7 +78,7 @@ const ControleDeCorridas = () => {
     const handleTipoDeEscoria = (e) => {
         const value = e.target.value;
         setTipoEscoria(value);
-        service.handleChange({ target: { name: 'tipo_escoria', value } }, setFormData);
+        service.handleChange({ target: { name: 'tipoEscoria', value } }, setFormData);
     };
 
     const handleCargaDeChange = useCallback((e) => {
@@ -103,7 +103,7 @@ const ControleDeCorridas = () => {
     useEffect(() => {
         const result = service.calcularToneladaGusaMin(realTn, tempoCorrida);
         setToneladaGusa(result);
-        service.handleGusaPorMinuto("gusa_minuto", result, setFormData);
+        service.handleGusaPorMinuto("gusaMinuto", result, setFormData);
     }, [realTn, tempoCorrida, service]);
 
     useEffect(() => {
@@ -116,7 +116,7 @@ const ControleDeCorridas = () => {
         if (qt && gusa) {
             const fe2o3Result = (qt * parseFloat(gusa) / 1000).toFixed(2);
             setFerro(fe2o3Result);
-            service.handle_fe_gusa_kg("fe_gusa_kg", gusa, setFormData);
+            service.handle_fe_gusa_kg("feGusaKg", gusa, setFormData);
             service.handleFerroResultado("ferro", fe2o3Result, setFormData);
         } else {
             setFerro('');
@@ -132,9 +132,9 @@ const ControleDeCorridas = () => {
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
                 <Banner url={'vazamento-cargas-fundidas'} url_voltar={'/admin/home'} texto_primario={'CONTROLE DE CORRIDAS DO FORNO'}
-                        texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
-                        primeiro_botao={'Vazamento, Cargas Fundidas'}
-                        segundo_botao={'Análises minério, escória'}
+                    texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
+                    primeiro_botao={'Vazamento, Cargas Fundidas'}
+                    segundo_botao={'Análises minério, escória'}
                 />
             </Grid>
 
@@ -168,10 +168,18 @@ const ControleDeCorridas = () => {
                                 <FormLabel>Minutos</FormLabel>
                                 <Input name="minutos" className={'text-bg-secondary'} placeholder='minutos' value={minutos} readOnly />
                             </FormControl>
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>Conchas</FormLabel>
-                                <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} />
-                            </FormControl>
+                            <HStack>
+                                <FormControl className={'form-control-lg'}>
+                                    <FormLabel>Conchas</FormLabel>
+                                    <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} />
+                                </FormControl>
+
+                                <FormControl className={'form-control-lg'}>
+                                    <FormLabel>Temperatura</FormLabel>
+                                    <Input name="temperatura" placeholder='temperaturas' value={formData.temperatura} onChange={handleChange} />
+                                </FormControl>
+                            </HStack>
+
                         </Box>
                         <Box height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
                             <Text className={'p-3 text-bg-dark'}>Análise QM</Text>
@@ -181,25 +189,25 @@ const ControleDeCorridas = () => {
                                     <Flex width={'100%'}>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>Visual</FormLabel>
-                                          <InputMask
-                                            mask={'9.99'}
-                                            value={formData.silicio_visual}
-                                            onChange={handleChange}
-                                            placeholder={'0.00'}
-                                            name={'silicio_visual'}
+                                            <InputMask
+                                                mask={'9.99'}
+                                                value={formData.silicioVisual}
+                                                onChange={handleChange}
+                                                placeholder={'0.00'}
+                                                name={'silicioVisual'}
                                             >
-                                              {(inputProps) => <Input {...inputProps} type={'text'} />}
-                                          </InputMask>
+                                                {(inputProps) => <Input {...inputProps} type={'text'} />}
+                                            </InputMask>
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel className={'text-center'}>Real</FormLabel>
                                             <InputMask
                                                 mask={'9.99'}
-                                                value={formData.silicio_real}
+                                                value={formData.silicioReal}
                                                 onChange={handleChange}
                                                 placeholder={'0.00'}
-                                                name={'silicio_real'}
+                                                name={'silicioReal'}
                                             >
                                                 {(inputProps) => <Input {...inputProps} type={'text'} />}
                                             </InputMask>
@@ -258,9 +266,9 @@ const ControleDeCorridas = () => {
                                         <InputMask
                                             mask={'99:99'}
                                             onChange={handleChange}
-                                            value={formData.escoria_inicio}
+                                            value={formData.escoriaInicio}
                                             placeholder={'HH:MM'}
-                                            name={'escoria_inicio'}
+                                            name={'escoriaInicio'}
                                         >
                                             {(inputProps) => <Input {...inputProps} type={'text'} />}
                                         </InputMask>
@@ -270,9 +278,9 @@ const ControleDeCorridas = () => {
                                         <InputMask
                                             mask={'99:99'}
                                             onChange={handleChange}
-                                            value={formData.escoria_fim}
+                                            value={formData.escoriaFim}
                                             placeholder={'HH:MM'}
-                                            name={'escoria_fim'}
+                                            name={'escoriaFim'}
                                         >
                                             {(inputProps) => <Input {...inputProps} type={'text'} />}
                                         </InputMask>
@@ -296,11 +304,11 @@ const ControleDeCorridas = () => {
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>De N°</FormLabel>
-                                    <Input name="carga_fundida_de" value={deNumero} onChange={handleCargaDeChange} placeholder={'digite aqui'} />
+                                    <Input name="cargaFundidaDe" value={deNumero} onChange={handleCargaDeChange} placeholder={'digite aqui'} />
                                 </FormControl>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Até N°</FormLabel>
-                                    <Input name="carga_fundida_ate" value={ateNumero} onChange={handleCargaAteChange} placeholder={'digite aqui'} />
+                                    <Input name="cargaFundidaAte" value={ateNumero} onChange={handleCargaAteChange} placeholder={'digite aqui'} />
                                 </FormControl>
                             </HStack>
 
@@ -311,7 +319,7 @@ const ControleDeCorridas = () => {
                             <HStack>
                                 <FormControl className={'form-control-sm'}>
                                     <FormLabel>Fe/Gusa/(KG)</FormLabel>
-                                    <Input value={gusa} name="fe_gusa_kg"
+                                    <Input value={gusa} name="feGusaKg"
                                         onChange={(e) => setGusa(e.target.value)} placeholder={'digite aqui'} />
                                 </FormControl>
                                 <FormControl className={'form-control-sm'}>
@@ -340,7 +348,7 @@ const ControleDeCorridas = () => {
                                     <Flex>
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>Tempo de corrida em min</FormLabel>
-                                            <Input name={'tempo_corrida_minutos'}
+                                            <Input name={'tempoCorridaMinutos'}
                                                 placeholder={'digite aqui'}
                                                 value={tempoCorrida}
                                                 onChange={handleTempoCorridaChange}
@@ -349,7 +357,7 @@ const ControleDeCorridas = () => {
 
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>Tonelada de gusa por min</FormLabel>
-                                            <Input name={'gusa_minuto'} className={'text-bg-secondary'} readOnly={true} value={toneladaGusa} />
+                                            <Input name={'gusaMinuto'} className={'text-bg-secondary'} readOnly={true} value={toneladaGusa} />
                                         </FormControl>
                                     </Flex>
                                 </VStack>
@@ -364,12 +372,12 @@ const ControleDeCorridas = () => {
                                     <Flex width={'100%'}>
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>KG/T</FormLabel>
-                                            <Input name="carvao_kg" value={kgt} placeholder={'digite aqui'} onChange={(e) => { setkgt(e.target.value); handleChange(e); }} />
+                                            <Input name="carvaoKg" value={kgt} placeholder={'digite aqui'} onChange={(e) => { setkgt(e.target.value); handleChange(e); }} />
                                         </FormControl>
                                         <Spacer />
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>M³/T</FormLabel>
-                                            <Input name="carvao_metros" value={m3t} placeholder={'digite aqui'} onChange={(e) => { service.handleM3tNumber(e, setM3t); }} />
+                                            <Input name="carvaoMetros" value={m3t} placeholder={'digite aqui'} onChange={(e) => { service.handleM3tNumber(e, setM3t); }} />
                                         </FormControl>
                                     </Flex>
                                 </VStack>
@@ -381,16 +389,16 @@ const ControleDeCorridas = () => {
                                     <Flex>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>1</FormLabel>
-                                            <Input name={'sopradores_1'} value={formData.sopradores_1} onChange={handleChange} />
+                                            <Input name={'sopradores1'} value={formData.sopradores1} onChange={handleChange} />
                                         </FormControl>
 
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>2</FormLabel>
-                                            <Input name={'sopradores_2'} value={formData.sopradores_2} onChange={handleChange} />
+                                            <Input name={'sopradores2'} value={formData.sopradores2} onChange={handleChange} />
                                         </FormControl>
                                         <FormControl className={'form-control-sm'}>
                                             <FormLabel>3</FormLabel>
-                                            <Input name={'sopradores_3'} value={formData.sopradores_3} onChange={handleChange} />
+                                            <Input name={'sopradores3'} value={formData.sopradores3} onChange={handleChange} />
                                         </FormControl>
                                     </Flex>
 
@@ -398,11 +406,11 @@ const ControleDeCorridas = () => {
                                         <Flex>
                                             <FormControl className={'form-control-sm'}>
                                                 <FormLabel>4</FormLabel>
-                                                <Input name={'sopradores_4'} value={formData.sopradores_4} onChange={handleChange} />
+                                                <Input name={'sopradores4'} value={formData.sopradores4} onChange={handleChange} />
                                             </FormControl>
                                             <FormControl className={'form-control-sm'}>
                                                 <FormLabel>5</FormLabel>
-                                                <Input name={'sopradores_5'} value={formData.sopradores_5} onChange={handleChange} />
+                                                <Input name={'sopradores5'} value={formData.sopradores5} onChange={handleChange} />
                                             </FormControl>
                                         </Flex>
                                         <Flex justifyContent={'flex-end'} className="pt-5">

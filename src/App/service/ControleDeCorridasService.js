@@ -6,34 +6,36 @@ dayjs.extend(duration);
 class ControleDeCorridasService {
     constructor() {
         this.formData = {
-            conchas:'',
-            carga_fundida_de:'',
-            carga_fundida_ate:'',
-            horaInicio:'',
-            minutos:'',
-            carvao_kg:'',
-            carvao_metros:'',
-            realTn:'',
-            fosforo:'',
-            manganes:'',
+            horaInicio: '',
+            horaFim: '',
+            minutos: '',
+            minutosAcumulados: '', // Este campo pode ser preenchido no backend, mas adicionei para coerência e para ser retornado na tabela
+            conchas: '',
+            silicioVisual: '',  // Corrigido para seguir o DTO
+            silicioReal: '',    // Corrigido para seguir o DTO
+            fosforo: '',
+            manganes: '',
             silica: '',
-            sopradores_1:'',
-            sopradores_2:'',
-            sopradores_3:'',
-            sopradores_4:'',
-            sopradores_5:'',
-            tempo_corrida_minutos:'',
-            gusa_minuto:'',
-            tipo_escoria:'',
-            quantidade:'',
-            fe_gusa_kg:'',
-            ferro:'',
-            silicio_visual:'',
-            silicio_real:'',
-            escoria_inicio:'',
-            escoria_fim:'',
-            createdAt:'',
-            gusa_kg:''
+            escoriaInicio: '',  // Corrigido para seguir o DTO
+            escoriaFim: '',     // Corrigido para seguir o DTO
+            tipoEscoria: '',    // Corrigido para seguir o DTO
+            cargaFundidaDe: '', // Corrigido para seguir o DTO
+            cargaFundidaAte: '',// Corrigido para seguir o DTO
+            quantidade: '',
+            feGusaKg: '',       // Corrigido para seguir o DTO
+            ferro: '',
+            realTn: '',
+            tempoCorridaMinutos: '', // Corrigido para seguir o DTO
+            gusaMinuto: '',     // Corrigido para seguir o DTO
+            carvaoKg: '',       // Corrigido para seguir o DTO
+            carvaoMetros: '',   // Corrigido para seguir o DTO
+            sopradores1: '',    // Corrigido para seguir o DTO
+            sopradores2: '',    // Corrigido para seguir o DTO
+            sopradores3: '',    // Corrigido para seguir o DTO
+            sopradores4: '',    // Corrigido para seguir o DTO
+            sopradores5: '',    // Corrigido para seguir o DTO
+            temperatura: '',
+            createdAt: ''
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -41,7 +43,7 @@ class ControleDeCorridasService {
     }
 
 
-    async getCorridasDoDia(){
+    async getCorridasDoDia() {
         try {
             const response = await axios.get("http://localhost:8080/runs/today");
             return response.data;
@@ -158,23 +160,23 @@ class ControleDeCorridasService {
     handleM3tNumber = (e, setM3t) => {
         let value = e.target.value;
         value = this.formatReal(value);
-        this.formData['carvao_metros'] = value;
+        this.formData['carvaoMetros'] = value;
         setM3t(value);
     };
 
     handleTempoCorridaChange = (value, setTempoCorrida) => {
-        this.formData['tempo_corrida_minutos'] = value;
+        this.formData['tempoCorridaMinutos'] = value;
         setTempoCorrida(value);
     };
 
     handleCargaDe = (value, setDe, setFormData) => {
-        this.formData['carga_fundida_de'] = value;
+        this.formData['cargaFundidaDe'] = value;
         setDe(value);
         setFormData(this.formData);
     };
 
     handleCargaAte = (value, setAte, setFormData) => {
-        this.formData['carga_fundida_ate'] = value;
+        this.formData['cargaFundidaAte'] = value;
         setAte(value);
         setFormData(this.formData);
     };
