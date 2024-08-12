@@ -76,8 +76,10 @@ const VerAnaliseMinerioEscoria = () => {
                     <StatGroup>
                         {corridas.length > 0 && corridas[0] && (
                             <Stat>
-                                <CardTitle>Media de Fósforo</CardTitle>
-                                <StatNumber>{corridas[0].minutosAcumulados || "N/A"}</StatNumber>
+                                <CardTitle>Média de Fósforo</CardTitle>
+                               <StatNumber>
+                                   {corridas[0].mediaFosforo ? corridas[0].mediaFosforo.toFixed(2) : "N/A"}
+                               </StatNumber>
                             </Stat>
                         )}
                     </StatGroup>
@@ -86,8 +88,8 @@ const VerAnaliseMinerioEscoria = () => {
                     <StatGroup>
                         {corridas.length > 0 && corridas[0] && (
                             <Stat>
-                                <CardTitle>Media de Fósforo</CardTitle>
-                                <StatNumber>{corridas[0].minutosAcumulados || "N/A"}</StatNumber>
+                                <CardTitle>Média de Sílica</CardTitle>
+                                <StatNumber>{corridas[0].mediaSilica || "N/A"}</StatNumber>
                             </Stat>
                         )}
                     </StatGroup>

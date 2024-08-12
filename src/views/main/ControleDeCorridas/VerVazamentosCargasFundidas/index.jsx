@@ -19,7 +19,6 @@ const VerCorridas = () => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateTimeString).toLocaleDateString('pt-BR', options).replace(',', '');
     };
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchCorridas = async () => {
@@ -29,7 +28,7 @@ const VerCorridas = () => {
             } catch (error) {
                 console.error("Erro ao buscar corridas:", error);
             } finally {
-                setIsLoading(false);
+                console.error("Falha ao buscar corrida");
             }
         };
 
