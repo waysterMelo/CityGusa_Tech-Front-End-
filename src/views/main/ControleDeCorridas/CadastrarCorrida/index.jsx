@@ -131,6 +131,10 @@ const ControleDeCorridas = () => {
                     primeiro_botao={'Vazamento, Cargas Fundidas'}
                     segundo_botao={'Análise Química Minério, Escória'}
                     url_segundo_botao={'analise-minerio-escoria'}
+                        terceiro_botao={'Peso Gusa e Temperatura, Consumo carvão, Sopradores'}
+                        url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
+
+
                 />
             </Grid>
 

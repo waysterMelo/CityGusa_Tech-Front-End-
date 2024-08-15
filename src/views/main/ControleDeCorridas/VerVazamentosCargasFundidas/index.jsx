@@ -42,8 +42,8 @@ const VerCorridas = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url_voltar={'/admin/controle-corrida'} texto_primario={''} texto_secundario={'veja hora de vazamento, minutos acumulados, temperatura gusa, cargas fundidas, '} >
-
+                <Banner url_voltar={'/admin/controle-corrida'} texto_primario={''}
+                        texto_secundario={'veja hora de vazamento, minutos acumulados, temperatura gusa, cargas fundidas, '} >
                 </Banner>
             </Grid>
             <Box w={'100%'} h={'100%'} className={'font-monospace'}>
@@ -58,8 +58,8 @@ const VerCorridas = () => {
                                 <Th className={'bg-dark-subtle text-center'}>MINUTOS DIA</Th>
                                 <Th className="text-center">CONCHAS <br /> CAÇAMBAS</Th>
                                 <Th className="text-center">Temperatura</Th>
-                                <Th className="text-center">Cargas Fundidas <br />DE No</Th>
-                                <Th className="text-center">Cargas Fundidas <br />até No</Th>
+                                <Th className="text-center">Carga de N°</Th>
+                                <Th className="text-center">Carga até N°</Th>
                                 <Th className={'bg-dark-subtle text-center'}>QT</Th>
                                 <Th className="text-center">Fe/Gusa/(KG)</Th>
                                 <Th className={'bg-dark-subtle text-center'}>Fe₂O₃</Th>

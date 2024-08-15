@@ -17,6 +17,8 @@ import { FaClipboard } from "react-icons/fa";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import CorridasData from "./views/main/ControleDeCorridas/VerVazamentosCargasFundidas/index";
 import ANQE from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria/index";
+import PGCS from "./views/main/ControleDeCorridas/PesoGusaConsumoCarvao/index";
+
 
 const routes = [
     {
@@ -103,7 +105,17 @@ const routes = [
         path: "/sign-in",
         icon: <Icon as={FaChalkboardTeacher} width='20px' height='20px' color='inherit'/>,
         component: SignInCentered,
+    },
+    {
+        layout: "/admin",
+        path: "/peso-gusa-consumo-carvao-sopradores",
+        component: PGCS,
+        name: "Peso Gusa e Temperatura, Consumo Carvão, Sopradores",
+        hidden: true
     }
+
 ];
+
+
 
 export default routes

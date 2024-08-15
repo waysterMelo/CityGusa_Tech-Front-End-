@@ -31,7 +31,7 @@ const VerAnaliseMinerioEscoria = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url_voltar={'/admin/controle-corrida'} texto_primario={''} texto_secundario={'veja análise do silício, fósforo, manganês, sílica'}>
+                <Banner url_voltar={'/admin/controle-corrida'} texto_primario={''} texto_secundario={'Veja análise do silício, Fósforo, Manganês, Sílica, Escória '}>
 
                 </Banner>
             </Grid>

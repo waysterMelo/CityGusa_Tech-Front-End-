@@ -38,7 +38,9 @@ class ControleDeCorridasService {
             createdAt:'',
             mediaFosforo:'',
             mediaSilica:'',
-            mediaManganes:''
+            mediaManganes:'',
+            realTnAcumulado:'',
+            ritmo:''
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -55,7 +57,6 @@ class ControleDeCorridasService {
             return [];
         }
     }
-
 
     getErrorMessage = (error) => {
         let mensagemErro = "";
@@ -129,6 +130,13 @@ class ControleDeCorridasService {
         }
         return '';
     };
+
+    calcularRitmo = (realTnAcumulado, minutosAcumulados) => {
+        if (realTnAcumulado && minutosAcumulados){
+            return (realTnAcumulado / minutosAcumulados) * 1440;
+        }
+        return '';
+    }
 
     handleDateTimeChange = (name, value, setFormData) => {
         this.formData[name] = value;
