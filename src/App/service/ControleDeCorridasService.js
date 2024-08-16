@@ -47,6 +47,39 @@ class ControleDeCorridasService {
         this.showErrorModal = false;
     }
 
+    resetFormService=()=> {
+        this.formData = {
+            horaInicio: '',
+            horaFim: '',
+            minutos: '',
+            minutosAcumulados: '',
+            conchas: '',
+            silicioVisual: '',
+            silicioReal: '',
+            fosforo: '',
+            manganes: '',
+            silica: '',
+            escoriaInicio: '',
+            escoriaFim: '',
+            tipoEscoria: '',
+            cargaFundidaDe: '',
+            cargaFundidaAte: '',
+            quantidade: '',
+            feGusaKg: '',
+            ferro: '',
+            realTn: '',
+            tempoCorridaMinutos: '',
+            gusaMinuto: '',
+            carvaoKg: '',
+            carvaoMetros: '',
+            sopradores1: '',
+            sopradores2: '',
+            sopradores3: '',
+            sopradores4: '',
+            sopradores5: '',
+            temperatura: ''
+        }
+    }
 
     async getCorridasDoDia() {
         try {
@@ -55,6 +88,25 @@ class ControleDeCorridasService {
         } catch (error) {
             console.error("Erro ao buscar corridas do dia:", error);
             return [];
+        }
+    }
+
+    async getCorridasPorData(date) {
+        try {
+            const response = await axios.get(`http://localhost:8080/runs/por-data?date=${date}`);
+
+            if (response.data.length === 0) {
+                this.mensagemErro = "Não há informações cadastradas nessa data.";
+                this.showErrorModal = true;
+                return { success: false, message: "Nenhum dado encontrado." };
+            }
+            this.showSuccessModal = true;
+            return { success: true, data: response.data };
+        } catch (error) {
+            console.error("Erro ao buscar corridas:", error);
+            this.mensagemErro = this.getErrorMessage(error);
+            this.showErrorModal = true;
+            return { success: false, message: error.message };
         }
     }
 
@@ -130,13 +182,6 @@ class ControleDeCorridasService {
         }
         return '';
     };
-
-    calcularRitmo = (realTnAcumulado, minutosAcumulados) => {
-        if (realTnAcumulado && minutosAcumulados){
-            return (realTnAcumulado / minutosAcumulados) * 1440;
-        }
-        return '';
-    }
 
     handleDateTimeChange = (name, value, setFormData) => {
         this.formData[name] = value;

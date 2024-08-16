@@ -30,7 +30,7 @@ export default function AnaliseGusa() {
                     flexDirection='column'
                     width={'100%'}
                     gridArea={{md: "2x1"}}>
-                    <Banner texto_primario={'CONTROLE ANÁLISE GUSA'} texto_secundario={'ADICIONAR ANÁLISE'}/>
+                    <Banner texto_primario={'CONTROLE ANÁLISE GUSA'} texto_secundario={'ADICIONAR ANÁLISE'} url_voltar={'/admin/analises'}/>
                 </Flex>
             </Grid>
 

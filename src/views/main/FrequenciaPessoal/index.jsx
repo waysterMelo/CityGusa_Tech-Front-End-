@@ -13,8 +13,8 @@ export default function FrequenciaPessoal() {
             <Grid
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
-                display={{ base: "block", xl: "grid" }}>
-                <Banner/>
+                display={{ base: "block", xl: "grid" }}>[
+                <Banner  url_voltar={'/admin/home'}/>
             </Grid>
 
             <SimpleGrid columns={1} >

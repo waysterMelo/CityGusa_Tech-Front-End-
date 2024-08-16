@@ -5,9 +5,8 @@ import {
     Grid,
     Text,
     useColorModeValue,
-    SimpleGrid, Link
+    SimpleGrid
 } from "@chakra-ui/react";
-import {Link as ReactLink} from "react-router-dom";
 import GusaImg from "assets/img/backgrounds/gusa.jpg";
 import NFT from "components/card/NFT";
 import Minerios from "assets/img/backgrounds/analiseDeMinerios.jpg";
@@ -16,7 +15,6 @@ import PersonIcon from "assets/img/icons/person.webp";
 export default function Analises() {
     // Chakra Color Mode
     const textColor = useColorModeValue("black");
-    const textColorBrand = useColorModeValue("blue");
     return (
         <Box pt={{ base: "150px", md: "50px", xl: "5%"}}
              mx={{base: "auto"}}>
@@ -41,31 +39,20 @@ export default function Analises() {
                             <Text color={textColor} fontSize='2xl' ms='24px' fontWeight='700'>
                                 Página inicial
                             </Text>
-                            <Flex
-                                align='end'>
-                                <Link
-                                    as={ReactLink}
-                                    color={textColorBrand}
-                                    fontWeight='bold'
-                                    me={{ base: "34px", md: "44px" }}
-                                    to={'/admin/pessoal'}>
-                                    Frequência pessoal
-                                </Link>
-                            </Flex>
                         </Flex>
 
                         <SimpleGrid columns={{ base: 1, md: 3 }} gap='3%'>
 
                             <NFT
                                 name='Análise de Gusa'
-                                responsavel={'Supervisor'}
+                                responsavel={'Técnico Químico'}
                                 image={GusaImg}
                                 chamar_rota={'/admin/analise-gusa'}
                                 responsavelImage={PersonIcon}
                             />
                             <NFT
                                 name='Análise Química de Minérios'
-                                responsavel={'Supervisor'}
+                                responsavel={'Técnico Químico'}
                                 image={Minerios}
                                 chamar_rota={'/admin/analise-minerio'}
                                 responsavelImage={PersonIcon}

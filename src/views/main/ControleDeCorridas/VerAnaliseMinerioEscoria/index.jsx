@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Box, Flex, Grid, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
 import ControleDeCorridasService from "../../../../App/service/ControleDeCorridasService";
@@ -16,14 +16,20 @@ const VerAnaliseMinerioEscoria = () => {
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
 
-    const fecthCorridas = async () => {
-        const data = await service.getCorridasDoDia();
-        setCorridas(data);
-    }
-
     useEffect(() => {
-        fecthCorridas();
-    }, []);
+        const fetchCorridas = async () => {
+            try {
+                const data = await service.getCorridasDoDia();
+                setCorridas(data);
+            } catch (error) {
+                console.error("Erro ao buscar corridas:", error);
+            } finally {
+                console.error("Falha ao buscar corrida");
+            }
+        };
+
+        fetchCorridas();
+    }, [service]);
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>

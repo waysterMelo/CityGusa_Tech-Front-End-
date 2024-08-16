@@ -44,6 +44,26 @@ const ControleDeCorridas = () => {
     const horaFimRef = useRef(null);
 
 
+    const resetFormData = () => {
+        service.resetFormService();
+        setFormData(service.formData);
+        setHoraInicio('');
+        setHoraFim('');
+        setMinutos('');
+        setDeNumero('');
+        setAteNumero('');
+        setQt('');
+        setGusa('');
+        setFerro('');
+        setRealTn('');
+        setTempoCorrida('');
+        setToneladaGusa('');
+        setkgt('');
+        setM3t('');
+        setTipoEscoria('');
+    }
+
+
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
     };
@@ -61,6 +81,7 @@ const ControleDeCorridas = () => {
         setMensagemErro(service.mensagemErro);
         if (result.success) {
             setShowSuccessModal(true);
+            resetFormData();
         } else {
             setShowErrorModal(true);
         }

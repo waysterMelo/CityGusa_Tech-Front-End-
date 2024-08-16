@@ -1,29 +1,77 @@
-import React, { useEffect, useRef, useState } from "react";
-import {Box, Flex, Grid, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import React, {useEffect, useRef, useState} from "react";
+import {
+    Box,
+    Flex,
+    Grid,
+    Heading, Input,
+    Table,
+    TableContainer,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr, useDisclosure
+} from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
 import ControleDeCorridasService from "../../../../App/service/ControleDeCorridasService";
 import { Stat, StatNumber, StatGroup } from '@chakra-ui/react'
-import { CardTitle } from "react-bootstrap";
+import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
 
 const VerAnaliseMinerioEscoria = () => {
 
     const service = useRef(new ControleDeCorridasService()).current;
     const [corridas, setCorridas] = useState([]);
-
+    const [dataSelect, setDataSelect] = useState([]);
+    const [mensagemErro, setMensagemErro] = useState('');
+    const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
 
     const formatDate = (dateString) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
 
-    const fecthCorridas = async () => {
-        const data = await service.getCorridasDoDia();
-        setCorridas(data);
-    }
+    const fetchCorridasPorData = async (date) => {
+        try {
+            let data;
+            if (date) {
+                data = await service.getCorridasPorData(date);
+            }
+            if (data.success === false) {
+               setShowErrorModal(service.showErrorModal)
+            } else {
+                setCorridas(data.data);
+            }
+        } catch (error) {
+            setMensagemErro("Não há informações nessa data");
+        }
+    };
+
+    const handleClose = () => {
+        service.handleClose(setShowErrorModal, setShowErrorModal);
+    };
+
 
     useEffect(() => {
-        fecthCorridas();
-    }, []);
+        // Chame fetchCorridas sem data para buscar as corridas do dia
+        fetchCorridasPorData();
+        }, [service]);
+
+
+    useEffect(() => {
+        const fetchCorridas = async () => {
+            try {
+                const data = await service.getCorridasDoDia();
+                setCorridas(data);
+            } catch (error) {
+                console.error("Erro ao buscar corridas:", error);
+            } finally {
+                console.error("Falha ao buscar corrida");
+            }
+
+            
+        };
+        fetchCorridas();
+    }, [service]);
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -32,7 +80,25 @@ const VerAnaliseMinerioEscoria = () => {
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
                 <Banner url_voltar={'/admin/controle-corrida'} texto_primario={''} texto_secundario={'Peso Gusa Temperatura, Consumo Carvão, Sopradores'}>
-
+                {
+                      <Grid width={'50%'}>
+                          <Box bg={'white'} className={'p-5'}>
+                          <Heading size='md' className={'pb-3'}>Pesquisar Informação por data</Heading>
+                              <CardBody>
+                                 <Flex>
+                                     <Input
+                                         placeholder='Selecione a data'
+                                         type='date'
+                                         value={dataSelect}
+                                         onChange={(e) => {setDataSelect(e.target.value)}}/>
+                                     <Button colorScheme='blue' mt={4} onClick={() => fetchCorridasPorData(dataSelect)}>
+                                         Pesquisar
+                                     </Button>
+                                 </Flex>
+                              </CardBody>
+                          </Box>
+                      </Grid>
+                }
                 </Banner>
             </Grid>
             <Box w={'100%'} h={'100%'} className={'font-monospace'}>
@@ -92,17 +158,20 @@ const VerAnaliseMinerioEscoria = () => {
                         )}
                     </StatGroup>
                 </Box>
-                {/*<Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5 mx-3'}>*/}
-                {/*    <StatGroup>*/}
-                {/*        {corridas.length > 0 && corridas[0] && (*/}
-                {/*            <Stat>*/}
-                {/*                <CardTitle>Ritmo</CardTitle>*/}
-                {/*                <StatNumber>{corridas[0].ritmo ? corridas[0].ritmo.toFixed(2) : "N/A"}</StatNumber>*/}
-                {/*            </Stat>*/}
-                {/*        )}*/}
-                {/*    </StatGroup>*/}
-                {/*</Box>*/}
             </Flex>
+            <Modal show={showErrorModal} onHide={handleClose}>
+                <Modal.Header className={'bg-danger'} closeButton>
+                    <Modal.Title>Erro ao consultar informações</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {mensagemErro}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Box>
     )
 

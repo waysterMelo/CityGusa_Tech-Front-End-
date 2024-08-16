@@ -14,7 +14,8 @@ export default function Banner(props) {
         url_terceiro_botao,
         url,
         url_segundo_botao,
-        url_voltar
+        url_voltar,
+        children
     } = props;
 
     return (
@@ -74,7 +75,7 @@ export default function Banner(props) {
                     <ChakraLink
                         className={'btn badge'}
                         height={'100%'}
-                        bg='white'
+                        bg='yellow.300'
                         color='black'
                         _hover={{ bg: "yellow.300" }}
                         _active={{ bg: "white" }}
@@ -94,7 +95,7 @@ export default function Banner(props) {
                     <ChakraLink
                         className={'btn badge'}
                         height={'100%'}
-                        bg='white'
+                        bg='yellow.300'
                         color='black'
                         _hover={{ bg: "yellow.300" }}
                         _active={{ bg: "white" }}
@@ -114,7 +115,7 @@ export default function Banner(props) {
                     <ChakraLink
                         className={'btn badge'}
                         height={'100%'}
-                        bg={'white'}
+                        bg={'yellow.300'}
                         color='black'
                         _hover={{ bg: "yellow.300" }}
                         _active={{ bg: "white" }}
@@ -129,19 +130,19 @@ export default function Banner(props) {
                     </ChakraLink>
                 )}
             </Flex>
-
+            {children}
             {/* Renderiza o botão de voltar se existir */}
             {url_voltar && (
                 <Flex justify={'flex-end'}>
                     <ChakraLink
                         className={'btn badge'}
                         height={'100%'}
-                        bg='white'
+                        bg='yellow.300'
                         color='black'
                         _hover={{ bg: "yellow.300" }}
                         _active={{ bg: "white" }}
                         _focus={{ bg: "white" }}
-                        py='20px'
+                        py='1%'
                         me='1%'
                         mt={'1%'}
                         as={ReactRouterLink}
@@ -152,6 +153,8 @@ export default function Banner(props) {
                     </ChakraLink>
                 </Flex>
             )}
+
         </Flex>
+
     );
 }
