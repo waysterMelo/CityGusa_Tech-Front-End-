@@ -193,11 +193,6 @@ const ControleDeCorridas = () => {
                                     <FormLabel>Conchas</FormLabel>
                                     <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} />
                                 </FormControl>
-
-                                <FormControl className={'form-control-lg'}>
-                                    <FormLabel>Temperatura</FormLabel>
-                                    <Input name="temperatura" placeholder='temperaturas' value={formData.temperatura} onChange={handleChange} />
-                                </FormControl>
                             </HStack>
 
                         </Box>
@@ -374,10 +369,15 @@ const ControleDeCorridas = () => {
                                                 onChange={handleTempoCorridaChange}
                                             />
                                         </FormControl>
-
                                         <FormControl className={'form-control-lg'}>
                                             <FormLabel>Tonelada de gusa por min</FormLabel>
                                             <Input name={'gusaMinuto'} className={'text-bg-secondary'} readOnly={true} value={toneladaGusa} />
+                                        </FormControl>
+                                    </Flex>
+                                    <Flex>
+                                        <FormControl className={'form-control-lg'}>
+                                            <FormLabel>Temperatura do Gusa</FormLabel>
+                                            <Input name="temperatura" placeholder='temperatura gusa' value={formData.temperatura} onChange={handleChange} />
                                         </FormControl>
                                     </Flex>
                                 </VStack>
