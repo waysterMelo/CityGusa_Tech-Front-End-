@@ -23,7 +23,6 @@ const VerAnaliseMinerioEscoria = () => {
     const [corridas, setCorridas] = useState([]);
     const [dataSelect, setDataSelect] = useState([]);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
-    const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
     const [showNullModal, setShowNullModal]  = useState(service.showNullModal);
 
 
@@ -68,7 +67,7 @@ const VerAnaliseMinerioEscoria = () => {
     }, [service]);
 
     const handleClose = () => {
-        service.handleClose(setShowSuccessModal, setShowErrorModal, setShowNullModal);
+        service.handleClose(null, setShowErrorModal, setShowNullModal);
     };
 
 
@@ -182,21 +181,6 @@ const VerAnaliseMinerioEscoria = () => {
                    <Text>
                        Não existem informações na data selecionada.
                    </Text>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button className={'bg-dark text-white'} onClick={handleClose}>
-                        Fechar
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            <Modal show={showSuccessModal} onHide={handleClose}>
-                <Modal.Header className={'bg-warning'} closeButton>
-                    <Modal.Title>Data de Hoje Selecionada</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Text>
-                        A data selecionada é a mesma data de hoje.
-                    </Text>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className={'bg-dark text-white'} onClick={handleClose}>

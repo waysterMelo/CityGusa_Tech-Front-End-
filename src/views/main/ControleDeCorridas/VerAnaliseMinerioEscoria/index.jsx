@@ -11,6 +11,7 @@ const VerAnaliseMinerioEscoria = () => {
     const [corridas, setCorridas] = useState([]);
     const [dataSelect, setDataSelect] = useState([]);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
+    const [showNullModal, setShowNullModal]  = useState(service.showNullModal);
 
 
     const formatDate = (dateString) => {
@@ -20,6 +21,10 @@ const VerAnaliseMinerioEscoria = () => {
 
     const fetchCorridasPorData = async (date) => {
         try {
+            if (!date){
+                setShowNullModal(true)
+                return;
+            }
             let data;
             if (date) {
                 data = await service.getCorridasPorData(date);
@@ -31,6 +36,8 @@ const VerAnaliseMinerioEscoria = () => {
             }
         } catch (error) {
             return ''
+        } finally {
+            setDataSelect('')
         }
     }
 
@@ -47,7 +54,7 @@ const VerAnaliseMinerioEscoria = () => {
     }, [service]);
 
     const handleClose = () => {
-        service.handleClose(setShowErrorModal, setShowErrorModal);
+        service.handleClose(null, setShowErrorModal, setShowNullModal);
     };
 
     return (
@@ -161,6 +168,21 @@ const VerAnaliseMinerioEscoria = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <Modal show={showNullModal} onHide={handleClose}>
+                <Modal.Header className={'bg-warning'} closeButton>
+                    <Modal.Title>Data não preenchida</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Text>
+                        Nenhuma data foi selecionada !
+                    </Text>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+                </Modal>
         </Box>
     )
 

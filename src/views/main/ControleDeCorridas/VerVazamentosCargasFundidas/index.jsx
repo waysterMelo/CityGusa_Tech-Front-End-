@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Grid, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import {Box, Flex, Grid, Heading, Input, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
 import ControleDeCorridasService from "../../../../App/service/ControleDeCorridasService";
 import { Stat, StatNumber, StatHelpText, StatGroup } from '@chakra-ui/react'
-import { CardTitle } from "react-bootstrap";
+import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
 
 
 
@@ -11,14 +11,41 @@ const VerCorridas = () => {
 
     const service = useRef(new ControleDeCorridasService()).current;
     const [corridas, setCorridas] = useState([]);
+    const [dataSelect, setDataSelect] = useState([]);
+    const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
+    const [showNullModal, setShowNullModal]  = useState(service.showNullModal);
+
     const formatDate = (dateString) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
+
     const formatDateTime = (dateTimeString) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateTimeString).toLocaleDateString('pt-BR', options).replace(',', '');
     };
+
+    const fetchCorridasPorData = async (date) => {
+        try {
+            if (!date){
+                setShowNullModal(true)
+                return;
+            }
+            let data;
+            if (date) {
+                data = await service.getCorridasPorData(date);
+            }
+            if (data.success === false) {
+                setShowErrorModal(service.showErrorModal)
+            } else {
+                setCorridas(data.data);
+            }
+        } catch (error) {
+            return ''
+        } finally {
+            setDataSelect('')
+        }
+    }
 
     useEffect(() => {
         const fetchCorridas = async () => {
@@ -27,14 +54,14 @@ const VerCorridas = () => {
                 setCorridas(data);
             } catch (error) {
                 console.error("Erro ao buscar corridas:", error);
-            } finally {
-                console.error("Falha ao buscar corrida");
             }
         };
-
         fetchCorridas();
     }, [service]);
 
+    const handleClose = () => {
+        service.handleClose(null, setShowErrorModal, setShowNullModal);
+    };
 
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
@@ -44,6 +71,23 @@ const VerCorridas = () => {
                 display={{ base: "block", xl: "grid" }}>
                 <Banner url_voltar={'/admin/controle-corrida'} texto_primario={''}
                         texto_secundario={'veja hora de vazamento, minutos acumulados, temperatura gusa, cargas fundidas, '} >
+                    <Grid width={'50%'}>
+                        <Box bg={'white'} className={'p-5'}>
+                            <Heading size='md' className={'pb-3'}>Pesquisar Informação por data</Heading>
+                            <CardBody>
+                                <Flex>
+                                    <Input
+                                        placeholder='Selecione a data'
+                                        type='date'
+                                        value={dataSelect}
+                                        onChange={(e) => {setDataSelect(e.target.value)}}/>
+                                    <Button colorScheme='blue' mt={4} onClick={() => fetchCorridasPorData(dataSelect)}>
+                                        Pesquisar
+                                    </Button>
+                                </Flex>
+                            </CardBody>
+                        </Box>
+                    </Grid>
                 </Banner>
             </Grid>
             <Box w={'100%'} h={'100%'} className={'font-monospace'}>
@@ -99,7 +143,38 @@ const VerCorridas = () => {
                     )}
                 </StatGroup>
             </Box>
+            <Modal show={showErrorModal} onHide={handleClose}>
+                <Modal.Header className={'bg-danger'} closeButton>
+                    <Modal.Title>Erro ao consultar informações</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Text>
+                        Não existem informações na data selecionada.
+                    </Text>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showNullModal} onHide={handleClose}>
+                <Modal.Header className={'bg-warning'} closeButton>
+                    <Modal.Title>Data não preenchida</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Text>
+                        Nenhuma data foi selecionada !
+                    </Text>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Box>
+
     )
 
 }
