@@ -7,10 +7,10 @@ import {
     Table,
     TableContainer,
     Tbody,
-    Td,
+    Td, Text,
     Th,
     Thead,
-    Tr, useDisclosure
+    Tr
 } from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
 import ControleDeCorridasService from "../../../../App/service/ControleDeCorridasService";
@@ -22,8 +22,10 @@ const VerAnaliseMinerioEscoria = () => {
     const service = useRef(new ControleDeCorridasService()).current;
     const [corridas, setCorridas] = useState([]);
     const [dataSelect, setDataSelect] = useState([]);
-    const [mensagemErro, setMensagemErro] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
+    const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
+    const [showNullModal, setShowNullModal]  = useState(service.showNullModal);
+
 
     const formatDate = (dateString) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -32,29 +34,42 @@ const VerAnaliseMinerioEscoria = () => {
 
     const fetchCorridasPorData = async (date) => {
         try {
+            if (!date){
+                setShowNullModal(true)
+                return;
+            }
+
             let data;
             if (date) {
                 data = await service.getCorridasPorData(date);
             }
             if (data.success === false) {
-               setShowErrorModal(service.showErrorModal)
+                setShowErrorModal(service.showErrorModal)
             } else {
                 setCorridas(data.data);
             }
         } catch (error) {
-            setMensagemErro("Não há informações nessa data");
+            console.error("Erro ao buscar corridas:", error);
+        } finally {
+            setDataSelect('')
         }
-    };
-
-    const handleClose = () => {
-        service.handleClose(setShowErrorModal, setShowErrorModal);
-    };
-
+    }
 
     useEffect(() => {
-        // Chame fetchCorridas sem data para buscar as corridas do dia
-        fetchCorridasPorData();
-        }, [service]);
+        const fetchCorridas = async () => {
+            try {
+                const data = await service.getCorridasDoDia();
+                setCorridas(data);
+            } catch (error) {
+                console.error("Erro ao buscar corridas:", error);
+            }
+        };
+        fetchCorridas();
+    }, [service]);
+
+    const handleClose = () => {
+        service.handleClose(setShowSuccessModal, setShowErrorModal, setShowNullModal);
+    };
 
 
     useEffect(() => {
@@ -164,7 +179,39 @@ const VerAnaliseMinerioEscoria = () => {
                     <Modal.Title>Erro ao consultar informações</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {mensagemErro}
+                   <Text>
+                       Não existem informações na data selecionada.
+                   </Text>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showSuccessModal} onHide={handleClose}>
+                <Modal.Header className={'bg-warning'} closeButton>
+                    <Modal.Title>Data de Hoje Selecionada</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Text>
+                        A data selecionada é a mesma data de hoje.
+                    </Text>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showNullModal} onHide={handleClose}>
+                <Modal.Header className={'bg-warning'} closeButton>
+                    <Modal.Title>Data não preenchida</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Text>
+                       Nenhuma data foi selecionada !
+                    </Text>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className={'bg-dark text-white'} onClick={handleClose}>

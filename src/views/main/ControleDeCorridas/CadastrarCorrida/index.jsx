@@ -63,7 +63,6 @@ const ControleDeCorridas = () => {
         setTipoEscoria('');
     }
 
-
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
     };

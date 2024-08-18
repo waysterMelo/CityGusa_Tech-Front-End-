@@ -45,6 +45,7 @@ class ControleDeCorridasService {
         this.mensagemErro = "";
         this.showSuccessModal = false;
         this.showErrorModal = false;
+        this.showNullModal = false;
     }
 
     resetFormService=()=> {
@@ -152,11 +153,13 @@ class ControleDeCorridasService {
         }
     };
 
-    handleClose = (setShowSuccessModal, setShowErrorModal) => {
+    handleClose = (setShowSuccessModal, setShowErrorModal, setShowNullModal) => {
+        if (setShowSuccessModal) setShowSuccessModal(false);
+        if (setShowErrorModal) setShowErrorModal(false);
+        if (setShowNullModal) setShowNullModal(false);
         this.showSuccessModal = false;
         this.showErrorModal = false;
-        setShowSuccessModal(false);
-        setShowErrorModal(false);
+        this.showNullModal = false
     };
 
     calcularMinutos = (inicio, fim) => {
@@ -232,8 +235,8 @@ class ControleDeCorridasService {
     };
 
     handleCargaAte = (value, setAte, setFormData) => {
-        this.formData['cargaFundidaAte'] = value;
         setAte(value);
+        this.formData['cargaFundidaAte'] = value;
         setFormData(this.formData);
     };
 
