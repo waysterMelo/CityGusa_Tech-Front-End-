@@ -29,7 +29,7 @@ import {
 } from "@chakra-ui/react";
 import { CalendarIcon, ChevronRightIcon, DragHandleIcon, PlusSquareIcon } from "@chakra-ui/icons";
 import Banner from "../../../components/banner/Banner";
-import CargasLeitoFusaoService from "../../../App/service/CargasLeitoFusaoService";
+import CargasLeitoFusaoService from "../../../App/ControleCorridasService/CargasLeitoFusaoService";
 
 export default function CadastroLeitoDeFusao() {
     const service = useRef(new CargasLeitoFusaoService()).current;

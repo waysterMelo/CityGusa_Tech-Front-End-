@@ -13,7 +13,7 @@ import {
     Tr
 } from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
-import ControleDeCorridasService from "../../../../App/service/ControleDeCorridasService";
+import ControleDeCorridasService from "../../../../App/ControleCorridasService/ControleDeCorridasService";
 import { Stat, StatNumber, StatGroup } from '@chakra-ui/react'
 import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
 

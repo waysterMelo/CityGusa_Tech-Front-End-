@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthService from "./service/authService";
-import usuarioService from "./service/UsuarioService";
+import AuthService from "./ControleCorridasService/authService";
+import usuarioService from "./ControleCorridasService/UsuarioService";
 import ApiService from "./ApiService";
 
 export const AuthContext = React.createContext();

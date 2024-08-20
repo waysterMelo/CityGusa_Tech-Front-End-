@@ -2,8 +2,8 @@ import React from 'react';
 import { Card, Col, Container, Form, Button, Modal } from 'react-bootstrap';
 import logo from "assets/img/logo.webp";
 import "assets/css/LoginCss.css";
-import UsuarioService from "../../../App/service/UsuarioService";
-import LocalStorage from "../../../App/service/LocalStorage";
+import UsuarioService from "../../../App/ControleCorridasService/UsuarioService";
+import LocalStorage from "../../../App/ControleCorridasService/LocalStorage";
 
 class Login extends React.Component {
     constructor() {

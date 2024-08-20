@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
 import { Modal } from "react-bootstrap";
-import ControleDeCorridasService from '../../../../App/service/ControleDeCorridasService';
+import ControleDeCorridasService from '../../../../App/ControleCorridasService/ControleDeCorridasService';
 import InputMask from "react-input-mask";
 
 const ControleDeCorridas = () => {
@@ -153,8 +153,6 @@ const ControleDeCorridas = () => {
                     url_segundo_botao={'analise-minerio-escoria'}
                         terceiro_botao={'Peso Gusa e Temperatura, Consumo carvão, Sopradores'}
                         url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
-
-
                 />
             </Grid>
 

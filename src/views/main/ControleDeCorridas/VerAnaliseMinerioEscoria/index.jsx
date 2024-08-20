@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Box, Flex, Grid, Heading, Input, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import Banner from "../../../../components/banner/Banner";
-import ControleDeCorridasService from "../../../../App/service/ControleDeCorridasService";
+import ControleDeCorridasService from "../../../../App/ControleCorridasService/ControleDeCorridasService";
 import { Stat, StatNumber, StatGroup } from '@chakra-ui/react'
 import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
 
