@@ -6,7 +6,7 @@ import {
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement,WrapItem
+    Input, InputGroup, InputLeftElement, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, WrapItem
 } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
@@ -91,7 +91,7 @@ export default function AnaliseGusa() {
             <Grid templateColumns='repeat(9, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'} w={'96%'} pb={'10'}>
                 <GridItem pl={2}>
                     <FormControl>
-                        <FormLabel>Fe</FormLabel>
+                        <FormLabel>Ferro</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
@@ -102,7 +102,7 @@ export default function AnaliseGusa() {
                 </GridItem>
                 <GridItem pl={2}>
                     <FormControl>
-                        <FormLabel>SiO2</FormLabel>
+                        <FormLabel>Silício</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
@@ -113,12 +113,24 @@ export default function AnaliseGusa() {
                 </GridItem>
                 <GridItem pl={2}>
                     <FormControl>
-                        <FormLabel>AI2O3</FormLabel>
+                        <FormLabel>Alumínio</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
                             </InputLeftElement>
                             <Input type={'number'} name={'aluminio'} className={'text-center'} value={formData.aluminio} onChange={handleChange}/>
+                        </InputGroup>
+                    </FormControl>
+                </GridItem>
+
+                <GridItem pl={2}>
+                    <FormControl>
+                        <FormLabel>Manganês</FormLabel>
+                        <InputGroup>
+                            <InputLeftElement pointerEvents='none'>
+                                <ChevronRightIcon color='blue'/>
+                            </InputLeftElement>
+                            <Input type={'number'} name={'manganes'} className={'text-center'} value={formData.manganes} onChange={handleChange}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -157,6 +169,29 @@ export default function AnaliseGusa() {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <Box width={'100%'}>
+                <TableContainer>
+                    <Table variant='striped' colorScheme='teal' className={'table'}>
+                        <TableCaption>Informações cadastradas do dia</TableCaption>
+                        <Thead>
+                            <Tr>
+                                <Th>Produto</Th>
+                                <Th>Ferro</Th>
+                                <Th>Silício</Th>
+                                <Th>Manganês</Th>
+                                <Th>Fósforo</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <Tr>
+                                <Td>GUSA</Td>
+                                <Td></Td>
+                            </Tr>
+                        </Tbody>
+
+                    </Table>
+                </TableContainer>
+            </Box>
         </Box>
     );
 }

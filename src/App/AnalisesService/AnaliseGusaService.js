@@ -8,7 +8,8 @@ class AnaliseGusaService {
             produto: '',
             ferro:'',
             silicio:'',
-            aluminio:''
+            aluminio:'',
+            manganes:''
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
