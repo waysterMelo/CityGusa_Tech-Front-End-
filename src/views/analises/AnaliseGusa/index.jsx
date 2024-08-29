@@ -6,7 +6,7 @@ import {
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, WrapItem
+    Input, InputGroup, InputLeftElement, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr, WrapItem
 } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
@@ -46,6 +46,7 @@ export default function AnaliseGusa() {
         service.handleClose(setShowSuccessModal, setShowErrorModal);
     };
 
+
     return (
         <Box pt={{ base: "90px", md: "50px", xl: "5%" }} mx={{ base: "2%" }}>
             {/* Main Fields */}
@@ -83,12 +84,12 @@ export default function AnaliseGusa() {
                         <InputLeftElement pointerEvents='none'>
                             <DragHandleIcon color='blue'/>
                         </InputLeftElement>
-                      <Input name={'gusa'} value={"GUSA"} pointerEvents={'none'} onChange={handleChange}/>
+                        <Input name={'produto'} value={"GUSA"} isReadOnly pointerEvents={'none'} />
                     </InputGroup>
                     </FormControl>
                 </GridItem>
             </Grid>
-            <Grid templateColumns='repeat(9, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'} w={'96%'} pb={'10'}>
+            <Grid templateColumns='repeat(7, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'} w={'96%'} pb={'10'}>
                 <GridItem pl={2}>
                     <FormControl>
                         <FormLabel>Ferro</FormLabel>
