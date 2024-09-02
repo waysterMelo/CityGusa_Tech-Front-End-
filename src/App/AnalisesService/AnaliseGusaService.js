@@ -8,8 +8,11 @@ class AnaliseGusaService {
             produto: 'GUSA',
             ferro:'',
             silicio:'',
-            aluminio:'',
-            manganes:''
+            cromo:'',
+            fosforo:'',
+            enxofre:'',
+            manganes:'',
+            titanium:''
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -68,6 +71,10 @@ class AnaliseGusaService {
         this.showErrorModal = false;
         this.showNullModal = false
     };
+
+    async getAnalisePorData(date){
+
+    }
 
 }
 
