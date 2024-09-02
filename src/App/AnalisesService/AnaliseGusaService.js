@@ -43,6 +43,7 @@ class AnaliseGusaService {
 
     salvar = async () => {
         try {
+            this.formData.produto = "GUSA";
             const response = await axios.post("http://localhost:8080/analise-gusa", this.formData, {
                 headers: {
                     "Content-Type": "application/json"
