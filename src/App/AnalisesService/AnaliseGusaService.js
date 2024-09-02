@@ -5,11 +5,14 @@ class AnaliseGusaService {
     constructor() {
         this.formData = {
             data: '',
-            produto: '',
+            produto: 'GUSA',
             ferro:'',
             silicio:'',
-            aluminio:'',
-            manganes:''
+            cromo:'',
+            fosforo:'',
+            enxofre:'',
+            manganes:'',
+            titanium:''
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -69,7 +72,9 @@ class AnaliseGusaService {
         this.showNullModal = false
     };
 
+    async getAnalisePorData(date){
 
+    }
 
 }
 

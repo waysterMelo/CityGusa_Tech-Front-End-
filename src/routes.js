@@ -5,7 +5,7 @@ import SignInCentered from "./views/auth/signIn";
 import Dashboard from "views/admin/default";
 import AnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio";
 import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
-import AnaliseGusa from "./views/analises/AnaliseGusa";
+import AnaliseGusa from "./views/analises/CadastrarAnaliseGusa";
 import AnaliseEscoria from "./views/analises/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
 import Corrida from "./views/main/ControleDeCorridas/CadastrarCorrida";
@@ -18,7 +18,7 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import CorridasData from "./views/main/ControleDeCorridas/VerVazamentosCargasFundidas/index";
 import ANQE from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria/index";
 import PGCS from "./views/main/ControleDeCorridas/PesoGusaConsumoCarvao/index";
-
+import VerAnaliseGusa from "./views/analises/CadastrarAnaliseGusa/VerAnaliseGusa";
 
 const routes = [
     {
@@ -112,7 +112,15 @@ const routes = [
         component: PGCS,
         name: "Peso Gusa e Temperatura, Consumo Carvão, Sopradores",
         hidden: true
+    },
+    {
+        layout: "/admin",
+        path: "/ver-analises-gusa",
+        component: VerAnaliseGusa,
+        name: "Ver Análise Gusa",
+        hidden: true
     }
+
 
 ];
 
