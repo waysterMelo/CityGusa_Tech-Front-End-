@@ -32,7 +32,7 @@ export default function AnaliseGusa() {
         setMensagemErro(service.mensagemErro);
         if (result.success) {
             setShowSuccessModal(true);
-            //resetFormData();
+            service.resetFormData(setFormData); 
         } else {
             setShowErrorModal(true);
         }
@@ -146,11 +146,11 @@ export default function AnaliseGusa() {
                         </FormLabel>
                         <InputGroup>
                             <InputMask
-                                mask={'9.99'}
+                                mask={'9.999'}
                                 value={formData.manganes}
                                 onChange={handleChange}
                                 name={'manganes'}
-                                placeholder={'0.00'}
+                                placeholder={'0.000'}
                             >
                                 {(inputProps) => <Input {...inputProps} type="text"  />}
                             </InputMask>
@@ -164,11 +164,11 @@ export default function AnaliseGusa() {
                         </FormLabel>
                         <InputGroup>
                             <InputMask
-                                mask={'9.99'}
+                                mask={'9.999'}
                                 value={formData.cromo}
                                 onChange={handleChange}
                                 name={'cromo'}
-                                placeholder={'0.00'}
+                                placeholder={'0.000'}
                             >
                                 {(inputProps) => <Input {...inputProps} type="text"  />}
                             </InputMask>

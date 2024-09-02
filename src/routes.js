@@ -18,7 +18,7 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import CorridasData from "./views/main/ControleDeCorridas/VerVazamentosCargasFundidas/index";
 import ANQE from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria/index";
 import PGCS from "./views/main/ControleDeCorridas/PesoGusaConsumoCarvao/index";
-import VerAnaliseGusa from "./views/analises/CadastrarAnaliseGusa/VerAnaliseGusa";
+import VerAnaliseGusa from "./views/analises/VerAnaliseGusa";
 
 const routes = [
     {
@@ -60,7 +60,7 @@ const routes = [
     {
     layout: "/admin",
         path:"/analise-gusa",
-        component:AnaliseGusa,
+        component: AnaliseGusa,
         name:"Análise Gusa",
         hidden: true
     },

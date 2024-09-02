@@ -20,6 +20,20 @@ class AnaliseGusaService {
         this.showNullModal = false;
     }
 
+    resetFormData = (setFormData) => {
+        this.formData = {
+            ferro: '',
+            silicio: '',
+            cromo: '',
+            fosforo: '',
+            enxofre: '',
+            manganes: '',
+            titanium: ''
+        };
+        setFormData(this.formData);
+    }
+
+
     handleChange = (e, setFormData) => {
         const { name, value } = e.target;
         this.formData = {

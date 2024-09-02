@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import {Box, Flex, Grid, Heading, Input, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
-import Banner from "../../../../components/banner/Banner";
+import Banner from "../../../components/banner/Banner";
 import { Stat, StatNumber, StatHelpText, StatGroup } from '@chakra-ui/react'
 import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
-import AnaliseGusaService from "../../../../App/AnalisesService/AnaliseGusaService";
+import AnaliseGusaService from "../../../App/AnalisesService/AnaliseGusaService";
 
 
 
@@ -19,7 +19,7 @@ const VerAnaliseGusa = () => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
-    
+
 
     const fetchAnaliseToday = async (date) => {
         try {
