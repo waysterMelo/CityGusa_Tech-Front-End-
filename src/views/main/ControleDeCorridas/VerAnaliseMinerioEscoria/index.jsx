@@ -4,12 +4,10 @@ import Banner from "../../../../components/banner/Banner";
 import ControleDeCorridasService from "../../../../App/ControleCorridasService/ControleDeCorridasService";
 import { Stat, StatNumber, StatGroup } from '@chakra-ui/react'
 import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
-import AnaliseGusaService from "../../../../App/AnalisesService/AnaliseGusaService";
-import controleDeCorridasService from "../../../../App/ControleCorridasService/ControleDeCorridasService";
 
 const VerAnaliseMinerioEscoria = () => {
 
-    const service = useRef(new controleDeCorridasService()).current;
+    const service = useRef(new ControleDeCorridasService()).current;
     const [corridas, setCorridas] = useState([]);
     const [dataSelect, setDataSelect] = useState([]);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);

@@ -19,11 +19,7 @@ const VerAnaliseGusa = () => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
-
-    const formatDateTime = (dateTimeString) => {
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateTimeString).toLocaleDateString('pt-BR', options).replace(',', '');
-    };
+    
 
     const fetchAnaliseToday = async (date) => {
         try {
