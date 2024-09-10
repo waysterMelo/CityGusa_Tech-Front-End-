@@ -86,8 +86,14 @@ class AnaliseGusaService {
         this.showNullModal = false
     };
 
-    async getAnalisePorData(date){
-
+    async getAnaliseDoDia(){
+            try {
+                const response = await axios.get("http://localhost:8080/analise-gusa");
+                return response.data;
+            }catch (error){
+                console.error("Erro ao buscar corridas do dia:", error);
+                return [];
+            }
     }
 
 }

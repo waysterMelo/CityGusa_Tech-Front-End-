@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {Box, Flex, Grid, Heading, Input, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import Banner from "../../../components/banner/Banner";
-import { Stat, StatNumber, StatHelpText, StatGroup } from '@chakra-ui/react'
-import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
+import {Button, CardBody,  Modal} from "react-bootstrap";
 import AnaliseGusaService from "../../../App/AnalisesService/AnaliseGusaService";
 
 
@@ -10,49 +9,30 @@ import AnaliseGusaService from "../../../App/AnalisesService/AnaliseGusaService"
 const VerAnaliseGusa = () => {
 
     const service = useRef(new AnaliseGusaService()).current;
-    const [corridas, setCorridas] = useState([]);
+    const [analises, setAnalises] = useState([]);
     const [dataSelect, setDataSelect] = useState([]);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
     const [showNullModal, setShowNullModal]  = useState(service.showNullModal);
 
-    const formatDate = (dateString) => {
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-        return new Date(dateString).toLocaleDateString('pt-BR', options)
+
+    const formatDate =(dateString) => {
+        const options = {day: '2-digit', month: '2-digit', year: 'numeric'};
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
     }
 
 
-    const fetchAnaliseToday = async (date) => {
-        try {
-            if (!date){
-                setShowNullModal(true)
-                return;
-            }
-            let data;
-            if (date) {
-                data = await service.getAnalisePorData(date);
-            }
-            if (data.success === false) {
-                setShowErrorModal(service.showErrorModal)
-            } else {
-                setCorridas(data.data);
-            }
-        } catch (error) {
-            return ''
-        } finally {
-            setDataSelect('')
-        }
-    }
+
 
     useEffect(() => {
-        const fetchCorridas = async () => {
+        const fetchAnaliseGusa = async () => {
             try {
-                const data = await service.getCorridasDoDia();
-                setCorridas(data);
+                const data = await service.getAnaliseDoDia();
+                setAnalises(data);
             } catch (error) {
-                console.error("Erro ao buscar corridas:", error);
+                console.error("Erro ao buscar analises:", error);
             }
         };
-        fetchCorridas();
+        fetchAnaliseGusa();
     }, [service]);
 
     const handleClose = () => {
@@ -76,7 +56,7 @@ const VerAnaliseGusa = () => {
                                         type='date'
                                         value={dataSelect}
                                         onChange={(e) => {setDataSelect(e.target.value)}}/>
-                                    <Button colorScheme='blue' mt={4} onClick={() => fetchAnaliseToday(dataSelect)}>
+                                    <Button colorScheme='blue' mt={4}>
                                         Pesquisar
                                     </Button>
                                 </Flex>
@@ -102,29 +82,24 @@ const VerAnaliseGusa = () => {
                             </Tr>
                         </Thead>
                         <Tbody >
-                            {corridas.map((corrida, index) => (
+                            {analises.map((rs, index) => (
                                 <Tr key={index}>
-                                    <Td className="text-center">{corrida.id}</Td>
-                                    <Td className="text-center">{corrida.id}</Td>
+                                    <Td className="text-center">{rs.id}</Td>
+                                    <Td className="text-center">{formatDate(rs.createdAt)}</Td>
+                                    <Td className="text-center">{rs.fosforo}</Td>
+                                    <Td className="text-center">{rs.manganes}</Td>
+                                    <Td className="text-center">{rs.silicio}</Td>
+                                    <Td className="text-center">{rs.cromo}</Td>
+                                    <Td className="text-center">{rs.enxofre}</Td>
+                                    <Td className="text-center">{rs.titanium}</Td>
+                                    <Td className="text-center">{rs.cromo}</Td>
                                 </Tr>
                             ))}
                         </Tbody>
                     </Table>
                 </TableContainer>
             </Box>
-            <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5'}>
-                <StatGroup>
-                    {corridas.length > 0 && corridas[0] && (
-                        <Stat>
-                            <CardTitle>Minutos do Dia Acumulados</CardTitle>
-                            <StatNumber>{corridas[0].minutosAcumulados || "N/A"}</StatNumber>
-                            <StatHelpText>
-                                {corridas[0].createdAt ? formatDate(corridas[0].createdAt) : "Data não disponível"}
-                            </StatHelpText>
-                        </Stat>
-                    )}
-                </StatGroup>
-            </Box>
+
             <Modal show={showErrorModal} onHide={handleClose}>
                 <Modal.Header className={'bg-danger'} closeButton>
                     <Modal.Title>Erro ao consultar informações</Modal.Title>

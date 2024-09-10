@@ -19,27 +19,30 @@ const VerAnaliseMinerioEscoria = () => {
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
 
-    const fetchCorridasPorData = async (date) => {
+    const fetchCorridasPorData = async (selectedDate) => {
         try {
-            if (!date){
-                setShowNullModal(true)
+            if (!selectedDate) {
+                setShowNullModal(true);
                 return;
             }
-            let data;
-            if (date) {
-                data = await service.getCorridasPorData(date);
-            }
-            if (data.success === false) {
-                setShowErrorModal(service.showErrorModal)
+
+            const response = await service.getCorridasPorData(selectedDate);
+
+            if (!response.success) {
+                setShowErrorModal(true);
             } else {
-                setCorridas(data.data);
+                setCorridas(response.data);
             }
         } catch (error) {
-            return ''
+            // Log the error for debugging purposes if necessary
+            console.error('Erro ao buscar corridas:', error);
+            setShowErrorModal(true); // Mostra o modal de erro
         } finally {
-            setDataSelect('')
+            // Reseta o seletor de data após a tentativa
+            setDataSelect('');
         }
-    }
+    };
+
 
     useEffect(() => {
         const fetchCorridas = async () => {

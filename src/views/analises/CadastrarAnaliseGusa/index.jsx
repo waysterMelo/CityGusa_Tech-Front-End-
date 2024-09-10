@@ -32,7 +32,7 @@ export default function AnaliseGusa() {
         setMensagemErro(service.mensagemErro);
         if (result.success) {
             setShowSuccessModal(true);
-            service.resetFormData(setFormData); 
+            service.resetFormData(setFormData);
         } else {
             setShowErrorModal(true);
         }
@@ -202,11 +202,11 @@ export default function AnaliseGusa() {
                             </FormLabel>
                             <InputGroup>
                                 <InputMask
-                                    mask={'9.99'}
+                                    mask={'9.999'}
                                     value={formData.titanium}
                                     onChange={handleChange}
                                     name={'titanium'}
-                                    placeholder={'0.00'}
+                                    placeholder={'0.000'}
                                 >
                                     {(inputProps) => <Input {...inputProps} type="text"  />}
                                 </InputMask>
