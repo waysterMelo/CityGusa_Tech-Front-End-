@@ -1,18 +1,11 @@
 import axios from "axios";
 
-class AnaliseGusaService {
+class AnaliseMineriosService {
 
     constructor() {
         this.formData = {
             data: '',
-            produto: 'GUSA',
-            ferro:'',
-            silicio:'',
-            cromo:'',
-            fosforo:'',
-            enxofre:'',
-            manganes:'',
-            titanium:''
+
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -22,13 +15,7 @@ class AnaliseGusaService {
 
     resetFormData = (setFormData) => {
         this.formData = {
-            ferro: '',
-            silicio: '',
-            cromo: '',
-            fosforo: '',
-            enxofre: '',
-            manganes: '',
-            titanium: ''
+
         };
         setFormData(this.formData);
     }
@@ -59,23 +46,8 @@ class AnaliseGusaService {
     };
 
     salvar = async () => {
-        try {
-            this.formData.produto = "GUSA";
-            const response = await axios.post("http://localhost:8080/analise-gusa", this.formData, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            console.log("Registro inserido com sucesso:", response.data);
-            this.showSuccessModal = true;
-            return { success: true };
-        } catch (error) {
-            console.error("Erro ao cadastrar análise", error);
-            this.mensagemErro = this.getErrorMessage(error);
-            this.showErrorModal = true;
-            return { success: false, message: error.message };
-        }
-    };
+
+    }
 
     handleClose = (setShowSuccessModal, setShowErrorModal, setShowNullModal) => {
         if (setShowSuccessModal) setShowSuccessModal(false);
@@ -88,17 +60,17 @@ class AnaliseGusaService {
 
     async getAnaliseDoDia(){
             try {
-                const response = await axios.get("http://localhost:8080/analise-gusa");
+                const response = await axios.get("http://localhost:8080/");
                 return response.data;
             }catch (error){
-                console.error("Erro ao buscar corridas do dia:", error);
+                console.error("Erro ao buscar análises do dia:", error);
                 return [];
             }
     }
 
     async getAnalisesPorData(date) {
         try {
-            const response = await axios.get(`http://localhost:8080/analise-gusa/por-data?data=${date}`);
+            const response = await axios.get(`http://localhost:8080/analise-minerios/por-data?data=${date}`);
 
             if (response.data.length === 0) {
                 this.mensagemErro = "Não há informações cadastradas nessa data.";
@@ -117,4 +89,4 @@ class AnaliseGusaService {
 
 }
 
-export default AnaliseGusaService;
+export default AnaliseMineriosService;

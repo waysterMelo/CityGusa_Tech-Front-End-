@@ -20,8 +20,26 @@ const VerAnaliseGusa = () => {
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     }
 
+    const fetchAnalisesPorData = async (date) => {
+        try {
+            if (!date) {
+                setShowNullModal(true);
+                return;
+            }
+            const response = await service.getAnalisesPorData(date);
+            if (!response.success) {
+                setShowErrorModal(true);
+            } else {
 
-
+                setAnalises(response.data);
+            }
+        } catch (error) {
+            console.error('Erro ao buscar informações:', error);
+            setShowErrorModal(true);
+        } finally {
+            setDataSelect('');
+        }
+    }
 
     useEffect(() => {
         const fetchAnaliseGusa = async () => {
@@ -56,7 +74,7 @@ const VerAnaliseGusa = () => {
                                         type='date'
                                         value={dataSelect}
                                         onChange={(e) => {setDataSelect(e.target.value)}}/>
-                                    <Button colorScheme='blue' mt={4}>
+                                    <Button colorScheme='blue' mt={4} onClick={() => fetchAnalisesPorData(dataSelect)}>
                                         Pesquisar
                                     </Button>
                                 </Flex>

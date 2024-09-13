@@ -27,23 +27,26 @@ const VerCorridas = () => {
 
     const fetchCorridasPorData = async (date) => {
         try {
-            if (!date){
-                setShowNullModal(true)
+            if (!date) {
+                setShowNullModal(true);
                 return;
             }
-            let data;
-            if (date) {
-                data = await service.getCorridasPorData(date);
-            }
-            if (data.success === false) {
-                setShowErrorModal(service.showErrorModal)
+
+            const response = await service.getCorridasPorData(date);
+
+            if (!response.success) {
+                setShowErrorModal(true);
             } else {
-                setCorridas(data.data);
+                setCorridas(response.data);
             }
+
         } catch (error) {
-            return ''
+            // Log the error for debugging purposes if necessary
+            console.error('Erro ao buscar corridas:', error);
+            setShowErrorModal(true); // Mostra o modal de erro
         } finally {
-            setDataSelect('')
+            // Reseta o seletor de data após a tentativa
+            setDataSelect('');
         }
     }
 
