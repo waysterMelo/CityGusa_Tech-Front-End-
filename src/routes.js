@@ -19,6 +19,7 @@ import CorridasData from "./views/main/ControleDeCorridas/VerVazamentosCargasFun
 import ANQE from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria/index";
 import PGCS from "./views/main/ControleDeCorridas/PesoGusaConsumoCarvao/index";
 import VerAnaliseGusa from "./views/analises/VerAnaliseGusa";
+import VerAnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio/VerAnalisesMinerio/index";
 
 const routes = [
     {
@@ -55,6 +56,13 @@ const routes = [
         path: "/analise-minerio",
         component: AnaliseQuimicaDeMinerio,
         name: 'Análise Minério',
+        hidden: true
+    },
+    {
+        layout: "/admin",
+        path: "/ver-analises-minerio",
+        component: VerAnaliseQuimicaDeMinerio,
+        name: 'Pesquisar Análise Minério',
         hidden: true
     },
     {

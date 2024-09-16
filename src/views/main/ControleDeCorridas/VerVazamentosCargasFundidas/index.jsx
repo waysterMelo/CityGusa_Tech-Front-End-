@@ -104,7 +104,6 @@ const VerCorridas = () => {
                                 <Th className="text-center">VAZAMENTO <br /> Hora Fim</Th>
                                 <Th className={'bg-dark-subtle text-center'}>MINUTOS DIA</Th>
                                 <Th className="text-center">CONCHAS <br /> CAÇAMBAS</Th>
-                                <Th className="text-center">Temperatura</Th>
                                 <Th className="text-center">Carga de N°</Th>
                                 <Th className="text-center">Carga até N°</Th>
                                 <Th className={'bg-dark-subtle text-center'}>QT</Th>
@@ -121,7 +120,6 @@ const VerCorridas = () => {
                                     <Td className="text-center">{formatDateTime(corrida.horaFim)}</Td>
                                     <Td className={'bg-dark-subtle text-center'}>{corrida.minutos}</Td>
                                     <Td className="text-center">{corrida.conchas}</Td>
-                                    <Td className="text-center">{corrida.temperatura}</Td>
                                     <Td className="text-center">{corrida.cargaFundidaDe}</Td>
                                     <Td className="text-center">{corrida.cargaFundidaAte}</Td>
                                     <Td className={'bg-dark-subtle text-center'}>{corrida.quantidade}</Td>
