@@ -1,25 +1,63 @@
 import axios from "axios";
 
-class AnaliseMineriosService {
+class CadastroMineriosService {
 
     constructor() {
         this.formData = {
             data: '',
-
+            minerio:'',
+            lote:'',
+            patio:'',
+            tonelada:'',
+            ferro:'',
+            silica:'',
+            aluminio:'',
+            fosforo:'',
+            manganes:'',
+            ppc:'',
+            fechamento:''
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
         this.showErrorModal = false;
-        this.showNullModal = false;
     }
 
     resetFormData = (setFormData) => {
         this.formData = {
-
+            data: '',
+            minerio:'',
+            patio:'',
+            lote:'',
+            tonelada:'',
+            ferro:'',
+            silica:'',
+            aluminio:'',
+            fosforo:'',
+            manganes:'',
+            ppc:'',
+            fechamento:''
         };
         setFormData(this.formData);
     }
 
+
+    salvar = async () => {
+            try {
+                const response = await axios.post("http://localhost:8080/analise-minerio",
+                    this.formData, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+                this.showSuccessModal = true;
+                return {success: true, data: response.data}
+            } catch (error) {
+                console.error("Erro ao cadastrar análise", error);
+                this.mensagemErro = this.getErrorMessage(error);
+                this.showErrorModal = true;
+                return {success: false, errorMessage: this.mensagemErro}
+            }
+        }
 
     handleChange = (e, setFormData) => {
         const { name, value } = e.target;
@@ -31,23 +69,17 @@ class AnaliseMineriosService {
     };
 
     getErrorMessage = (error) => {
-        let mensagemErro = "";
-        if (error.response) {
-            const { status, data } = error.response;
-            if (status === 400 && data.message.includes('Cannot deserialize value of type')) {
-                mensagemErro = `Erro ${status}: Há um problema nos dados enviados. Verifique se todos os campos estão preenchidos corretamente e se os valores numéricos estão no formato adequado.`;
-            } else {
-                mensagemErro = `Erro ${status}: ${data.message || error.message}`;
-            }
-        } else {
-            mensagemErro = `Erro: ${error.message}`;
-        }
-        return mensagemErro;
+      if(error.response){
+          // o servidor respondeu com um status fora do intervalo 2xx
+          return `Erro: Status code: ${error.response.status} - ${error.response.data}`;
+      }else if (error.request) {
+          // a requisicao foi feita, mas nao houve resposta
+          return `Erro: Sem resposta do servidor`;
+      }else {
+          // algum outro problema ocorreu na requisicao
+          return `Erro: ${error.message}`;
+      }
     };
-
-    salvar = async () => {
-
-    }
 
     handleClose = (setShowSuccessModal, setShowErrorModal, setShowNullModal) => {
         if (setShowSuccessModal) setShowSuccessModal(false);
@@ -89,4 +121,4 @@ class AnaliseMineriosService {
 
 }
 
-export default AnaliseMineriosService;
+export default CadastroMineriosService;

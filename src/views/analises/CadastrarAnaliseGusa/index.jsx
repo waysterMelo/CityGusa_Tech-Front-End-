@@ -11,7 +11,7 @@ import {format} from "date-fns";
 import {CalendarIcon, DragHandleIcon} from "@chakra-ui/icons";
 import Banner from "../../../components/banner/Banner";
 import {Modal} from "react-bootstrap";
-import AnaliseGusaService from "../../../App/AnalisesService/AnaliseGusaService";
+import AnaliseGusaService from "../../../App/AnalisesService/Gusa/AnaliseGusaService";
 import InputMask from "react-input-mask";
 
 export default function AnaliseGusa() {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {Box, Flex, Grid, Heading, Input, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import Banner from "../../../components/banner/Banner";
 import {Button, CardBody,  Modal} from "react-bootstrap";
-import AnaliseGusaService from "../../../App/AnalisesService/AnaliseGusaService";
+import AnaliseGusaService from "../../../App/AnalisesService/Gusa/AnaliseGusaService";
 
 
 
