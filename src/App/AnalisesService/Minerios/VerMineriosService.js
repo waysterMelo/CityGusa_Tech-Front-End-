@@ -20,14 +20,13 @@ class VerMineriosService {
         if (setShowSuccessModal) setShowSuccessModal(false);
         if (setShowErrorModal) setShowErrorModal(false);
         if (setShowNullModal) setShowNullModal(false);
-        this.showSuccessModal = false;
         this.showErrorModal = false;
         this.showNullModal = false
     };
 
     async getAnaliseDoDia(){
             try {
-                const response = await axios.get("http://localhost:8080/");
+                const response = await axios.get("http://localhost:8080/analise-minerio");
                 return response.data;
             }catch (error){
                 console.error("Erro ao buscar análises do dia:", error);
@@ -37,7 +36,7 @@ class VerMineriosService {
 
     async getAnalisesPorData(date) {
         try {
-            const response = await axios.get(`http://localhost:8080/analise-minerios/por-data?data=${date}`);
+            const response = await axios.get(`http://localhost:8080/analise-minerio/por-data?data=${date}`);
 
             if (response.data.length === 0) {
                 this.mensagemErro = "Não há informações cadastradas nessa data.";

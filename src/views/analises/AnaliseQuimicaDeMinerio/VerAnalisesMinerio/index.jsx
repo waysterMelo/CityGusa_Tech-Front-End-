@@ -19,26 +19,47 @@ const VerAnalisesMinerios = () => {
         return new Date(dateString).toLocaleDateString('pt-BR', options);
     }
 
-    const fetchAnalisesPorData = async (date) => {
-        try {
-            if (!date) {
-                setShowNullModal(true);
-                return;
-            }
-            const response = await service.getAnalisesPorData(date);
-            if (!response.success) {
-                setShowErrorModal(true);
-            } else {
+   const fetchAnalisesPorData = async (date) => {
+       if (!date) {
+           handleNullDateError();
+           return;
+       }
 
-                setAnalises(response.data);
-            }
-        } catch (error) {
-            console.error('Erro ao buscar informações:', error);
+       try {
+           const rs = await service.getAnalisesPorData(date);
+           handleServiceRewsponse(rs);
+       } catch (error) {
+           handleError(error);
+       } finally {
+           resetDataSelect();
+       }
+   }
+
+    // Função para lidar com erros de data nula
+    const handleNullDateError = () => {
+        setShowNullModal(true);
+    }
+
+    // Função para lidar com a resposta do serviço
+    const handleServiceRewsponse = (rs) =>{
+        if (!rs.success){
             setShowErrorModal(true);
-        } finally {
-            setDataSelect('');
+        }else{
+            setAnalises(rs.data);
         }
     }
+
+    // Função para lidar com erros de requisição
+    const handleError = (error) => {
+        console.error('Erro ao buscar informações:', error);
+        setShowErrorModal(true);
+    }
+
+    // Função para resetar o seletor de data
+    const resetDataSelect = () => {
+        setDataSelect('');
+    }
+
 
     useEffect(() => {
         const fetchAnalisesMinerio = async () => {
@@ -62,7 +83,7 @@ const VerAnalisesMinerios = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url_voltar={'analise-gusa'}>
+                <Banner url_voltar={'analise-minerio'}>
                     <Grid width={'50%'}>
                         <Box bg={'white'} className={'p-5'}>
                             <Heading size='md' className={'pb-3'}>Pesquisar Informação por data</Heading>
@@ -99,6 +120,7 @@ const VerAnalisesMinerios = () => {
                                 <Th className="text-center">FÓSFORO</Th>
                                 <Th className="text-center">MANGANÊS</Th>
                                 <Th className="text-center">P.P.C</Th>
+                                <Th className="text-center">FECHAMENTO</Th>
                             </Tr>
                         </Thead>
                         <Tbody >
@@ -106,13 +128,16 @@ const VerAnalisesMinerios = () => {
                                 <Tr key={index}>
                                     <Td className="text-center">{rs.id}</Td>
                                     <Td className="text-center">{formatDate(rs.createdAt)}</Td>
+                                    <Td className="text-center">{rs.minerio}</Td>
+                                    <Td className="text-center">{rs.lote}</Td>
+                                    <Td className="text-center">{rs.patio}</Td>
+                                    <Td className="text-center">{rs.tonelada}</Td>
+                                    <Td className="text-center">{rs.ferro}</Td>
+                                    <Td className="text-center">{rs.silica}</Td>
+                                    <Td className="text-center">{rs.aluminio}</Td>
                                     <Td className="text-center">{rs.fosforo}</Td>
                                     <Td className="text-center">{rs.manganes}</Td>
-                                    <Td className="text-center">{rs.silicio}</Td>
-                                    <Td className="text-center">{rs.cromo}</Td>
-                                    <Td className="text-center">{rs.enxofre}</Td>
-                                    <Td className="text-center">{rs.titanium}</Td>
-                                    <Td className="text-center">{rs.cromo}</Td>
+                                    <Td className="text-center">{rs.ppc}</Td>
                                 </Tr>
                             ))}
                         </Tbody>
