@@ -120,7 +120,7 @@ const VerAnalisesMinerios = () => {
                                 <Th className="text-center">FÓSFORO</Th>
                                 <Th className="text-center">MANGANÊS</Th>
                                 <Th className="text-center">P.P.C</Th>
-                                <Th className="text-center">FECHAMENTO</Th>
+                                <Th className="text-center bg-dark">FECHAMENTO</Th>
                             </Tr>
                         </Thead>
                         <Tbody >
@@ -138,6 +138,7 @@ const VerAnalisesMinerios = () => {
                                     <Td className="text-center">{rs.fosforo}</Td>
                                     <Td className="text-center">{rs.manganes}</Td>
                                     <Td className="text-center">{rs.ppc}</Td>
+                                    <Td className="text-center bg-dark">{rs.fechamento}</Td>
                                 </Tr>
                             ))}
                         </Tbody>

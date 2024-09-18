@@ -102,13 +102,13 @@ const VerCorridas = () => {
                                 <Th className="text-center">DATA</Th>
                                 <Th className="text-center">VAZAMENTO <br /> Hora Inicio</Th>
                                 <Th className="text-center">VAZAMENTO <br /> Hora Fim</Th>
-                                <Th className={'bg-dark-subtle text-center'}>MINUTOS DIA</Th>
+                                <Th className={'bg-dark text-center'}>MINUTOS DIA</Th>
                                 <Th className="text-center">CONCHAS <br /> CAÇAMBAS</Th>
                                 <Th className="text-center">Carga de N°</Th>
                                 <Th className="text-center">Carga até N°</Th>
-                                <Th className={'bg-dark-subtle text-center'}>QT</Th>
+                                <Th className={'bg-dark text-center'}>QT</Th>
                                 <Th className="text-center">Fe/Gusa/(KG)</Th>
-                                <Th className={'bg-dark-subtle text-center'}>Fe₂O₃</Th>
+                                <Th className={'bg-dark text-center'}>Fe₂O₃</Th>
                             </Tr>
                         </Thead>
                         <Tbody >
@@ -118,13 +118,13 @@ const VerCorridas = () => {
                                     <Td className="text-center">{formatDate(corrida.createdAt)}</Td>
                                     <Td className="text-center">{formatDateTime(corrida.horaInicio)}</Td>
                                     <Td className="text-center">{formatDateTime(corrida.horaFim)}</Td>
-                                    <Td className={'bg-dark-subtle text-center'}>{corrida.minutos}</Td>
+                                    <Td className={'bg-dark text-center'}>{corrida.minutos}</Td>
                                     <Td className="text-center">{corrida.conchas}</Td>
                                     <Td className="text-center">{corrida.cargaFundidaDe}</Td>
                                     <Td className="text-center">{corrida.cargaFundidaAte}</Td>
-                                    <Td className={'bg-dark-subtle text-center'}>{corrida.quantidade}</Td>
+                                    <Td className={'bg-dark text-center'}>{corrida.quantidade}</Td>
                                     <Td className="text-center">{corrida.feGusaKg}</Td>
-                                    <Td className={'bg-dark-subtle text-center'}>{corrida.ferro}</Td>
+                                    <Td className={'bg-dark text-center'}>{corrida.ferro}</Td>
                                 </Tr>
                             ))}
                         </Tbody>
