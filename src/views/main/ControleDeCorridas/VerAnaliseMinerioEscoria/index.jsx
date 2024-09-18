@@ -100,8 +100,8 @@ const VerAnaliseMinerioEscoria = () => {
                                 <Th className="text-center">Manganês</Th>
                                 <Th className="text-center">Sílica</Th>
                                 <Th className="text-center">Tipo Escória</Th>
-                                <Th className="text-center">Início de Vazamento</Th>
-                                <Th className={'text-center'}>Fim de vazamento</Th>
+                                <Th className="text-center">Início de Vazamento escória</Th>
+                                <Th className={'text-center'}>Fim de vazamento escória</Th>
                             </Tr>
                         </Thead>
                         <Tbody >

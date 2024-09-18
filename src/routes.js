@@ -102,7 +102,7 @@ const routes = [
     },
     {
         layout: "/admin",
-        path: "/analise-minerio-escoria",
+        path: "/ver-analise-minerio-escoria",
         component: ANQE,
         name: "Análise Química de Minério e Escória",
         hidden: true

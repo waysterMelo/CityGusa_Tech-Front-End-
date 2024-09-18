@@ -150,7 +150,7 @@ const ControleDeCorridas = () => {
                     texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
                     primeiro_botao={'Vazamento, Cargas Fundidas'}
                     segundo_botao={'Análise Química Minério, Escória'}
-                    url_segundo_botao={'analise-minerio-escoria'}
+                    url_segundo_botao={'ver-analise-minerio-escoria'}
                         terceiro_botao={'Peso Gusa e Temperatura, Consumo carvão, Sopradores'}
                         url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
                 />
@@ -272,7 +272,7 @@ const ControleDeCorridas = () => {
                                 </VStack>
                             </HStack>
                             <Box bg='white' p={4} mt={4} boxShadow={'xs'} rounded={'md'}>
-                                <Text className={'p-3 text-bg-dark'}>Escória</Text>
+                                <Text className={'p-3 text-bg-dark'}>Escória vazamento</Text>
                                 <HStack spacing={3} width={'100%'} className={'p-2'}>
                                     <FormControl className={'w-50'}>
                                         <FormLabel>Início</FormLabel>
