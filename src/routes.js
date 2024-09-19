@@ -10,7 +10,7 @@ import AnaliseEscoria from "./views/analises/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
 import Corrida from "./views/main/ControleDeCorridas/CadastrarCorrida";
 import { FaAngleDoubleRight } from "react-icons/fa";
-//import Analises from "./views/analises/index";
+import CadastrarMinerios from "./views/analises/AnaliseQuimicaDeMinerio/CadastrarMinerio/index";
 import { FaBars } from "react-icons/fa";
 import { FaBorderAll } from "react-icons/fa";
 import { FaClipboard } from "react-icons/fa";
@@ -45,35 +45,35 @@ const routes = [
         hidden: true
     },
     {
-        name: "Minerios",
+        name: "Minérios",
         icon: <Icon as={FaBars} width='20px' height='20px' />,
         children: [ // Define os itens do dropdown
             {
                 layout: "/admin",
+                path: "/cadastrar-minerio",
+                component: CadastrarMinerios,
+                name: "Cadastrar Minérios",
+            },
+            {
+                layout: "/admin",
                 path: "/analise-minerio",
-                component: AnaliseQuimicaDeMinerio,
-                name: "Análise Química de Minério",
+                component: ANQE,
+                name: "Fazer Análise",
             },
             {
                 layout: "/admin",
                 path: "/ver-analises-minerio",
                 component: VerAnaliseQuimicaDeMinerio,
-                name: "Ver Análise de Minério",
-            },
-            {
-                layout: "/admin",
-                path: "/analise-escoria",
-                component: AnaliseEscoria,
-                name: "Análise de Escória",
+                name: "Pesquisar Análise",
             }
         ]
     },
     {
-        //for drowpdown
+        //cadastrar minerios
         layout: "/admin",
-        path: "/analise-minerio",
-        component: AnaliseQuimicaDeMinerio,
-        name: "Análise Química de Minério",
+        path: "/cadastrar-minerio",
+        component: CadastrarMinerios,
+        name: "Cadastrar Minérios",
         hidden: true
     },
     {
@@ -81,7 +81,7 @@ const routes = [
         layout: "/admin",
         path: "/ver-analises-minerio",
         component: VerAnaliseQuimicaDeMinerio,
-        name: "Ver Análise de Minério",
+        name: "Pesquisar Análise de Minério",
         hidden: true
     },
     {

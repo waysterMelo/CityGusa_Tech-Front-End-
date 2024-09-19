@@ -10,12 +10,12 @@ import {
 } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
-import Banner from "../../../components/banner/Banner";
+import Banner from "../../../../components/banner/Banner";
 import InputMask from "react-input-mask";
 import {Modal} from "react-bootstrap";
-import CadastroMineriosService from "../../../App/AnalisesService/Minerios/CadastroMineriosService";
+import CadastroMineriosService from "../../../../App/AnalisesService/Minerios/CadastroMineriosService";
 
-export default function AnaliseQuimicaDeMinerio() {
+export default function CadastrarMinerio() {
     const current_date = new Date();
     const service = useRef(new CadastroMineriosService()).current;
     const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
@@ -93,7 +93,7 @@ export default function AnaliseQuimicaDeMinerio() {
                     </FormControl>
                 </GridItem>
             </Grid>
-            <Grid templateColumns='repeat(7, 1fr)'  mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
+            <Grid templateColumns='repeat(8, 1fr)'  mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
                   w={'96%'}>
                 <GridItem colSpan={2}>
                     <FormControl>
@@ -102,17 +102,23 @@ export default function AnaliseQuimicaDeMinerio() {
                         <InputLeftElement pointerEvents='none'>
                             <DragHandleIcon color='blue'/>
                         </InputLeftElement>
-                        <Select className={'text-center'} placeholder={'Selecione o tipo'} value={tipoMinerio}
-                                onChange={handleTipoMinerio}>
-                            <option value="Extrativa">Extrativa</option>
-                            <option value="Comisa">Comisa</option>
-                            <option value="Bassari">Bassari</option>
-                        </Select>
+                        <Input w={'100%'} name={'minerio'} value={formData.minerio} onChange={handleChange} textTransform={'uppercase'}/>
                     </InputGroup>
                     </FormControl>
                 </GridItem>
+                <GridItem>
+                    <FormControl>
+                        <FormLabel className={'text-center'}  marginTop={3}>Preço Tonelada</FormLabel>
+                        <InputGroup>
+                            <InputLeftElement pointerEvents='none'>
+                                <ChevronRightIcon color='blue'/>
+                            </InputLeftElement>
+                            <Input w={'100%'} name={'lote'} value={formData.lote} onChange={handleChange}/>
+                        </InputGroup>
+                    </FormControl>
+                </GridItem>
             </Grid>
-            <Grid templateColumns='repeat(6, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
+            <Grid templateColumns='repeat(7, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
                   w={'96%'} pb={'1'}>
                 <GridItem pl={1}>
                     <FormControl>
@@ -121,8 +127,7 @@ export default function AnaliseQuimicaDeMinerio() {
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
                             </InputLeftElement>
-                            <Input w={'100%'} name={'lote'} value={formData.lote} onChange={handleChange}
-                                   className={'text-center'} />
+                            <Input w={'100%'} name={'lote'} value={formData.lote} onChange={handleChange}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -130,9 +135,6 @@ export default function AnaliseQuimicaDeMinerio() {
                     <FormControl>
                         <FormLabel className={'text-center'}  marginTop={3}>Pátio</FormLabel>
                         <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
                             <Input w={'100%'}  className={'text-center'}
                                   name={'patio'} onChange={handleChange}
                                    textTransform={'uppercase'} value={formData.patio}/>
@@ -141,39 +143,21 @@ export default function AnaliseQuimicaDeMinerio() {
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'} marginTop={3}>Tonelada</FormLabel>
+                        <FormLabel className={'text-center'} marginTop={3}>Transportador</FormLabel>
                         <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
-                            <InputMask
-                                mask={'999.999'}
-                                placeholder={'000.000'}
-                                value={formData.tonelada}
-                                name={'tonelada'}
-                                onChange={handleChange}
-                            >
-                                {(inputProps) => <Input {...inputProps} className={'text-center'}/>}
-                            </InputMask>
+                            <Input w={'100%'}  className={'text-center'}
+                                   name={'transportador'} onChange={handleChange}
+                                   textTransform={'uppercase'} value={formData.transportador}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'} marginTop={3}>Ferro</FormLabel>
+                        <FormLabel className={'text-center'} marginTop={3}>Frete</FormLabel>
                         <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
-                            <InputMask
-                                mask={'99.99'}
-                                placeholder={'00.00'}
-                                value={formData.ferro}
-                                name={'ferro'}
-                                onChange={handleChange}
-                            >
-                                {(inputProps) => <Input {...inputProps} className={'text-center'}/>}
-                            </InputMask>
+                            <Input w={'100%'}  className={'text-center'}
+                                   name={'frete'} onChange={handleChange}
+                                   textTransform={'uppercase'} value={formData.frete}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
