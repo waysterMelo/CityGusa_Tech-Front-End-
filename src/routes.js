@@ -10,7 +10,7 @@ import AnaliseEscoria from "./views/analises/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
 import Corrida from "./views/main/ControleDeCorridas/CadastrarCorrida";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import Analises from "./views/analises/index";
+//import Analises from "./views/analises/index";
 import { FaBars } from "react-icons/fa";
 import { FaBorderAll } from "react-icons/fa";
 import { FaClipboard } from "react-icons/fa";
@@ -30,18 +30,11 @@ const routes = [
         component: Dashboard,
     },
     {
-    name: "Forno",
-    layout: "/admin",
-    path: "/home",
-    icon: <Icon as={ FaClipboard } width={'20px'} height={'20px'} />,
-    component: Home,
-   },
-    {
-        name: "Análises",
+        name: "Forno",
         layout: "/admin",
-        path: "/analises",
-        icon: <Icon as={ FaBars } width={'20px'} height={'20px'} />,
-        component: Analises,
+        path: "/home",
+        icon: <Icon as={ FaClipboard } width={'20px'} height={'20px'} />,
+        component: Home,
     },
     {
         layout: "/admin",
@@ -52,33 +45,62 @@ const routes = [
         hidden: true
     },
     {
+        name: "Minerios",
+        icon: <Icon as={FaBars} width='20px' height='20px' />,
+        children: [ // Define os itens do dropdown
+            {
+                layout: "/admin",
+                path: "/analise-minerio",
+                component: AnaliseQuimicaDeMinerio,
+                name: "Análise Química de Minério",
+            },
+            {
+                layout: "/admin",
+                path: "/ver-analises-minerio",
+                component: VerAnaliseQuimicaDeMinerio,
+                name: "Ver Análise de Minério",
+            },
+            {
+                layout: "/admin",
+                path: "/analise-escoria",
+                component: AnaliseEscoria,
+                name: "Análise de Escória",
+            }
+        ]
+    },
+    {
+        //for drowpdown
         layout: "/admin",
         path: "/analise-minerio",
         component: AnaliseQuimicaDeMinerio,
-        name: 'Análise Minério',
+        name: "Análise Química de Minério",
         hidden: true
     },
     {
+        //for dropdown
         layout: "/admin",
         path: "/ver-analises-minerio",
         component: VerAnaliseQuimicaDeMinerio,
-        name: 'Pesquisar Análise Minério',
+        name: "Ver Análise de Minério",
         hidden: true
     },
     {
-    layout: "/admin",
+        //for dropdown
+        layout: "/admin",
+        path: "/analise-escoria",
+        component: AnaliseEscoria,
+        name: "Análise de Escória",
+        hidden: true
+
+    },
+    {
+        layout: "/admin",
         path:"/analise-gusa",
         component: AnaliseGusa,
         name:"Análise Gusa",
         hidden: true
     },
-    {
-        layout: "/admin",
-        path:"/analise-escoria",
-        component: AnaliseEscoria,
-        name:"Análise Escória",
-        hidden: true
-    },
+
     {
         layout: "/admin",
         path:"/pessoal",
