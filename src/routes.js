@@ -15,10 +15,11 @@ import { FaBorderAll } from "react-icons/fa";
 import { FaClipboard } from "react-icons/fa";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import CorridasData from "./views/main/ControleDeCorridas/VerVazamentosCargasFundidas/index";
-import ANQE from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria/index";
+import CANQE from "./views/analises/AnaliseQuimicaDeMinerio/index";
 import PGCS from "./views/main/ControleDeCorridas/PesoGusaConsumoCarvao/index";
 import VerAnaliseGusa from "./views/analises/VerAnaliseGusa";
 import VerAnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio/VerAnalisesMinerio/index";
+import VerAnaliseMinerioEscoria from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria";
 
 const routes = [
     {
@@ -56,8 +57,8 @@ const routes = [
             {
                 layout: "/admin",
                 path: "/analise-minerio",
-                component: ANQE,
-                name: "Fazer Análise",
+                component: CANQE,
+                name: "Cadastrar Análise Minério",
             },
             {
                 layout: "/admin",
@@ -90,8 +91,16 @@ const routes = [
         component: AnaliseEscoria,
         name: "Análise de Escória",
         hidden: true
-
     },
+    {
+        //for dropdown
+        layout: "/admin",
+        path: "/analise-minerio",
+        component: CANQE,
+        name: "Cadastrar Análise Minério",
+        hidden: true
+    },
+
     {
         layout: "/admin",
         path:"/analise-gusa",
@@ -124,7 +133,7 @@ const routes = [
     {
         layout: "/admin",
         path: "/ver-analise-minerio-escoria",
-        component: ANQE,
+        component: VerAnaliseMinerioEscoria,
         name: "Análise Química de Minério e Escória",
         hidden: true
     },

@@ -45,8 +45,6 @@ export default function CadastrarMinerio() {
         }
     }
 
-
-
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
     };
@@ -97,7 +95,8 @@ export default function CadastrarMinerio() {
                         <InputLeftElement pointerEvents='none'>
                             <DragHandleIcon color='blue'/>
                         </InputLeftElement>
-                        <Input w={'100%'} name={'minerio'} value={formData.minerio} onChange={handleChange} textTransform={'uppercase'}/>
+                        <Input w={'100%'} name={'minerio'} value={formData.minerio} onChange={handleChange}
+                               textTransform={'uppercase'} placeholder={'nome do minério'}/>
                     </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -105,16 +104,21 @@ export default function CadastrarMinerio() {
                     <FormControl>
                         <FormLabel className={'text-center'}  marginTop={3}>Preço Tonelada</FormLabel>
                         <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
-                            <Input w={'100%'} name={'lote'} value={formData.lote} onChange={handleChange}/>
+                            <InputMask
+                                mask={'999.99'}
+                                name={'valorTonelada'}
+                                value={formData.valorTonelada}
+                                placeholder={'R$ 000,00'}
+                                onChange={handleChange}
+                            >
+                                {(inputProps) => <Input {...inputProps} />}
+                            </InputMask>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
             </Grid>
-            <Grid templateColumns='repeat(7, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
-                  w={'96%'} pb={'1'}>
+            <Grid templateColumns='repeat(7, 1fr)' mx={'auto'} bg={'whiteAlpha.800'} px={'5'}
+                  w={'96%'} pb={'5'}>
                 <GridItem pl={1}>
                     <FormControl>
                         <FormLabel className={'text-center'}  marginTop={3}>Lote</FormLabel>
@@ -122,7 +126,8 @@ export default function CadastrarMinerio() {
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
                             </InputLeftElement>
-                            <Input w={'100%'} name={'lote'} value={formData.lote} onChange={handleChange}/>
+                            <Input w={'100%'} name={'lote'} value={formData.lote} textTransform={'uppercase'}
+                                   onChange={handleChange}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -150,106 +155,14 @@ export default function CadastrarMinerio() {
                     <FormControl>
                         <FormLabel className={'text-center'} marginTop={3}>Frete</FormLabel>
                         <InputGroup>
-                            <Input w={'100%'}  className={'text-center'}
-                                   name={'frete'} onChange={handleChange}
-                                   textTransform={'uppercase'} value={formData.frete}/>
-                        </InputGroup>
-                    </FormControl>
-                </GridItem>
-            </Grid>
-            <Grid templateColumns='repeat(6, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
-                  w={'96%'} pb={'10'}>
-                <GridItem pl={1}>
-                    <FormControl>
-                        <FormLabel className={'text-center'} marginTop={3}>Sílica</FormLabel>
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
-                        </InputGroup>
-                        <InputMask
-                            mask={'9.99'}
-                            placeholder={'0.00'}
-                            value={formData.silica}
-                            name={'silica'}
-                            onChange={handleChange}
-                        >
-                            {(inputProps) => <Input {...inputProps} className={'text-center'}/>}
-                        </InputMask>
-                    </FormControl>
-                </GridItem>
-                <GridItem pl={1}>
-                    <FormControl>
-                        <FormLabel className={'text-center'}  marginTop={3}>Alumínio</FormLabel>
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
                             <InputMask
-                                mask={'9.99'}
-                                placeholder={'0.00'}
-                                value={formData.aluminio}
-                                name={'aluminio'}
+                                mask={'99.99'}
+                                name={'frete'}
+                                value={formData.frete}
+                                placeholder={'R$ 00,00'}
                                 onChange={handleChange}
                             >
-                                {(inputProps) => <Input {...inputProps} className={'text-center'}/>}
-                            </InputMask>
-                        </InputGroup>
-                    </FormControl>
-                </GridItem>
-                <GridItem pl={1}>
-                    <FormControl>
-                        <FormLabel className={'text-center'} marginTop={3}>Fósforo</FormLabel>
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
-                            <InputMask
-                                mask={'9.999'}
-                                placeholder={'0.000'}
-                                value={formData.fosforo}
-                                name={'fosforo'}
-                                onChange={handleChange}
-                            >
-                                {(inputProps) => <Input {...inputProps} className={'text-center'}/>}
-                            </InputMask>
-                        </InputGroup>
-                    </FormControl>
-                </GridItem>
-                <GridItem pl={1}>
-                    <FormControl>
-                        <FormLabel className={'text-center'} marginTop={3}>Manganês</FormLabel>
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
-                            <InputMask
-                                mask={'9.99'}
-                                placeholder={'0.00'}
-                                value={formData.manganes}
-                                name={'manganes'}
-                                onChange={handleChange}
-                            >
-                                {(inputProps) => <Input {...inputProps} className={'text-center'}/>}
-                            </InputMask>
-                        </InputGroup>
-                    </FormControl>
-                </GridItem>
-                <GridItem pl={1}>
-                    <FormControl>
-                        <FormLabel className={'text-center'} marginTop={3}>P.P.C</FormLabel>
-                        <InputGroup>
-                            <InputLeftElement pointerEvents='none'>
-                                <ChevronRightIcon color='blue'/>
-                            </InputLeftElement>
-                            <InputMask
-                                mask={'9.99'}
-                                placeholder={'0.00'}
-                                value={formData.ppc}
-                                name={'ppc'}
-                                onChange={handleChange}
-                            >
-                                {(inputProps) => <Input {...inputProps} className={'text-center'}/>}
+                                {(inputProps) => <Input {...inputProps} />}
                             </InputMask>
                         </InputGroup>
                     </FormControl>
@@ -260,6 +173,7 @@ export default function CadastrarMinerio() {
                     </WrapItem>
                 </Flex>
             </Grid>
+
             </form>
             <Modal show={showSuccessModal} onHide={handleClose}>
                 <Modal.Header className={'bg-success text-white'} closeButton>

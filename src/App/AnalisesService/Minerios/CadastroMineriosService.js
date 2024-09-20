@@ -6,16 +6,11 @@ class CadastroMineriosService {
         this.formData = {
             data: '',
             minerio:'',
+            valorTonelada:'',
             lote:'',
             patio:'',
-            tonelada:'',
-            ferro:'',
-            silica:'',
-            aluminio:'',
-            fosforo:'',
-            manganes:'',
-            ppc:'',
-            fechamento:''
+            transportador:'',
+            frete:''
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -26,16 +21,11 @@ class CadastroMineriosService {
         this.formData = {
             data: '',
             minerio:'',
-            patio:'',
+            valorTonelada:'',
             lote:'',
-            tonelada:'',
-            ferro:'',
-            silica:'',
-            aluminio:'',
-            fosforo:'',
-            manganes:'',
-            ppc:'',
-            fechamento:''
+            patio:'',
+            transportador:'',
+            frete:''
         };
         setFormData(this.formData);
     }
@@ -43,7 +33,7 @@ class CadastroMineriosService {
 
     salvar = async () => {
             try {
-                const response = await axios.post("http://localhost:8080/analise-minerio",
+                const response = await axios.post("http://localhost:8080/cadastrar-minerios",
                     this.formData, {
                     headers: {
                         "Content-Type": "application/json"
@@ -52,7 +42,7 @@ class CadastroMineriosService {
                 this.showSuccessModal = true;
                 return {success: true, data: response.data}
             } catch (error) {
-                console.error("Erro ao cadastrar análise", error);
+                console.error("Erro ao cadastrar minério", error);
                 this.mensagemErro = this.getErrorMessage(error);
                 this.showErrorModal = true;
                 return {success: false, errorMessage: this.mensagemErro}
@@ -87,37 +77,7 @@ class CadastroMineriosService {
         if (setShowNullModal) setShowNullModal(false);
         this.showSuccessModal = false;
         this.showErrorModal = false;
-        this.showNullModal = false
     };
-
-    async getAnaliseDoDia(){
-            try {
-                const response = await axios.get("http://localhost:8080/");
-                return response.data;
-            }catch (error){
-                console.error("Erro ao buscar análises do dia:", error);
-                return [];
-            }
-    }
-
-    async getAnalisesPorData(date) {
-        try {
-            const response = await axios.get(`http://localhost:8080/analise-minerios/por-data?data=${date}`);
-
-            if (response.data.length === 0) {
-                this.mensagemErro = "Não há informações cadastradas nessa data.";
-                this.showErrorModal = true;
-                return { success: false, message: "Nenhum dado encontrado." };
-            }
-            this.showSuccessModal = true;
-            return { success: true, data: response.data };
-        } catch (error) {
-            console.error("Erro ao buscar informações:", error);
-            this.mensagemErro = this.getErrorMessage(error);
-            this.showErrorModal = true;
-            return { success: false, message: error.message };
-        }
-    }
 
 }
 
