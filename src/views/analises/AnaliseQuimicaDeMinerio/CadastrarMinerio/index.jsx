@@ -6,7 +6,7 @@ import {
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement, Select, WrapItem
+    Input, InputGroup, InputLeftElement, WrapItem
 } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
@@ -23,7 +23,6 @@ export default function CadastrarMinerio() {
     const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
     const formatted_date = format(current_date, "dd/MM/yyyy");
     const [formData, setFormData] = useState(service.formData);
-    const [tipoMinerio, setTipoMinerio] = useState('');
 
     const handleCadastrar = async (e) => {
         e.preventDefault();
@@ -46,11 +45,7 @@ export default function CadastrarMinerio() {
         }
     }
 
-    const handleTipoMinerio = (e) => {
-        const value = e.target.value;
-        setTipoMinerio(value);
-        service.handleChange({target: {name: 'minerio', value}}, setFormData);
-    }
+
 
     const handleChange = (e) => {
         service.handleChange(e, setFormData);

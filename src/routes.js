@@ -3,7 +3,6 @@ import {Icon} from "@chakra-ui/react";
 import Home from "views/main";
 import SignInCentered from "./views/auth/signIn";
 import Dashboard from "views/admin/default";
-import AnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio";
 import CadastroLeitoDeFusao from "./views/main/AlteracaoLeitoDeFusao";
 import AnaliseGusa from "./views/analises/CadastrarAnaliseGusa";
 import AnaliseEscoria from "./views/analises/AnaliseEscoria";
