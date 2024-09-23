@@ -33,7 +33,7 @@ class CadastroMineriosService {
 
     salvar = async () => {
             try {
-                const response = await axios.post("http://localhost:8080/cadastrar-minerios",
+                const response = await axios.post("http://localhost:8080/minerios/cadastrar",
                     this.formData, {
                     headers: {
                         "Content-Type": "application/json"
@@ -78,6 +78,34 @@ class CadastroMineriosService {
         this.showSuccessModal = false;
         this.showErrorModal = false;
     };
+
+    async getCadastrosDoDia(){
+        try {
+            const response = await axios.get("http://localhost:8080/minerios")
+            return response.data;
+        }catch (error){
+            console.log("Erro ao buscar cadastros do dia", error);
+            return [];
+        }
+    }
+
+    async getCadastrosPorData(data){
+        try {
+            const response = await axios.get(`http://localhost:8080/minerios/por-data?data=${data}`);
+            if (response.data.length === 0) {
+                this.mensagemErro = "Não há informações cadastradas nessa data.";
+                this.showErrorModal = true;
+                return { success: false, message: "Nenhum dado encontrado." };
+            }
+            this.showSuccessModal = true;
+            return { success: true, data: response.data };
+        }catch (error){
+            console.log("Erro ao buscar cadastros do dia", error);
+            this.mensagemErro = this.getErrorMessage(error);
+            this.showErrorModal = true;
+        }
+    }
+
 
 }
 

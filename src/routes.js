@@ -20,6 +20,7 @@ import PGCS from "./views/main/ControleDeCorridas/PesoGusaConsumoCarvao/index";
 import VerAnaliseGusa from "./views/analises/VerAnaliseGusa";
 import VerAnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio/VerAnalisesMinerio/index";
 import VerAnaliseMinerioEscoria from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria";
+import PesquisarCadastroMinerios from "./views/analises/AnaliseQuimicaDeMinerio/PesquisarCadastroMinerios";
 
 const routes = [
     {
@@ -100,7 +101,6 @@ const routes = [
         name: "Cadastrar Análise Minério",
         hidden: true
     },
-
     {
         layout: "/admin",
         path:"/analise-gusa",
@@ -108,7 +108,6 @@ const routes = [
         name:"Análise Gusa",
         hidden: true
     },
-
     {
         layout: "/admin",
         path:"/pessoal",
@@ -135,6 +134,13 @@ const routes = [
         path: "/ver-analise-minerio-escoria",
         component: VerAnaliseMinerioEscoria,
         name: "Análise Química de Minério e Escória",
+        hidden: true
+    },
+    {
+      layout: "/admin",
+      path: "/pesquisar-minerios",
+      component: PesquisarCadastroMinerios,
+      name: "Pesquisar Cadastro de minérios",
         hidden: true
     },
     {

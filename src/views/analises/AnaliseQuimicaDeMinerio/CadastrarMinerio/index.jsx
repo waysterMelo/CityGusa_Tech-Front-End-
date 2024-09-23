@@ -66,8 +66,8 @@ export default function CadastrarMinerio() {
                     width={'100%'}
                     gridArea={{md: "2x1"}}>
                     <Flex direction='column'>
-                        <Banner url_voltar={'/admin/analises'} texto_primario={'CADASTRAR ANÁLISES DE MINÉRIO'}
-                                primeiro_botao={'ver análises por data'}
+                        <Banner texto_primario={'CADASTRO DE MINÉRIO'}
+                                primeiro_botao={'pesquisar minérios'} url={'pesquisar-minerios'}
                         />
                     </Flex>
                 </Flex>
