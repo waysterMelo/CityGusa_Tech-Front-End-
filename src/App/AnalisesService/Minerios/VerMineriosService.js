@@ -52,7 +52,6 @@ class VerMineriosService {
             return { success: false, message: error.message };
         }
     }
-
 }
 
 export default VerMineriosService;

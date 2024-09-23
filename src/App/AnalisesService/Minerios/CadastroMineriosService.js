@@ -10,7 +10,8 @@ class CadastroMineriosService {
             lote:'',
             patio:'',
             transportador:'',
-            frete:''
+            frete:'',
+            createdAt:''
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -106,6 +107,23 @@ class CadastroMineriosService {
         }
     }
 
+    async getMineriosPorLote(lote){
+        try {
+            const response = await axios.get(`http://localhost:8080/minerios/pesquisar-lote?lote=${lote}`);
+            if (response.data.length === 0) {
+                this.mensagemErro = "Nenhum dado encontrado.";
+                this.showErrorModal = true;
+                return { success: false, message: "Nenhum dado encontrado." };
+            }
+            this.showSuccessModal = true;
+            return { success: true, data: response.data };
+        }catch (error) {
+            console.error("Erro ao buscar informações por lote:", error);
+            this.mensagemErro = this.getErrorMessage(error);
+            this.showErrorModal = true;
+            return { success: false, message: error.message };
+        }
+    }
 
 }
 

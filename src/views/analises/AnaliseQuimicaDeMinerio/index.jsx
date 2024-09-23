@@ -1,12 +1,19 @@
 import React, {useRef, useState} from "react";
 import {
-    Box, Button,
+    Box,
+    Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent,
+    DrawerFooter, DrawerHeader, DrawerOverlay,
     Flex,
     FormControl,
     FormLabel,
     Grid,
     GridItem,
-    Input, InputGroup, InputLeftElement, Select, WrapItem
+    Input,
+    InputGroup,
+    InputLeftElement,
+    Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr,
+    useDisclosure,
+    WrapItem
 } from "@chakra-ui/react";
 import {format} from "date-fns";
 import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
@@ -23,7 +30,23 @@ export default function AnaliseQuimicaDeMinerio() {
     const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
     const formatted_date = format(current_date, "dd/MM/yyyy");
     const [formData, setFormData] = useState(service.formData);
-    const [tipoMinerio, setTipoMinerio] = useState('');
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const firstField = React.useRef()
+    const [lotePesquisa, setLotePesquisa] = useState("");
+    const [resultadosLote, setResultadosLote] = useState([]);
+
+    const handleLoteChange = async (e) => {
+        const { value } =  e.target;
+        setLotePesquisa(value);
+        if (value.length > 0) {
+            const rs  = await service.getMineriosPorLote(value);
+            if (rs.success) {
+                setResultadosLote(rs.data);
+            }
+        }else{
+            setResultadosLote([]);
+        }
+    }
 
     const handleCadastrar = async (e) => {
         e.preventDefault();
@@ -44,12 +67,6 @@ export default function AnaliseQuimicaDeMinerio() {
             setShowErrorModal(true);
             setMensagemErro('Erro ao realizar a operação. Tente novamente mais tarde.')
         }
-    }
-
-    const handleTipoMinerio = (e) => {
-        const value = e.target.value;
-        setTipoMinerio(value);
-        service.handleChange({target: {name: 'minerio', value}}, setFormData);
     }
 
     const handleChange = (e) => {
@@ -95,21 +112,77 @@ export default function AnaliseQuimicaDeMinerio() {
             </Grid>
             <Grid templateColumns='repeat(7, 1fr)'  mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
                   w={'96%'}>
-                <GridItem colSpan={2}>
+                <GridItem colSpan={2} className={'me-2'}>
                     <FormControl>
                         <FormLabel marginTop={3}>Tipo Minério</FormLabel>
                     <InputGroup>
                         <InputLeftElement pointerEvents='none'>
                             <DragHandleIcon color='blue'/>
                         </InputLeftElement>
-                        <Select className={'text-center'} placeholder={'Selecione o tipo'} value={tipoMinerio}
-                                onChange={handleTipoMinerio}>
-                            <option value="Extrativa">Extrativa</option>
-                            <option value="Comisa">Comisa</option>
-                            <option value="Bassari">Bassari</option>
-                        </Select>
+                        <Input className={'text-uppercase'}></Input>
                     </InputGroup>
                     </FormControl>
+                </GridItem>
+                <GridItem colSpan={2}>
+                    <FormControl>
+                        <FormLabel marginTop={3} className={'invisible'}>Pesquisar por Lote</FormLabel>
+                        <InputGroup>
+                          <Button onClick={onOpen} colorScheme={'facebook'}>Pesquisar por Lote</Button>
+                        </InputGroup>
+                    </FormControl>
+                    <Drawer
+                        isOpen={isOpen}
+                        placement='right'
+                        initialFocusRef={firstField}
+                        onClose={onClose}>
+                        <DrawerOverlay />
+                        <DrawerContent>
+                            <DrawerCloseButton />
+                            <DrawerHeader borderBottomWidth='1px'>
+                              Pesquisar Lote
+                            </DrawerHeader>
+
+                            <DrawerBody>
+                                <Stack spacing='24px'>
+                                    <Box>
+                                        <FormLabel htmlFor='lote'>Nome do lote</FormLabel>
+                                        <Input
+                                            ref={firstField}
+                                            id='lote'
+                                            placeholder='Digite o lote'
+                                            value={lotePesquisa}
+                                            onChange={handleLoteChange}
+                                        />
+                                    </Box>
+                                    <TableContainer>
+                                        <Table variant='striped' colorScheme='teal' className={'table table-active'}>
+                                            <Thead>
+                                                <Tr>
+                                                    <Th>LOTE</Th>
+                                                    <Th>DATA</Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody>
+                                                {resultadosLote.map((minerio) => (
+                                                    <Tr key={minerio.id}>
+                                                        <Td>{minerio.lote}</Td>
+                                                        <Td>{minerio.createdAt}</Td>
+                                                    </Tr>
+                                                ))}
+                                            </Tbody>
+                                        </Table>
+                                    </TableContainer>
+                                </Stack>
+                            </DrawerBody>
+
+                            <DrawerFooter borderTopWidth='1px'>
+                                <Button variant='outline' mr={3} onClick={onClose}>
+                                    Cancelar
+                                </Button>
+                                <Button colorScheme='blue'>Pesquisar</Button>
+                            </DrawerFooter>
+                        </DrawerContent>
+                    </Drawer>
                 </GridItem>
             </Grid>
             <Grid templateColumns='repeat(6, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'}
