@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import {Box, Flex, Grid, Heading, Input, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import {Button, CardBody,  Modal} from "react-bootstrap";
 import Banner from "../../../../components/banner/Banner";
-import VerMineriosService from "../../../../App/AnalisesService/Minerios/VerMineriosService";
+import CadastrarAnaliseMinerioService from "../../../../App/AnalisesService/Minerios/CadastrarAnaliseMinerioService";
 
 
 const VerAnalisesMinerios = () => {
 
-    const service = useRef(new VerMineriosService()).current;
+    const service = useRef(new CadastrarAnaliseMinerioService()).current;
     const [analises, setAnalises] = useState([]);
     const [dataSelect, setDataSelect] = useState([]);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);

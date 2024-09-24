@@ -1,17 +1,19 @@
 import axios from "axios";
 
-class CadastroMineriosService {
+class CadastrarAnaliseMinerioService {
 
     constructor() {
         this.formData = {
-            data: '',
-            minerio:'',
-            valorTonelada:'',
-            lote:'',
-            patio:'',
-            transportador:'',
-            frete:'',
-            createdAt:''
+           minerio:'',
+            lote: '',
+            patio: '',
+            tonelada:'',
+            ferro:'',
+            silica:'',
+            aluminio:'',
+            fosforo:'',
+            manganes:'',
+            ppc:''
         }
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -20,21 +22,23 @@ class CadastroMineriosService {
 
     resetFormData = (setFormData) => {
         this.formData = {
-            data: '',
             minerio:'',
-            valorTonelada:'',
-            lote:'',
-            patio:'',
-            transportador:'',
-            frete:'',
-            createdAt:''
+            lote: '',
+            patio: '',
+            tonelada:'',
+            ferro:'',
+            silica:'',
+            aluminio:'',
+            fosforo:'',
+            manganes:'',
+            ppc:''
         };
         setFormData(this.formData);
     }
 
     salvar = async () => {
         try {
-            const response = await axios.post("http://localhost:8080/minerios/cadastrar",
+            const response = await axios.post("http://localhost:8080/analise-minerio",
                 this.formData, {
                     headers: {
                         "Content-Type": "application/json"
@@ -49,15 +53,6 @@ class CadastroMineriosService {
             return {success: false, errorMessage: this.mensagemErro}
         }
     }
-
-    handleChange = (e, setFormData) => {
-        const { name, value } = e.target;
-        this.formData = {
-            ...this.formData,
-            [name]: value
-        };
-        setFormData(this.formData);
-    };
 
     getErrorMessage = (error) => {
         if(error.response){
@@ -80,19 +75,38 @@ class CadastroMineriosService {
         this.showErrorModal = false;
     };
 
-    async getCadastrosDoDia(){
+    async getMineriosPorLote(lote){
         try {
-            const response = await axios.get("http://localhost:8080/minerios")
+            const response = await axios.get(`http://localhost:8080/minerios/pesquisar-lote?lote=${lote}`);
+            if (response.data.length === 0) {
+                this.mensagemErro = "Nenhum dado encontrado.";
+                this.showErrorModal = true;
+                return { success: false, message: "Nenhum dado encontrado." };
+            }
+            this.showSuccessModal = true;
+            return { success: true, data: response.data };
+        }catch (error) {
+            console.error("Erro ao buscar informações por lote:", error);
+            this.mensagemErro = this.getErrorMessage(error);
+            this.showErrorModal = true;
+            return { success: false, message: error.message };
+        }
+    }
+
+    async getAnaliseDoDia(){
+        try {
+            const response = await axios.get("http://localhost:8080/analise-minerio");
             return response.data;
         }catch (error){
-            console.log("Erro ao buscar cadastros do dia", error);
+            console.error("Erro ao buscar análises do dia:", error);
             return [];
         }
     }
 
-    async getCadastrosPorData(data){
+    async getAnalisesPorData(date) {
         try {
-            const response = await axios.get(`http://localhost:8080/minerios/por-data?data=${data}`);
+            const response = await axios.get(`http://localhost:8080/analise-minerio/por-data?data=${date}`);
+
             if (response.data.length === 0) {
                 this.mensagemErro = "Não há informações cadastradas nessa data.";
                 this.showErrorModal = true;
@@ -100,13 +114,23 @@ class CadastroMineriosService {
             }
             this.showSuccessModal = true;
             return { success: true, data: response.data };
-        }catch (error){
-            console.log("Erro ao buscar cadastros do dia", error);
+        } catch (error) {
+            console.error("Erro ao buscar informações:", error);
             this.mensagemErro = this.getErrorMessage(error);
             this.showErrorModal = true;
+            return { success: false, message: error.message };
         }
     }
 
+    handleChange = (e, setFormData) => {
+        const { name, value } = e.target;
+        this.formData = {
+            ...this.formData,
+            [name]: value
+        };
+        setFormData(this.formData);
+    };
+
 }
 
-export default CadastroMineriosService;
+export default CadastrarAnaliseMinerioService;

@@ -27,6 +27,7 @@ export default function CadastrarMinerio() {
     const handleCadastrar = async (e) => {
         e.preventDefault();
         try {
+            console.log(formData.minerio)
             const rs = await service.salvar();
             if (rs.success){
                 setShowSuccessModal(true);

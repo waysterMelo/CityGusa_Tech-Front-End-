@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {
     Box,
     Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent,
@@ -20,11 +20,11 @@ import {CalendarIcon, ChevronRightIcon, DragHandleIcon} from "@chakra-ui/icons";
 import Banner from "../../../components/banner/Banner";
 import InputMask from "react-input-mask";
 import {Modal} from "react-bootstrap";
-import CadastroMineriosService from "../../../App/AnalisesService/Minerios/CadastroMineriosService";
+import CadastrarAnaliseMinerioService from "../../../App/AnalisesService/Minerios/CadastrarAnaliseMinerioService";
 
 export default function AnaliseQuimicaDeMinerio() {
     const current_date = new Date();
-    const service = useRef(new CadastroMineriosService()).current;
+    const [service] = useState(new CadastrarAnaliseMinerioService());
     const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
     const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
@@ -34,7 +34,14 @@ export default function AnaliseQuimicaDeMinerio() {
     const firstField = React.useRef()
     const [lotePesquisa, setLotePesquisa] = useState("");
     const [resultadosLote, setResultadosLote] = useState([]);
+    const [loteSelecionado, setLoteSelecionado] = useState(null);
 
+    // Atualizar o estado ao selecionar um lote da tabela
+    const handleLoteSelecionado = (minerioSelecionado) => {
+            setLoteSelecionado(minerioSelecionado);
+    }
+
+    // Função para pesquisar lotes
     const handleLoteChange = async (e) => {
         const { value } =  e.target;
         setLotePesquisa(value);
@@ -48,30 +55,45 @@ export default function AnaliseQuimicaDeMinerio() {
         }
     }
 
+    // Função para pesquisar lotes
+    const handleLoteConfirm = () => {
+        if (loteSelecionado) {
+            setFormData({
+                ...formData,
+                minerio: loteSelecionado.minerio,
+                lote: loteSelecionado.lote,
+                patio: loteSelecionado.patio,
+            });
+            onClose();
+        }
+    };
+
+
     const handleCadastrar = async (e) => {
         e.preventDefault();
         try {
             const rs = await service.salvar();
-            if (rs.success){
+            if (rs.success) {
                 setShowSuccessModal(true);
                 setShowErrorModal(false);
                 setMensagemErro('');
-                service.resetFormData(setFormData);
-            }else{
+                service.resetFormData(setFormData); // Mantenha o reset para limpar o formulário.
+            } else {
                 setShowSuccessModal(false);
                 setShowErrorModal(true);
                 setMensagemErro(rs.errorMessage || 'Ocorreu um erro ao salvar.');
             }
-        }catch (err){
+        } catch (err) {
             setShowSuccessModal(false);
             setShowErrorModal(true);
-            setMensagemErro('Erro ao realizar a operação. Tente novamente mais tarde.')
+            setMensagemErro('Erro ao realizar a operação. Tente novamente mais tarde.');
         }
-    }
+    };
 
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
     };
+
 
     const handleClose = () => {
         service.handleClose(setShowSuccessModal, setShowErrorModal);
@@ -91,7 +113,7 @@ export default function AnaliseQuimicaDeMinerio() {
                     gridArea={{md: "2x1"}}>
                     <Flex direction='column'>
                         <Banner url_voltar={'/admin/analises'} texto_primario={'CADASTRAR ANÁLISES DE MINÉRIO'}
-                                primeiro_botao={'ver análises por data'}
+                                primeiro_botao={'ver análises por data'} url={'ver-analises-minerio'}
                         />
                     </Flex>
                 </Flex>
@@ -119,7 +141,7 @@ export default function AnaliseQuimicaDeMinerio() {
                         <InputLeftElement pointerEvents='none'>
                             <DragHandleIcon color='blue'/>
                         </InputLeftElement>
-                        <Input className={'text-uppercase'}></Input>
+                        <Input className={'text-uppercase'} name={'minerio'} value={formData.minerio} readOnly onChange={handleChange}></Input>
                     </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -155,7 +177,7 @@ export default function AnaliseQuimicaDeMinerio() {
                                         />
                                     </Box>
                                     <TableContainer>
-                                        <Table variant='striped' colorScheme='teal' className={'table table-active'}>
+                                        <Table variant='simple' colorScheme='teal' className={'table table-hover'}>
                                             <Thead>
                                                 <Tr>
                                                     <Th>LOTE</Th>
@@ -164,7 +186,9 @@ export default function AnaliseQuimicaDeMinerio() {
                                             </Thead>
                                             <Tbody>
                                                 {resultadosLote.map((minerio) => (
-                                                    <Tr key={minerio.id}>
+                                                    <Tr key={minerio.id}
+                                                    onClick={() => handleLoteSelecionado(minerio)}
+                                                        style={{cursor: "pointer", background: loteSelecionado?.id === minerio.id ? "BEE3F8" : "transparent"}}>
                                                         <Td>{minerio.lote}</Td>
                                                         <Td>{minerio.createdAt}</Td>
                                                     </Tr>
@@ -179,7 +203,7 @@ export default function AnaliseQuimicaDeMinerio() {
                                 <Button variant='outline' mr={3} onClick={onClose}>
                                     Cancelar
                                 </Button>
-                                <Button colorScheme='blue'>Pesquisar</Button>
+                                <Button colorScheme='blue' onClick={handleLoteConfirm} isDisabled={!loteSelecionado}>Selecionar</Button>
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
@@ -194,7 +218,7 @@ export default function AnaliseQuimicaDeMinerio() {
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
                             </InputLeftElement>
-                            <Input w={'100%'} name={'lote'} value={formData.lote} onChange={handleChange}
+                            <Input w={'100%'} name={'lote'} value={formData.lote} readOnly={true} onChange={handleChange}
                                    className={'text-center'} />
                         </InputGroup>
                     </FormControl>
@@ -208,7 +232,7 @@ export default function AnaliseQuimicaDeMinerio() {
                             </InputLeftElement>
                             <Input w={'100%'}  className={'text-center'}
                                   name={'patio'} onChange={handleChange}
-                                   textTransform={'uppercase'} value={formData.patio}/>
+                                   textTransform={'uppercase'} value={formData.patio} readOnly={true}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
