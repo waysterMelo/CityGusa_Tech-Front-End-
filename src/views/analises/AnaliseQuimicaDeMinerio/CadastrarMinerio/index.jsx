@@ -82,7 +82,7 @@ export default function CadastrarMinerio() {
                             <InputLeftElement>
                                 <CalendarIcon color='blue'/>
                             </InputLeftElement>
-                            <Input fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
+                            <Input className={'bg-dark-subtle border-black fw-bold'} fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>

@@ -60,12 +60,6 @@ const routes = [
                 path: "/analise-minerio",
                 component: CANQE,
                 name: "Cadastrar Análise Minério",
-            },
-            {
-                layout: "/admin",
-                path: "/ver-analises-minerio",
-                component: VerAnaliseQuimicaDeMinerio,
-                name: "Pesquisar Análise",
             }
         ]
     },

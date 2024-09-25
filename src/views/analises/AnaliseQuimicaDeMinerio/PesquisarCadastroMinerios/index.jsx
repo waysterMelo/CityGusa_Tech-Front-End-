@@ -82,7 +82,7 @@ const PesquisarCadastroMinerios = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url_voltar={'analise-minerio'}>
+                <Banner url_voltar={'cadastrar-minerio'}>
                     <Grid width={'50%'}>
                         <Box bg={'white'} className={'p-5'}>
                             <Heading size='md' className={'pb-3'}>Pesquisar Informação por data</Heading>

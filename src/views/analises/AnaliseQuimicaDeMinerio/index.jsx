@@ -36,6 +36,11 @@ export default function AnaliseQuimicaDeMinerio() {
     const [resultadosLote, setResultadosLote] = useState([]);
     const [loteSelecionado, setLoteSelecionado] = useState(null);
 
+    const formatDate =(dateString) => {
+        const options = {day: '2-digit', month: '2-digit', year: 'numeric'};
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
+    }
+
     // Atualizar o estado ao selecionar um lote da tabela
     const handleLoteSelecionado = (minerioSelecionado) => {
             setLoteSelecionado(minerioSelecionado);
@@ -128,7 +133,7 @@ export default function AnaliseQuimicaDeMinerio() {
                             <InputLeftElement>
                                 <CalendarIcon color='blue'/>
                             </InputLeftElement>
-                            <Input fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
+                            <Input className={'bg-dark-subtle fw-bold border-black'} fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -178,7 +183,7 @@ export default function AnaliseQuimicaDeMinerio() {
                                         />
                                     </Box>
                                     <TableContainer>
-                                        <Table variant='simple' colorScheme='teal' className={'table table-hover'}>
+                                        <Table className={'table table-dark'}>
                                             <Thead>
                                                 <Tr>
                                                     <Th>LOTE</Th>
@@ -191,7 +196,7 @@ export default function AnaliseQuimicaDeMinerio() {
                                                     onClick={() => handleLoteSelecionado(minerio)}
                                                         style={{cursor: "pointer", background: loteSelecionado?.id === minerio.id ? "BEE3F8" : "transparent"}}>
                                                         <Td>{minerio.lote}</Td>
-                                                        <Td>{minerio.createdAt}</Td>
+                                                        <Td>{formatDate(minerio.createdAt)}</Td>
                                                     </Tr>
                                                 ))}
                                             </Tbody>
