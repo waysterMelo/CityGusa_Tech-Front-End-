@@ -142,7 +142,7 @@ export default function AnaliseQuimicaDeMinerio() {
                         <InputLeftElement pointerEvents='none'>
                             <DragHandleIcon color='blue'/>
                         </InputLeftElement>
-                        <Input className={'text-uppercase bg-dark-subtle text-black'} name={'minerio'} value={formData.minerio} readOnly onChange={handleChange}></Input>
+                        <Input className={'text-uppercase bg-dark-subtle text-black border-black fw-bold'} name={'minerio'} value={formData.minerio} readOnly onChange={handleChange}></Input>
                     </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -220,7 +220,7 @@ export default function AnaliseQuimicaDeMinerio() {
                                 <ChevronRightIcon color='blue'/>
                             </InputLeftElement>
                             <Input w={'100%'} name={'lote'} value={formData.lote} readOnly={true} onChange={handleChange}
-                                   className={'text-center bg-dark-subtle text-black'} />
+                                   className={'text-center bg-dark-subtle text-black border-black fw-bold'} />
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -231,7 +231,7 @@ export default function AnaliseQuimicaDeMinerio() {
                             <InputLeftElement pointerEvents='none'>
                                 <ChevronRightIcon color='blue'/>
                             </InputLeftElement>
-                            <Input w={'100%'}  className={'text-center bg-dark-subtle text-black'}
+                            <Input w={'100%'}  className={'text-center bg-dark-subtle text-black border-black fw-bold'}
                                   name={'patio'} onChange={handleChange}
                                    textTransform={'uppercase'} value={formData.patio} readOnly={true}/>
                         </InputGroup>
