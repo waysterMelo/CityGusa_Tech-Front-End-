@@ -58,13 +58,14 @@ export default function AnaliseQuimicaDeMinerio() {
     // Função para pesquisar lotes
     const handleLoteConfirm = () => {
         if (loteSelecionado) {
-            setFormData({
-                ...formData,
-                minerio: loteSelecionado.minerio,
-                lote: loteSelecionado.lote,
-                patio: loteSelecionado.patio,
-            });
-            onClose();
+          const updatedDataForm ={
+              ...formData,
+              minerio: loteSelecionado.minerio,
+              lote: loteSelecionado.lote,
+              patio: loteSelecionado.patio
+          };
+          setFormData(updatedDataForm);
+          onClose();
         }
     };
 
@@ -72,7 +73,7 @@ export default function AnaliseQuimicaDeMinerio() {
     const handleCadastrar = async (e) => {
         e.preventDefault();
         try {
-            const rs = await service.salvar();
+            const rs = await service.salvar(formData);
             if (rs.success) {
                 setShowSuccessModal(true);
                 setShowErrorModal(false);

@@ -36,10 +36,10 @@ class CadastrarAnaliseMinerioService {
         setFormData(this.formData);
     }
 
-    salvar = async () => {
+    salvar = async (formData) => {
         try {
             const response = await axios.post("http://localhost:8080/analise-minerio",
-                this.formData, {
+                formData, {
                     headers: {
                         "Content-Type": "application/json"
                     }
@@ -124,11 +124,10 @@ class CadastrarAnaliseMinerioService {
 
     handleChange = (e, setFormData) => {
         const { name, value } = e.target;
-        this.formData = {
-            ...this.formData,
+        setFormData(prevFormData => ({
+            ...prevFormData,
             [name]: value
-        };
-        setFormData(this.formData);
+        }));
     };
 
 }
