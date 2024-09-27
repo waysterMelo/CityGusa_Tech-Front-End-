@@ -46,7 +46,7 @@ const routes = [
         hidden: true
     },
     {
-        name: "Minérios",
+        name: "Análises",
         icon: <Icon as={FaBars} width='20px' height='20px' />,
         children: [ // Define os itens do dropdown
             {
@@ -60,6 +60,20 @@ const routes = [
                 path: "/analise-minerio",
                 component: CANQE,
                 name: "Cadastrar Análise Minério",
+            },
+            {
+                layout: "/admin",
+                path: "/analise-escoria",
+                component: AnaliseEscoria,
+                name: "Análise de Escória",
+                hidden: true
+            },
+            {
+                layout: "/admin",
+                path:"/analise-gusa",
+                component: AnaliseGusa,
+                name:"Análise Gusa",
+                hidden: true
             }
         ]
     },
@@ -96,6 +110,7 @@ const routes = [
         hidden: true
     },
     {
+        //for dropdown
         layout: "/admin",
         path:"/analise-gusa",
         component: AnaliseGusa,

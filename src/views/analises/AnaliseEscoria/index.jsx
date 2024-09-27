@@ -56,7 +56,7 @@ export default function AnaliseEscoria() {
                             <InputLeftElement>
                                 <CalendarIcon color='blue'/>
                             </InputLeftElement>
-                            <Input fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
+                            <Input className={'bg-dark-subtle border-black fw-bold'} fontSize={'15px'} value={formatted_date} pointerEvents={'none'}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
@@ -67,7 +67,7 @@ export default function AnaliseEscoria() {
                         <InputLeftElement>
                             <TimeIcon color='blue'/>
                         </InputLeftElement>
-                        <Input w={'70%'} value={currentHour}/>
+                        <Input  className={'bg-dark-subtle border-black fw-bold'} w={'70%'} value={currentHour}/>
                     </InputGroup>
                 </FormControl>
             </Grid>
