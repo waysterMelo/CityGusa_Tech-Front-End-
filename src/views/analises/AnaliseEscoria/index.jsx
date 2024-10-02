@@ -75,7 +75,7 @@ export default function AnaliseEscoria() {
             <Grid templateColumns='repeat(9, 1fr)' mx={'auto'} gab={2} bg={'whiteAlpha.800'} px={'5'} w={'96%'} p={'10'}>
                 <GridItem>
                     <FormControl>
-                        <FormLabel className={'text-center'}>CaO</FormLabel>
+                        <FormLabel className={'text-center'}>Cálcio</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <DragHandleIcon color='blue'/>
@@ -86,7 +86,7 @@ export default function AnaliseEscoria() {
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'}>SiO2</FormLabel>
+                        <FormLabel className={'text-center'}>Silício</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <DragHandleIcon color='blue'/>
@@ -97,7 +97,7 @@ export default function AnaliseEscoria() {
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'}>AI2O3</FormLabel>
+                        <FormLabel className={'text-center'}>Alumínio</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <DragHandleIcon color='blue'/>
@@ -108,7 +108,7 @@ export default function AnaliseEscoria() {
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'}>MgO</FormLabel>
+                        <FormLabel className={'text-center'}>Magnésio</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <DragHandleIcon color='blue'/>
@@ -119,7 +119,7 @@ export default function AnaliseEscoria() {
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'}>FeO</FormLabel>
+                        <FormLabel className={'text-center'}>Ferro</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <DragHandleIcon color='blue'/>
@@ -130,7 +130,7 @@ export default function AnaliseEscoria() {
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'}>MnO</FormLabel>
+                        <FormLabel className={'text-center'}>Manganês</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <DragHandleIcon color='blue'/>
@@ -152,18 +152,18 @@ export default function AnaliseEscoria() {
                 </GridItem>
                 <GridItem pl={1}>
                     <FormControl>
-                        <FormLabel className={'text-center'}>I B</FormLabel>
+                        <FormLabel className={'text-center'}>IB</FormLabel>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <DragHandleIcon color='blue'/>
                             </InputLeftElement>
-                            <Input w={'100%'} type={'number'} className={'text-center'}/>
+                            <Input w={'100%'} type={'number'} className={'fw-bolder bg-dark-subtle border-black'}/>
                         </InputGroup>
                     </FormControl>
                 </GridItem>
                 <Flex align={'end'} marginLeft={'10%'}>
                     <WrapItem>
-                        <Button colorScheme='whatsapp'>registrar</Button>
+                        <Button colorScheme='whatsapp'>Registrar</Button>
                     </WrapItem>
                 </Flex>
             </Grid>
