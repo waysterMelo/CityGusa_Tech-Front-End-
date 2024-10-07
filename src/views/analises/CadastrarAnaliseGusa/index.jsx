@@ -233,7 +233,6 @@ export default function AnaliseGusa() {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
             <Modal show={showErrorModal} onHide={handleClose}>
                 <Modal.Header className={'bg-danger'} closeButton>
                     <Modal.Title>Erro</Modal.Title>

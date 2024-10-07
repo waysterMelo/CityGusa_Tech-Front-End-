@@ -59,20 +59,20 @@ const routes = [
                 layout: "/admin",
                 path: "/analise-minerio",
                 component: CANQE,
-                name: "Cadastrar Análise Minério",
+                name: "Fazer Análise Minério",
             },
             {
                 layout: "/admin",
                 path: "/analise-escoria",
                 component: AnaliseEscoria,
-                name: "Análise de Escória",
+                name: "Fazer Análise de Escória",
                 hidden: true
             },
             {
                 layout: "/admin",
                 path:"/analise-gusa",
                 component: AnaliseGusa,
-                name:"Análise Gusa",
+                name:"Fazer Análise Gusa",
                 hidden: true
             }
         ]
