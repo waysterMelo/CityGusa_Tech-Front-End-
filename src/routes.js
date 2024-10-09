@@ -21,6 +21,7 @@ import VerAnaliseGusa from "./views/analises/VerAnaliseGusa";
 import VerAnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio/VerAnalisesMinerio/index";
 import VerAnaliseMinerioEscoria from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria";
 import PesquisarCadastroMinerios from "./views/analises/AnaliseQuimicaDeMinerio/PesquisarCadastroMinerios";
+import VerAnaliseEscoria from "./views/analises/AnaliseEscoria/VerAnalisesEscoria/index";
 
 const routes = [
     {
@@ -138,6 +139,21 @@ const routes = [
         name: "Vazamento e cargas Fundidas",
         hidden: true
     },
+    {
+        layout: "/admin",
+        path: "/ver-analise-minerio-escoria",
+        component: VerAnaliseMinerioEscoria,
+        name: "Análise Química de Minério e Escória",
+        hidden: true
+    },
+    {
+        layout: "/admin",
+        path: "/ver-analises-escoria",
+        component: VerAnaliseEscoria,
+        name: "Ver Análises de Escória",
+        hidden: true
+    },
+
     {
         layout: "/admin",
         path: "/ver-analise-minerio-escoria",
