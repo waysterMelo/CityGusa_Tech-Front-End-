@@ -4,7 +4,7 @@ class CadastrarAnaliseMinerioService {
 
     constructor() {
         this.formData = {
-           minerio:'',
+            minerioNome:'',
             lote: '',
             patio: '',
             tonelada:'',
@@ -22,7 +22,7 @@ class CadastrarAnaliseMinerioService {
 
     resetFormData = (setFormData) => {
         this.formData = {
-            minerio:'',
+            minerioNome:'',
             lote: '',
             patio: '',
             tonelada:'',

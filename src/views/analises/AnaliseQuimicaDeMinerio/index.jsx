@@ -63,16 +63,18 @@ export default function AnaliseQuimicaDeMinerio() {
     // Função para pesquisar lotes
     const handleLoteConfirm = () => {
         if (loteSelecionado) {
-          const updatedDataForm ={
-              ...formData,
-              minerio: loteSelecionado.minerio,
-              lote: loteSelecionado.lote,
-              patio: loteSelecionado.patio
-          };
-          setFormData(updatedDataForm);
-          onClose();
+            const updatedDataForm ={
+                ...formData,
+                minerioNome: loteSelecionado.minerioNome,
+                lote: loteSelecionado.lote,
+                patio: loteSelecionado.patio
+            };
+            setFormData(updatedDataForm);
+            onClose();
         }
     };
+
+
 
 
     const handleCadastrar = async (e) => {
@@ -147,7 +149,8 @@ export default function AnaliseQuimicaDeMinerio() {
                         <InputLeftElement pointerEvents='none'>
                             <DragHandleIcon color='blue'/>
                         </InputLeftElement>
-                        <Input className={'text-uppercase bg-dark-subtle text-black border-black fw-bold'} name={'minerio'} value={formData.minerio} readOnly onChange={handleChange}></Input>
+                        <Input className={'text-uppercase bg-dark-subtle text-black border-black fw-bold'}
+                               name={'minerioNome'} value={formData.minerioNome} readOnly={true} onChange={handleChange}></Input>
                     </InputGroup>
                     </FormControl>
                 </GridItem>
