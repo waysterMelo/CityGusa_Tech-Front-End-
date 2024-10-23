@@ -121,7 +121,7 @@ export default function AnaliseQuimicaDeMinerio() {
                     gridArea={{md: "2x1"}}>
                     <Flex direction='column'>
                         <Banner url_voltar={'/admin/analises'} texto_primario={'CADASTRAR ANÁLISES DE MINÉRIO'}
-                                primeiro_botao={'ver análises por data'} url={'ver-analises-minerio'}
+                                primeiro_botao={'consultar análises'} url={'ver-analises-minerio'}
                         />
                     </Flex>
                 </Flex>
