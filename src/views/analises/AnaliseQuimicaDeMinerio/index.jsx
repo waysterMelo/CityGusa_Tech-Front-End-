@@ -86,6 +86,7 @@ export default function AnaliseQuimicaDeMinerio() {
                 setShowErrorModal(false);
                 setMensagemErro('');
                 service.resetFormData(setFormData); // Mantenha o reset para limpar o formulário.
+                setLoteSelecionado(null);
             } else {
                 setShowSuccessModal(false);
                 setShowErrorModal(true);

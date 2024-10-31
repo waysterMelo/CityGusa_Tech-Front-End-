@@ -125,9 +125,9 @@ const VerAnaliseMinerioEscoria = () => {
                                 <Th>ID</Th>
                                 <Th className="text-center">Data</Th>
                                 <Th className="text-center">Real TN</Th>
-                                <Th className="text-center bg-dark">Ritmo</Th>
+                                <Th className="text-center bg-dark text-white">Ritmo</Th>
                                 <Th className="text-center">Tempo corrida <br/> (minutos)</Th>
-                                <Th className={'text-center bg-dark'}>Gusa por minuto</Th>
+                                <Th className={'text-center bg-dark text-white'}>Gusa por minuto</Th>
                                 <Th className={'text-center'}>Temperatura Gusa</Th>
                                 <Th className="text-center">Carvão KG/T</Th>
                                 <Th className="text-center">Carvão m<sup>3</sup>/t</Th>
@@ -144,9 +144,9 @@ const VerAnaliseMinerioEscoria = () => {
                                     <Td className="text-center">{corrida.id}</Td>
                                     <Td className="text-center">{formatDate(corrida.createdAt)}</Td>
                                     <Td className="text-center">{corrida.realTn}</Td>
-                                    <Td className="text-center bg-dark">{corrida.ritmo}</Td>
+                                    <Td className="text-center bg-dark text-white">{corrida.ritmo}</Td>
                                     <Td className="text-center">{corrida.tempoCorridaMinutos}</Td>
-                                    <Td className={'text-center bg-dark'}>{corrida.gusaMinuto}</Td>
+                                    <Td className={'text-center bg-dark text-white'}>{corrida.gusaMinuto}</Td>
                                     <Td className={'text-center'}>{corrida.temperatura}</Td>
                                     <Td className="text-center">{corrida.carvaoKg}</Td>
                                     <Td className="text-center">{corrida.carvaoMetros}</Td>
