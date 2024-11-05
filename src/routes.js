@@ -8,6 +8,7 @@ import AnaliseGusa from "./views/analises/CadastrarAnaliseGusa";
 import AnaliseEscoria from "./views/analises/AnaliseEscoria";
 import Pessoal from "./views/main/FrequenciaPessoal";
 import Corrida from "./views/main/ControleDeCorridas/CadastrarCorrida";
+import Operacional from "./views/operacional/index";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import CadastrarMinerios from "./views/analises/AnaliseQuimicaDeMinerio/CadastrarMinerio/index";
 import { FaBars } from "react-icons/fa";
@@ -130,6 +131,13 @@ const routes = [
         path: "/controle-corrida",
         component:Corrida,
         name:"Controle das Corridas",
+        hidden: true
+    },
+    {
+        layout: "/admin",
+        path: "/operacional",
+        component:Operacional,
+        name:"Controle Operacional",
         hidden: true
     },
     {

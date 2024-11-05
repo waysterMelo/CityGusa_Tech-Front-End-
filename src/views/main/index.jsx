@@ -3,6 +3,7 @@ import React from "react";
 import {Box, Flex, Grid, Link, SimpleGrid, Text, useColorModeValue} from "@chakra-ui/react";
 import {Link as ReactLink} from "react-router-dom";
 import Corrida from "assets/img/Corrida.jpg";
+import Operacional from "assets/img/operacional.jpg";
 import NFT from "components/card/NFT";
 import Person from "assets/img/icons/person.webp"
 import Leito from "assets/img/backgrounds/leito.png";
@@ -54,6 +55,13 @@ export default function Home() {
                         </Flex>
 
                         <SimpleGrid columns={{ base: 1, md: 3 }} gap="3%">
+                            <NFT
+                                name="Controle Operacional"
+                                responsavel="Supervisor"
+                                image={Operacional}
+                                chamar_rota="/admin/operacional"
+                                responsavelImage={Person}
+                            />
                             <NFT
                                 name="Controle de Corridas"
                                 responsavel="Supervisor"
