@@ -1,7 +1,7 @@
 import React from "react";
 import {
-    Box,
-    Grid
+    Box, Flex, FormControl, FormLabel,
+    Grid, HStack, Input, SimpleGrid, Stack, Text
 } from "@chakra-ui/react";
 import Banner from "../../components/banner/Banner";
 
@@ -59,7 +59,69 @@ const ControleOperacional = () => {
             </Grid>
 
             <form onSubmit={''}>
+                <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} spacing={3} mt={4}>
+                    <Stack direction={['column', 'row']}>
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.5">
+                            <Text className="p-3 text-bg-dark text-center">Operacional</Text>
+                            <Flex gap={3} flexWrap="nowrap" p={4}>
+                                <FormControl id="gaiola" className="form-control">
+                                    <FormLabel className="fw-bold">Gaiola</FormLabel>
+                                    <Input type="text" bgColor="yellow.100" />
+                                </FormControl>
 
+                                <FormControl id="carga-hora" className="form-control">
+                                    <FormLabel className="fw-bold">Carga Hora</FormLabel>
+                                    <Input type="text" bgColor="yellow.100"  />
+                                </FormControl>
+
+                                <FormControl id="rt" className="form-control">
+                                    <FormLabel className="fw-bold">RT</FormLabel>
+                                    <Input type="text" bgColor="yellow.100" className="bg-dark-subtle"/>
+                                </FormControl>
+
+                                <FormControl id="vazao" className="form-control">
+                                    <FormLabel className="fw-bold">Vazão</FormLabel>
+                                    <Input type="text" bgColor="yellow.100"/>
+                                </FormControl>
+                            </Flex>
+                        </Box>
+                        <Box height="auto" bg="white" p={4} boxShadow="xs" rounded="md" flex="0.2">
+                            <Text className="p-3 text-bg-dark text-center">Pressão</Text>
+                            <HStack className="p-3">
+                                <FormControl className="form-control">
+                                    <FormLabel className={'fw-bold'}>Coroa</FormLabel>
+                                    <Input bgColor={'yellow.100'}/>
+                                </FormControl>
+                                <FormControl className="form-control">
+                                    <FormLabel className={'fw-bold'}>Topo</FormLabel>
+                                    <Input bgColor={'yellow.100'}/>
+                                </FormControl>
+                            </HStack>
+                        </Box>
+                        <Box height="auto" p={4} bg="white" boxShadow="xs" rounded="md" flex="0.21">
+                            <Text className="p-3 text-bg-dark text-center">Temperatura</Text>
+                            <HStack className="p-3">
+                                <FormControl className="form-control">
+                                    <FormLabel className={'fw-bold'}>Coroa</FormLabel>
+                                    <Input bgColor={'yellow.100'}/>
+                                </FormControl>
+                                <FormControl className="form-control">
+                                    <FormLabel className={'fw-bold'}>Topo</FormLabel>
+                                    <Input bgColor={'yellow.100'}/>
+                                </FormControl>
+                            </HStack>
+                        </Box>
+                        <Box height="auto" p={4} bg="white" boxShadow="xs" rounded="md" flex="0.12">
+                            <Text className="p-3 text-bg-dark text-center fw-bold">Sonda</Text>
+                            <HStack className="p-3">
+                                <FormControl className="form-control">
+                                    <FormLabel className={'fw-bold'}>Digite</FormLabel>
+                                    <Input bgColor={'yellow.100'}/>
+                                </FormControl>
+                            </HStack>
+                        </Box>
+                    </Stack>
+                </SimpleGrid>
             </form>
 
 
