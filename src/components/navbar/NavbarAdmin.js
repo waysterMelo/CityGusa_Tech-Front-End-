@@ -1,5 +1,5 @@
 // Chakra Imports
-import {Box, Flex, Link, Text, useColorModeValue} from '@chakra-ui/react';
+import {Box, Flex, Text, useColorModeValue} from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
@@ -72,9 +72,8 @@ export default function AdminNavbar(props) {
 				mb={gap}>
 				<Box mb={{ sm: '8px', md: '0px' }}>
 					{/* Here we create navbar brand, based on route name */}
-					<Link
+					<Text
 						color={mainText}
-						href='#'
 						bg='inherit'
 						borderRadius='inherit'
 						fontWeight='bold'
@@ -89,7 +88,7 @@ export default function AdminNavbar(props) {
 							boxShadow:'none'
 						}}>
 						{brandText}
-					</Link>
+					</Text>
 				</Box>
 
 				<Box ms='auto' w={{ sm: '100%', md: 'unset' }}>

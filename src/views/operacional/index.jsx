@@ -4,6 +4,7 @@ import {
     Grid, HStack, Input, SimpleGrid, Stack, Text
 } from "@chakra-ui/react";
 import Banner from "../../components/banner/Banner";
+import InputMask from "react-input-mask";
 
 const ControleOperacional = () => {
     // const service = useRef(new ControleOperacional()).current;
@@ -48,9 +49,9 @@ const ControleOperacional = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url={'vazamento-cargas-fundidas'} url_voltar={'/admin/home'} texto_primario={'CONTROLE OPERACIONAL'}
-                    texto_secundario={''}
-                    primeiro_botao={''}
+                <Banner url={'cargas-pressao-temperatura-sonda'} url_voltar={'/admin/home'} texto_primario={'CONTROLE OPERACIONAL'}
+                    texto_secundario={'Abaixo confira as informações inseridas'}
+                    primeiro_botao={'CARGAS | PRESSÃO | TEMPERATURA | SONDA'}
                     segundo_botao={''}
                     url_segundo_botao={'ver-analise-minerio-escoria'}
                         terceiro_botao={''}
@@ -61,22 +62,21 @@ const ControleOperacional = () => {
             <form onSubmit={''}>
                 <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} spacing={3} mt={4}>
                     <Stack direction={['column', 'row']}>
-                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.5">
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.39">
                             <Text className="p-3 text-bg-dark text-center">Operacional</Text>
                             <Flex gap={3} flexWrap="nowrap" p={4}>
                                 <FormControl id="gaiola" className="form-control">
                                     <FormLabel className="fw-bold">Gaiola</FormLabel>
-                                    <Input type="text" bgColor="yellow.100" />
+                                    <Input type="text" bgColor="yellow.100" className={'text-center'}/>
+                                </FormControl>
+                                <FormControl id="carga-hora" className="form-control">
+                                    <FormLabel className="fw-bold">Carga/Seca</FormLabel>
+                                    <Input type="text" bgColor="yellow.100" className={'text-center'} />
                                 </FormControl>
 
                                 <FormControl id="carga-hora" className="form-control">
-                                    <FormLabel className="fw-bold">Carga Hora</FormLabel>
-                                    <Input type="text" bgColor="yellow.100"  />
-                                </FormControl>
-
-                                <FormControl id="rt" className="form-control">
-                                    <FormLabel className="fw-bold">RT</FormLabel>
-                                    <Input type="text" bgColor="yellow.100" className="bg-dark-subtle"/>
+                                    <FormLabel className="fw-bold">Carga/Hora</FormLabel>
+                                    <Input type="text" bgColor="yellow.100" className={'text-center'} />
                                 </FormControl>
 
                                 <FormControl id="vazao" className="form-control">
@@ -85,12 +85,20 @@ const ControleOperacional = () => {
                                 </FormControl>
                             </Flex>
                         </Box>
-                        <Box height="auto" bg="white" p={4} boxShadow="xs" rounded="md" flex="0.2">
+                        <Box height="auto" bg="white" p={4} boxShadow="xs" rounded="md" flex="0.18">
                             <Text className="p-3 text-bg-dark text-center">Pressão</Text>
                             <HStack className="p-3">
                                 <FormControl className="form-control">
                                     <FormLabel className={'fw-bold'}>Coroa</FormLabel>
-                                    <Input bgColor={'yellow.100'}/>
+                                    <InputMask
+                                        mask={'9.99'}
+                                        // value={formData.silicioVisual}
+                                        // onChange={handleChange}
+                                        placeholder={'0.00'}
+                                        name={'pressao_coroa'}
+                                    >
+                                        {(inputProps) => <Input {...inputProps} type={'text'} bgColor={'yellow.100'} />}
+                                    </InputMask>
                                 </FormControl>
                                 <FormControl className="form-control">
                                     <FormLabel className={'fw-bold'}>Topo</FormLabel>
@@ -98,7 +106,7 @@ const ControleOperacional = () => {
                                 </FormControl>
                             </HStack>
                         </Box>
-                        <Box height="auto" p={4} bg="white" boxShadow="xs" rounded="md" flex="0.21">
+                        <Box height="auto" p={4} bg="white" boxShadow="xs" rounded="md" flex="0.18">
                             <Text className="p-3 text-bg-dark text-center">Temperatura</Text>
                             <HStack className="p-3">
                                 <FormControl className="form-control">
@@ -116,9 +124,35 @@ const ControleOperacional = () => {
                             <HStack className="p-3">
                                 <FormControl className="form-control">
                                     <FormLabel className={'fw-bold'}>Digite</FormLabel>
-                                    <Input bgColor={'yellow.100'}/>
+                                    <InputMask
+                                        mask={'9.9'}
+                                        placeholder={'0.0'}
+                                    >
+                                        {(inputProps) => <Input {...inputProps} className={''} bgColor={'yellow.100'} />}
+                                    </InputMask>
                                 </FormControl>
                             </HStack>
+                        </Box>
+                    </Stack>
+
+                    <Stack direction={['column', 'row']}>
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.1">
+                            <Text className="p-3 text-bg-dark text-center">Densidade</Text>
+                            <Flex gap={3} flexWrap="nowrap" p={4}>
+                                <FormControl id="gaiola" className="form-control">
+                                    <FormLabel className="fw-bold">KG/M³</FormLabel>
+                                    <Input type="text" bgColor="yellow.100" />
+                                </FormControl>
+                            </Flex>
+                        </Box>
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.1">
+                            <Text className="p-3 text-bg-dark text-center">Umidade</Text>
+                            <Flex gap={3} flexWrap="nowrap" p={4}>
+                                <FormControl id="gaiola" className="form-control">
+                                    <FormLabel className="fw-bold text-center">%</FormLabel>
+                                    <Input type="text" bgColor="yellow.100"/>
+                                </FormControl>
+                            </Flex>
                         </Box>
                     </Stack>
                 </SimpleGrid>

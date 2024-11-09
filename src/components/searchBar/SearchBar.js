@@ -42,7 +42,7 @@ export function SearchBar(props) {
 
     return (
         <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
-            <Input disabled={true} className={'react-calendar w-100 text-center'}
+            <Input disabled={true} className={'w-100 text-center'}
                 ref={datePicker}
                 variant='search'
                 fontSize='lg'

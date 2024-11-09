@@ -23,6 +23,7 @@ import VerAnaliseQuimicaDeMinerio from "./views/analises/AnaliseQuimicaDeMinerio
 import VerAnaliseMinerioEscoria from "./views/main/ControleDeCorridas/VerAnaliseMinerioEscoria";
 import PesquisarCadastroMinerios from "./views/analises/AnaliseQuimicaDeMinerio/PesquisarCadastroMinerios";
 import VerAnaliseEscoria from "./views/analises/AnaliseEscoria/VerAnalisesEscoria/index";
+import VerCargaPressaoTemperaturaSonda from "./views/operacional/VerInformaçoes";
 
 const routes = [
     {
@@ -164,9 +165,9 @@ const routes = [
 
     {
         layout: "/admin",
-        path: "/ver-analise-minerio-escoria",
-        component: VerAnaliseMinerioEscoria,
-        name: "Análise Química de Minério e Escória",
+        path: "/cargas-pressao-temperatura-sonda",
+        component: VerCargaPressaoTemperaturaSonda,
+        name: "Ver Cargas, pressão, temperatura, sonda etc",
         hidden: true
     },
     {
