@@ -1,46 +1,44 @@
-import React from "react";
-import {
-    Box, Flex, FormControl, FormLabel,
-    Grid, HStack, Input, SimpleGrid, Stack, Text
-} from "@chakra-ui/react";
+import React, {useRef, useState} from "react";
+import {Box, Button, Flex, FormControl, FormLabel, Grid, HStack, Input, SimpleGrid, Stack, Text} from "@chakra-ui/react";
 import Banner from "../../components/banner/Banner";
 import InputMask from "react-input-mask";
+import { Modal } from "react-bootstrap";
+import ControleOperacionalService from "../../App/OperacionalService/ControleOperacionalService";
 
 const ControleOperacional = () => {
-    // const service = useRef(new ControleOperacional()).current;
-    // const [formData, setFormData] = useState(service.formData);
-    // const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
-    // const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
-    // const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
+     const service = useRef(new ControleOperacionalService()).current;
+     const [formData, setFormData] = useState(service.formData);
+     const [showSuccessModal, setShowSuccessModal] = useState(service.showSuccessModal);
+     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
+     const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
 
 
-    // const resetFormData = () => {
-    //     service.resetFormService();
-    //     setFormData(service.formData);
-    // }
-    //
-    // const handleChange = (e) => {
-    //     service.handleChange(e, setFormData);
-    // };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const result = await service.salvar();
+        setShowSuccessModal(service.showSuccessModal);
+        setShowErrorModal(service.showErrorModal);
+        setMensagemErro(service.mensagemErro);
+        if (result.success) {
+            setShowSuccessModal(true);
+            resetFormData();
+        } else {
+            setShowErrorModal(true);
+        }
+    };
 
+    const resetFormData = () => {
+        service.resetFormData();
+        setFormData(service.formData);
+    }
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const result = await service.salvar();
-    //     setShowSuccessModal(service.showSuccessModal);
-    //     setShowErrorModal(service.showErrorModal);
-    //     setMensagemErro(service.mensagemErro);
-    //     if (result.success) {
-    //         setShowSuccessModal(true);
-    //         resetFormData();
-    //     } else {
-    //         setShowErrorModal(true);
-    //     }
-    // };
-    //
-    // const handleClose = () => {
-    //     service.handleClose(setShowSuccessModal, setShowErrorModal);
-    // };
+    const handleChange = (e) => {
+        service.handleChange(e, setFormData);
+    };
+
+    const handleClose = () => {
+        service.handleClose(setShowSuccessModal, setShowErrorModal);
+    };
 
 
     return (
@@ -59,29 +57,33 @@ const ControleOperacional = () => {
                 />
             </Grid>
 
-            <form onSubmit={''}>
+            <form onSubmit={handleSubmit}>
                 <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} spacing={3} mt={4}>
                     <Stack direction={['column', 'row']}>
-                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.39">
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.5">
                             <Text className="p-3 text-bg-dark text-center">Operacional</Text>
                             <Flex gap={3} flexWrap="nowrap" p={4}>
                                 <FormControl id="gaiola" className="form-control">
+                                    <FormLabel className="fw-bold">A</FormLabel>
+                                    <Input type="text" bgColor="yellow.100" className={'text-center'} name={'a'} value={formData.a} onChange={handleChange}/>
+                                </FormControl>
+                                <FormControl id="gaiola" className="form-control">
                                     <FormLabel className="fw-bold">Gaiola</FormLabel>
-                                    <Input type="text" bgColor="yellow.100" className={'text-center'}/>
+                                    <Input type="text" bgColor="yellow.100" className={'text-center'} name={'gaiola'} value={formData.gaiola} onChange={handleChange}/>
                                 </FormControl>
                                 <FormControl id="carga-hora" className="form-control">
                                     <FormLabel className="fw-bold">Carga/Seca</FormLabel>
-                                    <Input type="text" bgColor="yellow.100" className={'text-center'} />
+                                    <Input type="text" bgColor="yellow.100" className={'text-center'} name={'cargaSeca'} value={formData.cargaSeca} onChange={handleChange}/>
                                 </FormControl>
 
                                 <FormControl id="carga-hora" className="form-control">
                                     <FormLabel className="fw-bold">Carga/Hora</FormLabel>
-                                    <Input type="text" bgColor="yellow.100" className={'text-center'} />
+                                    <Input type="text" bgColor="yellow.100" className={'text-center'} name={'cargaHora'} value={formData.cargaHora} onChange={handleChange}/>
                                 </FormControl>
 
                                 <FormControl id="vazao" className="form-control">
                                     <FormLabel className="fw-bold">Vazão</FormLabel>
-                                    <Input type="text" bgColor="yellow.100"/>
+                                    <Input type="text" bgColor="yellow.100" name={'vazao'} value={formData.vazao} onChange={handleChange}/>
                                 </FormControl>
                             </Flex>
                         </Box>
@@ -92,17 +94,17 @@ const ControleOperacional = () => {
                                     <FormLabel className={'fw-bold'}>Coroa</FormLabel>
                                     <InputMask
                                         mask={'9.99'}
-                                        // value={formData.silicioVisual}
-                                        // onChange={handleChange}
+                                        value={formData.pressaoCoroa}
+                                        onChange={handleChange}
                                         placeholder={'0.00'}
-                                        name={'pressao_coroa'}
+                                        name={'pressaoCoroa'}
                                     >
                                         {(inputProps) => <Input {...inputProps} type={'text'} bgColor={'yellow.100'} />}
                                     </InputMask>
                                 </FormControl>
                                 <FormControl className="form-control">
                                     <FormLabel className={'fw-bold'}>Topo</FormLabel>
-                                    <Input bgColor={'yellow.100'}/>
+                                    <Input bgColor={'yellow.100'} name={'pressaoTopo'} value={formData.pressaoTopo} onChange={handleChange}/>
                                 </FormControl>
                             </HStack>
                         </Box>
@@ -111,11 +113,11 @@ const ControleOperacional = () => {
                             <HStack className="p-3">
                                 <FormControl className="form-control">
                                     <FormLabel className={'fw-bold'}>Coroa</FormLabel>
-                                    <Input bgColor={'yellow.100'}/>
+                                    <Input bgColor={'yellow.100'} name={'temperaturaCoroa'} value={formData.temperaturaCoroa} onChange={handleChange}/>
                                 </FormControl>
                                 <FormControl className="form-control">
                                     <FormLabel className={'fw-bold'}>Topo</FormLabel>
-                                    <Input bgColor={'yellow.100'}/>
+                                    <Input bgColor={'yellow.100'} name={'temperaturaTopo'} value={formData.temperaturaTopo} onChange={handleChange}/>
                                 </FormControl>
                             </HStack>
                         </Box>
@@ -126,7 +128,10 @@ const ControleOperacional = () => {
                                     <FormLabel className={'fw-bold'}>Digite</FormLabel>
                                     <InputMask
                                         mask={'9.9'}
+                                        name={'sonda'}
+                                        value={formData.sonda}
                                         placeholder={'0.0'}
+                                        onChange={handleChange}
                                     >
                                         {(inputProps) => <Input {...inputProps} className={''} bgColor={'yellow.100'} />}
                                     </InputMask>
@@ -141,7 +146,7 @@ const ControleOperacional = () => {
                             <Flex gap={3} flexWrap="nowrap" p={4}>
                                 <FormControl id="gaiola" className="form-control">
                                     <FormLabel className="fw-bold">KG/M³</FormLabel>
-                                    <Input type="text" bgColor="yellow.100" />
+                                    <Input type="text" bgColor="yellow.100" name={'densidadeKg'} value={formData.densidadeKg} onChange={handleChange}/>
                                 </FormControl>
                             </Flex>
                         </Box>
@@ -150,42 +155,49 @@ const ControleOperacional = () => {
                             <Flex gap={3} flexWrap="nowrap" p={4}>
                                 <FormControl id="gaiola" className="form-control">
                                     <FormLabel className="fw-bold text-center">%</FormLabel>
-                                    <Input type="text" bgColor="yellow.100"/>
+                                    <Input type="text" bgColor="yellow.100" name={'umidade'} value={formData.umidade} onChange={handleChange}/>
                                 </FormControl>
                             </Flex>
                         </Box>
                     </Stack>
                 </SimpleGrid>
+                <SimpleGrid>
+                    <Flex className={'mt-3'} justifyContent={'flex-end'}>
+                        <Button colorScheme="whatsapp" size="lg" type="submit">
+                            Registrar
+                        </Button>
+                    </Flex>
+                </SimpleGrid>
             </form>
 
 
-            {/*<Modal show={showSuccessModal} onHide={''}>*/}
-            {/*    <Modal.Header className={'bg-success text-white'} closeButton>*/}
-            {/*        <Modal.Title>Sucesso</Modal.Title>*/}
-            {/*    </Modal.Header>*/}
-            {/*    <Modal.Body>*/}
-            {/*        Corrida cadastrada com sucesso!*/}
-            {/*    </Modal.Body>*/}
-            {/*    <Modal.Footer>*/}
-            {/*        <Button className={'bg-primary text-white'} onClick={''}>*/}
-            {/*            Fechar*/}
-            {/*        </Button>*/}
-            {/*    </Modal.Footer>*/}
-            {/*</Modal>*/}
+            <Modal show={showSuccessModal} onHide={handleClose}>
+                <Modal.Header className={'bg-success text-white'} closeButton>
+                    <Modal.Title>Sucesso</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Corrida cadastrada com sucesso!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-primary text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
-            {/*<Modal show={showErrorModal} onHide={''}>*/}
-            {/*    <Modal.Header className={'bg-danger'} closeButton>*/}
-            {/*        <Modal.Title>Erro</Modal.Title>*/}
-            {/*    </Modal.Header>*/}
-            {/*    <Modal.Body>*/}
-            {/*        /!*{mensagemErro}*!/*/}
-            {/*    </Modal.Body>*/}
-            {/*    <Modal.Footer>*/}
-            {/*        <Button className={'bg-dark text-white'} onClick={''}>*/}
-            {/*            Fechar*/}
-            {/*        </Button>*/}
-            {/*    </Modal.Footer>*/}
-            {/*</Modal>*/}
+            <Modal show={showErrorModal} onHide={handleClose}>
+                <Modal.Header className={'bg-danger'} closeButton>
+                    <Modal.Title>Erro</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {mensagemErro}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Box>
     );
 }

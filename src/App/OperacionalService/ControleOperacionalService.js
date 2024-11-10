@@ -6,46 +6,46 @@ dayjs.extend(duration);
 class ControleDeCorridasService {
     constructor() {
         this.formData = {
-            horaInicio: '',
-            horaFim: '',
-            minutos: '',
-            minutosAcumulados: '', // Este campo pode ser preenchido no backend, mas adicionei para coerência e para ser retornado na tabela
-            conchas: '',
-            silicioVisual: '',  // Corrigido para seguir o DTO
-            silicioReal: '',    // Corrigido para seguir o DTO
-            fosforo: '',
-            manganes: '',
-            silica: '',
-            escoriaInicio: '',  // Corrigido para seguir o DTO
-            escoriaFim: '',     // Corrigido para seguir o DTO
-            tipoEscoria: '',    // Corrigido para seguir o DTO
-            cargaFundidaDe: '', // Corrigido para seguir o DTO
-            cargaFundidaAte: '',// Corrigido para seguir o DTO
-            quantidade: '',
-            feGusaKg: '',       // Corrigido para seguir o DTO
-            ferro: '',
-            realTn: '',
-            tempoCorridaMinutos: '', // Corrigido para seguir o DTO
-            gusaMinuto: '',     // Corrigido para seguir o DTO
-            carvaoKg: '',       // Corrigido para seguir o DTO
-            carvaoMetros: '',   // Corrigido para seguir o DTO
-            sopradores1: '',    // Corrigido para seguir o DTO
-            sopradores2: '',    // Corrigido para seguir o DTO
-            sopradores3: '',    // Corrigido para seguir o DTO
-            sopradores4: '',    // Corrigido para seguir o DTO
-            sopradores5: '',    // Corrigido para seguir o DTO
-            temperatura: '',
             createdAt:'',
-            mediaFosforo:'',
-            mediaSilica:'',
-            mediaManganes:'',
-            realTnAcumulado:'',
+            horas:'',
+            a:'',
+            gaiola:'',
+            cargaHora:'',
+            cargaSeca:'',
+            vazao:'',
+            pressaoCoroa:'',
+            pressaoTopo:'',
+            temperaturaCoroa:'',
+            temperaturaTopo:'',
+            sonda:'',
+            densidadeKg:'',
+            umidade:'',
+
+            acumuladoCarga:'',
+            mediaHoraCarga:'',
             ritmo:''
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
         this.showErrorModal = false;
         this.showNullModal = false;
+    }
+
+    resetFormData=()=> {
+        this.formData = {
+            a:'',
+            gaiola:'',
+            cargaHora:'',
+            cargaSeca:'',
+            vazao:'',
+            pressaoCoroa:'',
+            pressaoTopo:'',
+            temperaturaCoroa:'',
+            temperaturaTopo:'',
+            sonda:'',
+            densidadeKg:'',
+            umidade:'',
+        }
     }
 
 
@@ -75,7 +75,7 @@ class ControleDeCorridasService {
 
     salvar = async () => {
         try {
-            const response = await axios.post("http://localhost:8080/runs/add", this.formData, {
+            const response = await axios.post("http://localhost:8080/operacional", this.formData, {
                 headers: {
                     "Content-Type": "application/json"
                 }
