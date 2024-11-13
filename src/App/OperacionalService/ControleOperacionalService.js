@@ -3,7 +3,7 @@ import duration from "dayjs/plugin/duration";
 import axios from "axios";
 dayjs.extend(duration);
 
-class ControleDeCorridasService {
+class ControleOperacionalService {
     constructor() {
         this.formData = {
             createdAt:'',
@@ -20,6 +20,7 @@ class ControleDeCorridasService {
             sonda:'',
             densidadeKg:'',
             umidade:'',
+            gusaKg:'',
 
             acumuladoCarga:'',
             mediaHoraCarga:'',
@@ -45,8 +46,18 @@ class ControleDeCorridasService {
             sonda:'',
             densidadeKg:'',
             umidade:'',
+            gusaKg:''
         }
     }
+
+    handleChange = (e, setFormData) => {
+        const { name, value } = e.target;
+        this.formData = {
+            ...this.formData,
+            [name]: value
+        };
+        setFormData(this.formData);
+    };
 
 
     getErrorMessage = (error) => {
@@ -62,15 +73,6 @@ class ControleDeCorridasService {
             mensagemErro = `Erro: ${error.message}`;
         }
         return mensagemErro;
-    };
-
-    handleChange = (e, setFormData) => {
-        const { name, value } = e.target;
-        this.formData = {
-            ...this.formData,
-            [name]: value
-        };
-        setFormData(this.formData);
     };
 
     salvar = async () => {
@@ -103,4 +105,4 @@ class ControleDeCorridasService {
 
 }
 
-export default ControleDeCorridasService;
+export default ControleOperacionalService;

@@ -13,6 +13,11 @@ const ControleOperacional = () => {
      const [mensagemErro, setMensagemErro] = useState(service.mensagemErro);
 
 
+    const resetFormData = () => {
+        service.resetFormData();
+        setFormData(service.formData);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const result = await service.salvar();
@@ -27,11 +32,6 @@ const ControleOperacional = () => {
         }
     };
 
-    const resetFormData = () => {
-        service.resetFormData();
-        setFormData(service.formData);
-    }
-
     const handleChange = (e) => {
         service.handleChange(e, setFormData);
     };
@@ -39,6 +39,7 @@ const ControleOperacional = () => {
     const handleClose = () => {
         service.handleClose(setShowSuccessModal, setShowErrorModal);
     };
+
 
 
     return (
@@ -63,7 +64,7 @@ const ControleOperacional = () => {
                         <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.5">
                             <Text className="p-3 text-bg-dark text-center">Operacional</Text>
                             <Flex gap={3} flexWrap="nowrap" p={4}>
-                                <FormControl id="gaiola" className="form-control">
+                                <FormControl id="a" className="form-control">
                                     <FormLabel className="fw-bold">A</FormLabel>
                                     <Input type="text" bgColor="yellow.100" className={'text-center'} name={'a'} value={formData.a} onChange={handleChange}/>
                                 </FormControl>
@@ -71,7 +72,7 @@ const ControleOperacional = () => {
                                     <FormLabel className="fw-bold">Gaiola</FormLabel>
                                     <Input type="text" bgColor="yellow.100" className={'text-center'} name={'gaiola'} value={formData.gaiola} onChange={handleChange}/>
                                 </FormControl>
-                                <FormControl id="carga-hora" className="form-control">
+                                <FormControl id="cargaSeca" className="form-control">
                                     <FormLabel className="fw-bold">Carga/Seca</FormLabel>
                                     <Input type="text" bgColor="yellow.100" className={'text-center'} name={'cargaSeca'} value={formData.cargaSeca} onChange={handleChange}/>
                                 </FormControl>
@@ -144,7 +145,7 @@ const ControleOperacional = () => {
                         <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.1">
                             <Text className="p-3 text-bg-dark text-center">Densidade</Text>
                             <Flex gap={3} flexWrap="nowrap" p={4}>
-                                <FormControl id="gaiola" className="form-control">
+                                <FormControl id="densidadeKg" className="form-control">
                                     <FormLabel className="fw-bold">KG/M³</FormLabel>
                                     <Input type="text" bgColor="yellow.100" name={'densidadeKg'} value={formData.densidadeKg} onChange={handleChange}/>
                                 </FormControl>
@@ -153,13 +154,23 @@ const ControleOperacional = () => {
                         <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.1">
                             <Text className="p-3 text-bg-dark text-center">Umidade</Text>
                             <Flex gap={3} flexWrap="nowrap" p={4}>
-                                <FormControl id="gaiola" className="form-control">
+                                <FormControl id="umidade" className="form-control">
                                     <FormLabel className="fw-bold text-center">%</FormLabel>
                                     <Input type="text" bgColor="yellow.100" name={'umidade'} value={formData.umidade} onChange={handleChange}/>
                                 </FormControl>
                             </Flex>
                         </Box>
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.1">
+                            <Text className="p-3 text-bg-dark text-center">Gusa/C</Text>
+                            <Flex gap={3} flexWrap="nowrap" p={4}>
+                                <FormControl id="gusaKg" className="form-control">
+                                    <FormLabel className="fw-bold text-center">Kg</FormLabel>
+                                    <Input type="text" bgColor="yellow.100" name={'gusaKg'} value={formData.gusaKg} onChange={handleChange}/>
+                                </FormControl>
+                            </Flex>
+                        </Box>
                     </Stack>
+
                 </SimpleGrid>
                 <SimpleGrid>
                     <Flex className={'mt-3'} justifyContent={'flex-end'}>
