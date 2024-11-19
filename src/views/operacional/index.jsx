@@ -65,11 +65,11 @@ const ControleOperacional = () => {
                             <Text className="p-3 text-bg-dark text-center">Operacional</Text>
                             <Flex gap={3} flexWrap="nowrap" p={4}>
                                 <FormControl id="a" className="form-control">
-                                    <FormLabel className="fw-bold">A</FormLabel>
+                                    <FormLabel className="fw-bold text-center">A</FormLabel>
                                     <Input type="text" bgColor="yellow.100" className={'text-center'} name={'a'} value={formData.a} onChange={handleChange}/>
                                 </FormControl>
                                 <FormControl id="gaiola" className="form-control">
-                                    <FormLabel className="fw-bold">Gaiola</FormLabel>
+                                    <FormLabel className="fw-bold text-center">Gaiola</FormLabel>
                                     <Input type="text" bgColor="yellow.100" className={'text-center'} name={'gaiola'} value={formData.gaiola} onChange={handleChange}/>
                                 </FormControl>
                                 <FormControl id="cargaSeca" className="form-control">
@@ -83,7 +83,7 @@ const ControleOperacional = () => {
                                 </FormControl>
 
                                 <FormControl id="vazao" className="form-control">
-                                    <FormLabel className="fw-bold">Vazão</FormLabel>
+                                    <FormLabel className="fw-bold text-center">Vazão</FormLabel>
                                     <Input type="text" bgColor="yellow.100" name={'vazao'} value={formData.vazao} onChange={handleChange}/>
                                 </FormControl>
                             </Flex>
@@ -127,15 +127,7 @@ const ControleOperacional = () => {
                             <HStack className="p-3">
                                 <FormControl className="form-control">
                                     <FormLabel className={'fw-bold'}>Digite</FormLabel>
-                                    <InputMask
-                                        mask={'9.9'}
-                                        name={'sonda'}
-                                        value={formData.sonda}
-                                        placeholder={'0.0'}
-                                        onChange={handleChange}
-                                    >
-                                        {(inputProps) => <Input {...inputProps} className={''} bgColor={'yellow.100'} />}
-                                    </InputMask>
+                                    <Input type="text" bgColor="yellow.100" name={'sonda'} value={formData.sonda} onChange={handleChange}/>
                                 </FormControl>
                             </HStack>
                         </Box>
@@ -187,7 +179,7 @@ const ControleOperacional = () => {
                     <Modal.Title>Sucesso</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Corrida cadastrada com sucesso!
+                    Informações cadastradas com sucesso !
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className={'bg-primary text-white'} onClick={handleClose}>

@@ -1,14 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Box, Flex, Grid, Heading, Input, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import Banner from "../../../components/banner/Banner";
-import ControleDeCorridasService from "../../../App/ControleCorridasService/ControleDeCorridasService";
 import { Stat, StatNumber, StatGroup } from '@chakra-ui/react'
 import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
+import ControleOperacionalService from "../../../App/OperacionalService/ControleOperacionalService";
 
 const VerCargaPressaoTemperaturaSonda = () => {
 
-    const service = useRef(new ControleDeCorridasService()).current;
-    const [corridas, setCorridas] = useState([]);
+    const service = useRef(new ControleOperacionalService()).current;
+    const [operacional, setOperacional] = useState([]);
     const [dataSelect, setDataSelect] = useState([]);
     const [showErrorModal, setShowErrorModal] = useState(service.showErrorModal);
     const [showNullModal, setShowNullModal]  = useState(service.showNullModal);
@@ -19,23 +19,23 @@ const VerCargaPressaoTemperaturaSonda = () => {
         return new Date(dateString).toLocaleDateString('pt-BR', options)
     }
 
-    const fetchCorridasPorData = async (selectedDate) => {
+    const fetchOperacionalPorData = async (selectedDate) => {
         try {
             if (!selectedDate) {
                 setShowNullModal(true);
                 return;
             }
 
-            const response = await service.getCorridasPorData(selectedDate);
+            const response = await service.getOperacionalPorData(selectedDate);
 
             if (!response.success) {
                 setShowErrorModal(true);
             } else {
-                setCorridas(response.data);
+                setOperacional(response.data);
             }
         } catch (error) {
             // Log the error for debugging purposes if necessary
-            console.error('Erro ao buscar corridas:', error);
+            console.error('Erro ao buscar info...', error);
             setShowErrorModal(true); // Mostra o modal de erro
         } finally {
             // Reseta o seletor de data após a tentativa
@@ -45,15 +45,15 @@ const VerCargaPressaoTemperaturaSonda = () => {
 
 
     useEffect(() => {
-        const fetchCorridas = async () => {
+        const fetchOperacional = async () => {
             try {
-                const data = await service.getCorridasDoDia();
-                setCorridas(data);
+                const data = await service.getOperacionalDoDia();
+                setOperacional(data);
             } catch (error) {
                 console.error("Erro ao buscar corridas:", error);
             }
         };
-        fetchCorridas();
+        fetchOperacional();
     }, [service]);
 
     const handleClose = () => {
@@ -78,7 +78,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                                         type='date'
                                         value={dataSelect}
                                         onChange={(e) => {setDataSelect(e.target.value)}}/>
-                                    <Button colorScheme='blue' mt={4}>
+                                    <Button colorScheme='blue' mt={4}  onClick={() => fetchOperacionalPorData(dataSelect)}>
                                         Pesquisar
                                     </Button>
                                 </Flex>
@@ -89,36 +89,50 @@ const VerCargaPressaoTemperaturaSonda = () => {
             </Grid>
             <Box w={'100%'} h={'100%'} className={'font-monospace'}>
                 <TableContainer>
-                    <Table colorScheme={'twitter'} className={'table table-responsive-sm'} size={'sm'}>
+                    <Table colorScheme={'twitter'} className={'table table-responsive-sm table-bordered'} size={'sm'}>
                         <Thead>
                             <Tr>
-                                <Th>ID</Th>
                                 <Th className="text-center">Data</Th>
                                 <Th className="text-center">Hora</Th>
                                 <Th className="text-center">Gaiola</Th>
                                 <Th className={'text-center'}>A</Th>
-                                <Th className="text-center">Carga/Hora</Th>
                                 <Th className="text-center">Carga/Seca</Th>
+                                <Th className="text-center bg-black text-white">Carga/Seca/Acum</Th>
+                                <Th className="text-center">Carga/Hora</Th>
+                                <Th className="text-center text-center bg-black text-white">Carga Acumulada/Hora</Th>
+                                <Th className="text-center bg-black text-white">Média/Hora</Th>
+                                <Th className="text-center bg-black text-white">Ritmo</Th>
                                 <Th className="text-center">Vazão</Th>
+                                <Th className="text-center">Densidade</Th>
                                 <Th className={'text-center'}>Pressão Coroa</Th>
                                 <Th className={'text-center'}>Pressão Topo</Th>
                                 <Th className={'text-center'}>Temperatura Coroa</Th>
                                 <Th className={'text-center'}>Temperatura Topo</Th>
+                                <Th className={'text-center'}>Sonda</Th>
+                                <Th className={'text-center'}>Umidade</Th>
                             </Tr>
                         </Thead>
                         <Tbody >
-                            {corridas.map((corrida, index) => (
+                            {operacional.map((operacional, index) => (
                                 <Tr key={index}>
-                                    <Td className="text-center">{corrida.id}</Td>
-                                    <Td className="text-center">{formatDate(corrida.createdAt)}</Td>
-                                    <Td className="text-center">{corrida.silicioReal}</Td>
-                                    <Td className="text-center">{corrida.silicioVisual}</Td>
-                                    <Td className={'text-center'}>{corrida.fosforo}</Td>
-                                    <Td className="text-center">{corrida.manganes}</Td>
-                                    <Td className="text-center">{corrida.silica}</Td>
-                                    <Td className="text-center">{corrida.tipoEscoria}</Td>
-                                    <Td className="text-center">{corrida.escoriaInicio}</Td>
-                                    <Td className={'text-center'}>{corrida.escoriaFim}</Td>
+                                    <Td className="text-center">{formatDate(operacional.createdAt)}</Td>
+                                    <Td className="text-center">{operacional.horas}</Td>
+                                    <Td className="text-center">{operacional.gaiola}</Td>
+                                    <Td className={'text-center'}>{operacional.a}</Td>
+                                    <Td className="text-center">{operacional.cargaSeca}</Td>
+                                    <Td className="text-center bg-black text-white">{operacional.acumuladoCargaSeca}</Td>
+                                    <Td className="text-center">{operacional.cargaHora}</Td>
+                                    <Td className="text-center bg-black text-white">{operacional.acumuladoCarga}</Td>
+                                    <Td className="text-center bg-black text-white">{operacional.mediaHoraCarga}</Td>
+                                    <Td className="text-center bg-black text-white">{operacional.rt}</Td>
+                                    <Td className="text-center">{operacional.vazao}</Td>
+                                    <Td className="text-center">{operacional.densidadeKg}</Td>
+                                    <Td className="text-center">{operacional.pressaoCoroa}</Td>
+                                    <Td className={'text-center'}>{operacional.pressaoTopo}</Td>
+                                    <Td className={'text-center'}>{operacional.temperaturaCoroa}</Td>
+                                    <Td className={'text-center'}>{operacional.temperaturaTopo}</Td>
+                                    <Td className={'text-center'}>{operacional.sonda}</Td>
+                                    <Td className={'text-center'}>{operacional.umidade}</Td>
                                 </Tr>
                             ))}
                         </Tbody>
@@ -126,34 +140,34 @@ const VerCargaPressaoTemperaturaSonda = () => {
                 </TableContainer>
             </Box>
             <Flex>
-                <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5'}>
+                <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mt-4'}>
                     <StatGroup>
-                        {corridas.length > 0 && corridas[0] && (
+                        {operacional.length > 0 && operacional[0] && (
                             <Stat>
-                                <CardTitle>Média Fósforo</CardTitle>
+                                <CardTitle>UMIDADE MÉDIA</CardTitle>
                                <StatNumber>
-                                   {corridas[0].mediaFosforo ? corridas[0].mediaFosforo.toFixed(2) : "N/A"}
+                                   {operacional[0].umidadeMedia ? operacional[0].umidadeMedia.toFixed(2) : "N/A"}
                                </StatNumber>
                             </Stat>
                         )}
                     </StatGroup>
                 </Box>
-                <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5 mx-3'}>
+                <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mx-3 mt-4'}>
                     <StatGroup>
-                        {corridas.length > 0 && corridas[0] && (
+                        {operacional.length > 0 && operacional[0] && (
                             <Stat>
-                                <CardTitle></CardTitle>
-                                <StatNumber>{corridas[0].mediaSilica ? corridas[0].mediaSilica.toFixed(2) : "N/A"}</StatNumber>
+                                <CardTitle>DENSIDADE MÉDIA</CardTitle>
+                                <StatNumber>{operacional[0].mediaSilica ? operacional[0].mediaSilica.toFixed(2) : "N/A"}</StatNumber>
                             </Stat>
                         )}
                     </StatGroup>
                 </Box>
-                <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5 mx-3'}>
+                <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5 mx-3 mt-4'}>
                     <StatGroup>
-                        {corridas.length > 0 && corridas[0] && (
+                        {operacional.length > 0 && operacional[0] && (
                             <Stat>
                                 <CardTitle>Ritmo</CardTitle>
-                                <StatNumber>{corridas[0].mediaManganes ? corridas[0].mediaManganes.toFixed(2) : "N/A"}</StatNumber>
+                                <StatNumber>{operacional[0].mediaManganes ? operacional[0].mediaManganes.toFixed(2) : "N/A"}</StatNumber>
                             </Stat>
                         )}
                     </StatGroup>

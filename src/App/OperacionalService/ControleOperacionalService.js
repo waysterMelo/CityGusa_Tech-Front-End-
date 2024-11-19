@@ -23,8 +23,10 @@ class ControleOperacionalService {
             gusaKg:'',
 
             acumuladoCarga:'',
+            acumuladoCargaSeca:'',
             mediaHoraCarga:'',
-            ritmo:''
+            rt:'',
+            umidadeMedia:''
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -58,7 +60,6 @@ class ControleOperacionalService {
         };
         setFormData(this.formData);
     };
-
 
     getErrorMessage = (error) => {
         let mensagemErro = "";
@@ -102,6 +103,34 @@ class ControleOperacionalService {
         this.showNullModal = false
     };
 
+    async getOperacionalDoDia() {
+        try {
+            const response = await axios.get("http://localhost:8080/operacional/today");
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao buscar informações do dia:", error);
+            return [];
+        }
+    }
+
+    async getOperacionalPorData(date) {
+        try {
+            const response = await axios.get(`http://localhost:8080/operacional/por-data?data=${date}`);
+
+            if (response.data.length === 0) {
+                this.mensagemErro = "Não há informações cadastradas nessa data.";
+                this.showErrorModal = true;
+                return { success: false, message: "Nenhum dado encontrado." };
+            }
+            this.showSuccessModal = true;
+            return { success: true, data: response.data };
+        } catch (error) {
+            console.error("Erro ao buscar corridas:", error);
+            this.mensagemErro = this.getErrorMessage(error);
+            this.showErrorModal = true;
+            return { success: false, message: error.message };
+        }
+    }
 
 }
 
