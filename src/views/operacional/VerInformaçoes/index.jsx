@@ -96,20 +96,23 @@ const VerCargaPressaoTemperaturaSonda = () => {
                                 <Th className="text-center">Hora</Th>
                                 <Th className="text-center">Gaiola</Th>
                                 <Th className={'text-center'}>A</Th>
-                                <Th className="text-center">Carga/Seca</Th>
-                                <Th className="text-center bg-black text-white">Carga/Seca/Acum</Th>
-                                <Th className="text-center">Carga/Hora</Th>
-                                <Th className="text-center text-center bg-black text-white">Carga Acumulada/Hora</Th>
-                                <Th className="text-center bg-black text-white">Média/Hora</Th>
+                                <Th className="text-center">Carga <br/> Seca</Th>
+                                <Th className="text-center bg-black text-white">Carga/Seca <br/> Acum</Th>
+                                <Th className="text-center">Carga <br/> Hora</Th>
+                                <Th className="text-center text-center bg-black text-white">Carga Acumulada <br/> Hora</Th>
+                                <Th className="text-center bg-black text-white">Média <br/> Hora</Th>
                                 <Th className="text-center bg-black text-white">Ritmo</Th>
                                 <Th className="text-center">Vazão</Th>
                                 <Th className="text-center">Densidade</Th>
-                                <Th className={'text-center'}>Pressão Coroa</Th>
-                                <Th className={'text-center'}>Pressão Topo</Th>
-                                <Th className={'text-center'}>Temperatura Coroa</Th>
-                                <Th className={'text-center'}>Temperatura Topo</Th>
-                                <Th className={'text-center'}>Sonda</Th>
+                                <Th className="text-center bg-black text-white">Densidade <br/> média</Th>
                                 <Th className={'text-center'}>Umidade</Th>
+                                <Th className={'text-center bg-black text-white'}>Umidade <br/> Média </Th>
+                                <Th className={'text-center'}>Pressão <br/> Coroa</Th>
+                                <Th className={'text-center'}>Pressão <br/> Topo</Th>
+                                <Th className={'text-center'}>Temperatura <br/> Coroa</Th>
+                                <Th className={'text-center'}>Temperatura <br/> Topo</Th>
+                                <Th className={'text-center'}>Sonda</Th>
+
                             </Tr>
                         </Thead>
                         <Tbody >
@@ -127,12 +130,15 @@ const VerCargaPressaoTemperaturaSonda = () => {
                                     <Td className="text-center bg-black text-white">{operacional.rt}</Td>
                                     <Td className="text-center">{operacional.vazao}</Td>
                                     <Td className="text-center">{operacional.densidadeKg}</Td>
+                                    <Td className="text-center bg-black text-white">{operacional.densidadeMedia}</Td>
+                                    <Td className={'text-center'}>{operacional.umidade}</Td>
+                                    <Td className={'text-center bg-black text-white'}>{operacional.umidadeMedia}</Td>
                                     <Td className="text-center">{operacional.pressaoCoroa}</Td>
                                     <Td className={'text-center'}>{operacional.pressaoTopo}</Td>
                                     <Td className={'text-center'}>{operacional.temperaturaCoroa}</Td>
                                     <Td className={'text-center'}>{operacional.temperaturaTopo}</Td>
                                     <Td className={'text-center'}>{operacional.sonda}</Td>
-                                    <Td className={'text-center'}>{operacional.umidade}</Td>
+
                                 </Tr>
                             ))}
                         </Tbody>
@@ -144,7 +150,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                     <StatGroup>
                         {operacional.length > 0 && operacional[0] && (
                             <Stat>
-                                <CardTitle>UMIDADE MÉDIA</CardTitle>
+                                <CardTitle>UMIDADE MÉDIA ATUAL</CardTitle>
                                <StatNumber>
                                    {operacional[0].umidadeMedia ? operacional[0].umidadeMedia.toFixed(2) : "N/A"}
                                </StatNumber>
@@ -156,8 +162,8 @@ const VerCargaPressaoTemperaturaSonda = () => {
                     <StatGroup>
                         {operacional.length > 0 && operacional[0] && (
                             <Stat>
-                                <CardTitle>DENSIDADE MÉDIA</CardTitle>
-                                <StatNumber>{operacional[0].mediaSilica ? operacional[0].mediaSilica.toFixed(2) : "N/A"}</StatNumber>
+                                <CardTitle>DENSIDADE MÉDIA ATUAL</CardTitle>
+                                <StatNumber>{operacional[0].densidadeMedia ? operacional[0].densidadeMedia.toFixed(2) : "N/A"}</StatNumber>
                             </Stat>
                         )}
                     </StatGroup>
@@ -166,7 +172,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                     <StatGroup>
                         {operacional.length > 0 && operacional[0] && (
                             <Stat>
-                                <CardTitle>Ritmo</CardTitle>
+                                <CardTitle>RITMO ATUAL</CardTitle>
                                 <StatNumber>{operacional[0].mediaManganes ? operacional[0].mediaManganes.toFixed(2) : "N/A"}</StatNumber>
                             </Stat>
                         )}

@@ -21,6 +21,8 @@ class ControleOperacionalService {
             densidadeKg:'',
             umidade:'',
             gusaKg:'',
+            acumuladoKilos:'',
+            densidadeMedia:'',
 
             acumuladoCarga:'',
             acumuladoCargaSeca:'',
@@ -48,7 +50,8 @@ class ControleOperacionalService {
             sonda:'',
             densidadeKg:'',
             umidade:'',
-            gusaKg:''
+            gusaKg:'',
+            acumuladoKilos:''
         }
     }
 

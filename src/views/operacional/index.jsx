@@ -148,7 +148,15 @@ const ControleOperacional = () => {
                             <Flex gap={3} flexWrap="nowrap" p={4}>
                                 <FormControl id="umidade" className="form-control">
                                     <FormLabel className="fw-bold text-center">%</FormLabel>
-                                    <Input type="text" bgColor="yellow.100" name={'umidade'} value={formData.umidade} onChange={handleChange}/>
+                                    <InputMask
+                                        mask={''}
+                                        value={formData.umidade}
+                                        onChange={handleChange}
+                                        placeholder={'00'}
+                                        name={'umidade'}
+                                    >
+                                        {(inputProps) => <Input {...inputProps} bgColor={'yellow.100'} />}
+                                    </InputMask>
                                 </FormControl>
                             </Flex>
                         </Box>
@@ -161,7 +169,20 @@ const ControleOperacional = () => {
                                 </FormControl>
                             </Flex>
                         </Box>
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.2">
+                            <Text className="p-3 text-bg-dark text-center">Peso Carvão</Text>
+                            <Flex gap={3} flexWrap="nowrap" p={4}>
+                                <FormControl id="gusaKg" className="form-control">
+                                    <FormLabel className="fw-bold text-center">Acumulado Kilos</FormLabel>
+                                    <Input className={'text-center'} type="text" bgColor="yellow.100" name={'acumuladoKilos'} value={formData.acumuladoKilos} onChange={handleChange}/>
+                                </FormControl>
+                            </Flex>
+                        </Box>
                     </Stack>
+
+
+
+
 
                 </SimpleGrid>
                 <SimpleGrid>
