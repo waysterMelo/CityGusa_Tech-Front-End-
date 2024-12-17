@@ -51,6 +51,7 @@ const ControleOperacional = () => {
                 <Banner url={'cargas-pressao-temperatura-sonda'} url_voltar={'/admin/home'} texto_primario={'CONTROLE OPERACIONAL'}
                     texto_secundario={'Abaixo confira as informações inseridas'}
                     primeiro_botao={'CARGAS | PRESSÃO | TEMPERATURA | SONDA'}
+                    primeiro_botao_texto_secundario={'RITMO, MÉDIAS DA UMIDADE E DENSIDADE, MÉDIA HORA'}
                     segundo_botao={''}
                     url_segundo_botao={'ver-analise-minerio-escoria'}
                         terceiro_botao={''}
@@ -148,15 +149,7 @@ const ControleOperacional = () => {
                             <Flex gap={3} flexWrap="nowrap" p={4}>
                                 <FormControl id="umidade" className="form-control">
                                     <FormLabel className="fw-bold text-center">%</FormLabel>
-                                    <InputMask
-                                        mask={''}
-                                        value={formData.umidade}
-                                        onChange={handleChange}
-                                        placeholder={'00'}
-                                        name={'umidade'}
-                                    >
-                                        {(inputProps) => <Input {...inputProps} bgColor={'yellow.100'} />}
-                                    </InputMask>
+                                    <Input className={'text-center'} type={'number'} bgColor="yellow.100" name={'umidade'} value={formData.umidade} onChange={handleChange}/>
                                 </FormControl>
                             </Flex>
                         </Box>
@@ -172,6 +165,9 @@ const ControleOperacional = () => {
                         <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.2">
                             <Text className="p-3 text-bg-dark text-center">Peso Carvão</Text>
                             <Flex gap={3} flexWrap="nowrap" p={4}>
+
+
+
                                 <FormControl id="gusaKg" className="form-control">
                                     <FormLabel className="fw-bold text-center">Acumulado Kilos</FormLabel>
                                     <Input className={'text-center'} type="text" bgColor="yellow.100" name={'acumuladoKilos'} value={formData.acumuladoKilos} onChange={handleChange}/>

@@ -8,12 +8,19 @@ export default function Banner(props) {
     const {
         texto_primario,
         texto_secundario,
+
         primeiro_botao,
-        segundo_botao,
-        terceiro_botao,
-        url_terceiro_botao,
+        primeiro_botao_texto_secundario,
         url,
+
+        segundo_botao,
+        segundo_botao_texto_secundario,
         url_segundo_botao,
+
+        terceiro_botao,
+        terceiro_botao_texto_secundario,
+        url_terceiro_botao,
+
         url_voltar,
         children
     } = props;
@@ -86,6 +93,9 @@ export default function Banner(props) {
                         to={url}>
                         <Text fontSize={'md'}>
                             {primeiro_botao}
+                        </Text>
+                        <Text className={'font-monospace mt-3'}>
+                            {primeiro_botao_texto_secundario}
                         </Text>
                     </ChakraLink>
                 )}
