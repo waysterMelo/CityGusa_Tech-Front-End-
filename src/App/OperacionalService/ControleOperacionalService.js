@@ -23,12 +23,16 @@ class ControleOperacionalService {
             gusaKg:'',
             acumuladoKilos:'',
             densidadeMedia:'',
+            densidadeMediaTotal:'',
+            umidadeMedia:'',
+            umidadeMediaTotal:'',
+
 
             acumuladoCarga:'',
             acumuladoCargaSeca:'',
             mediaHoraCarga:'',
             rt:'',
-            umidadeMedia:''
+
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;

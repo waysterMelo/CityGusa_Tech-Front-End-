@@ -31,7 +31,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
             if (!response.success) {
                 setShowErrorModal(true);
             } else {
-                setOperacional(response.data);
+                setOperacional(Array.isArray(response.data.dados) ? response.data.dados : [])
             }
         } catch (error) {
             // Log the error for debugging purposes if necessary
@@ -48,7 +48,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
         const fetchOperacional = async () => {
             try {
                 const data = await service.getOperacionalDoDia();
-                setOperacional(data);
+                setOperacional(Array.isArray(data.dados) ? data.dados : []);
             } catch (error) {
                 console.error("Erro ao buscar corridas:", error);
             }
@@ -150,7 +150,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                     <StatGroup>
                         {operacional.length > 0 && operacional[0] && (
                             <Stat>
-                                <CardTitle>UMIDADE MÉDIA ATUAL</CardTitle>
+                                <CardTitle>UMIDADE MÉDIA DO DIA</CardTitle>
                                <StatNumber>
                                    {operacional[0].umidadeMedia ? operacional[0].umidadeMedia.toFixed(2) : "N/A"}
                                </StatNumber>
@@ -162,7 +162,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                     <StatGroup>
                         {operacional.length > 0 && operacional[0] && (
                             <Stat>
-                                <CardTitle>DENSIDADE MÉDIA ATUAL</CardTitle>
+                                <CardTitle>DENSIDADE MÉDIA DO DIA</CardTitle>
                                 <StatNumber>{operacional[0].densidadeMedia ? operacional[0].densidadeMedia.toFixed(2) : "N/A"}</StatNumber>
                             </Stat>
                         )}
