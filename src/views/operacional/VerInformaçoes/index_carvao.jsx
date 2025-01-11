@@ -106,18 +106,18 @@ const VerDadosCarvao = () => {
                                 <Tr key={index}>
                                     <Td className="text-center">{formatDate(operacional.createdAt)}</Td>
                                     <Td className="text-center">{operacional.horas}</Td>
-                                    <Td className="text-center">{operacional.carvaoCalculado}</Td>
-                                    <Td className="text-center">{operacional.carvaoEnfornado}</Td>
-                                    <Td className="text-center">{operacional.mediaCarvao}</Td>
-                                    <Td className="text-center">{operacional.consumoKg}</Td>
-                                    <Td className="text-center">{operacional.consumoMetros}</Td>
+                                    <Td className="text-center  bg-black text-white">{operacional.pesoCarvaoCalc}</Td>
+                                    {/*<Td className="text-center">{operacional.carvaoEnfornado}</Td>*/}
+                                    {/*<Td className="text-center">{operacional.mediaCarvao}</Td>*/}
+                                    {/*<Td className="text-center">{operacional.consumoKg}</Td>*/}
+                                    {/*<Td className="text-center">{operacional.consumoMetros}</Td>*/}
                                 </Tr>
                             ))}
                         </Tbody>
                     </Table>
                 </TableContainer>
             </Box>
-            {/* <Flex>
+            {<Flex>
                 <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mt-4'}>
                     <StatGroup>
                         {operacional.length > 0 && operacional[0] && (
@@ -150,7 +150,7 @@ const VerDadosCarvao = () => {
                         )}
                     </StatGroup>
                 </Box>
-            </Flex> */}
+            </Flex>}
             <Modal show={showErrorModal} onHide={handleClose}>
                 <Modal.Header className={'bg-danger'} closeButton>
                     <Modal.Title>Erro ao consultar informações</Modal.Title>

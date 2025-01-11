@@ -27,8 +27,7 @@ class ControleOperacionalService {
             umidadeMedia:'',
             umidadeMediaTotal:'',
             fatorBaseDensidadeSeca:'',
-
-
+            pesoCarvaoCalc:'',
             acumuladoCarga:'',
             acumuladoCargaSeca:'',
             mediaHoraCarga:'',
@@ -56,7 +55,9 @@ class ControleOperacionalService {
             densidadeKg:'',
             umidade:'',
             gusaKg:'',
-            acumuladoKilos:''
+            acumuladoKilos:'',
+            fatorBaseDensidadeSeca:'',
+
         }
     }
 
