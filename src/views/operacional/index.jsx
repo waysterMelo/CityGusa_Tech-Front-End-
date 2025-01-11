@@ -48,12 +48,14 @@ const ControleOperacional = () => {
                 gridTemplateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
                 display={{ base: "block", xl: "grid" }}>
-                <Banner url={'cargas-pressao-temperatura-sonda'} url_voltar={'/admin/home'} texto_primario={'CONTROLE OPERACIONAL'}
+                <Banner url_voltar={'/admin/home'} texto_primario={'CONTROLE OPERACIONAL'}
                     texto_secundario={'Abaixo confira as informações inseridas'}
                     primeiro_botao={'CARGAS | PRESSÃO | TEMPERATURA | SONDA'}
+                    url={'cargas-pressao-temperatura-sonda'}
                     primeiro_botao_texto_secundario={'RITMO, MÉDIAS DA UMIDADE E DENSIDADE, MÉDIA HORA'}
-                    segundo_botao={''}
-                    url_segundo_botao={'ver-analise-minerio-escoria'}
+                    
+                    segundo_botao={'CONTROLE CARVÃO'}
+                    url_segundo_botao={'controle-carvao'}
                         terceiro_botao={''}
                         url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
                 />
@@ -174,9 +176,19 @@ const ControleOperacional = () => {
                                 </FormControl>
                             </Flex>
                         </Box>
+                        <Box height="auto" bg="white" p="4" boxShadow="xs" rounded="md" flex="0.15">
+                            <Text className="p-3 text-bg-dark text-center">Fator Base</Text>
+                            <Flex gap={3} flexWrap="nowrap" p={4}>
+
+
+
+                                <FormControl id="gusaKg" className="form-control">
+                                    <FormLabel className="fw-bold text-center">Densidade Seca</FormLabel>
+                                    <Input className={'text-center'} type="text" bgColor="yellow.100" name={'fatorBaseDensidadeSeca'} value={formData.fatorBaseDensidadeSeca} onChange={handleChange}/>
+                                </FormControl>
+                            </Flex>
+                        </Box>
                     </Stack>
-
-
 
 
 

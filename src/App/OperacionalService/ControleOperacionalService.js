@@ -26,6 +26,7 @@ class ControleOperacionalService {
             densidadeMediaTotal:'',
             umidadeMedia:'',
             umidadeMediaTotal:'',
+            fatorBaseDensidadeSeca:'',
 
 
             acumuladoCarga:'',

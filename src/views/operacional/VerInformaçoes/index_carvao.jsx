@@ -5,7 +5,7 @@ import { Stat, StatNumber, StatGroup } from '@chakra-ui/react'
 import {Button, CardBody, CardTitle, Modal} from "react-bootstrap";
 import ControleOperacionalService from "../../../App/OperacionalService/ControleOperacionalService";
 
-const VerCargaPressaoTemperaturaSonda = () => {
+const VerDadosCarvao = () => {
 
     const service = useRef(new ControleOperacionalService()).current;
     const [operacional, setOperacional] = useState([]);
@@ -94,25 +94,11 @@ const VerCargaPressaoTemperaturaSonda = () => {
                             <Tr>
                                 <Th className="text-center">Data</Th>
                                 <Th className="text-center">Hora</Th>
-                                <Th className="text-center">Gaiola</Th>
-                                <Th className={'text-center'}>A</Th>
-                                <Th className="text-center">Carga <br/> Seca</Th>
-                                <Th className="text-center bg-black text-white">Carga/Seca <br/> Acum</Th>
-                                <Th className="text-center">Carga <br/> Hora</Th>
-                                <Th className="text-center text-center bg-black text-white">Carga Acumulada <br/> Hora</Th>
-                                <Th className="text-center bg-black text-white">Média <br/> Hora</Th>
-                                <Th className="text-center bg-black text-white">Ritmo</Th>
-                                <Th className="text-center">Vazão</Th>
-                                <Th className="text-center">Densidade KG/M³</Th>
-                                <Th className="text-center bg-black text-white">Densidade <br/> média</Th>
-                                <Th className={'text-center'}>Umidade</Th>
-                                <Th className={'text-center bg-black text-white'}>Umidade <br/> Média </Th>
-                                <Th className={'text-center'}>Pressão <br/> Coroa</Th>
-                                <Th className={'text-center'}>Pressão <br/> Topo</Th>
-                                <Th className={'text-center'}>Temperatura <br/> Coroa</Th>
-                                <Th className={'text-center'}>Temperatura <br/> Topo</Th>
-                                <Th className={'text-center'}>Sonda</Th>
-
+                                <Th className="text-center bg-black text-white">Carvão Calculado</Th>
+                                <Th className="text-center bg-black text-white">Carvão Enfornado</Th>
+                                <Th className="text-center bg-black text-white">Média</Th>
+                                <Th className="text-center bg-black text-white">Consumo KG/T</Th>
+                                <Th className="text-center bg-black text-white">Consumo M³/T</Th>
                             </Tr>
                         </Thead>
                         <Tbody >
@@ -120,32 +106,18 @@ const VerCargaPressaoTemperaturaSonda = () => {
                                 <Tr key={index}>
                                     <Td className="text-center">{formatDate(operacional.createdAt)}</Td>
                                     <Td className="text-center">{operacional.horas}</Td>
-                                    <Td className="text-center">{operacional.gaiola}</Td>
-                                    <Td className={'text-center'}>{operacional.a}</Td>
-                                    <Td className="text-center">{operacional.cargaSeca}</Td>
-                                    <Td className="text-center bg-black text-white">{operacional.acumuladoCargaSeca}</Td>
-                                    <Td className="text-center">{operacional.cargaHora}</Td>
-                                    <Td className="text-center bg-black text-white">{operacional.acumuladoCarga}</Td>
-                                    <Td className="text-center bg-black text-white">{operacional.mediaHoraCarga}</Td>
-                                    <Td className="text-center bg-black text-white">{operacional.rt}</Td>
-                                    <Td className="text-center">{operacional.vazao}</Td>
-                                    <Td className="text-center">{operacional.densidadeKg}</Td>
-                                    <Td className="text-center bg-black text-white">{operacional.densidadeMedia}</Td>
-                                    <Td className={'text-center'}>{operacional.umidade}</Td>
-                                    <Td className={'text-center bg-black text-white'}>{operacional.umidadeMedia}</Td>
-                                    <Td className="text-center">{operacional.pressaoCoroa}</Td>
-                                    <Td className={'text-center'}>{operacional.pressaoTopo}</Td>
-                                    <Td className={'text-center'}>{operacional.temperaturaCoroa}</Td>
-                                    <Td className={'text-center'}>{operacional.temperaturaTopo}</Td>
-                                    <Td className={'text-center'}>{operacional.sonda}</Td>
-
+                                    <Td className="text-center">{operacional.carvaoCalculado}</Td>
+                                    <Td className="text-center">{operacional.carvaoEnfornado}</Td>
+                                    <Td className="text-center">{operacional.mediaCarvao}</Td>
+                                    <Td className="text-center">{operacional.consumoKg}</Td>
+                                    <Td className="text-center">{operacional.consumoMetros}</Td>
                                 </Tr>
                             ))}
                         </Tbody>
                     </Table>
                 </TableContainer>
             </Box>
-            <Flex>
+            {/* <Flex>
                 <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mt-4'}>
                     <StatGroup>
                         {operacional.length > 0 && operacional[0] && (
@@ -178,7 +150,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                         )}
                     </StatGroup>
                 </Box>
-            </Flex>
+            </Flex> */}
             <Modal show={showErrorModal} onHide={handleClose}>
                 <Modal.Header className={'bg-danger'} closeButton>
                     <Modal.Title>Erro ao consultar informações</Modal.Title>
@@ -214,4 +186,4 @@ const VerCargaPressaoTemperaturaSonda = () => {
 
 }
 
-export default VerCargaPressaoTemperaturaSonda;
+export default VerDadosCarvao;

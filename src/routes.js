@@ -24,6 +24,7 @@ import VerAnaliseMinerioEscoria from "./views/main/ControleDeCorridas/VerAnalise
 import PesquisarCadastroMinerios from "./views/analises/AnaliseQuimicaDeMinerio/PesquisarCadastroMinerios";
 import VerAnaliseEscoria from "./views/analises/AnaliseEscoria/VerAnalisesEscoria/index";
 import VerCargaPressaoTemperaturaSonda from "./views/operacional/VerInformaçoes";
+import VerDadosCarvao from "views/operacional/VerInformaçoes/index_carvao";
 
 const routes = [
     {
@@ -41,7 +42,7 @@ const routes = [
         component: Home,
     },
     {
-        layout: "/admin",
+        layout: "/admin",   
         path: "/leito",
         component: CadastroLeitoDeFusao,
         icon:<Icon as={FaAngleDoubleRight} width='15px' height='15px' color='inherit' />,
@@ -197,6 +198,13 @@ const routes = [
         component: VerAnaliseGusa,
         name: "Ver Análise Gusa",
         hidden: true
+    },
+    {
+        layout: "/admin",
+        path: "/controle-carvao",
+        component: VerDadosCarvao,
+        name: "Controle de Carvão",
+        hidden: true   
     }
 
 
