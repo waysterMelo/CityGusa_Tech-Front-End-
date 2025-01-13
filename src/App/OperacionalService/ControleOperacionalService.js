@@ -32,6 +32,7 @@ class ControleOperacionalService {
             acumuladoCargaSeca:'',
             mediaHoraCarga:'',
             rt:'',
+            carvaoEnfornado:''
 
         };
         this.mensagemErro = "";
@@ -56,7 +57,7 @@ class ControleOperacionalService {
             umidade:'',
             gusaKg:'',
             acumuladoKilos:'',
-            fatorBaseDensidadeSeca:'',
+            fatorBaseDensidadeSeca:''
 
         }
     }

@@ -106,8 +106,8 @@ const VerDadosCarvao = () => {
                                 <Tr key={index}>
                                     <Td className="text-center">{formatDate(operacional.createdAt)}</Td>
                                     <Td className="text-center">{operacional.horas}</Td>
-                                    <Td className="text-center  bg-black text-white">{operacional.pesoCarvaoCalc}</Td>
-                                    {/*<Td className="text-center">{operacional.carvaoEnfornado}</Td>*/}
+                                    <Td className="text-center bg-black text-white">{operacional.pesoCarvaoCalc}</Td>
+                                    {<Td className="text-center bg-black text-white">{operacional.carvaoEnfornado}</Td>}
                                     {/*<Td className="text-center">{operacional.mediaCarvao}</Td>*/}
                                     {/*<Td className="text-center">{operacional.consumoKg}</Td>*/}
                                     {/*<Td className="text-center">{operacional.consumoMetros}</Td>*/}
@@ -117,40 +117,40 @@ const VerDadosCarvao = () => {
                     </Table>
                 </TableContainer>
             </Box>
-            {<Flex>
-                <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mt-4'}>
-                    <StatGroup>
-                        {operacional.length > 0 && operacional[0] && (
-                            <Stat>
-                                <CardTitle>UMIDADE MÉDIA DO DIA</CardTitle>
-                               <StatNumber>
-                                   {operacional[0].umidadeMedia ? operacional[0].umidadeMedia.toFixed(2) : "N/A"}
-                               </StatNumber>
-                            </Stat>
-                        )}
-                    </StatGroup>
-                </Box>
-                <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mx-3 mt-4'}>
-                    <StatGroup>
-                        {operacional.length > 0 && operacional[0] && (
-                            <Stat>
-                                <CardTitle>DENSIDADE MÉDIA DO DIA</CardTitle>
-                                <StatNumber>{operacional[0].densidadeMedia ? operacional[0].densidadeMedia.toFixed(2) : "N/A"}</StatNumber>
-                            </Stat>
-                        )}
-                    </StatGroup>
-                </Box>
-                <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5 mx-3 mt-4'}>
-                    <StatGroup>
-                        {operacional.length > 0 && operacional[0] && (
-                            <Stat>
-                                <CardTitle>RITMO ATUAL</CardTitle>
-                                <StatNumber>{operacional[0].mediaManganes ? operacional[0].mediaManganes.toFixed(2) : "N/A"}</StatNumber>
-                            </Stat>
-                        )}
-                    </StatGroup>
-                </Box>
-            </Flex>}
+            {/*{<Flex>*/}
+            {/*    <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mt-4'}>*/}
+            {/*        <StatGroup>*/}
+            {/*            {operacional.length > 0 && operacional[0] && (*/}
+            {/*                <Stat>*/}
+            {/*                    <CardTitle>UMIDADE MÉDIA DO DIA</CardTitle>*/}
+            {/*                   <StatNumber>*/}
+            {/*                       {operacional[0].umidadeMedia ? operacional[0].umidadeMedia.toFixed(2) : "N/A"}*/}
+            {/*                   </StatNumber>*/}
+            {/*                </Stat>*/}
+            {/*            )}*/}
+            {/*        </StatGroup>*/}
+            {/*    </Box>*/}
+            {/*    <Box w={'30%'} h={'100%'} className={'font-monospace bg-dark-subtle p-5 mx-3 mt-4'}>*/}
+            {/*        <StatGroup>*/}
+            {/*            {operacional.length > 0 && operacional[0] && (*/}
+            {/*                <Stat>*/}
+            {/*                    <CardTitle>DENSIDADE MÉDIA DO DIA</CardTitle>*/}
+            {/*                    <StatNumber>{operacional[0].densidadeMedia ? operacional[0].densidadeMedia.toFixed(2) : "N/A"}</StatNumber>*/}
+            {/*                </Stat>*/}
+            {/*            )}*/}
+            {/*        </StatGroup>*/}
+            {/*    </Box>*/}
+            {/*    <Box w={'30%'} h={'100%'} className={'font-monospace bg-primary-subtle p-5 mx-3 mt-4'}>*/}
+            {/*        <StatGroup>*/}
+            {/*            {operacional.length > 0 && operacional[0] && (*/}
+            {/*                <Stat>*/}
+            {/*                    <CardTitle>RITMO ATUAL</CardTitle>*/}
+            {/*                    <StatNumber>{operacional[0].mediaManganes ? operacional[0].mediaManganes.toFixed(2) : "N/A"}</StatNumber>*/}
+            {/*                </Stat>*/}
+            {/*            )}*/}
+            {/*        </StatGroup>*/}
+            {/*    </Box>*/}
+            {/*</Flex>}*/}
             <Modal show={showErrorModal} onHide={handleClose}>
                 <Modal.Header className={'bg-danger'} closeButton>
                     <Modal.Title>Erro ao consultar informações</Modal.Title>
