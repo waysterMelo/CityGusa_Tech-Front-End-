@@ -33,7 +33,9 @@ class ControleOperacionalService {
             mediaHoraCarga:'',
             rt:'',
             carvaoEnfornado:'',
-            carvaoEnfornadoMedia:''
+            carvaoEnfornadoMedia:'',
+            consumoKg:'',
+            consumoMetros:''
 
         };
         this.mensagemErro = "";

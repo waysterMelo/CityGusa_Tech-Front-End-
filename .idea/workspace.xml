@@ -7,9 +7,7 @@
     <list default="true" id="8a600959-f0b3-4d0d-aa1c-5acd23a74561" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App/OperacionalService/ControleOperacionalService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/OperacionalService/ControleOperacionalService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/banner/Banner.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/banner/Banner.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/operacional/VerInformaçoes/index_carvao.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/operacional/VerInformaçoes/index_carvao.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/operacional/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/operacional/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +61,7 @@
       <workItem from="1736617788785" duration="658000" />
       <workItem from="1736619752843" duration="3382000" />
       <workItem from="1736806944826" duration="1825000" />
-      <workItem from="1738438305234" duration="4535000" />
+      <workItem from="1738438305234" duration="5701000" />
     </task>
     <servers />
   </component>
