@@ -117,6 +117,9 @@ export default function Banner(props) {
                         <Text fontSize={'md'}>
                             {segundo_botao}
                         </Text>
+                        <Text className={'font-monospace mt-3'}>
+                            {segundo_botao_texto_secundario}
+                        </Text>
                     </ChakraLink>
                 )}
 

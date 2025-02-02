@@ -108,7 +108,7 @@ const VerDadosCarvao = () => {
                                     <Td className="text-center">{operacional.horas}</Td>
                                     <Td className="text-center bg-black text-white">{operacional.pesoCarvaoCalc}</Td>
                                     {<Td className="text-center bg-black text-white">{operacional.carvaoEnfornado}</Td>}
-                                    {/*<Td className="text-center">{operacional.mediaCarvao}</Td>*/}
+                                    <Td className="text-center bg-black text-white">{operacional.carvaoEnfornadoMedia}</Td>
                                     {/*<Td className="text-center">{operacional.consumoKg}</Td>*/}
                                     {/*<Td className="text-center">{operacional.consumoMetros}</Td>*/}
                                 </Tr>

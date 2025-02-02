@@ -32,7 +32,8 @@ class ControleOperacionalService {
             acumuladoCargaSeca:'',
             mediaHoraCarga:'',
             rt:'',
-            carvaoEnfornado:''
+            carvaoEnfornado:'',
+            carvaoEnfornadoMedia:''
 
         };
         this.mensagemErro = "";

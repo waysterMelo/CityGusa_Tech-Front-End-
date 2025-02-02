@@ -50,12 +50,13 @@ const ControleOperacional = () => {
                 display={{ base: "block", xl: "grid" }}>
                 <Banner url_voltar={'/admin/home'} texto_primario={'CONTROLE OPERACIONAL'}
                     texto_secundario={'Abaixo confira as informações inseridas'}
+
                     primeiro_botao={'CARGAS | PRESSÃO | TEMPERATURA | SONDA'}
                     url={'cargas-pressao-temperatura-sonda'}
                     primeiro_botao_texto_secundario={'RITMO, MÉDIAS DA UMIDADE E DENSIDADE, MÉDIA HORA'}
                     
-                    segundo_botao={'CONTROLE CARVÃO'}
-                    url_segundo_botao={'controle-carvao'}
+                    segundo_botao={'CONTROLE CARVÃO'} segundo_botao_texto_secundario={'PESO CALCULADO | PESO ENFORNADO | MÉDIA | CONSUMO'} url_segundo_botao={'controle-carvao'}
+
                         terceiro_botao={''}
                         url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
                 />
