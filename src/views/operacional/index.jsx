@@ -57,8 +57,9 @@ const ControleOperacional = () => {
                     
                     segundo_botao={'CONTROLE CARVÃO'} segundo_botao_texto_secundario={'PESO CALCULADO | PESO ENFORNADO | MÉDIA | CONSUMO'} url_segundo_botao={'controle-carvao'}
 
-                        terceiro_botao={''}
-                        url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
+                        terceiro_botao={'RESERVAS'}
+                        terceiro_botao_texto_secundario={'PONTO | ENF | FUND | +/- | COLUNA'}
+                        url_terceiro_botao={'reservas'}
                 />
             </Grid>
 

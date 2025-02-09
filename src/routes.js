@@ -25,6 +25,7 @@ import PesquisarCadastroMinerios from "./views/analises/AnaliseQuimicaDeMinerio/
 import VerAnaliseEscoria from "./views/analises/AnaliseEscoria/VerAnalisesEscoria/index";
 import VerCargaPressaoTemperaturaSonda from "./views/operacional/VerInformaçoes";
 import VerDadosCarvao from "views/operacional/VerInformaçoes/index_carvao";
+import VerReservas from "./views/operacional/VerReservas/index_reservas";
 
 const routes = [
     {
@@ -205,6 +206,13 @@ const routes = [
         component: VerDadosCarvao,
         name: "Controle de Carvão",
         hidden: true   
+    },
+    {
+        layout: "/admin",
+        path: "/reservas",
+        component: VerReservas,
+        name: "Reservas",
+        hidden: true
     }
 
 
