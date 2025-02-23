@@ -6,6 +6,7 @@ dayjs.extend(duration);
 class ControleOperacionalService {
     constructor() {
         this.formData = {
+            id: '',
             createdAt:'',
             horas:'',
             a:'',
@@ -35,7 +36,8 @@ class ControleOperacionalService {
             carvaoEnfornado:'',
             carvaoEnfornadoMedia:'',
             consumoKg:'',
-            consumoMetros:''
+            consumoMetros:'',
+            positivoNegativo: ''
 
         };
         this.mensagemErro = "";

@@ -92,6 +92,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                     <Table colorScheme={'twitter'} className={'table table-responsive-sm table-bordered'} size={'sm'}>
                         <Thead>
                             <Tr>
+                                <Th className="text-center">ID</Th>
                                 <Th className="text-center">Data</Th>
                                 <Th className="text-center">Hora</Th>
                                 <Th className="text-center">Gaiola</Th>
@@ -118,6 +119,7 @@ const VerCargaPressaoTemperaturaSonda = () => {
                         <Tbody >
                             {operacional.map((operacional, index) => (
                                 <Tr key={index}>
+                                    <Td className="text-center">{operacional.id}</Td>
                                     <Td className="text-center">{formatDate(operacional.createdAt)}</Td>
                                     <Td className="text-center">{operacional.horas}</Td>
                                     <Td className="text-center">{operacional.gaiola}</Td>
