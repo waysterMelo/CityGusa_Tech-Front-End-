@@ -501,10 +501,10 @@ const ControleOperacional = () => {
               Sucesso
             </ModalHeader>
             <ModalCloseButton color="white" />
-            <ModalBody>
+            <ModalBody bg={'white'}>
               Informações cadastradas com sucesso!
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter bg={'white'}>
               <Button 
                 colorScheme="green" 
                 onClick={handleClose}
@@ -529,10 +529,10 @@ const ControleOperacional = () => {
               Erro
             </ModalHeader>
             <ModalCloseButton color="white" />
-            <ModalBody>
+            <ModalBody bg={'white'}>
               {mensagemErro}
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter bg={'white'}>
               <Button 
                 colorScheme="red" 
                 onClick={handleClose}

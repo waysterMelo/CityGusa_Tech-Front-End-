@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a600959-f0b3-4d0d-aa1c-5acd23a74561" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/Login/NeuralBackground.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/auth/signIn/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/auth/signIn/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/operacional/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/operacional/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,26 +36,27 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/wayst/OneDrive/Desktop/Projetos/CityGusa_Tech-Front-End-/src/views/operacional/VerReservas",
+    "last_opened_file_path": "C:/Users/carvao/Desktop/CityGusa_Tech-Front-End-/src/assets/img/backgrounds",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\carvao\Desktop\CityGusa_Tech-Front-End-\src\assets\img\backgrounds" />
       <recent name="C:\Users\wayst\OneDrive\Desktop\Projetos\CityGusa_Tech-Front-End-\src\views\operacional\VerReservas" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.26053.12" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
       </set>
     </attachedChunks>
   </component>
@@ -72,6 +76,9 @@
       <workItem from="1739141162061" duration="2054000" />
       <workItem from="1740323743670" duration="2956000" />
       <workItem from="1742479740223" duration="9048000" />
+      <workItem from="1747926267126" duration="555000" />
+      <workItem from="1747926852508" duration="2203000" />
+      <workItem from="1748178626037" duration="6834000" />
     </task>
     <servers />
   </component>
