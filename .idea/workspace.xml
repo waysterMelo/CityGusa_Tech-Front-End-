@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a600959-f0b3-4d0d-aa1c-5acd23a74561" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/OperacionalService/ControleOperacionalService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/OperacionalService/ControleOperacionalService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/operacional/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/operacional/index.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="8a600959-f0b3-4d0d-aa1c-5acd23a74561" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +70,7 @@
       <workItem from="1739141162061" duration="2054000" />
       <workItem from="1740323743670" duration="2956000" />
       <workItem from="1742479740223" duration="9048000" />
-      <workItem from="1748189385500" duration="5928000" />
+      <workItem from="1748189385500" duration="6271000" />
     </task>
     <servers />
   </component>
