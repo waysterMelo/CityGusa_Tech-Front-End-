@@ -38,7 +38,6 @@ class ControleOperacionalService {
             consumoKg:'',
             consumoMetros:'',
             positivoNegativo: ''
-
         };
         this.mensagemErro = "";
         this.showSuccessModal = false;
@@ -46,7 +45,7 @@ class ControleOperacionalService {
         this.showNullModal = false;
     }
 
-    resetFormData=()=> {
+    resetFormDataInternal = () => {
         this.formData = {
             a:'',
             gaiola:'',
@@ -63,24 +62,25 @@ class ControleOperacionalService {
             gusaKg:'',
             acumuladoKilos:'',
             fatorBaseDensidadeSeca:''
-
-        }
+        };
     }
 
-    handleChange = (e, setFormData) => {
+    handleChange = (e, setFormDataCallback) => {
         const { name, value } = e.target;
         this.formData = {
             ...this.formData,
             [name]: value
         };
-        setFormData(this.formData);
+        if (setFormDataCallback) {
+            setFormDataCallback(prev => ({...prev, [name]: value}));
+        }
     };
 
     getErrorMessage = (error) => {
         let mensagemErro = "";
         if (error.response) {
             const { status, data } = error.response;
-            if (status === 400 && data.message.includes('Cannot deserialize value of type')) {
+            if (status === 400 && data.message && data.message.includes('Cannot deserialize value of type')) {
                 mensagemErro = `Erro ${status}: Há um problema nos dados enviados. Verifique se todos os campos estão preenchidos corretamente e se os valores numéricos estão no formato adequado.`;
             } else {
                 mensagemErro = `Erro ${status}: ${data.message || error.message}`;
@@ -91,21 +91,19 @@ class ControleOperacionalService {
         return mensagemErro;
     };
 
-    salvar = async () => {
+    salvar = async (dataToSave) => {
         try {
-            const response = await axios.post("http://localhost:8080/operacional", this.formData, {
+            const response = await axios.post("http://localhost:8080/operacional", dataToSave, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
-            console.log("Registro inserido com sucesso:", response.data);
             this.showSuccessModal = true;
             return { success: true };
         } catch (error) {
-            console.error("Erro ao cadastrar corrida:", error);
             this.mensagemErro = this.getErrorMessage(error);
             this.showErrorModal = true;
-            return { success: false, message: error.message };
+            return { success: false, message: this.mensagemErro };
         }
     };
 
@@ -123,7 +121,6 @@ class ControleOperacionalService {
             const response = await axios.get("http://localhost:8080/operacional/today");
             return response.data;
         } catch (error) {
-            console.error("Erro ao buscar informações do dia:", error);
             return [];
         }
     }
@@ -131,7 +128,6 @@ class ControleOperacionalService {
     async getOperacionalPorData(date) {
         try {
             const response = await axios.get(`http://localhost:8080/operacional/por-data?data=${date}`);
-
             if (response.data.length === 0) {
                 this.mensagemErro = "Não há informações cadastradas nessa data.";
                 this.showErrorModal = true;
@@ -140,13 +136,11 @@ class ControleOperacionalService {
             this.showSuccessModal = true;
             return { success: true, data: response.data };
         } catch (error) {
-            console.error("Erro ao buscar corridas:", error);
             this.mensagemErro = this.getErrorMessage(error);
             this.showErrorModal = true;
             return { success: false, message: error.message };
         }
     }
-
 }
 
 export default ControleOperacionalService;

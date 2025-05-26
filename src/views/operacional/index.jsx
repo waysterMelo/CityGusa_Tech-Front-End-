@@ -1,14 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
   Box, 
   Button, 
   Flex, 
-  Grid, 
-  HStack, 
-  Text,
-  VStack,
+  Grid,
   Icon,
-  ChakraProvider,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -17,22 +13,23 @@ import {
   ModalBody,
   ModalCloseButton
 } from "@chakra-ui/react";
-import { 
-  FaIndustry, 
-  FaTemperatureHigh, 
-  FaWater, 
-  FaWeightHanging, 
-  FaChartLine, 
-  FaCloud, 
-  FaFire, 
-  FaClipboardList, 
+import {
+  FaIndustry,
+  FaTemperatureHigh,
+  FaWater,
+  FaWeightHanging,
+  FaChartLine,
+  FaCloud,
+  FaFire,
+  FaClipboardList,
   FaSave,
-  FaExclamationTriangle
+  FaExclamationTriangle, FaClock
 } from "react-icons/fa";
 import Banner from "../../components/banner/Banner";
 import InputMask from "react-input-mask";
 import ControleOperacionalService from "../../App/OperacionalService/ControleOperacionalService";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { format } from "date-fns";
 
 const ControleOperacional = () => {
   // Instanciamos o service só para chamar o salvar().
@@ -78,8 +75,14 @@ const ControleOperacional = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [mensagemErro, setMensagemErro] = useState("");
 
+    useEffect(() => {
+        const currentHour = format(new Date(), "HH:mm");
+        setFormData(prev => ({ ...prev, horas: currentHour }));
+    }, []);
+
   // Função de reset do formData no frontend
   const resetFormData = () => {
+    const currentHour = format(new Date(), "HH:mm");
     setFormData({
       id: '',
       createdAt: '',
@@ -119,6 +122,8 @@ const ControleOperacional = () => {
   // Ao enviar o form, chamamos service.salvar() passando formData
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const currentSubmitTime = format(new Date(), "HH:mm");
+    const dataToSubmit = { ...formData, horas: currentSubmitTime };
     const result = await service.salvar(formData);
     if (result.success) {
       setShowSuccessModal(true);
@@ -132,6 +137,8 @@ const ControleOperacional = () => {
   // handleChange local (não precisa do service)
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Não permitir alteração no campo horas se ele for readOnly
+    if (name === "horas") return;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -142,22 +149,13 @@ const ControleOperacional = () => {
     setMensagemErro("");
   };
 
+
   return (
-    <ChakraProvider>
-      <Box 
-        pt={{ base: "90px", md: "50px", xl: "5%" }} 
-        ml={{ base: "2%" }} 
-        maxWidth="container.xl" 
-        mx="auto"
-        bg="brand.50"
-        minHeight="100vh"
-        p={4}
-      >
+      <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
         <Grid
-          templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
-          gap={4}
-          display={{ base: "block", xl: "grid" }}
-        >
+            gridTemplateColumns={'repeat(1, 1fr)'}
+            gap={{ base: "20px", xl: "20px" }}
+            display={{ base: "block", xl: "grid" }}>
           <Banner 
             url_voltar={'/admin/home'} 
             texto_primario={'CONTROLE OPERACIONAL'}
@@ -184,6 +182,22 @@ const ControleOperacional = () => {
               </div>
               <div className="card-body">
                 <div className="row row-cols-1 row-cols-md-5 g-4">
+                  <div className={'col'}>
+                    <div className="form-group">
+                      <label className="form-label d-flex align-items-center">
+                        <FaClock className="text-black me-2" /> Horas
+                      </label>
+                      <InputMask
+                          mask="99:99"
+                          value={formData.horas}
+                          name="horas"
+                          className="form-control text-center border-black"
+                          placeholder="HH:MM"
+                          readOnly // Torna o campo somente leitura
+                          // onChange={handleChange} // Removido pois será automático
+                      />
+                    </div>
+                  </div>
                   <div className="col">
                     <div className="form-group">
                       <label className="form-label d-flex align-items-center">
@@ -191,7 +205,7 @@ const ControleOperacional = () => {
                       </label>
                       <input 
                         type="text"
-                        className="form-control text-center border-black-subtle"
+                        className="form-control text-center border-black"
                         placeholder="Digite aqui..." 
                         name="a" 
                         value={formData.a} 
@@ -543,7 +557,6 @@ const ControleOperacional = () => {
           </ModalContent>
         </Modal>
       </Box>
-    </ChakraProvider>
   );
 };
 
