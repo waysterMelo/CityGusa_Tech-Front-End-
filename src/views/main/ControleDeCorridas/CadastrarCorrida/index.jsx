@@ -19,6 +19,15 @@ import Banner from "../../../../components/banner/Banner";
 import { Modal } from "react-bootstrap";
 import ControleDeCorridasService from '../../../../App/ControleCorridasService/ControleDeCorridasService';
 import InputMask from "react-input-mask";
+import {
+    FaClipboardList, FaClock, FaCube,
+    FaExclamationTriangle,
+    FaFireAlt,
+    FaFlask,
+    FaRecycle,
+    FaSave,
+    FaWeightHanging
+} from "react-icons/fa";
 
 const ControleDeCorridas = () => {
     const service = useRef(new ControleDeCorridasService()).current;
@@ -139,337 +148,363 @@ const ControleDeCorridas = () => {
     }, [qt, gusa, service]);
 
 
-
     return (
-        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }}>
+        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }} mr={{ base: "2%" }}> {/* Adicionado mr para margem direita */}
             <Grid
-                gridTemplateColumns={'repeat(1, 1fr)'}
+                templateColumns={'repeat(1, 1fr)'}
                 gap={{ base: "20px", xl: "20px" }}
-                display={{ base: "block", xl: "grid" }}>
+                display={{ base: "block", xl: "grid" }}
+            >
                 <Banner url={'vazamento-cargas-fundidas'} url_voltar={'/admin/home'} texto_primario={'CADASTRAR CORRIDAS DO FORNO'}
-                    texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
-                    primeiro_botao={'Vazamento, Cargas Fundidas'}
-                    segundo_botao={'Análise Química Minério, Escória'}
-                    url_segundo_botao={'ver-analise-minerio-escoria'}
+                        texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
+                        primeiro_botao={'Vazamento, Cargas Fundidas'}
+                        segundo_botao={'Análise Química Minério, Escória'}
+                        url_segundo_botao={'ver-analise-minerio-escoria'}
                         terceiro_botao={'Peso Gusa e Temperatura, Consumo carvão, Sopradores'}
                         url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
                 />
             </Grid>
 
             <form onSubmit={handleSubmit}>
-                <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} spacing={3} mt={4}>
-                    <Stack direction={['column', 'row']}>
-                        <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark text-center'}>Vazamento</Text>
+                <div className="d-flex flex-column gap-4"> {/* Container principal para linhas de cards */}
 
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>Hora Início</FormLabel>
-                                <Input
-                                    type={'datetime-local'}
-                                    name={'horaInicio'}
-                                    value={horaInicio}
-                                    onChange={(e) => { setHoraInicio(e.target.value); handleChange(e) }}
-                                    ref={horaInicioRef}
-                                />
-                            </FormControl>
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>Hora Fim</FormLabel>
-                                <Input
-                                    type={'datetime-local'}
-                                    name={'horaFim'}
-                                    value={horaFim}
-                                    onChange={(e) => { setHoraFim(e.target.value); handleChange(e) }}
-                                    ref={horaFimRef}
-                                />
-                            </FormControl>
-                            <FormControl className={'form-control-lg'}>
-                                <FormLabel>Minutos</FormLabel>
-                                <Input name="minutos" className={'text-bg-secondary'} placeholder='minutos' value={minutos} readOnly />
-                            </FormControl>
-                            <HStack>
-                                <FormControl className={'form-control-lg'}>
-                                    <FormLabel>Conchas</FormLabel>
-                                    <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} />
-                                </FormControl>
-                            </HStack>
-
-                        </Box>
-                        <Box height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark'}>Análise QM</Text>
-                            <HStack spacing={3} width={'100%'} className={'p-3'}>
-                                <VStack width={'auto'}>
-                                    <Text className={'p-2 border-bottom'}>Silício</Text>
-                                    <Flex width={'100%'}>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>Visual</FormLabel>
-                                            <InputMask
-                                                mask={'9.99'}
-                                                value={formData.silicioVisual}
-                                                onChange={handleChange}
-                                                placeholder={'0.00'}
-                                                name={'silicioVisual'}
-                                            >
-                                                {(inputProps) => <Input {...inputProps} type={'text'} />}
-                                            </InputMask>
-                                        </FormControl>
-                                        <Spacer />
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>Real</FormLabel>
-                                            <InputMask
-                                                mask={'9.99'}
-                                                value={formData.silicioReal}
-                                                onChange={handleChange}
-                                                placeholder={'0.00'}
-                                                name={'silicioReal'}
-                                            >
-                                                {(inputProps) => <Input {...inputProps} type={'text'} />}
-                                            </InputMask>
-                                        </FormControl>
-                                    </Flex>
-                                </VStack>
-                                <VStack width={'100%'}>
-                                    <Text className={'p-2 border-bottom'}>Outros</Text>
-                                    <Flex>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>P</FormLabel>
-                                            <InputMask
-                                                mask="9.999"
-                                                value={formData.fosforo}
-                                                onChange={handleChange}
-                                                placeholder={'0.000'}
-                                                name={'fosforo'}
-                                            >
-                                                {(inputProps) => <Input {...inputProps} type="text" />}
-                                            </InputMask>
-                                        </FormControl>
-                                        <Spacer />
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>MM</FormLabel>
-                                            <InputMask
-                                                mask="9.99"
-                                                value={formData.manganes}
-                                                onChange={handleChange}
-                                                placeholder={'0.00'}
-                                                name={'manganes'}
-                                            >
-                                                {(inputProps) => <Input {...inputProps} type="text" />}
-                                            </InputMask>
-                                        </FormControl>
-                                        <Spacer />
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel className={'text-center'}>S</FormLabel>
-                                            <InputMask
-                                                mask="9.999"
-                                                value={formData.silica}
-                                                onChange={handleChange}
-                                                placeholder={'0.000'}
-                                                name={'silica'}
-                                            >
-                                                {(inputProps) => <Input {...inputProps} type="text" />}
-                                            </InputMask>
-                                        </FormControl>
-                                    </Flex>
-                                </VStack>
-                            </HStack>
-                            <Box bg='white' p={4} mt={4} boxShadow={'xs'} rounded={'md'}>
-                                <Text className={'p-3 text-bg-dark'}>Escória vazamento</Text>
-                                <HStack spacing={3} width={'100%'} className={'p-2'}>
-                                    <FormControl className={'w-50'}>
-                                        <FormLabel>Início</FormLabel>
-                                        <InputMask
-                                            mask={'99:99'}
-                                            onChange={handleChange}
-                                            value={formData.escoriaInicio}
-                                            placeholder={'HH:MM'}
-                                            name={'escoriaInicio'}
-                                        >
-                                            {(inputProps) => <Input {...inputProps} type={'text'} />}
-                                        </InputMask>
-                                    </FormControl>
-                                    <FormControl className={'w-50'}>
-                                        <FormLabel>Fim</FormLabel>
-                                        <InputMask
-                                            mask={'99:99'}
-                                            onChange={handleChange}
-                                            value={formData.escoriaFim}
-                                            placeholder={'HH:MM'}
-                                            name={'escoriaFim'}
-                                        >
-                                            {(inputProps) => <Input {...inputProps} type={'text'} />}
-                                        </InputMask>
-                                    </FormControl>
-                                    <FormControl>
-                                        <FormLabel>Tipo de escória</FormLabel>
-                                        <Select placeholder="Selecione o tipo" value={tipoEscoria} onChange={handleTipoDeEscoria}>
-                                            <option value="verde">Verde</option>
-                                            <option value="verde-clara">Verde Clara</option>
-                                            <option value="cinza">Cinza</option>
-                                        </Select>
-                                    </FormControl>
-
-                                </HStack>
-                            </Box>
-                        </Box>
-                    </Stack>
-                    <Stack direction={['column', 'row']}>
-                        <Box width={'26%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark text-center'}>Cargas Fundidas</Text>
-                            <HStack className={'p-3'}>
-                                <FormControl className={'form-control-sm'}>
-                                    <FormLabel>De N°</FormLabel>
-                                    <Input name="cargaFundidaDe" value={deNumero} onChange={handleCargaDeChange} placeholder={'digite aqui'} />
-                                </FormControl>
-                                <FormControl className={'form-control-sm'}>
-                                    <FormLabel>Até N°</FormLabel>
-                                    <Input name="cargaFundidaAte" value={ateNumero} onChange={handleCargaAteChange} placeholder={'digite aqui'} />
-                                </FormControl>
-                            </HStack>
-
-                            <FormControl className={'form-control-sm'}>
-                                <FormLabel>Quantidade</FormLabel>
-                                <Input value={qt} name="quantidade" className={'text-bg-secondary text-center'} readOnly />
-                            </FormControl>
-                            <HStack>
-                                <FormControl className={'form-control-sm'}>
-                                    <FormLabel>Fe/Gusa/(KG)</FormLabel>
-                                    <Input value={gusa} name="feGusaKg"
-                                        onChange={(e) => setGusa(e.target.value)} placeholder={'digite aqui'} />
-                                </FormControl>
-                                <FormControl className={'form-control-sm'}>
-                                    <FormLabel>Fe₂O₃</FormLabel>
-                                    <Input name="ferro" value={ferro} className={'text-bg-secondary'} readOnly />
-                                </FormControl>
-                            </HStack>
-                        </Box>
-
-                        <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark text-center'}>Peso do Gusa</Text>
-
-                            <HStack width={'auto'} className={'p-3'} justify="center">
-                                <Flex className={''}>
-                                    <FormControl>
-                                        <FormLabel>Real (TN)</FormLabel>
-                                        <Input placeholder={'digite aqui'}
-                                            name="realTn"
-                                            value={realTn}
-                                            onChange={(e) => service.handleRealTnChange(e, setRealTn)} />
-                                    </FormControl>
-                                </Flex>
-                            </HStack>
-                            <HStack spacing={3} width={'auto'} className={'p-1'}>
-                                <VStack>
-                                    <Flex>
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>Tempo de corrida em min</FormLabel>
-                                            <Input name={'tempoCorridaMinutos'}
-                                                placeholder={'digite aqui'}
-                                                value={tempoCorrida}
-                                                onChange={handleTempoCorridaChange}
+                    {/* Linha 1 de Cards */}
+                    <div className="row row-cols-1 row-cols-lg-2 g-4">
+                        {/* Card Vazamento */}
+                        <div className="col">
+                            <div className="card w-100 border border-black border-2 shadow-sm">
+                                <div className="card-header bg-light d-flex align-items-center">
+                                    <FaClock className="text-black me-2" size={20} />
+                                    <span className="fw-bold text-black">Vazamento</span>
+                                </div>
+                                <div className="card-body">
+                                    <VStack spacing={4} align="stretch">
+                                        <FormControl>
+                                            <FormLabel>Hora Início</FormLabel>
+                                            <Input
+                                                type={'datetime-local'}
+                                                name={'horaInicio'}
+                                                value={horaInicio}
+                                                onChange={(e) => { setHoraInicio(e.target.value); handleChange(e); }}
+                                                ref={horaInicioRef}
+                                                borderColor="gray.300"
                                             />
                                         </FormControl>
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>Tonelada de gusa por min</FormLabel>
-                                            <Input name={'gusaMinuto'} className={'text-bg-secondary'} readOnly={true} value={toneladaGusa} />
+                                        <FormControl>
+                                            <FormLabel>Hora Fim</FormLabel>
+                                            <Input
+                                                type={'datetime-local'}
+                                                name={'horaFim'}
+                                                value={horaFim}
+                                                onChange={(e) => { setHoraFim(e.target.value); handleChange(e); }}
+                                                ref={horaFimRef}
+                                                borderColor="gray.300"
+                                            />
                                         </FormControl>
-                                    </Flex>
-                                    <Flex>
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>Temperatura do Gusa</FormLabel>
-                                            <Input name="temperatura" placeholder='temperatura gusa' value={formData.temperatura} onChange={handleChange} />
+                                        <FormControl>
+                                            <FormLabel>Minutos</FormLabel>
+                                            <Input name="minutos" placeholder='minutos' value={minutos} readOnly className={'text-bg-secondary'} borderColor="gray.300" />
                                         </FormControl>
-                                    </Flex>
-                                </VStack>
-                            </HStack>
-                        </Box>
+                                        <FormControl>
+                                            <FormLabel>Conchas</FormLabel>
+                                            <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} borderColor="gray.300" />
+                                        </FormControl>
+                                    </VStack>
+                                </div>
+                            </div>
+                        </div>
 
+                        {/* Card Análise QM e Escória */}
+                        <div className="col">
+                            <div className="card w-100 border border-black border-2 shadow-sm">
+                                <div className="card-header bg-light d-flex align-items-center">
+                                    <FaFlask className="text-black me-2" size={20} />
+                                    <span className="fw-bold text-black">Análise Química e Escória</span>
+                                </div>
+                                <div className="card-body">
+                                    <VStack spacing={6} align="stretch">
+                                        {/* Seção Análise QM */}
+                                        <Box>
+                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1}>Análise QM (Gusa)</Text>
+                                            <div className="row g-3">
+                                                <div className="col-md-12">
+                                                    <Text className={'p-2 border-bottom text-center fw-bold'}>Silício</Text>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <FormControl>
+                                                        <FormLabel className={'text-center'}>Visual</FormLabel>
+                                                        <InputMask
+                                                            mask={'9.99'}
+                                                            value={formData.silicioVisual}
+                                                            onChange={handleChange}
+                                                            name={'silicioVisual'}
+                                                        >
+                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'0.00'} borderColor="gray.300" textAlign="center"/>}
+                                                        </InputMask>
+                                                    </FormControl>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <FormControl>
+                                                        <FormLabel className={'text-center'}>Real</FormLabel>
+                                                        <InputMask
+                                                            mask={'9.99'}
+                                                            value={formData.silicioReal}
+                                                            onChange={handleChange}
+                                                            name={'silicioReal'}
+                                                        >
+                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'0.00'} borderColor="gray.300" textAlign="center"/>}
+                                                        </InputMask>
+                                                    </FormControl>
+                                                </div>
+                                            </div>
+                                            <div className="row g-3 mt-2">
+                                                <div className="col-md-12">
+                                                    <Text className={'p-2 border-bottom text-center fw-bold'}>Outros Elementos</Text>
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <FormControl>
+                                                        <FormLabel className={'text-center'}>P (Fósforo)</FormLabel>
+                                                        <InputMask mask="9.999" value={formData.fosforo} onChange={handleChange} name={'fosforo'}>
+                                                            {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.000'} borderColor="gray.300" textAlign="center"/>}
+                                                        </InputMask>
+                                                    </FormControl>
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <FormControl>
+                                                        <FormLabel className={'text-center'}>Mn (Manganês)</FormLabel>
+                                                        <InputMask mask="9.99" value={formData.manganes} onChange={handleChange} name={'manganes'}>
+                                                            {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.00'} borderColor="gray.300" textAlign="center"/>}
+                                                        </InputMask>
+                                                    </FormControl>
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <FormControl>
+                                                        <FormLabel className={'text-center'}>S (Enxofre)</FormLabel>
+                                                        <InputMask mask="9.999" value={formData.silica} onChange={handleChange} name={'silica'}>
+                                                            {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.000'} borderColor="gray.300" textAlign="center"/>}
+                                                        </InputMask>
+                                                    </FormControl>
+                                                </div>
+                                            </div>
+                                        </Box>
 
-                        <Box width={'36%'} height='auto' bg={'white'} p={4} boxShadow={'xs'} rounded={'md'}>
-                            <Text className={'p-3 text-bg-dark text-center'}>Consumo Esperado de Carvão</Text>
-                            <HStack spacing={3} width={'auto'} className={'p-1'}>
-                                <VStack width={'auto'}>
-                                    <Flex width={'100%'}>
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>KG/T</FormLabel>
-                                            <Input name="carvaoKg" value={kgt} placeholder={'digite aqui'} onChange={(e) => { setkgt(e.target.value); handleChange(e); }} />
-                                        </FormControl>
-                                        <Spacer />
-                                        <FormControl className={'form-control-lg'}>
-                                            <FormLabel>M³/T</FormLabel>
-                                            <Input name="carvaoMetros" value={m3t} placeholder={'digite aqui'} onChange={(e) => { service.handleM3tNumber(e, setM3t); }} />
-                                        </FormControl>
-                                    </Flex>
-                                </VStack>
-                            </HStack>
+                                        {/* Seção Escória Vazamento */}
+                                        <Box>
+                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1} mt={4}>Escória Vazamento</Text>
+                                            <div className="row g-3">
+                                                <div className="col-md-6 col-lg-4">
+                                                    <FormControl>
+                                                        <FormLabel>Início</FormLabel>
+                                                        <InputMask mask={'99:99'} onChange={handleChange} value={formData.escoriaInicio} name={'escoriaInicio'}>
+                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'HH:MM'} borderColor="gray.300" />}
+                                                        </InputMask>
+                                                    </FormControl>
+                                                </div>
+                                                <div className="col-md-6 col-lg-4">
+                                                    <FormControl>
+                                                        <FormLabel>Fim</FormLabel>
+                                                        <InputMask mask={'99:99'} onChange={handleChange} value={formData.escoriaFim} name={'escoriaFim'}>
+                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'HH:MM'} borderColor="gray.300" />}
+                                                        </InputMask>
+                                                    </FormControl>
+                                                </div>
+                                                <div className="col-md-12 col-lg-4">
+                                                    <FormControl>
+                                                        <FormLabel>Tipo de escória</FormLabel>
+                                                        <Select placeholder="Selecione o tipo" value={tipoEscoria} onChange={handleTipoDeEscoria} name="tipoEscoria" borderColor="gray.300">
+                                                            <option value="verde">Verde</option>
+                                                            <option value="verde-clara">Verde Clara</option>
+                                                            <option value="cinza">Cinza</option>
+                                                        </Select>
+                                                    </FormControl>
+                                                </div>
+                                            </div>
+                                        </Box>
+                                    </VStack>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <Text className={'p-3 text-bg-dark text-center'}>Corrente dos eletros sopradores</Text>
-                            <HStack spacing={3} width={'auto'} className={'p-1'}>
-                                <VStack>
-                                    <Flex>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel>1</FormLabel>
-                                            <Input name={'sopradores1'} value={formData.sopradores1} onChange={handleChange} />
+                    {/* Linha 2 de Cards */}
+                    <div className="row row-cols-1 row-cols-lg-3 g-4">
+                        {/* Card Cargas Fundidas */}
+                        <div className="col">
+                            <div className="card w-100 border border-black border-2 shadow-sm">
+                                <div className="card-header bg-light d-flex align-items-center">
+                                    <FaCube className="text-black me-2" size={20} />
+                                    <span className="fw-bold text-black">Cargas Fundidas</span>
+                                </div>
+                                <div className="card-body">
+                                    <VStack spacing={4} align="stretch">
+                                        <div className="row g-3">
+                                            <div className="col-sm-6">
+                                                <FormControl>
+                                                    <FormLabel>De N°</FormLabel>
+                                                    <Input name="cargaFundidaDe" value={deNumero} onChange={handleCargaDeChange} placeholder={'digite aqui'} borderColor="gray.300" />
+                                                </FormControl>
+                                            </div>
+                                            <div className="col-sm-6">
+                                                <FormControl>
+                                                    <FormLabel>Até N°</FormLabel>
+                                                    <Input name="cargaFundidaAte" value={ateNumero} onChange={handleCargaAteChange} placeholder={'digite aqui'} borderColor="gray.300" />
+                                                </FormControl>
+                                            </div>
+                                        </div>
+                                        <FormControl>
+                                            <FormLabel>Quantidade</FormLabel>
+                                            <Input value={qt} name="quantidadeCargas" className={'text-bg-secondary text-center'} readOnly borderColor="gray.300" />
                                         </FormControl>
+                                        <div className="row g-3">
+                                            <div className="col-sm-6">
+                                                <FormControl>
+                                                    <FormLabel>Fe/Gusa/(KG)</FormLabel>
+                                                    <Input value={gusa} name="feGusaKg" onChange={(e) => {setGusa(e.target.value); handleChange(e);}} placeholder={'digite aqui'} borderColor="gray.300" />
+                                                </FormControl>
+                                            </div>
+                                            <div className="col-sm-6">
+                                                <FormControl>
+                                                    <FormLabel>Fe₂O₃</FormLabel>
+                                                    <Input name="ferroFe2O3" value={ferro} className={'text-bg-secondary text-center'} readOnly borderColor="gray.300" />
+                                                </FormControl>
+                                            </div>
+                                        </div>
+                                    </VStack>
+                                </div>
+                            </div>
+                        </div>
 
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel>2</FormLabel>
-                                            <Input name={'sopradores2'} value={formData.sopradores2} onChange={handleChange} />
+                        {/* Card Peso do Gusa e Temperatura */}
+                        <div className="col">
+                            <div className="card w-100 border border-black border-2 shadow-sm">
+                                <div className="card-header bg-light d-flex align-items-center">
+                                    <FaWeightHanging className="text-black me-2" size={20} />
+                                    <span className="fw-bold text-black">Peso do Gusa e Temperatura</span>
+                                </div>
+                                <div className="card-body">
+                                    <VStack spacing={4} align="stretch">
+                                        <FormControl>
+                                            <FormLabel>Real (TN)</FormLabel>
+                                            <Input placeholder={'digite aqui'} name="realTn" value={realTn} onChange={(e) => {service.handleRealTnChange(e, setRealTn); handleChange(e);}} borderColor="gray.300" />
                                         </FormControl>
-                                        <FormControl className={'form-control-sm'}>
-                                            <FormLabel>3</FormLabel>
-                                            <Input name={'sopradores3'} value={formData.sopradores3} onChange={handleChange} />
+                                        <div className="row g-3">
+                                            <div className="col-sm-6">
+                                                <FormControl>
+                                                    <FormLabel>Tempo de corrida (min)</FormLabel>
+                                                    <Input name={'tempoCorridaMinutos'} placeholder={'digite aqui'} value={tempoCorrida} onChange={(e) => {handleTempoCorridaChange(e); handleChange(e);}} borderColor="gray.300" />
+                                                </FormControl>
+                                            </div>
+                                            <div className="col-sm-6">
+                                                <FormControl>
+                                                    <FormLabel>Gusa (ton/min)</FormLabel>
+                                                    <Input name={'toneladaGusaPorMinuto'} className={'text-bg-secondary text-center'} readOnly={true} value={toneladaGusa} borderColor="gray.300" />
+                                                </FormControl>
+                                            </div>
+                                        </div>
+                                        <FormControl>
+                                            <FormLabel>Temperatura do Gusa (°C)</FormLabel>
+                                            <Input name="temperatura" placeholder='temperatura gusa' value={formData.temperatura} onChange={handleChange} borderColor="gray.300" />
                                         </FormControl>
-                                    </Flex>
+                                    </VStack>
+                                </div>
+                            </div>
+                        </div>
 
-                                    <Box width={'100%'}>
-                                        <Flex>
-                                            <FormControl className={'form-control-sm'}>
-                                                <FormLabel>4</FormLabel>
-                                                <Input name={'sopradores4'} value={formData.sopradores4} onChange={handleChange} />
-                                            </FormControl>
-                                            <FormControl className={'form-control-sm'}>
-                                                <FormLabel>5</FormLabel>
-                                                <Input name={'sopradores5'} value={formData.sopradores5} onChange={handleChange} />
-                                            </FormControl>
-                                        </Flex>
-                                    </Box>
-                                </VStack>
-                            </HStack>
-                        </Box>
-                    </Stack>
-                </SimpleGrid>
-                <SimpleGrid>
-                        <Flex className={'mt-3'} justifyContent={'flex-end'}>
-                            <Button colorScheme="whatsapp" size="lg" type="submit">
-                                Registrar
-                            </Button>
-                        </Flex>
-                </SimpleGrid>
+                        {/* Card Consumo Carvão e Sopradores */}
+                        <div className="col">
+                            <div className="card w-100 border border-black border-2 shadow-sm">
+                                <div className="card-header bg-light d-flex align-items-center">
+                                    <FaFireAlt className="text-black me-2" size={20} />
+                                    <span className="fw-bold text-black">Consumo Carvão e Sopradores</span>
+                                </div>
+                                <div className="card-body">
+                                    <VStack spacing={6} align="stretch">
+                                        <Box>
+                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1}>Consumo Esperado de Carvão</Text>
+                                            <div className="row g-3">
+                                                <div className="col-sm-6">
+                                                    <FormControl>
+                                                        <FormLabel>KG/T</FormLabel>
+                                                        <Input name="carvaoKg" value={kgt} placeholder={'digite aqui'} onChange={(e) => { setkgt(e.target.value); handleChange(e); }} borderColor="gray.300" />
+                                                    </FormControl>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <FormControl>
+                                                        <FormLabel>M³/T</FormLabel>
+                                                        <Input name="carvaoMetros" value={m3t} placeholder={'digite aqui'} onChange={(e) => { service.handleM3tNumber(e, setM3t); handleChange(e);}} borderColor="gray.300" />
+                                                    </FormControl>
+                                                </div>
+                                            </div>
+                                        </Box>
+                                        <Box>
+                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1} mt={2}>Corrente dos Eletros Sopradores (A)</Text>
+                                            <div className="row g-2">
+                                                <div className="col">
+                                                    <FormControl> <FormLabel textAlign="center">1</FormLabel> <Input name={'sopradores1'} value={formData.sopradores1} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
+                                                </div>
+                                                <div className="col">
+                                                    <FormControl> <FormLabel textAlign="center">2</FormLabel> <Input name={'sopradores2'} value={formData.sopradores2} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
+                                                </div>
+                                                <div className="col">
+                                                    <FormControl> <FormLabel textAlign="center">3</FormLabel> <Input name={'sopradores3'} value={formData.sopradores3} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
+                                                </div>
+                                                <div className="col">
+                                                    <FormControl> <FormLabel textAlign="center">4</FormLabel> <Input name={'sopradores4'} value={formData.sopradores4} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
+                                                </div>
+                                                <div className="col">
+                                                    <FormControl> <FormLabel textAlign="center">5</FormLabel> <Input name={'sopradores5'} value={formData.sopradores5} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
+                                                </div>
+                                            </div>
+                                        </Box>
+                                    </VStack>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Botão de Registro */}
+                    <Flex justifyContent="flex-end" mt={4} mb={4}> {/* Adicionado mb={4} para espaço antes do fim da página */}
+                        <Button
+                            leftIcon={<FaSave />}
+                            colorScheme="whatsapp"
+                            size="lg"
+                            type="submit"
+                            width={{ base: "full", md: "auto" }}
+                        >
+                            Registrar Corrida
+                        </Button>
+                    </Flex>
+                </div>
             </form>
 
-
-            <Modal show={showSuccessModal} onHide={handleClose}>
+            {/* Modais (mantidos como no seu código original - react-bootstrap) */}
+            <Modal show={showSuccessModal} onHide={handleClose} centered>
                 <Modal.Header className={'bg-success text-white'} closeButton>
-                    <Modal.Title>Sucesso</Modal.Title>
+                    <Modal.Title>
+                        <FaClipboardList style={{ marginRight: '10px' }} /> Sucesso
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     Corrida cadastrada com sucesso!
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className={'bg-primary text-white'} onClick={handleClose}>
+                    <Button variant="primary" className={'bg-primary text-white'} onClick={handleClose}>
                         Fechar
                     </Button>
                 </Modal.Footer>
             </Modal>
 
-            <Modal show={showErrorModal} onHide={handleClose}>
-                <Modal.Header className={'bg-danger'} closeButton>
-                    <Modal.Title>Erro</Modal.Title>
+            <Modal show={showErrorModal} onHide={handleClose} centered>
+                <Modal.Header className={'bg-danger text-white'} closeButton>
+                    <Modal.Title >
+                        <FaExclamationTriangle style={{ marginRight: '10px' }} /> Erro
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {mensagemErro}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className={'bg-dark text-white'} onClick={handleClose}>
+                    <Button variant="dark" className={'bg-dark text-white'} onClick={handleClose}>
                         Fechar
                     </Button>
                 </Modal.Footer>
