@@ -4,6 +4,7 @@ import logo from "assets/img/logo.webp";
 import "assets/css/LoginCss.css";
 import UsuarioService from "../../../App/ControleCorridasService/UsuarioService";
 import LocalStorage from "../../../App/ControleCorridasService/LocalStorage";
+import NeuralBackground from "../../../components/Login/NeuralBackground";
 
 class Login extends React.Component {
     constructor() {
@@ -35,6 +36,8 @@ class Login extends React.Component {
 
     render() {
         return (
+            <>
+            <NeuralBackground />
             <Container fluid className="d-flex justify-content-center align-items-center vh-100 backgroundImg">
                 <Col xs={12} md={6} lg={4} xl={4}>
                     <Card className="rounded-4 text-black">
@@ -86,6 +89,7 @@ class Login extends React.Component {
                     </Modal.Footer>
                 </Modal>
             </Container>
+            </>
         );
     }
 }
