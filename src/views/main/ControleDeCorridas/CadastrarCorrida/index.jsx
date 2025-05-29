@@ -5,13 +5,9 @@ import {
     Flex,
     FormControl,
     FormLabel,
-    Grid,
-    HStack,
+    Grid, GridItem, Icon,
     Input,
     Select,
-    SimpleGrid,
-    Spacer,
-    Stack,
     Text,
     VStack
 } from "@chakra-ui/react";
@@ -24,7 +20,6 @@ import {
     FaExclamationTriangle,
     FaFireAlt,
     FaFlask,
-    FaRecycle,
     FaSave,
     FaWeightHanging
 } from "react-icons/fa";
@@ -147,39 +142,35 @@ const ControleDeCorridas = () => {
         }
     }, [qt, gusa, service]);
 
-
     return (
-        <Box pt={{ base: "90px", md: "50px", xl: "5%" }} ml={{ base: "2%" }} mr={{ base: "2%" }}> {/* Adicionado mr para margem direita */}
-            <Grid
-                templateColumns={'repeat(1, 1fr)'}
-                gap={{ base: "20px", xl: "20px" }}
-                display={{ base: "block", xl: "grid" }}
-            >
-                <Banner url={'vazamento-cargas-fundidas'} url_voltar={'/admin/home'} texto_primario={'CADASTRAR CORRIDAS DO FORNO'}
-                        texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
-                        primeiro_botao={'Vazamento, Cargas Fundidas'}
-                        segundo_botao={'Análise Química Minério, Escória'}
-                        url_segundo_botao={'ver-analise-minerio-escoria'}
-                        terceiro_botao={'Peso Gusa e Temperatura, Consumo carvão, Sopradores'}
-                        url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
-                />
-            </Grid>
+        <Box pt={{ base: "60px", md: "40px", xl: "5%" }} px={{ base: "4", md: "6" }} bg="gray.50"> {/* Adicionado um bg geral para contraste */}
+            <Banner
+                url={'vazamento-cargas-fundidas'}
+                url_voltar={'/admin/home'}
+                texto_primario={'CADASTRAR CORRIDAS DO FORNO'}
+                texto_secundario={'CADASTRAR CORRIDA, VER CORRIDAS DO DIA, CORRIDAS PELA DATA'}
+                primeiro_botao={'Vazamento, Cargas Fundidas'}
+                segundo_botao={'Análise Química Minério, Escória'}
+                url_segundo_botao={'ver-analise-minerio-escoria'}
+                terceiro_botao={'Peso Gusa e Temperatura, Consumo carvão, Sopradores'}
+                url_terceiro_botao={'peso-gusa-consumo-carvao-sopradores'}
+            />
 
             <form onSubmit={handleSubmit}>
-                <div className="d-flex flex-column gap-4"> {/* Container principal para linhas de cards */}
+                <VStack spacing={{ base: 6, md: 8 }} align="stretch" mt={8}>
 
                     {/* Linha 1 de Cards */}
-                    <div className="row row-cols-1 row-cols-lg-2 g-4">
+                    <Grid templateColumns={{ base: "1fr", lg: "repeat(2, 1fr)" }} gap={6}>
                         {/* Card Vazamento */}
-                        <div className="col">
-                            <div className="card w-100 border border-black border-2 shadow-sm">
-                                <div className="card-header bg-light d-flex align-items-center">
-                                    <FaClock className="text-black me-2" size={20} />
-                                    <span className="fw-bold text-black">Vazamento</span>
-                                </div>
-                                <div className="card-body">
+                        <GridItem>
+                            <Box borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md" h="100%" bg="white">
+                                <Flex as="header" align="center" p={4} bg="gray.100" borderBottomWidth="1px">
+                                    <Icon as={FaClock} mr={3} boxSize={5} />
+                                    <Text fontWeight="bold">Vazamento</Text>
+                                </Flex>
+                                <Box p={4}> {/* Corpo do card com fundo branco já definido pelo Box pai */}
                                     <VStack spacing={4} align="stretch">
-                                        <FormControl>
+                                        <FormControl isRequired>
                                             <FormLabel>Hora Início</FormLabel>
                                             <Input
                                                 type={'datetime-local'}
@@ -187,10 +178,9 @@ const ControleDeCorridas = () => {
                                                 value={horaInicio}
                                                 onChange={(e) => { setHoraInicio(e.target.value); handleChange(e); }}
                                                 ref={horaInicioRef}
-                                                borderColor="gray.300"
                                             />
                                         </FormControl>
-                                        <FormControl>
+                                        <FormControl isRequired>
                                             <FormLabel>Hora Fim</FormLabel>
                                             <Input
                                                 type={'datetime-local'}
@@ -198,297 +188,249 @@ const ControleDeCorridas = () => {
                                                 value={horaFim}
                                                 onChange={(e) => { setHoraFim(e.target.value); handleChange(e); }}
                                                 ref={horaFimRef}
-                                                borderColor="gray.300"
                                             />
                                         </FormControl>
                                         <FormControl>
                                             <FormLabel>Minutos</FormLabel>
-                                            <Input name="minutos" placeholder='minutos' value={minutos} readOnly className={'text-bg-secondary'} borderColor="gray.300" />
+                                            <Input name="minutos" placeholder='minutos' value={minutos} isReadOnly bg="gray.100" />
                                         </FormControl>
                                         <FormControl>
                                             <FormLabel>Conchas</FormLabel>
-                                            <Input name="conchas" placeholder='caçambas' value={formData.conchas} onChange={handleChange} borderColor="gray.300" />
+                                            <Input name="conchas" placeholder='N° de caçambas' value={formData.conchas} onChange={handleChange} />
                                         </FormControl>
                                     </VStack>
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </GridItem>
 
                         {/* Card Análise QM e Escória */}
-                        <div className="col">
-                            <div className="card w-100 border border-black border-2 shadow-sm">
-                                <div className="card-header bg-light d-flex align-items-center">
-                                    <FaFlask className="text-black me-2" size={20} />
-                                    <span className="fw-bold text-black">Análise Química e Escória</span>
-                                </div>
-                                <div className="card-body">
+                        <GridItem>
+                            <Box borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md" h="100%" bg="white">
+                                <Flex as="header" align="center" p={4} bg="gray.100" borderBottomWidth="1px">
+                                    <Icon as={FaFlask} mr={3} boxSize={5} />
+                                    <Text fontWeight="bold">Análise Química e Escória</Text>
+                                </Flex>
+                                <Box p={4}> {/* Corpo do card com fundo branco já definido pelo Box pai */}
                                     <VStack spacing={6} align="stretch">
-                                        {/* Seção Análise QM */}
                                         <Box>
-                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1}>Análise QM (Gusa)</Text>
-                                            <div className="row g-3">
-                                                <div className="col-md-12">
-                                                    <Text className={'p-2 border-bottom text-center fw-bold'}>Silício</Text>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <FormControl>
-                                                        <FormLabel className={'text-center'}>Visual</FormLabel>
-                                                        <InputMask
-                                                            mask={'9.99'}
-                                                            value={formData.silicioVisual}
-                                                            onChange={handleChange}
-                                                            name={'silicioVisual'}
-                                                        >
-                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'0.00'} borderColor="gray.300" textAlign="center"/>}
-                                                        </InputMask>
-                                                    </FormControl>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <FormControl>
-                                                        <FormLabel className={'text-center'}>Real</FormLabel>
-                                                        <InputMask
-                                                            mask={'9.99'}
-                                                            value={formData.silicioReal}
-                                                            onChange={handleChange}
-                                                            name={'silicioReal'}
-                                                        >
-                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'0.00'} borderColor="gray.300" textAlign="center"/>}
-                                                        </InputMask>
-                                                    </FormControl>
-                                                </div>
-                                            </div>
-                                            <div className="row g-3 mt-2">
-                                                <div className="col-md-12">
-                                                    <Text className={'p-2 border-bottom text-center fw-bold'}>Outros Elementos</Text>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <FormControl>
-                                                        <FormLabel className={'text-center'}>P (Fósforo)</FormLabel>
-                                                        <InputMask mask="9.999" value={formData.fosforo} onChange={handleChange} name={'fosforo'}>
-                                                            {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.000'} borderColor="gray.300" textAlign="center"/>}
-                                                        </InputMask>
-                                                    </FormControl>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <FormControl>
-                                                        <FormLabel className={'text-center'}>Mn (Manganês)</FormLabel>
-                                                        <InputMask mask="9.99" value={formData.manganes} onChange={handleChange} name={'manganes'}>
-                                                            {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.00'} borderColor="gray.300" textAlign="center"/>}
-                                                        </InputMask>
-                                                    </FormControl>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <FormControl>
-                                                        <FormLabel className={'text-center'}>S (Enxofre)</FormLabel>
-                                                        <InputMask mask="9.999" value={formData.silica} onChange={handleChange} name={'silica'}>
-                                                            {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.000'} borderColor="gray.300" textAlign="center"/>}
-                                                        </InputMask>
-                                                    </FormControl>
-                                                </div>
-                                            </div>
+                                            <Text fontWeight="semibold" mb={3} borderBottomWidth="1px" pb={2}>Análise QM (Gusa)</Text>
+                                            <Text textAlign="center" fontWeight="bold" mb={2}>Silício (%)</Text>
+                                            <Grid templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }} gap={4}>
+                                                <FormControl>
+                                                    <FormLabel textAlign="center">Visual</FormLabel>
+                                                    <InputMask
+                                                        mask={'9.99'}
+                                                        value={formData.silicioVisual}
+                                                        onChange={handleChange}
+                                                        name={'silicioVisual'}
+                                                    >
+                                                        {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'0.00'} textAlign="center" />}
+                                                    </InputMask>
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel textAlign="center">Real</FormLabel>
+                                                    <InputMask
+                                                        mask={'9.99'}
+                                                        value={formData.silicioReal}
+                                                        onChange={handleChange}
+                                                        name={'silicioReal'}
+                                                    >
+                                                        {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'0.00'} textAlign="center" />}
+                                                    </InputMask>
+                                                </FormControl>
+                                            </Grid>
+                                            <Text textAlign="center" fontWeight="bold" mt={4} mb={2}>Outros Elementos (%)</Text>
+                                            <Grid templateColumns={{ base: "1fr", sm: "repeat(3, 1fr)" }} gap={4}>
+                                                <FormControl>
+                                                    <FormLabel textAlign="center">P (Fósforo)</FormLabel>
+                                                    <InputMask mask="9.999" value={formData.fosforo} onChange={handleChange} name={'fosforo'}>
+                                                        {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.000'} textAlign="center" />}
+                                                    </InputMask>
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel textAlign="center">Mn (Manganês)</FormLabel>
+                                                    <InputMask mask="9.99" value={formData.manganes} onChange={handleChange} name={'manganes'}>
+                                                        {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.00'} textAlign="center" />}
+                                                    </InputMask>
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel textAlign="center">S (Enxofre)</FormLabel>
+                                                    <InputMask mask="9.999" value={formData.silica} onChange={handleChange} name={'silica'}>
+                                                        {(inputProps) => <Input {...inputProps} type="text" placeholder={'0.000'} textAlign="center" />}
+                                                    </InputMask>
+                                                </FormControl>
+                                            </Grid>
                                         </Box>
 
-                                        {/* Seção Escória Vazamento */}
                                         <Box>
-                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1} mt={4}>Escória Vazamento</Text>
-                                            <div className="row g-3">
-                                                <div className="col-md-6 col-lg-4">
-                                                    <FormControl>
-                                                        <FormLabel>Início</FormLabel>
-                                                        <InputMask mask={'99:99'} onChange={handleChange} value={formData.escoriaInicio} name={'escoriaInicio'}>
-                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'HH:MM'} borderColor="gray.300" />}
-                                                        </InputMask>
-                                                    </FormControl>
-                                                </div>
-                                                <div className="col-md-6 col-lg-4">
-                                                    <FormControl>
-                                                        <FormLabel>Fim</FormLabel>
-                                                        <InputMask mask={'99:99'} onChange={handleChange} value={formData.escoriaFim} name={'escoriaFim'}>
-                                                            {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'HH:MM'} borderColor="gray.300" />}
-                                                        </InputMask>
-                                                    </FormControl>
-                                                </div>
-                                                <div className="col-md-12 col-lg-4">
-                                                    <FormControl>
-                                                        <FormLabel>Tipo de escória</FormLabel>
-                                                        <Select placeholder="Selecione o tipo" value={tipoEscoria} onChange={handleTipoDeEscoria} name="tipoEscoria" borderColor="gray.300">
-                                                            <option value="verde">Verde</option>
-                                                            <option value="verde-clara">Verde Clara</option>
-                                                            <option value="cinza">Cinza</option>
-                                                        </Select>
-                                                    </FormControl>
-                                                </div>
-                                            </div>
+                                            <Text fontWeight="semibold" mb={3} borderBottomWidth="1px" pb={2} mt={4}>Escória Vazamento</Text>
+                                            <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4} alignItems="end">
+                                                <FormControl>
+                                                    <FormLabel>Início</FormLabel>
+                                                    <InputMask mask={'99:99'} onChange={handleChange} value={formData.escoriaInicio} name={'escoriaInicio'}>
+                                                        {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'HH:MM'} />}
+                                                    </InputMask>
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel>Fim</FormLabel>
+                                                    <InputMask mask={'99:99'} onChange={handleChange} value={formData.escoriaFim} name={'escoriaFim'}>
+                                                        {(inputProps) => <Input {...inputProps} type={'text'} placeholder={'HH:MM'} />}
+                                                    </InputMask>
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel>Tipo de escória</FormLabel>
+                                                    <Select placeholder="Selecione o tipo" value={tipoEscoria} onChange={handleTipoDeEscoria} name="tipoEscoria">
+                                                        <option value="verde">Verde</option>
+                                                        <option value="verde-clara">Verde Clara</option>
+                                                        <option value="cinza">Cinza</option>
+                                                    </Select>
+                                                </FormControl>
+                                            </Grid>
                                         </Box>
                                     </VStack>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                </Box>
+                            </Box>
+                        </GridItem>
+                    </Grid>
 
                     {/* Linha 2 de Cards */}
-                    <div className="row row-cols-1 row-cols-lg-3 g-4">
+                    <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", xl: "repeat(3, 1fr)" }} gap={6}>
                         {/* Card Cargas Fundidas */}
-                        <div className="col">
-                            <div className="card w-100 border border-black border-2 shadow-sm">
-                                <div className="card-header bg-light d-flex align-items-center">
-                                    <FaCube className="text-black me-2" size={20} />
-                                    <span className="fw-bold text-black">Cargas Fundidas</span>
-                                </div>
-                                <div className="card-body">
+                        <GridItem>
+                            <Box borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md" h="100%" bg="white">
+                                <Flex as="header" align="center" p={4} bg="gray.100" borderBottomWidth="1px">
+                                    <Icon as={FaCube} mr={3} boxSize={5} />
+                                    <Text fontWeight="bold">Cargas Fundidas</Text>
+                                </Flex>
+                                <Box p={4}> {/* Corpo do card com fundo branco já definido pelo Box pai */}
                                     <VStack spacing={4} align="stretch">
-                                        <div className="row g-3">
-                                            <div className="col-sm-6">
-                                                <FormControl>
-                                                    <FormLabel>De N°</FormLabel>
-                                                    <Input name="cargaFundidaDe" value={deNumero} onChange={handleCargaDeChange} placeholder={'digite aqui'} borderColor="gray.300" />
-                                                </FormControl>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <FormControl>
-                                                    <FormLabel>Até N°</FormLabel>
-                                                    <Input name="cargaFundidaAte" value={ateNumero} onChange={handleCargaAteChange} placeholder={'digite aqui'} borderColor="gray.300" />
-                                                </FormControl>
-                                            </div>
-                                        </div>
+                                        <Grid templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }} gap={4}>
+                                            <FormControl>
+                                                <FormLabel>De N°</FormLabel>
+                                                <Input name="cargaFundidaDe" value={deNumero} onChange={handleCargaDeChange} placeholder={'Ex: 1'} type="number" />
+                                            </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Até N°</FormLabel>
+                                                <Input name="cargaFundidaAte" value={ateNumero} onChange={handleCargaAteChange} placeholder={'Ex: 10'} type="number" />
+                                            </FormControl>
+                                        </Grid>
                                         <FormControl>
                                             <FormLabel>Quantidade</FormLabel>
-                                            <Input value={qt} name="quantidadeCargas" className={'text-bg-secondary text-center'} readOnly borderColor="gray.300" />
+                                            <Input value={qt} name="quantidadeCargas" isReadOnly bg="gray.100" textAlign="center" />
                                         </FormControl>
-                                        <div className="row g-3">
-                                            <div className="col-sm-6">
-                                                <FormControl>
-                                                    <FormLabel>Fe/Gusa/(KG)</FormLabel>
-                                                    <Input value={gusa} name="feGusaKg" onChange={(e) => {setGusa(e.target.value); handleChange(e);}} placeholder={'digite aqui'} borderColor="gray.300" />
-                                                </FormControl>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <FormControl>
-                                                    <FormLabel>Fe₂O₃</FormLabel>
-                                                    <Input name="ferroFe2O3" value={ferro} className={'text-bg-secondary text-center'} readOnly borderColor="gray.300" />
-                                                </FormControl>
-                                            </div>
-                                        </div>
+                                        <Grid templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }} gap={4}>
+                                            <FormControl>
+                                                <FormLabel>Fe/Gusa (KG)</FormLabel>
+                                                <Input value={gusa} name="feGusaKg" onChange={(e) => { setGusa(e.target.value); handleChange(e); }} placeholder={'Ex: 1500'} type="number" />
+                                            </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Fe₂O₃</FormLabel>
+                                                <Input name="ferroFe2O3" value={ferro} isReadOnly bg="gray.100" textAlign="center" />
+                                            </FormControl>
+                                        </Grid>
                                     </VStack>
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </GridItem>
 
                         {/* Card Peso do Gusa e Temperatura */}
-                        <div className="col">
-                            <div className="card w-100 border border-black border-2 shadow-sm">
-                                <div className="card-header bg-light d-flex align-items-center">
-                                    <FaWeightHanging className="text-black me-2" size={20} />
-                                    <span className="fw-bold text-black">Peso do Gusa e Temperatura</span>
-                                </div>
-                                <div className="card-body">
+                        <GridItem>
+                            <Box borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md" h="100%" bg="white">
+                                <Flex as="header" align="center" p={4} bg="gray.100" borderBottomWidth="1px">
+                                    <Icon as={FaWeightHanging} mr={3} boxSize={5} />
+                                    <Text fontWeight="bold">Peso do Gusa e Temperatura</Text>
+                                </Flex>
+                                <Box p={4}> {/* Corpo do card com fundo branco já definido pelo Box pai */}
                                     <VStack spacing={4} align="stretch">
                                         <FormControl>
                                             <FormLabel>Real (TN)</FormLabel>
-                                            <Input placeholder={'digite aqui'} name="realTn" value={realTn} onChange={(e) => {service.handleRealTnChange(e, setRealTn); handleChange(e);}} borderColor="gray.300" />
+                                            <Input placeholder={'Ex: 70.5'} name="realTn" value={realTn} onChange={(e) => { service.handleRealTnChange(e, setRealTn); handleChange(e); }} type="number" step="0.01" />
                                         </FormControl>
-                                        <div className="row g-3">
-                                            <div className="col-sm-6">
-                                                <FormControl>
-                                                    <FormLabel>Tempo de corrida (min)</FormLabel>
-                                                    <Input name={'tempoCorridaMinutos'} placeholder={'digite aqui'} value={tempoCorrida} onChange={(e) => {handleTempoCorridaChange(e); handleChange(e);}} borderColor="gray.300" />
-                                                </FormControl>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <FormControl>
-                                                    <FormLabel>Gusa (ton/min)</FormLabel>
-                                                    <Input name={'toneladaGusaPorMinuto'} className={'text-bg-secondary text-center'} readOnly={true} value={toneladaGusa} borderColor="gray.300" />
-                                                </FormControl>
-                                            </div>
-                                        </div>
+                                        <Grid templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }} gap={4}>
+                                            <FormControl>
+                                                <FormLabel>Tempo de corrida (min)</FormLabel>
+                                                <Input name={'tempoCorridaMinutos'} placeholder={'Ex: 45'} value={tempoCorrida} onChange={(e) => { handleTempoCorridaChange(e); handleChange(e); }} type="number" />
+                                            </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Gusa (ton/min)</FormLabel>
+                                                <Input name={'toneladaGusaPorMinuto'} isReadOnly bg="gray.100" value={toneladaGusa} textAlign="center" />
+                                            </FormControl>
+                                        </Grid>
                                         <FormControl>
                                             <FormLabel>Temperatura do Gusa (°C)</FormLabel>
-                                            <Input name="temperatura" placeholder='temperatura gusa' value={formData.temperatura} onChange={handleChange} borderColor="gray.300" />
+                                            <Input name="temperatura" placeholder='Ex: 1450' value={formData.temperatura} onChange={handleChange} type="number" />
                                         </FormControl>
                                     </VStack>
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </GridItem>
 
                         {/* Card Consumo Carvão e Sopradores */}
-                        <div className="col">
-                            <div className="card w-100 border border-black border-2 shadow-sm">
-                                <div className="card-header bg-light d-flex align-items-center">
-                                    <FaFireAlt className="text-black me-2" size={20} />
-                                    <span className="fw-bold text-black">Consumo Carvão e Sopradores</span>
-                                </div>
-                                <div className="card-body">
+                        <GridItem>
+                            <Box borderWidth="1px" borderRadius="lg" overflow="hidden" boxShadow="md" h="100%" bg="white">
+                                <Flex as="header" align="center" p={4} bg="gray.100" borderBottomWidth="1px">
+                                    <Icon as={FaFireAlt} mr={3} boxSize={5} />
+                                    <Text fontWeight="bold">Consumo Carvão e Sopradores</Text>
+                                </Flex>
+                                <Box p={4}> {/* Corpo do card com fundo branco já definido pelo Box pai */}
                                     <VStack spacing={6} align="stretch">
                                         <Box>
-                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1}>Consumo Esperado de Carvão</Text>
-                                            <div className="row g-3">
-                                                <div className="col-sm-6">
-                                                    <FormControl>
-                                                        <FormLabel>KG/T</FormLabel>
-                                                        <Input name="carvaoKg" value={kgt} placeholder={'digite aqui'} onChange={(e) => { setkgt(e.target.value); handleChange(e); }} borderColor="gray.300" />
-                                                    </FormControl>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <FormControl>
-                                                        <FormLabel>M³/T</FormLabel>
-                                                        <Input name="carvaoMetros" value={m3t} placeholder={'digite aqui'} onChange={(e) => { service.handleM3tNumber(e, setM3t); handleChange(e);}} borderColor="gray.300" />
-                                                    </FormControl>
-                                                </div>
-                                            </div>
+                                            <Text fontWeight="semibold" mb={3} borderBottomWidth="1px" pb={2}>Consumo Esperado de Carvão</Text>
+                                            <Grid templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }} gap={4}>
+                                                <FormControl>
+                                                    <FormLabel>KG/T</FormLabel>
+                                                    <Input name="carvaoKg" value={kgt} placeholder={'Ex: 750'} onChange={(e) => { setkgt(e.target.value); handleChange(e); }} type="number" />
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel>M³/T</FormLabel>
+                                                    <Input name="carvaoMetros" value={m3t} placeholder={'Ex: 2.5'} onChange={(e) => { service.handleM3tNumber(e, setM3t); handleChange(e); }} type="number" step="0.01" />
+                                                </FormControl>
+                                            </Grid>
                                         </Box>
                                         <Box>
-                                            <Text fontWeight="semibold" mb={2} borderBottomWidth="1px" pb={1} mt={2}>Corrente dos Eletros Sopradores (A)</Text>
-                                            <div className="row g-2">
-                                                <div className="col">
-                                                    <FormControl> <FormLabel textAlign="center">1</FormLabel> <Input name={'sopradores1'} value={formData.sopradores1} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
-                                                </div>
-                                                <div className="col">
-                                                    <FormControl> <FormLabel textAlign="center">2</FormLabel> <Input name={'sopradores2'} value={formData.sopradores2} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
-                                                </div>
-                                                <div className="col">
-                                                    <FormControl> <FormLabel textAlign="center">3</FormLabel> <Input name={'sopradores3'} value={formData.sopradores3} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
-                                                </div>
-                                                <div className="col">
-                                                    <FormControl> <FormLabel textAlign="center">4</FormLabel> <Input name={'sopradores4'} value={formData.sopradores4} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
-                                                </div>
-                                                <div className="col">
-                                                    <FormControl> <FormLabel textAlign="center">5</FormLabel> <Input name={'sopradores5'} value={formData.sopradores5} onChange={handleChange} borderColor="gray.300" textAlign="center"/> </FormControl>
-                                                </div>
-                                            </div>
+                                            <Text fontWeight="semibold" mb={3} borderBottomWidth="1px" pb={2} mt={2}>Corrente dos Eletros Sopradores (A)</Text>
+                                            <Grid templateColumns="repeat(5, 1fr)" gap={{ base: 2, sm: 3 }}>
+                                                {[1, 2, 3, 4, 5].map(num => (
+                                                    <FormControl key={num}>
+                                                        <FormLabel textAlign="center">{num}</FormLabel>
+                                                        <Input name={`sopradores${num}`} value={formData[`sopradores${num}`]} onChange={handleChange} textAlign="center" type="number" />
+                                                    </FormControl>
+                                                ))}
+                                            </Grid>
                                         </Box>
                                     </VStack>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                </Box>
+                            </Box>
+                        </GridItem>
+                    </Grid>
 
                     {/* Botão de Registro */}
-                    <Flex justifyContent="flex-end" mt={4} mb={4}> {/* Adicionado mb={4} para espaço antes do fim da página */}
+                    <Flex justifyContent="flex-end" mt={4} mb={8}>
                         <Button
-                            leftIcon={<FaSave />}
+                            leftIcon={<Icon as={FaSave} />}
                             colorScheme="whatsapp"
                             size="lg"
                             type="submit"
-                            width={{ base: "full", md: "auto" }}
+                            px={8}
+                            w={{ base: "full", md: "auto" }}
                         >
                             Registrar Corrida
                         </Button>
                     </Flex>
-                </div>
+                </VStack>
             </form>
 
-            {/* Modais (mantidos como no seu código original - react-bootstrap) */}
             <Modal show={showSuccessModal} onHide={handleClose} centered>
                 <Modal.Header className={'bg-success text-white'} closeButton>
                     <Modal.Title>
-                        <FaClipboardList style={{ marginRight: '10px' }} /> Sucesso
+                        <Icon as={FaClipboardList} style={{ marginRight: '10px' }} /> Sucesso
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     Corrida cadastrada com sucesso!
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" className={'bg-primary text-white'} onClick={handleClose}>
+                    <Button colorScheme="blue" onClick={handleClose}>
                         Fechar
                     </Button>
                 </Modal.Footer>
@@ -497,14 +439,14 @@ const ControleDeCorridas = () => {
             <Modal show={showErrorModal} onHide={handleClose} centered>
                 <Modal.Header className={'bg-danger text-white'} closeButton>
                     <Modal.Title >
-                        <FaExclamationTriangle style={{ marginRight: '10px' }} /> Erro
+                        <Icon as={FaExclamationTriangle} style={{ marginRight: '10px' }} /> Erro
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {mensagemErro}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="dark" className={'bg-dark text-white'} onClick={handleClose}>
+                    <Button colorScheme="gray" onClick={handleClose}>
                         Fechar
                     </Button>
                 </Modal.Footer>
